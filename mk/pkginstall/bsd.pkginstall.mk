@@ -1092,7 +1092,19 @@ FILES_SUBST+=		TRUE=${TRUE:Q}
 FILES_SUBST+=		USERADD=${USERADD:Q}
 FILES_SUBST+=		XARGS=${XARGS:Q}
 
+# Cross builds: these files run on the target, so the target's tool paths
+# (TARGET_TOOL.<VAR>, for each VAR in TARGET_TOOLS, from the cross tools
+# file mk/tools/cross.${OPSYS}.mk) take precedence over the build host's.
+# sed applies the first match, so they go first.
+.if ${USE_CROSS_COMPILE:tl} == "yes" && defined(TARGET_TOOLS)
+_FILES_SUBST_TARGET=	${TARGET_TOOLS:@t@${t}=${TARGET_TOOL.${t}:Q}@}
+FILES_SUBST_SED=	${_FILES_SUBST_TARGET:S/=/@!/:S/$/!g/:S/^/ -e s!@/} \
+			${FILES_SUBST:S/=/@!/:S/$/!g/:S/^/ -e s!@/}
+_PKGINSTALL_SH=		${TARGET_TOOL.SH:U${SH}}
+.else
 FILES_SUBST_SED=	${FILES_SUBST:S/=/@!/:S/$/!g/:S/^/ -e s!@/}
+_PKGINSTALL_SH=		${SH}
+.endif
 
 PKG_REFCOUNT_DBDIR?=	${PKG_DBDIR}.refcount
 
@@ -1145,7 +1157,7 @@ ${_DEINSTALL_FILE}: ${DEINSTALL_SRC}
 	${TEST} -d ${.TARGET:H} || ${MKDIR} ${.TARGET:H};		\
 	exec 1>>${.TARGET};						\
 	case ${.ALLSRC:Q}"" in						\
-	"")	${ECHO} "#!${SH}" ;					\
+	"")	${ECHO} "#!${_PKGINSTALL_SH}" ;			\
 		${ECHO} "exit 0" ;;					\
 	*)	${SED} ${FILES_SUBST_SED} ${.ALLSRC} ;;			\
 	esac;								\
@@ -1156,7 +1168,7 @@ ${_INSTALL_FILE}: ${INSTALL_SRC}
 	${TEST} -d ${.TARGET:H} || ${MKDIR} ${.TARGET:H};		\
 	exec 1>>${.TARGET};						\
 	case ${.ALLSRC:Q}"" in						\
-	"")	${ECHO} "#!${SH}" ;					\
+	"")	${ECHO} "#!${_PKGINSTALL_SH}" ;			\
 		${ECHO} "exit 0" ;;					\
 	*)	${SED} ${FILES_SUBST_SED} ${.ALLSRC} ;;			\
 	esac;								\
