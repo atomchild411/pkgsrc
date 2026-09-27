@@ -1,0 +1,13 @@
+The IRIS guest tools: what an IRIX machine running under the IRIS emulator
+needs to use the host's graphics.  libGL.so (OpenGL + GLX) and libgl.so
+(IRIS GL) are shims that hand GL calls to the host through IRIS's host call
+trap; glcheck, glbench, gltest, glabandon, gloverlay and irisgltest test
+them, hostcall_test the trap itself.
+
+Installing the package does not switch the machine to the shims: run
+/opt/pkgsrc/share/iris-tools/install-iris-gl.sh as root to repoint
+/var/arch/lib32/libGL.so and libgl.so (it records SGI's targets; -u puts
+them back, -s shows where everything points).
+
+Prebuilt: code/iris-guest-tools/clang/build.sh (n32, MIPS III, tuned for the
+R10000) writes the iris-tools-irix65-n32.tgz this package takes.

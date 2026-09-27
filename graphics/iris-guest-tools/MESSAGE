@@ -1,0 +1,11 @@
+===========================================================================
+
+IRIX still uses SGI's GL libraries.  To switch this machine's n32 OpenGL
+and IRIS GL to the IRIS host-GL shims, as root:
+
+	${PREFIX}/share/iris-tools/install-iris-gl.sh
+
+and to switch back (do this before removing the package):
+
+	${PREFIX}/share/iris-tools/install-iris-gl.sh -u
+===========================================================================

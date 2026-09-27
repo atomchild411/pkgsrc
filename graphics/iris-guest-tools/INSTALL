@@ -1,0 +1,19 @@
+# $NetBSD$
+#
+# lib/iris-tools/lib32/{libGL.so,libgl.so}: the names install-iris-gl.sh
+# (and the /var/arch/lib32 links it makes) use.  The files themselves are in
+# opengl/ and irisgl/ -- see do-extract in the Makefile for why.
+
+case ${STAGE} in
+POST-INSTALL)
+	d="${PKG_PREFIX}/lib/iris-tools"
+	@MKDIR@ "$d/lib32"
+	for f in opengl/libGL.so irisgl/libgl.so; do
+		n=`@BASENAME@ $f`
+		if [ ! -f "$d/lib32/$n" ] || [ -h "$d/lib32/$n" ]; then
+			@RM@ -f "$d/lib32/$n"
+			@LN@ -s ../$f "$d/lib32/$n"
+		fi
+	done
+	;;
+esac

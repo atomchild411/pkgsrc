@@ -1,0 +1,47 @@
+# $NetBSD$
+#
+# The package never repoints IRIX's GL links itself (install-iris-gl.sh
+# does, when an admin runs it), so it does not undo that either -- but if
+# they still lead into this package, every GL program breaks once its files
+# are gone: say so, and say how to put SGI's libraries back.
+
+case ${STAGE} in
+DEINSTALL)
+	TOOLS="${PKG_PREFIX}/lib/iris-tools"
+	used=
+	for n in libGL.so libgl.so; do
+		l=/var/arch/lib32/$n
+		if [ -h $l ]; then
+			case "`@LS@ -l $l | @AWK@ '{ print $NF }'`" in
+			$TOOLS/*) used="$used $n" ;;
+			esac
+		fi
+	done
+	if [ -n "$used" ]; then
+		@ECHO@ "==========================================================================="
+		@ECHO@ "WARNING: /var/arch/lib32/{`@ECHO@ $used | @SED@ 's/ /,/g'`} still point into"
+		@ECHO@ "$TOOLS, which is being removed: GL programs will"
+		@ECHO@ "not start.  Put SGI's libraries back first, if you can:"
+		@ECHO@ ""
+		@ECHO@ "	${PKG_PREFIX}/share/iris-tools/install-iris-gl.sh -u"
+		@ECHO@ ""
+		@ECHO@ "or afterwards by hand, from the record of SGI's links (kept):"
+		if [ -f $TOOLS/sgi-links-lib32.txt ]; then
+			@SED@ 's/^/	/' $TOOLS/sgi-links-lib32.txt
+		fi
+		@ECHO@ "==========================================================================="
+	fi
+	;;
+POST-DEINSTALL)
+	# The lib32 links INSTALL made (only if they are still ours).
+	d="${PKG_PREFIX}/lib/iris-tools"
+	for f in opengl/libGL.so irisgl/libgl.so; do
+		l="$d/lib32/`@BASENAME@ $f`"
+		if [ -h "$l" ] && [ "`@LS@ -l $l | @AWK@ '{ print $NF }'`" = "../$f" ]; then
+			@RM@ -f "$l"
+		fi
+	done
+	@RMDIR@ "$d/lib32" 2>/dev/null || :
+	@RMDIR@ "$d" 2>/dev/null || :
+	;;
+esac

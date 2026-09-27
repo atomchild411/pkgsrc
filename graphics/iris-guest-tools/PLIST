@@ -1,0 +1,11 @@
+@comment $NetBSD$
+bin/glabandon
+bin/glbench
+bin/glcheck
+bin/gloverlay
+bin/gltest
+bin/hostcall_test
+bin/irisgltest
+lib/iris-tools/irisgl/libgl.so
+lib/iris-tools/opengl/libGL.so
+share/iris-tools/install-iris-gl.sh
