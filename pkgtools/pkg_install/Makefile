@@ -212,6 +212,7 @@ pre-configure:
 		--disable-dependency-tracking --disable-maintainer-mode	\
 		--without-expat --without-xml2 --without-lz4 --without-lzo2 \
 		--without-iconv --without-nettle --without-zstd --without-cng \
+		${CONFIGURE_ARGS:M--build=*} ${CONFIGURE_ARGS:M--host=*}	\
 		${LIBARCHIVE_CONFIGURE_ARGS}
 	cd ${WRKDIR}/libarchive && ${BUILD_MAKE_CMD}
 .endif
@@ -220,7 +221,8 @@ pre-configure:
 		${MAKE_PROGRAM} ${MAKE_FLAGS} ${BUILD_MAKE_FLAGS}	\
 			-f ${MAKE_FILE} depend all
 	cd ${WRKDIR}/netpgp && ${CP} Makefile.lib.in Makefile.in &&	\
-	${CONFIG_SHELL} ${CONFIG_SHELL_FLAGS} ./configure &&		\
+	${CONFIG_SHELL} ${CONFIG_SHELL_FLAGS} ./configure		\
+		${CONFIGURE_ARGS:M--build=*} ${CONFIGURE_ARGS:M--host=*} &&	\
 	${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV} ${MAKE_PROGRAM}		\
 		${MAKE_FLAGS} ${BUILD_MAKE_FLAGS} -f ${MAKE_FILE} all
 
