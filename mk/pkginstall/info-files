@@ -48,6 +48,14 @@ PKG_METADATA_DIR="${2-${CURDIR}}"
 : ${PKG_PREFIX=@PREFIX@}
 
 exitcode=0
+
+# No install-info on this system (INSTALL_INFO names a file that is not
+# there, e.g. IRIX without pkgtools/pkg_install-info): nothing can index the
+# info files, so do not touch the "dir" files either.
+case ${INSTALL_INFO} in
+/*)	${TEST} -x "${INSTALL_INFO}" || exit 0 ;;
+esac
+
 case $ACTION in
 ADD)
 	${SED} -n "/^\# INFO: /{s/^\# INFO: //;p;}" ${SELF} | ${SORT} -u |
