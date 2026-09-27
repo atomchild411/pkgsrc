@@ -1,0 +1,21 @@
+# IRIX: boot-time start/stop of sshd.  The init script itself is a
+# CONF_FILES_PERMS entry (/etc/init.d/pkgsrc_sshd, copied from the example
+# if absent, removed on deinstall if unchanged); this adds what CONF_FILES
+# cannot: the rc2.d/rc0.d links and the chkconfig flag, which starts "off".
+
+case ${STAGE} in
+POST-INSTALL)
+	if [ -d /etc/rc2.d ] && [ ! -h /etc/rc2.d/S98pkgsrc_sshd ] && \
+	   [ ! -f /etc/rc2.d/S98pkgsrc_sshd ]; then
+		@LN@ -s ../init.d/pkgsrc_sshd /etc/rc2.d/S98pkgsrc_sshd
+	fi
+	if [ -d /etc/rc0.d ] && [ ! -h /etc/rc0.d/K02pkgsrc_sshd ] && \
+	   [ ! -f /etc/rc0.d/K02pkgsrc_sshd ]; then
+		@LN@ -s ../init.d/pkgsrc_sshd /etc/rc0.d/K02pkgsrc_sshd
+	fi
+	if [ -d /etc/config ] && [ ! -f /etc/config/pkgsrc_sshd ]; then
+		echo off > /etc/config/pkgsrc_sshd
+		@CHMOD@ 644 /etc/config/pkgsrc_sshd
+	fi
+	;;
+esac

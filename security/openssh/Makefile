@@ -121,6 +121,19 @@ SMF_METHODS=		sshd
 
 FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR}
 
+# IRIX: a SysV init script instead of the rc.d one.  It is installed as a
+# config file outside PREFIX (CONF_FILES_PERMS: copied from the example if
+# absent, removed on deinstall if unchanged); the INSTALL/DEINSTALL
+# fragments add and remove its rc2.d/rc0.d links and chkconfig flag.
+PLIST_VARS+=		irix
+.if ${OPSYS} == "IRIX"
+PLIST.irix=		yes
+CONF_FILES_PERMS+=	${EGDIR}/irix/pkgsrc_sshd /etc/init.d/pkgsrc_sshd \
+			${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0755
+INSTALL_TEMPLATES+=	${FILESDIR}/irix/INSTALL
+DEINSTALL_TEMPLATES+=	${FILESDIR}/irix/DEINSTALL
+.endif
+
 .include "../../devel/zlib/buildlink3.mk"
 
 #
@@ -147,6 +160,14 @@ post-install:
 .if !empty(PKG_OPTIONS:Mpam) && ${OPSYS} == "Linux"
 	${INSTALL_DATA} ${WRKSRC}/contrib/sshd.pam.generic \
 	  ${DESTDIR}${EGDIR}/sshd.pam
+.endif
+.if ${OPSYS} == "IRIX"
+	${INSTALL_DATA_DIR} ${DESTDIR}${EGDIR}/irix
+	${SED} -e 's|@PREFIX@|${PREFIX}|g'				\
+	    -e 's|@PKG_SYSCONFDIR@|${PKG_SYSCONFDIR}|g'			\
+	    -e 's|@SSH_PID_DIR@|${SSH_PID_DIR}|g'			\
+	    ${FILESDIR}/irix/pkgsrc_sshd.sh >${WRKDIR}/pkgsrc_sshd
+	${INSTALL_SCRIPT} ${WRKDIR}/pkgsrc_sshd ${DESTDIR}${EGDIR}/irix/pkgsrc_sshd
 .endif
 
 .include "../../mk/bsd.pkg.mk"

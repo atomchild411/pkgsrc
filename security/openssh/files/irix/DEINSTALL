@@ -1,0 +1,16 @@
+# IRIX: undo what INSTALL added -- the rc links only if they are ours, and
+# the chkconfig flag only while it is still "off" (an admin's "on" stays).
+
+case ${STAGE} in
+DEINSTALL)
+	for l in /etc/rc2.d/S98pkgsrc_sshd /etc/rc0.d/K02pkgsrc_sshd; do
+		if [ -h "$l" ] && [ "`@LS@ -l $l | @SED@ 's/.*-> //'`" = "../init.d/pkgsrc_sshd" ]; then
+			@RM@ -f "$l"
+		fi
+	done
+	if [ -f /etc/config/pkgsrc_sshd ] && \
+	   [ "`@CAT@ /etc/config/pkgsrc_sshd`" = "off" ]; then
+		@RM@ -f /etc/config/pkgsrc_sshd
+	fi
+	;;
+esac

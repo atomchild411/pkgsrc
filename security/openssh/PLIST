@@ -28,6 +28,7 @@ man/man8/ssh-pkcs11-helper.8
 man/man8/ssh-sk-helper.8
 man/man8/sshd.8
 sbin/sshd
+${PLIST.irix}share/examples/openssh/irix/pkgsrc_sshd
 share/examples/openssh/moduli
 share/examples/openssh/ssh_config
 ${PLIST.pam}share/examples/openssh/sshd.pam
