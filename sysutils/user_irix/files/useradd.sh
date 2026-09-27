@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh
 
 show_usage () {
     echo "usage: useradd [-g gid] [-u uid] [-s shell] [-c comment] [-d home-dir] user" >&2
