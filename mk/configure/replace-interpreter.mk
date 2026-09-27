@@ -52,10 +52,22 @@ REPLACE_PERL?=	# none
 REPLACE_R?=	# none
 REPLACE_SH?=	# none
 
+# Cross builds: the scripts run on the target, so use its interpreters
+# (TARGET_TOOL.<VAR> from mk/tools/cross.${OPSYS}.mk) when it names them.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+_REPLACE_AWK=	${TARGET_TOOL.AWK:U${AWK}}
+_REPLACE_KSH=	${TARGET_TOOL.KSH:U${TOOLS_PATH.ksh}}
+_REPLACE_SH=	${TARGET_TOOL.SH:U${SH}}
+.else
+_REPLACE_AWK=	${AWK}
+_REPLACE_KSH=	${TOOLS_PATH.ksh}
+_REPLACE_SH=	${SH}
+.endif
+
 .if !empty(REPLACE_AWK:M*)
 REPLACE_INTERPRETER+=	sys-AWK
 REPLACE.sys-AWK.old=	.*awk
-REPLACE.sys-AWK.new=	${AWK}
+REPLACE.sys-AWK.new=	${_REPLACE_AWK}
 REPLACE_FILES.sys-AWK=	${REPLACE_AWK}
 .endif
 
@@ -76,7 +88,7 @@ REPLACE_FILES.sys-csh=	${REPLACE_CSH}
 .if !empty(REPLACE_KSH:M*)
 REPLACE_INTERPRETER+=	sys-ksh
 REPLACE.sys-ksh.old=	[^[:space:]]*sh
-REPLACE.sys-ksh.new=	${TOOLS_PATH.ksh}
+REPLACE.sys-ksh.new=	${_REPLACE_KSH}
 REPLACE_FILES.sys-ksh=	${REPLACE_KSH}
 .endif
 
@@ -105,7 +117,7 @@ REPLACE_FILES.sys-R=	${REPLACE_R}
 .if !empty(REPLACE_SH:M*)
 REPLACE_INTERPRETER+=	sys-sh
 REPLACE.sys-sh.old=	[^[:space:]]*sh
-REPLACE.sys-sh.new=	${SH}
+REPLACE.sys-sh.new=	${_REPLACE_SH}
 REPLACE_FILES.sys-sh=	${REPLACE_SH}
 .endif
 
