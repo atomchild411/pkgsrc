@@ -1,0 +1,37 @@
+$NetBSD$
+
+IRIX: PLATFORM=irix (osdep-irix.c, compat/forkpty-irix.c), and link
+compat/base64.c: 6.5.22's libc has __b64_ntop/__b64_pton HIDDEN.
+
+--- configure.orig
++++ configure
+@@ -6981,6 +6981,17 @@
+ fi
+ if test "x$found_b64_ntop" = xyes; then
+ 	$as_echo "#define HAVE_B64_NTOP 1" >>confdefs.h
++
++	# IRIX: <resolv.h> maps b64_ntop/b64_pton to __b64_ntop/__b64_pton,
++	# which 6.5.7's libc exports but 6.5.22's has HIDDEN.  Link our own
++	# (compat/base64.c includes <resolv.h>, so it defines the __ names).
++	case $host_os in
++	irix*)
++		case " $LIBOBJS " in
++		*" base64.$ac_objext "* ) ;;
++		*) LIBOBJS="$LIBOBJS base64.$ac_objext" ;;
++		esac ;;
++	esac
+ 
+ else
+ 	LIBS="$OLD_LIBS"
+@@ -8136,6 +8147,11 @@
+ $as_echo "haiku" >&6; }
+ 		PLATFORM=haiku
+ 		;;
++	*irix*)
++		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: irix" >&5
++$as_echo "irix" >&6; }
++		PLATFORM=irix
++		;;
+ 	*)
+ 		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: unknown" >&5
+ $as_echo "unknown" >&6; }
