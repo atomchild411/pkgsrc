@@ -6,4 +6,5 @@ Size (vim-9.2.1116.tar.gz) = 20195316 bytes
 SHA1 (patch-Makefile) = ba433a222f8dc24dabb0b3fabce219acb4565358
 SHA1 (patch-feature.h) = 24b1068cf023c90d9efaad7fe4d5b653c50989d1
 SHA1 (patch-popupwin.c) = 0b82a5b9050beaec1a0b6c4f4babcc3621bd075f
+SHA1 (patch-src_structs.h) = 5bb206bb35e2415d60462533835345ef0ca9e431
 SHA1 (patch-vim.h) = d0c3395b504f852a8058209a3d847b4dbf73d447
