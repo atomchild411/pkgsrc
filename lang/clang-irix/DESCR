@@ -1,0 +1,9 @@
+clang 21 and lld for IRIX 6.5, as native tools: C, C++ (libc++, statically
+linked into the tools, shared and static for your programs), LTO, lld,
+compiler-rt builtins and the llvm-ar/nm/objcopy/objdump/readobj/strip tools.
+n32, MIPS III code (runs on R4400 and up), tuned for the R10000 on request
+(-mtune=r10000); -march=mips4 for MIPS IV.
+
+This package installs a prebuilt tree: the LLVM 21.1.8 port (branch
+iris/main) is built by tools/irix-cross/llvm/build-llvm.sh, whose
+"package" stage writes the pkgsrc-clang-*-irix65-n32.tar.gz it takes.
