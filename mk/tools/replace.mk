@@ -140,10 +140,18 @@ _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	BOOTSTRAP_DEPENDS
 _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	TOOL_DEPENDS
 .endfor
 .for _t_ in ${USE_TOOLS:M*\:run}
-.  if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} != ${NATIVE_OPSYS}
+.  if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} != ${NATIVE_OPSYS} && \
+     ${_t_} == "install-info:run"
+# Cross builds: +INSTALL indexes info files on the target with whatever
+# install-info is there (TARGET_TOOL.INSTALL_INFO) and ignores failures, so
+# the package need not depend on one; the build only needs the no-op tool.
+_TOOLS_DEPMETHOD.${_t_:C/:.*//}=	TOOL_DEPENDS
+.  else
+.    if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} != ${NATIVE_OPSYS}
 PKG_FAIL_REASON+=	"USE_TOOLS+=${_t_} not supported in cross-compilation"
-.  endif
+.    endif
 _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	DEPENDS
+.  endif
 .endfor
 .for _t_ in ${USE_TOOLS:M*\:test}
 _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	TEST_DEPENDS
