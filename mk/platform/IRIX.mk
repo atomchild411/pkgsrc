@@ -37,8 +37,8 @@ _USER_DEPENDS=		user-irix>=20130712:../../sysutils/user_irix
 
 _OPSYS_EMULDIR.irix=	# empty
 
-_OPSYS_SYSTEM_RPATH?=	/usr/lib
-_OPSYS_LIB_DIRS?=	/usr/lib
+_OPSYS_SYSTEM_RPATH?=	/usr/lib${LIBABISUFFIX}
+_OPSYS_LIB_DIRS?=	/usr/lib${LIBABISUFFIX} /lib${LIBABISUFFIX}
 _OPSYS_INCLUDE_DIRS?=	/usr/include
 
 .if exists(/usr/include/netinet6)
