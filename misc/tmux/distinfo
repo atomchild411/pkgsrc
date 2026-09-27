@@ -14,5 +14,5 @@ SHA1 (patch-configure) = b8fc03c8d5f5da9f92776e9c844c8345ab059cc3
 SHA1 (patch-osdep-irix.c) = e08ae564bc8a84abc13be71c26d9fea157345e22
 SHA1 (patch-proc.c) = 500f9f7d33fdd7a554e77ec0a04358aac0eb0521
 SHA1 (patch-tmux.c) = f46f12cc8c20f93e8ca42c62a2865edb1ab45a9a
-SHA1 (patch-tty.c) = e58250c648ed6b4d88d878cc6b92fd7c3c0239e2
+SHA1 (patch-tty.c) = aa828f73ae5435d1cbdeb717659ef8eb88d3ceae
 SHA1 (patch-xmalloc.c) = 17c4f4a3d8bc6152d28762166ea30cf63f1d761c
