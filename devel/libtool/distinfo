@@ -7,4 +7,5 @@ SHA1 (patch-Makefile.in) = 0adb634335acd5fb280c99b5d43ae568018ca0af
 SHA1 (patch-build-aux_depcomp) = ae6f93ad4fac1df648cfcb62601c72f9ebb30233
 SHA1 (patch-build-aux_ltmain.sh) = ecb677b383caaaf8efb75a01cc17d49e5599c53c
 SHA1 (patch-configure) = 5c2718a6ca14a1f99e1f965d0636d86eb74ec017
+SHA1 (patch-configure-irix) = 177476a58b2e1c6344687c34d81b7e6dcf33b42a
 SHA1 (patch-libltdl_configure) = 58211bf63b3f3ed5ebac583c179af7f69d955fba

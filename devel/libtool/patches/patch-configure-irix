@@ -1,0 +1,123 @@
+$NetBSD$
+
+IRIX n32 with a GNU-compatible linker (our ld.lld):
+- the ABI probe matched "*32-bit*" before "*N32*" (file(1) says both for
+  n32 objects), so LD got the o32 emulation; test N32 first and use the
+  emulation lld knows for IRIX n32.  The library-suffix table below keys
+  on the same flag, so n32 now gets lib32 and LD_LIBRARYN32_PATH.
+- shlibpath_overrides_runpath=yes: programs are then linked once with
+  their final run path instead of being relinked at install time, which
+  fails under DESTDIR (the relink looks for the package's own new
+  libraries in $libdir, where they are not installed yet).
+- C++ with GNU ld: IRIX's -set_version is an SGI ld option lld rejects, and
+  inherit_rpath (right for SGI ld) turns fast installation off for every
+  language, which brings the install-time relinking back.
+
+--- configure.orig
++++ configure
+@@ -7769,12 +7769,12 @@
+   test $ac_status = 0; }; then
+     if test yes = "$lt_cv_prog_gnu_ld"; then
+       case `$FILECMD conftest.$ac_objext` in
++	*N32*)
++	  LD="${LD-ld} -melf32btsmipn32_irix"
++	  ;;
+ 	*32-bit*)
+ 	  LD="${LD-ld} -melf32bsmip"
+ 	  ;;
+-	*N32*)
+-	  LD="${LD-ld} -melf32bmipn32"
+-	  ;;
+ 	*64-bit*)
+ 	  LD="${LD-ld} -melf64bmip"
+ 	;;
+@@ -12414,7 +12414,7 @@
+     case $LD in # libtool.m4 will add one of these switches to LD
+     *-32|*"-32 "|*-melf32bsmip|*"-melf32bsmip ")
+       libsuff= shlibsuff= libmagic=32-bit;;
+-    *-n32|*"-n32 "|*-melf32bmipn32|*"-melf32bmipn32 ")
++    *-n32|*"-n32 "|*-melf32bmipn32|*"-melf32bmipn32 "|*-melf32btsmipn32_irix|*"-melf32btsmipn32_irix ")
+       libsuff=32 shlibsuff=N32 libmagic=N32;;
+     *-64|*"-64 "|*-melf64bmip|*"-melf64bmip ")
+       libsuff=64 shlibsuff=64 libmagic=64-bit;;
+@@ -12423,7 +12423,7 @@
+     ;;
+   esac
+   shlibpath_var=LD_LIBRARY${shlibsuff}_PATH
+-  shlibpath_overrides_runpath=no
++  shlibpath_overrides_runpath=yes
+   sys_lib_search_path_spec="/usr/lib$libsuff /lib$libsuff /usr/local/lib$libsuff"
+   sys_lib_dlsearch_path_spec="/usr/lib$libsuff /lib$libsuff"
+   hardcode_into_libs=yes
+@@ -15870,7 +15870,7 @@
+ 	      if test no = "$with_gnu_ld"; then
+ 	        archive_cmds_CXX='$CC -shared $pic_flag -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags $wl-soname $wl$soname `test -n "$verstring" && func_echo_all "$wl-set_version $wl$verstring"` $wl-update_registry $wl$output_objdir/so_locations -o $lib'
+ 	      else
+-	        archive_cmds_CXX='$CC -shared $pic_flag -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags $wl-soname $wl$soname `test -n "$verstring" && func_echo_all "$wl-set_version $wl$verstring"` -o $lib'
++	        archive_cmds_CXX='$CC -shared $pic_flag -nostdlib $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags $wl-soname $wl$soname -o $lib'
+ 	      fi
+ 	    fi
+ 	    link_all_deplibs_CXX=yes
+@@ -15878,7 +15878,7 @@
+         esac
+         hardcode_libdir_flag_spec_CXX='$wl-rpath $wl$libdir'
+         hardcode_libdir_separator_CXX=:
+-        inherit_rpath_CXX=yes
++        test yes = "$with_gnu_ld" || inherit_rpath_CXX=yes
+         ;;
+ 
+       linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
+@@ -17713,7 +17713,7 @@
+     case $LD in # libtool.m4 will add one of these switches to LD
+     *-32|*"-32 "|*-melf32bsmip|*"-melf32bsmip ")
+       libsuff= shlibsuff= libmagic=32-bit;;
+-    *-n32|*"-n32 "|*-melf32bmipn32|*"-melf32bmipn32 ")
++    *-n32|*"-n32 "|*-melf32bmipn32|*"-melf32bmipn32 "|*-melf32btsmipn32_irix|*"-melf32btsmipn32_irix ")
+       libsuff=32 shlibsuff=N32 libmagic=N32;;
+     *-64|*"-64 "|*-melf64bmip|*"-melf64bmip ")
+       libsuff=64 shlibsuff=64 libmagic=64-bit;;
+@@ -17722,7 +17722,7 @@
+     ;;
+   esac
+   shlibpath_var=LD_LIBRARY${shlibsuff}_PATH
+-  shlibpath_overrides_runpath=no
++  shlibpath_overrides_runpath=yes
+   sys_lib_search_path_spec="/usr/lib$libsuff /lib$libsuff /usr/local/lib$libsuff"
+   sys_lib_dlsearch_path_spec="/usr/lib$libsuff /lib$libsuff"
+   hardcode_into_libs=yes
+@@ -20912,7 +20912,7 @@
+     case $LD in # libtool.m4 will add one of these switches to LD
+     *-32|*"-32 "|*-melf32bsmip|*"-melf32bsmip ")
+       libsuff= shlibsuff= libmagic=32-bit;;
+-    *-n32|*"-n32 "|*-melf32bmipn32|*"-melf32bmipn32 ")
++    *-n32|*"-n32 "|*-melf32bmipn32|*"-melf32bmipn32 "|*-melf32btsmipn32_irix|*"-melf32btsmipn32_irix ")
+       libsuff=32 shlibsuff=N32 libmagic=N32;;
+     *-64|*"-64 "|*-melf64bmip|*"-melf64bmip ")
+       libsuff=64 shlibsuff=64 libmagic=64-bit;;
+@@ -20921,7 +20921,7 @@
+     ;;
+   esac
+   shlibpath_var=LD_LIBRARY${shlibsuff}_PATH
+-  shlibpath_overrides_runpath=no
++  shlibpath_overrides_runpath=yes
+   sys_lib_search_path_spec="/usr/lib$libsuff /lib$libsuff /usr/local/lib$libsuff"
+   sys_lib_dlsearch_path_spec="/usr/lib$libsuff /lib$libsuff"
+   hardcode_into_libs=yes
+@@ -24247,7 +24247,7 @@
+     case $LD in # libtool.m4 will add one of these switches to LD
+     *-32|*"-32 "|*-melf32bsmip|*"-melf32bsmip ")
+       libsuff= shlibsuff= libmagic=32-bit;;
+-    *-n32|*"-n32 "|*-melf32bmipn32|*"-melf32bmipn32 ")
++    *-n32|*"-n32 "|*-melf32bmipn32|*"-melf32bmipn32 "|*-melf32btsmipn32_irix|*"-melf32btsmipn32_irix ")
+       libsuff=32 shlibsuff=N32 libmagic=N32;;
+     *-64|*"-64 "|*-melf64bmip|*"-melf64bmip ")
+       libsuff=64 shlibsuff=64 libmagic=64-bit;;
+@@ -24256,7 +24256,7 @@
+     ;;
+   esac
+   shlibpath_var=LD_LIBRARY${shlibsuff}_PATH
+-  shlibpath_overrides_runpath=no
++  shlibpath_overrides_runpath=yes
+   sys_lib_search_path_spec="/usr/lib$libsuff /lib$libsuff /usr/local/lib$libsuff"
+   sys_lib_dlsearch_path_spec="/usr/lib$libsuff /lib$libsuff"
+   hardcode_into_libs=yes
