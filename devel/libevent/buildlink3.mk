@@ -11,7 +11,7 @@ BUILDLINK_PKGSRCDIR.libevent?=		../../devel/libevent
 
 .include "../../mk/bsd.fast.prefs.mk"
 
-.if ${OPSYS} != "QNX"
+.if ${OPSYS} != "QNX" && ${OPSYS} != "IRIX"
 .include "../../security/openssl/buildlink3.mk"
 .endif
 .endif # LIBEVENT_BUILDLINK3_MK

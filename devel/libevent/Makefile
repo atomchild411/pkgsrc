@@ -27,6 +27,9 @@ CPPFLAGS.QNX+=		-D__EXT_POSIX2
 
 # No OpenSSL on QNX.
 CONFIGURE_ARGS.QNX+=	--disable-openssl
+# IRIX: keep OpenSSL out of the closure of everything using libevent
+# (tmux needs only the core library).
+CONFIGURE_ARGS.IRIX+=	--disable-openssl
 
 # Explicitly disable epoll on illumos & NetBSD, provided for Linux compat only.
 CONFIGURE_ENV.SunOS+=	ac_cv_func_epoll_ctl=no
@@ -45,7 +48,7 @@ CPPFLAGS+=		-Dstrtoll=__strtoll
 
 PLIST_VARS+=	openssl
 
-.if ${OPSYS} != "QNX"
+.if ${OPSYS} != "QNX" && ${OPSYS} != "IRIX"
 PLIST.openssl=	yes
 .include "../../security/openssl/buildlink3.mk"
 .endif
