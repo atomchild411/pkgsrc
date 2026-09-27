@@ -1,0 +1,16 @@
+$NetBSD$
+
+IRIX with clang: build the loadable builtins the GNU way (-fpic, -shared),
+not with MIPSpro's -KPIC and SGI ld flags.
+
+--- support/shobj-conf.orig
++++ support/shobj-conf
+@@ -264,7 +264,7 @@
+ #
+ # THE FOLLOWING ARE UNTESTED -- and some may not support the dlopen interface
+ #
+-irix[56]*-*gcc*)
++irix[56]*-*gcc*|irix[56]*-*clang*)
+ 	SHOBJ_CFLAGS='-fpic'
+ 	SHOBJ_LD='${CC}'
+ 	SHOBJ_LDFLAGS='-shared -Wl,-soname,$@'
