@@ -27,7 +27,11 @@ post-install:
 	${LN} -s vim ${DESTDIR}${PREFIX}/bin/${f}
 .endfor
 
+# IRIX: vim uses libc's iconv and is built without NLS (mk.conf), so it
+# needs neither GNU libiconv nor libintl.
+.if ${OPSYS} != "IRIX"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
+.endif
 .include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
