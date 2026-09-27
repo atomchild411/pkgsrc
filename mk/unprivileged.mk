@@ -196,10 +196,15 @@ ${_var_}=		${UNPRIVILEGED_GROUP}
 
 .endif
 
-.if !empty(_UNPRIVILEGED:Munprivileged)
+.if !empty(_UNPRIVILEGED:Munprivileged) && ${USE_CROSS_COMPILE:U:tl} != "yes"
 # As a regular user, creation of other users and groups won't work, so
 # disable this step by default.
+# (Not for cross builds: these are defaults of the TARGET's +INSTALL, which
+# runs there, as root, and never on this build host.)
 PKG_CREATE_USERGROUP=	NO
+.endif
+
+.if !empty(_UNPRIVILEGED:Munprivileged)
 
 # Override commands that won't work as a regular user.
 TOOLS_PLATFORM.chgrp=	${TRUE} chgrp
@@ -207,5 +212,7 @@ TOOLS_PLATFORM.chown=	${TRUE} chown
 SU_CMD=			${SH} -c
 
 # Do not attempt to modify /etc/shells as a regular user.
+.  if ${USE_CROSS_COMPILE:U:tl} != "yes"
 PKG_REGISTER_SHELLS=	NO
+.  endif
 .endif
