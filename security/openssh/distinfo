@@ -6,4 +6,5 @@ Size (openssh-10.5p1.tar.gz) = 2333659 bytes
 SHA1 (patch-Makefile.in) = d58adac52e169f25f0b0c3a321f154b44b0475e6
 SHA1 (patch-configure.ac) = 10894c1b98298a1672ec151a223f6180bf841fa4
 SHA1 (patch-defines.h) = c1dbb18076b4fa399b0f791bb543ef1e5cb0408e
+SHA1 (patch-openbsd-compat_openbsd-compat.h) = 9e77dd6936b505b0b518debbe31b870b402c4701
 SHA1 (patch-sshkey.h) = aaaf622f377e455c49683fcc2ca42576ccd097bb
