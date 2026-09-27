@@ -27,6 +27,9 @@ MAKEFLAGS.su-deinstall+=	_UPDATE_RUNNING=YES
 
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 _PKG_ARGS_DEINSTALL+=	-p ${_CROSS_DESTDIR}${PREFIX}
+# +DEINSTALL is the target's script (pkg_add -I never ran +INSTALL either):
+# it must not run on the build host.
+_PKG_ARGS_DEINSTALL+=	-D
 .endif
 
 # _pkgformat-deinstall:
