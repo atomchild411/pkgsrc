@@ -48,8 +48,16 @@ CLANG_VERSION=		0
 CC_VERSION=		clang-${CLANG_VERSION}
 .endif
 
+# IRIX: ABI 32 means n32, as in gcc.mk and bootstrap's get_abi.  clang's
+# -m32 would switch a mips64 target to the 32-bit "mips" triple.
+.if ${OPSYS} == "IRIX"
+_COMPILER_ABI_FLAG.32=	-mabi=n32
+_COMPILER_ABI_FLAG.n32=	-mabi=n32
+_COMPILER_ABI_FLAG.64=	-mabi=64
+.else
 _COMPILER_ABI_FLAG.32=	-m32
 _COMPILER_ABI_FLAG.64=	-m64
+.endif
 
 .include "gcc-style-args.mk"
 
