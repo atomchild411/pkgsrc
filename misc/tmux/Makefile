@@ -40,7 +40,8 @@ BUILDLINK_TRANSFORM+=	opt:-D_XPG4_2:-D_XPG6
 CPPFLAGS+=	-D__DARWIN_VERS_1050=0
 .endif
 
-.if ${OPSYS} == "Darwin" || ${OPSYS} == "QNX"
+# IRIX 6.5 has no UTF-8 locale at all: utf8proc supplies the widths.
+.if ${OPSYS} == "Darwin" || ${OPSYS} == "QNX" || ${OPSYS} == "IRIX"
 CONFIGURE_ARGS+=	--enable-utf8proc
 .include "../../converters/utf8proc/buildlink3.mk"
 .endif
