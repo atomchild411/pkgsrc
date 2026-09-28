@@ -864,10 +864,19 @@ _INSTALL_DATA_TMPL+=		${_INSTALL_FONTS_DATAFILE}
 # Directories with TTF and Type1 fonts also need to run mkfontdir, so
 # list them as "x11" font directories as well.
 #
+# In a cross build the tools are no-ops here (mk/tools/replace.mk), and
+# +FONTS names the target's own, which it skips when they are missing.
+.if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} != ${NATIVE_OPSYS}
+_FONTS_TOOL.mkfontscale=	${PREFIX}/bin/mkfontscale
+_FONTS_TOOL.mkfontdir=		${PREFIX}/bin/mkfontdir
+.else
+_FONTS_TOOL.mkfontscale=	${TOOLS_PATH.mkfontscale}
+_FONTS_TOOL.mkfontdir=		${TOOLS_PATH.mkfontdir}
+.endif
 .if !empty(FONTS_DIRS.ttf:M*)
 .if ${X11_TYPE} == "modular"
 USE_TOOLS+=		mkfontscale:run
-FILES_SUBST+=		TTF_INDEX_CMD=${TOOLS_PATH.mkfontscale:Q}
+FILES_SUBST+=		TTF_INDEX_CMD=${_FONTS_TOOL.mkfontscale:Q}
 .else
 USE_TOOLS+=		ttmkfdir:run
 FILES_SUBST+=		TTF_INDEX_CMD=${TOOLS_PATH.ttmkfdir:Q}
@@ -888,7 +897,7 @@ FONTS_DIRS.x11+=	${FONTS_DIRS.type1}
 .endif
 .if !empty(FONTS_DIRS.x11:M*)
 USE_TOOLS+=		mkfontdir:run
-FILES_SUBST+=		MKFONTDIR=${TOOLS_PATH.mkfontdir:Q}
+FILES_SUBST+=		MKFONTDIR=${_FONTS_TOOL.mkfontdir:Q}
 
 .if ${X11_TYPE} == "modular"
 DEPENDS+=		encodings-[0-9]*:../../fonts/encodings

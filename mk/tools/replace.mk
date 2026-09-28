@@ -141,10 +141,13 @@ _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	TOOL_DEPENDS
 .endfor
 .for _t_ in ${USE_TOOLS:M*\:run}
 .  if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} != ${NATIVE_OPSYS} && \
-     ${_t_} == "install-info:run"
+     (${_t_} == "install-info:run" || ${_t_} == "mkfontscale:run" || \
+      ${_t_} == "mkfontdir:run")
 # Cross builds: +INSTALL indexes info files on the target with whatever
 # install-info is there (TARGET_TOOL.INSTALL_INFO) and ignores failures, so
 # the package need not depend on one; the build only needs the no-op tool.
+# Font packages likewise: +FONTS runs the target's mkfontscale/mkfontdir
+# when it has them and skips them otherwise (see bsd.pkginstall.mk).
 _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	TOOL_DEPENDS
 .  else
 .    if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} != ${NATIVE_OPSYS}
