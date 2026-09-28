@@ -37,7 +37,7 @@ lib/libxcb-damage.la
 lib/libxcb-dbe.la
 lib/libxcb-dpms.la
 lib/libxcb-dri2.la
-lib/libxcb-dri3.la
+${PLIST.dri3}lib/libxcb-dri3.la
 lib/libxcb-glx.la
 lib/libxcb-present.la
 lib/libxcb-randr.la
@@ -62,7 +62,7 @@ lib/pkgconfig/xcb-damage.pc
 lib/pkgconfig/xcb-dbe.pc
 lib/pkgconfig/xcb-dpms.pc
 lib/pkgconfig/xcb-dri2.pc
-lib/pkgconfig/xcb-dri3.pc
+${PLIST.dri3}lib/pkgconfig/xcb-dri3.pc
 lib/pkgconfig/xcb-glx.pc
 lib/pkgconfig/xcb-present.pc
 lib/pkgconfig/xcb-randr.pc

@@ -30,6 +30,11 @@ CONFIGURE_ENV.IRIX+=	ac_cv_search_sendmsg=no
 
 .include "../../mk/bsd.prefs.mk"
 
+PLIST_VARS+=		dri3
+.if ${OPSYS} != "IRIX"
+PLIST.dri3=		yes
+.endif
+
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
 # No native C compiler needed -- the tool that gobbles up the xcb
 # prototypes is in Python.
