@@ -1,0 +1,15 @@
+$NetBSD$
+
+Do not build the tests in a cross build, which cannot run them.
+
+--- tls/meson.build.orig
++++ tls/meson.build
+@@ -14,4 +14,7 @@
+   subdir('openssl')
+ endif
+ 
+-subdir('tests')
++# A cross build cannot run the tests (and they do not build for IRIX).
++if not meson.is_cross_build() or get_option('installed_tests')
++  subdir('tests')
++endif

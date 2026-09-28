@@ -24,8 +24,4 @@ BUILDLINK_API_DEPENDS.glib2+=		glib2>=2.60.0
 .include "../../devel/glib2/modules.mk"
 .include "../../devel/meson/build.mk"
 .include "../../lang/python/application.mk"
-.include "../../security/p11-kit/buildlink3.mk"
-.include "../../sysutils/gsettings-desktop-schemas/buildlink3.mk"
-BUILDLINK_API_DEPENDS.libproxy+=	libproxy>=0.4.6
-.include "../../www/libproxy/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
