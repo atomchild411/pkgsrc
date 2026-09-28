@@ -17,5 +17,13 @@ TEST_TARGET=	check
 # Fix for iconv detection in gettext 1.0.
 CONFIGURE_ENV.Darwin=	am_cv_func_iconv_works=yes
 
+.include "../../mk/bsd.prefs.mk"
+
+# A cross build cannot run the tests, so do not build them (the gnulib test
+# library's replacement headers do not compile against IRIX's).
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+MAKE_FLAGS+=	SUBDIRS="doc gnulib-local lib"
+.endif
+
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
