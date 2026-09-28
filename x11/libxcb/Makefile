@@ -21,6 +21,13 @@ CONFIGURE_ARGS+=	--disable-devel-docs	# or needs doxygen
 CONFIGURE_ARGS+=	--enable-xinput
 CONFIGURE_ARGS+=	--without-doxygen
 
+# IRIX's own socket API has the BSD 4.3 msghdr (msg_accrights, no cmsghdr or
+# SCM_RIGHTS), which <sys/socket.h> dresses up with "#define msg_control
+# msg_accrights" -- so configure finds msg_control and turns on descriptor
+# passing, which then does not compile. It is only for DRI3; say sendmsg is
+# unusable, which leaves both out.
+CONFIGURE_ENV.IRIX+=	ac_cv_search_sendmsg=no
+
 .include "../../mk/bsd.prefs.mk"
 
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
