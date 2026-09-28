@@ -12,7 +12,6 @@ HOMEPAGE=	https://wiki.gnome.org/Projects/libsoup
 COMMENT=	HTTP library implementation in C (major version 3)
 LICENSE=	gnu-lgpl-v2
 
-TOOL_DEPENDS+=	glib2-introspection-[0-9]*:../../devel/glib2-introspection
 DEPENDS+=	glib-networking-[0-9]*:../../net/glib-networking
 # not found by meson
 #TOOL_DEPENDS+=	${PYPKGPREFIX}-gi-docgen-[0-9]*:../../devel/py-gi-docgen
@@ -49,12 +48,15 @@ post-extract:
 .include "../../databases/sqlite3/buildlink3.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.69.1
 .include "../../devel/glib2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=0.9.5
-BUILDLINK_DEPMETHOD.gobject-introspection=	build
-.include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../devel/meson/build.mk"
 .include "../../lang/python/tool.mk"
-.include "../../security/gnutls/buildlink3.mk"
+# A cross build cannot run the tests (GnuTLS is only for the PKCS #11 ones)
+# nor the program that checks glib-networking provides TLS.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+MESON_ARGS+=	-Dtests=false -Dpkcs11_tests=disabled -Dtls_check=false
+.else
+.  include "../../security/gnutls/buildlink3.mk"
+.endif
 .include "../../www/libpsl/buildlink3.mk"
 .include "../../www/nghttp2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
