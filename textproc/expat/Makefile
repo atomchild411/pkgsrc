@@ -21,6 +21,11 @@ CONFIGURE_ARGS+=	--without-tests
 # workaround suggested by upstream; xmlwf.1 is in tarball, so docbook not needed
 CONFIGURE_ENV+=		DOCBOOK_TO_MAN=false
 
+# IRIX has /dev/urandom but no getrandom or arc4random, and a cross build
+# cannot see the file, so name the entropy source; IRIX's open() has no
+# O_CLOEXEC flag.
+CPPFLAGS.IRIX+=		-DXML_DEV_URANDOM -DO_CLOEXEC=0
+
 TEST_TARGET=	check
 REPLACE_BASH=	test-driver-wrapper.sh
 # we can't use cmake due to a cyclic dependency
