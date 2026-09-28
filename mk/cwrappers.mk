@@ -1,6 +1,16 @@
 # $NetBSD: cwrappers.mk,v 1.40 2023/06/27 10:27:20 riastradh Exp $
 #
 # This Makefile fragment implements integration of pkgtools/cwrappers.
+#
+# User-settable variables:
+#
+# CWRAPPERS_APPEND_EXECUTABLE.<wrapper>
+# CWRAPPERS_APPEND_SHARED.<wrapper>
+#	Arguments appended only when the wrapper (cc, cxx, ld, ...) links an
+#	executable, or a shared object -- not when it compiles, preprocesses
+#	or assembles, where a link-time flag is an "unused argument" (clang
+#	with -Werror=unused-command-line-argument, as meson's checks use).
+#	Example: CWRAPPERS_APPEND_EXECUTABLE.cxx+= -static-libstdc++
 
 .include "../../mk/wrapper/wrapper-defs.mk"
 .include "../../mk/buildlink3/bsd.buildlink3.mk"
@@ -108,6 +118,12 @@ generate-cwrappers:
 .    endfor
 .  endif
 . endif
+. for arg in ${CWRAPPERS_APPEND_EXECUTABLE.${wrappee}}
+	${RUN}echo append_executable=${arg:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
+. endfor
+. for arg in ${CWRAPPERS_APPEND_SHARED.${wrappee}}
+	${RUN}echo append_shared=${arg:Q} >> ${CWRAPPERS_CONFIG_DIR}/${CWRAPPERS_CONFIG.${wrappee}}
+. endfor
 .endfor
 
 PREPEND_PATH+=		${WRAPPER_BINDIR}
