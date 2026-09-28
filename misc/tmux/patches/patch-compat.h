@@ -2,7 +2,8 @@ $NetBSD$
 
 IRIX 6.5: prototypes for osdep-irix.c (strsignal, round, irix_fixfmt), and
 socklen_t, IOV_MAX (15: sendmsg rejects MSG_MAXIOVLEN iovecs) and
-struct sockaddr_storage, which IRIX 6.5 predates.
+struct sockaddr_storage, which IRIX 6.5 predates (unless the compiler's IRIX
+headers define it).
 
 --- compat.h.orig
 +++ compat.h
@@ -16,10 +17,11 @@ struct sockaddr_storage, which IRIX 6.5 predates.
  
  #include <fnmatch.h>
  #include <limits.h>
-@@ -306,7 +309,63 @@
+@@ -305,8 +308,67 @@
+ #ifndef HAVE_CLOSEFROM
  /* closefrom.c */
  void		 closefrom(int);
- #endif
++#endif
 +
 +/* IRIX 6.5 has no strsignal(), though it does export sys_siglist. tmux ships
 + * no compat file for it and configure does not probe for it, so the
@@ -30,7 +32,7 @@ struct sockaddr_storage, which IRIX 6.5 predates.
 +char		*strsignal(int);
 +/* IRIX 6.5 libm has rint/floor/trunc but not the C99 round(). */
 +double		 round(double);
- 
++
 +/* IRIX 6.5 predates RFC 2553 and POSIX-2001 sockets: it has neither
 + * socklen_t nor struct sockaddr_storage, and its socket calls take plain
 + * int * lengths (see getsockopt in <sys/socket.h>), so int is the correct
@@ -65,16 +67,19 @@ struct sockaddr_storage, which IRIX 6.5 predates.
 + * queued -- sendmsg failed with EINVAL and imsg reads that as a dead peer. */
 +#ifndef IOV_MAX
 +#define IOV_MAX (MSG_MAXIOVLEN - 1)
-+#endif
-+
+ #endif
+ 
 +/* libevent does NOT provide a replacement sockaddr_storage in its public
-+ * headers -- only an internal one -- so this is still needed. */
++ * headers -- only an internal one -- so this is still needed, unless the
++ * compiler's IRIX headers already define it (_SS_MAXSIZE). */
++#ifndef _SS_MAXSIZE
 +struct sockaddr_storage {
 +	short		 ss_family;
 +	char		 __ss_pad1[6];
 +	long long	 __ss_align;
 +	char		 __ss_pad2[112];
 +};
++#endif
 +#endif
 +
  #ifndef HAVE_STRCASESTR
