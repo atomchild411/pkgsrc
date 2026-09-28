@@ -31,6 +31,12 @@ SUPERSEDES+=	cairo-gobject-[0-9]*
 
 .include "../../mk/bsd.prefs.mk"
 
+# The test suite is not installed, and needs more of a modern libc than
+# IRIX has.
+.if ${OPSYS} == "IRIX"
+MESON_ARGS+=		-Dtests=disabled
+.endif
+
 # see meson.build for systems that support cairo-trace
 PLIST_VARS+=	trace
 .if ${OPSYS} == "Darwin" || ${OPSYS} == "DragonFly" || ${OPSYS} == "FreeBSD" || ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"

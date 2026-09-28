@@ -2,7 +2,10 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.cairo
 PKG_SUPPORTED_OPTIONS=	lzo x11
-.if exists(/System/Library/Frameworks/Quartz.framework)
+# OPSYS, not only the build host's frameworks: a cross build on a Mac is
+# not for a Mac.
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "Darwin" && exists(/System/Library/Frameworks/Quartz.framework)
 PKG_SUPPORTED_OPTIONS+=	quartz
 PKG_SUGGESTED_OPTIONS+=	quartz
 .else
