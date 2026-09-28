@@ -35,6 +35,13 @@ MESON_ARGS+=	-Degl=no
 
 .include "options.mk"
 
+# IRIX: open Mesa's libraries by path (patch-src_dispatch__common.c).
+.if ${OPSYS} == "IRIX"
+CPPFLAGS+=	-DEGL_LIB=\"${PREFIX}/lib/libEGL.so.1\"
+CPPFLAGS+=	-DGLES1_LIB=\"${PREFIX}/lib/libGLESv1_CM.so.1\"
+CPPFLAGS+=	-DGLES2_LIB=\"${PREFIX}/lib/libGLESv2.so.2\"
+.endif
+
 TEST_ENV+=	LD_LIBRARY_PATH=${WRKSRC}/output/src
 
 .include "../../devel/meson/build.mk"
