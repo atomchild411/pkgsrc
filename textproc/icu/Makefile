@@ -2,6 +2,7 @@
 
 DISTNAME=	icu4c-78.3-sources
 PKGNAME=	${DISTNAME:S/4c//:S/-sources//}
+PKGREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=unicode-org/}
 GITHUB_PROJECT=	icu

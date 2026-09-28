@@ -22,3 +22,4 @@ SHA1 (patch-i18n_rbnf.cpp) = 6ae5c0108e56f5df458987921c5e52614558aea8
 SHA1 (patch-icudefs.mk.in) = 15be482cf7541c9b518b8bfb05865ac994313cb7
 SHA1 (patch-runConfigureICU) = 6aa0de86506440aeb13005959e9014a53ed63036
 SHA1 (patch-tools-toolutil-pkg_genc.cpp) = 3cbcf3387d6a39315b26a3e2a2ffb715507e9110
+SHA1 (patch-tools_toolutil_pkg__gencmn.cpp) = 3d4ae25d294f1892d25bc7a7d22e905590311180
