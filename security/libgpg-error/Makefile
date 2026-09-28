@@ -38,6 +38,11 @@ CFLAGS+=	-D__DARWIN_UNIX03
 LIBS+=	-lrt
 .endif
 
+# IRIX: the lock object layout mkheader needs, generated on IRIX 6.5.22 by
+# src/gen-posix-lock-obj (a cross build cannot run it).
+post-extract:
+	${CP} ${FILESDIR}/lock-obj-pub.irix6.5.h ${WRKSRC}/src/syscfg/
+
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
