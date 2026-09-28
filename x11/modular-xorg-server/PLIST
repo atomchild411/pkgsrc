@@ -86,8 +86,8 @@ include/xorg/picture.h
 include/xorg/picturestr.h
 include/xorg/pixmap.h
 include/xorg/pixmapstr.h
-${PLIST.dri}include/xorg/present.h
-${PLIST.dri}include/xorg/presentext.h
+include/xorg/present.h
+include/xorg/presentext.h
 include/xorg/privates.h
 include/xorg/property.h
 include/xorg/propertyst.h

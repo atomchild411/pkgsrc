@@ -70,7 +70,15 @@ CONFIGURE_ARGS+=	--disable-xwin
 CONFIGURE_ARGS+=	--disable-xephyr
 CONFIGURE_ARGS+=	--disable-kdrive
 #CONFIGURE_ARGS+=	--disable-kdrive-vesa
+.if ${OPSYS} == "IRIX"
+# No SCM_RIGHTS descriptor passing on IRIX; basename is in libgen. The
+# unit tests (not installed) want asprintf and setenv, which IRIX lacks.
+CONFIGURE_ARGS+=	--disable-xtrans-send-fds
+CONFIGURE_ARGS+=	--disable-unit-tests
+LIBS.IRIX+=		-lgen
+.else
 CONFIGURE_ARGS+=	--enable-xtrans-send-fds
+.endif
 
 CONFIGURE_ARGS+=	--with-int10=x86emu
 
