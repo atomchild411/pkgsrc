@@ -24,6 +24,12 @@ MESON_ARGS+=	-Dsse2=disabled
 MESON_ARGS+=	-Da64-neon=disabled
 .endif
 
+# The test utilities mmap with MAP_ANONYMOUS, which IRIX lacks; neither
+# the tests nor the demos are installed.
+.if ${OPSYS} == "IRIX"
+MESON_ARGS+=	-Dtests=disabled -Ddemos=disabled
+.endif
+
 PKGCONFIG_OVERRIDE+=	output/meson-private/pixman-1.pc
 
 PKGCONFIG_OVERRIDE_STAGE=	post-configure
