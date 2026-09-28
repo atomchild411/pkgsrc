@@ -1,0 +1,10 @@
+Runs an X program that needs a newer X server than IRIX's Xsgi (RENDER,
+XInput 2, RANDR, ...) in a window of its own on the IRIX desktop:
+
+  xephyr-app [-g WIDTHxHEIGHT] [-t title] command [args...]
+
+starts a nested Xephyr display for it, with fillwm, a small window
+manager that keeps the program's main window the size of Xephyr's
+window, so the program resizes with it like any other window. Xephyr
+gets a keymap with Xsgi's keycodes. When the program exits, the display
+goes with it.

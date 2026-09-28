@@ -495,6 +495,7 @@ SUBDIR+=	xdriinfo
 SUBDIR+=	xearth
 SUBDIR+=	xedit
 SUBDIR+=	xephem
+SUBDIR+=	xephyr-app
 SUBDIR+=	xev
 SUBDIR+=	xeyes
 SUBDIR+=	xf86-input-elographics
