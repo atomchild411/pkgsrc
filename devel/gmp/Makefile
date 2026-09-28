@@ -44,6 +44,11 @@ ABI=			o32
 CONFIGURE_ENV+=		ABI=64
 .endif
 
+# mk/platform/IRIX.mk exports ABI=32 for n32; gmp calls that ABI "n32".
+.if ${MACHINE_PLATFORM:MIRIX-6.*} && ${ABI:U} == "32"
+CONFIGURE_ENV+=		ABI=n32
+.endif
+
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 .  if !empty(PKGSRC_COMPILER:Msunpro)
 # don't use x86 assembly (it doesn't build)
