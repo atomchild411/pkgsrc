@@ -25,14 +25,14 @@ CONFIGURE_ENV+=		ac_cv_path_GREP=${GREP:Q} ac_cv_path_EGREP=${EGREP:Q}
 # Remove this when all dependent packages have switched to pkg-config
 CONFIGURE_ARGS+=	--enable-freetype-config
 
-.if ${OPSYS} == "Darwin" && exists(/System/Library/Frameworks/Carbon.framework)
-LDFLAGS+=	-framework Carbon
-.endif
-
 PKGCONFIG_OVERRIDE=	builds/unix/freetype2.pc
 PKGCONFIG_OVERRIDE_STAGE=	post-build
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin" && exists(/System/Library/Frameworks/Carbon.framework)
+LDFLAGS+=	-framework Carbon
+.endif
 .include "../../mk/compiler.mk"
 
 .include "options.mk"
