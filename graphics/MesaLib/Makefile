@@ -2,7 +2,7 @@
 
 DISTNAME=	mesa-21.3.9
 PKGNAME=	${DISTNAME:S/mesa/MesaLib/}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	graphics
 MASTER_SITES=	https://mesa.freedesktop.org/archive/
 EXTRACT_SUFX=	.tar.xz
