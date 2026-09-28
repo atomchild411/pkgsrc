@@ -18,6 +18,15 @@ DEINSTALL_TEMPLATES+=	../../devel/glib2/files/modules.tmpl
 
 TOOLS_NOOP+=	gio-querymodules
 
+# Meson's gnome.post_install() runs the gio-querymodules that glib2's .pc
+# file names, a target program when cross-compiling. Name the no-op tool
+# in meson's cross file instead; the INSTALL script updates the module
+# cache on the target.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MESON_BINARIES+=		gio-querymodules
+MESON_BINARY.gio-querymodules=	${TOOLS_DIR}/bin/gio-querymodules
+.endif
+
 .include "../../devel/glib2/buildlink3.mk"
 
 .endif			# GIO_MODULES_MK

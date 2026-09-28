@@ -17,6 +17,16 @@ BUILDLINK_FILES.glib2+=		bin/glib-compile-schemas
 
 TOOL_DEPENDS+=	glib2-tools-[0-9]*:../../devel/glib2-tools
 
+# Meson's gnome module runs the tools glib-2.0's and gio-2.0's .pc files
+# name, which in a cross build are target programs: name the build host's
+# in meson's cross file instead.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+.  for _t_ in glib-mkenums glib-genmarshal glib-compile-resources glib-compile-schemas
+MESON_BINARIES+=	${_t_}
+MESON_BINARY.${_t_}=	${TOOLBASE}/bin/${_t_}
+.  endfor
+.endif
+
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libffi/buildlink3.mk"
