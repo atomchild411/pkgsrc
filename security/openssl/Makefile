@@ -4,7 +4,7 @@
 # is not possible for users who have bootstrapped without OpenSSL
 # to install it and enable HTTPS fetching.
 DISTNAME=	openssl-3.6.4
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=openssl/}
 GITHUB_RELEASE=	${DISTNAME}
@@ -120,6 +120,14 @@ OPENSSL_HOST.SunOS-x86_64=	solaris64-x86_64-cc
 OPENSSL_HOST.SunOS-x86_64=	solaris64-x86_64-gcc
 .endif
 OPENSSL_HOST.Darwin-aarch64=	darwin64-arm64-cc
+# IRIX 6.5 n32 (mipseb here): OpenSSL's own IRIX target. A cross build must
+# name it: ./config would guess from the build host. No assembly for now:
+# plain C first, the n32 perlasm later.
+OPENSSL_HOST.IRIX-mipseb=	irix-mips3-gcc
+CONFIGURE_ARGS.IRIX+=		no-asm
+# IRIX defines AF_INET6 but declares struct sockaddr_in6 only under INET6;
+# and IPv6 is not wanted there.
+CPPFLAGS.IRIX+=			-DOPENSSL_USE_IPV6=0
 
 # Ensure consistent socket interfaces are used across the codebase.
 CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
