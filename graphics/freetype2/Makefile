@@ -25,7 +25,7 @@ CONFIGURE_ENV+=		ac_cv_path_GREP=${GREP:Q} ac_cv_path_EGREP=${EGREP:Q}
 # Remove this when all dependent packages have switched to pkg-config
 CONFIGURE_ARGS+=	--enable-freetype-config
 
-.if exists(/System/Library/Frameworks/Carbon.framework)
+.if ${OPSYS} == "Darwin" && exists(/System/Library/Frameworks/Carbon.framework)
 LDFLAGS+=	-framework Carbon
 .endif
 
