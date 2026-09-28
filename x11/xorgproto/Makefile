@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.27 2025/12/20 22:17:00 wiz Exp $
 
 DISTNAME=		xorgproto-2025.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=proto/}
 EXTRACT_SUFX=		.tar.xz
