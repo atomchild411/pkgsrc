@@ -56,7 +56,12 @@ SUBST_CLASSES+=		meson
 SUBST_STAGE.meson=	pre-configure
 SUBST_FILES.meson+=	meson.build
 SUBST_MESSAGE.meson=	Forcing meson to find proper Python.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# meson runs this Python on the build host: the tool's, not the target's.
+SUBST_SED.meson+=	-e 's,@PYTHONBIN@,${TOOL_PYTHONBIN},'
+.else
 SUBST_VARS.meson+=	PYTHONBIN
+.endif
 
 GIO_MODULES_DIR=	${PREFIX}/lib/gio/modules
 OWN_DIRS=		${GIO_MODULES_DIR}
@@ -98,8 +103,13 @@ PKGCONFIG_OVERRIDE+=	output/meson-private/gthread-2.0.pc
 
 PKGCONFIG_OVERRIDE_STAGE=	post-configure
 
-# to run gdbus-codegen to generate gdbus-daemon-generated.{h,c}
+# to run gdbus-codegen to generate gdbus-daemon-generated.{h,c}; a cross
+# build needs only the build host's Python for that, not the target's.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+PYTHON_FOR_BUILD_ONLY=	tool
+.else
 PYTHON_FOR_BUILD_ONLY=	yes
+.endif
 
 .include "../../mk/compiler.mk"
 

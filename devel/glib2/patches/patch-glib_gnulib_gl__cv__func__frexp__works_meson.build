@@ -1,0 +1,23 @@
+$NetBSD$
+
+IRIX cross builds: frexp only mishandles infinity there (measured on 6.5.22),
+which gnulib's frexp.c repairs; it is not broken beyond repair.
+
+--- glib/gnulib/gl_cv_func_frexp_works/meson.build.orig
++++ glib/gnulib/gl_cv_func_frexp_works/meson.build
+@@ -91,9 +91,13 @@
+     gl_cv_func_frexp_broken_beyond_repair = false
+   endif
+ else
+-  if (host_system.startswith ('netbsd') or
+-      host_system.startswith ('irix'))
++  if host_system.startswith ('irix')
++    # IRIX 6.5.22, measured with the test above: only frexp (inf) is wrong
++    # (result 2), which frexp.c repairs.
+     gl_cv_func_frexp_works = false
++    gl_cv_func_frexp_broken_beyond_repair = false
++  elif host_system.startswith ('netbsd')
++    gl_cv_func_frexp_works = false
+     gl_cv_func_frexp_broken_beyond_repair = true
+   elif host_system == 'windows'
+     if cc.get_id () == 'msvc' or cc.get_id() == 'clang-cl'

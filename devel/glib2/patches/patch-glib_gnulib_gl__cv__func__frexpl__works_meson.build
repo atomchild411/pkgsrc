@@ -1,0 +1,25 @@
+$NetBSD$
+
+IRIX cross builds: libc's frexpl takes IRIX's double-double long double,
+not the compiler's binary128 one; use gnulib's frexpl.c instead of stopping.
+
+--- glib/gnulib/gl_cv_func_frexpl_works/meson.build.orig
++++ glib/gnulib/gl_cv_func_frexpl_works/meson.build
+@@ -119,10 +119,14 @@
+     gl_cv_func_frexpl_broken_beyond_repair = true
+   endif
+ else
+-  if (host_system.startswith ('aix') or
+-      host_system.startswith ('beos') or
+-      host_system.startswith ('irix'))
++  if host_system.startswith ('irix')
++    # IRIX's libc frexpl takes its own (double-double) long double, not the
++    # compiler's IEEE binary128 one: use frexpl.c.
+     gl_cv_func_frexpl_works = false
++    gl_cv_func_frexpl_broken_beyond_repair = false
++  elif (host_system.startswith ('aix') or
++      host_system.startswith ('beos'))
++    gl_cv_func_frexpl_works = false
+     gl_cv_func_frexpl_broken_beyond_repair = true
+   elif (host_system == 'windows')
+     gl_cv_func_frexpl_works = false
