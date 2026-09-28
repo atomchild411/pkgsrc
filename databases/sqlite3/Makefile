@@ -4,6 +4,7 @@
 
 DISTNAME=	sqlite-autoconf-${SQLITE3_DISTVERSION}
 PKGNAME=	sqlite3-${SQLITE3_VERSION}
+PKGREVISION=	1
 CATEGORIES=	databases
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -19,6 +20,10 @@ USE_TOOLS+=		gmake
 HAS_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
+# Give libsqlite3.so its historical SONAME (autosetup sets none by default),
+# so that programs record libsqlite3.so.0 rather than whatever path they
+# were linked against (a cross build's destdir, say).
+CONFIGURE_ARGS+=	--soname=legacy
 PKGCONFIG_OVERRIDE+=	sqlite3.pc.in
 
 .include "../../mk/bsd.prefs.mk"
