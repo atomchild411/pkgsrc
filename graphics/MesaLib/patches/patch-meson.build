@@ -1,0 +1,35 @@
+$NetBSD$
+
+IRIX: EGL (egl_dri2, surfaceless) on the swrast DRI driver without libdrm,
+as GNU/Hurd builds it.
+
+--- meson.build.orig
++++ meson.build
+@@ -265,7 +265,8 @@
+ with_gallium = gallium_drivers.length() != 0
+ with_gallium_kmsro = with_gallium_v3d or with_gallium_vc4 or with_gallium_etnaviv or with_gallium_panfrost or with_gallium_lima or with_gallium_freedreno
+ 
+-if with_gallium and system_has_kms_drm
++# IRIX: DRI drivers (swrast) for EGL without a kernel DRM, as on GNU/Hurd.
++if with_gallium and (system_has_kms_drm or host_machine.system() == 'irix')
+   _glx = get_option('glx')
+   _egl = get_option('egl')
+   if _glx == 'dri' or _egl == 'enabled' or (_glx == 'disabled' and _egl != 'disabled')
+@@ -582,7 +583,7 @@
+ 
+ # GNU/Hurd includes egl_dri2, without drm.
+ with_dri2 = (with_dri or with_any_vk) and (with_dri_platform == 'drm' or
+-  host_machine.system() == 'gnu')
++  ['gnu', 'irix'].contains(host_machine.system()))
+ _dri3 = get_option('dri3')
+ if _dri3 == 'true'
+   _dri3 = 'enabled'
+@@ -1645,7 +1646,7 @@
+ dep_libdrm = dependency(
+   'libdrm', version : '>=' + _drm_ver,
+   # GNU/Hurd includes egl_dri2, without drm.
+-  required : (with_dri2 and host_machine.system() != 'gnu') or with_dri3
++  required : (with_dri2 and not ['gnu', 'irix'].contains(host_machine.system())) or with_dri3
+ )
+ if dep_libdrm.found()
+   pre_args += '-DHAVE_LIBDRM'

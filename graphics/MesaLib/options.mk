@@ -52,7 +52,7 @@ PKG_SUGGESTED_OPTIONS+=		elf-tls
 PLIST_VARS+=	r600 radeonsi
 
 # Windowing systems
-PLIST_VARS+=	glx
+PLIST_VARS+=	dri glx
 
 # Misc. features
 PLIST_VARS+=	vdpau
@@ -109,6 +109,7 @@ VULKAN_DRIVERS+=	freedreno
 .if !empty(PKG_OPTIONS:Mx11)
 MESA_PLATFORMS+=	x11
 PLIST.glx=		yes
+PLIST.dri=		yes
 .  if ${MESALIB_SUPPORTS_DRI} == "yes"
 MESON_ARGS+=		-Dglx=dri
 .    include "../../multimedia/libvdpau/available.mk"

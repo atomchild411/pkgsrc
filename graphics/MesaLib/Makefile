@@ -51,7 +51,7 @@ PLIST_VARS+=		i830 i915 i965 r100 r200 nouveau_dri
 PLIST_VARS+=		r300 svga nouveau iris
 
 # other features
-PLIST_VARS+=		arm kms vaapi xa
+PLIST_VARS+=		arm egl kms vaapi xa
 
 .if ${MESALIB_SUPPORTS_DRI} == "yes"
 BUILDLINK_API_DEPENDS.libdrm+=	libdrm>=2.4.100
@@ -61,6 +61,7 @@ BUILDLINK_API_DEPENDS.libdrm+=	libdrm>=2.4.100
 .  endif
 MESON_ARGS+=		-Degl=true
 MESON_ARGS+=		-Dgbm=true
+PLIST.egl=		yes
 .  if ${_MESALIB_ARCH_SUPPORTS_XA} == "yes"
 # XA state tracker requires at least one of the following gallium drivers:
 # nouveau, freedreno, i915, svga
@@ -123,6 +124,16 @@ BUILDLINK_API_DEPENDS.libva+=	libva>=2.13.0
 .  else
 MESON_ARGS+=		-Dgallium-va=disabled
 .  endif
+.elif ${OPSYS} == "IRIX"
+# EGL (surfaceless) and GLES on the swrast DRI driver, without libdrm
+# (patch-meson.build). No shader cache: it keys on dladdr/build ids.
+MESON_ARGS+=		-Degl=enabled
+MESON_ARGS+=		-Dgbm=disabled
+MESON_ARGS+=		-Dgallium-xa=disabled
+MESON_ARGS+=		-Dgallium-va=disabled
+MESON_ARGS+=		-Dshader-cache=disabled
+PLIST.egl=		yes
+PLIST.dri=		yes
 .else
 MESON_ARGS+=		-Degl=false
 MESON_ARGS+=		-Dgbm=false
@@ -149,6 +160,8 @@ CPPFLAGS+=	-DSYSCONFDIR=${PKG_SYSCONFDIR}
 
 TOOL_DEPENDS+=	${PYPKGPREFIX}-mako-[0-9]*:../../devel/py-mako
 
+# Before pyversion.mk, which decides from it whether Python is a dependency.
+PYTHON_FOR_BUILD_ONLY=		tool
 .include "../../lang/python/pyversion.mk"
 
 .if ${PYTHON_VERSION} > 311
@@ -178,7 +191,6 @@ CONF_FILES+=	${EGDIR}/00-mesa-defaults.conf ${PKG_SYSCONFDIR}/drirc
 
 INSTALLATION_DIRS+=	${EGDIR}
 
-PYTHON_FOR_BUILD_ONLY=		tool
 PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 PKGCONFIG_OVERRIDE_STAGE=	pre-install

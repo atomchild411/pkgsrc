@@ -7,9 +7,11 @@ Don't hard error when there's no pthread_setname_np.
 
 handle NetBSD-style pthread_setaffinity_np(3)
 
---- src/util/u_thread.h.orig	2021-08-04 18:49:29.374474500 +0000
+IRIX: no pthread_getcpuclockid or pthread barriers.
+
+--- src/util/u_thread.h.orig
 +++ src/util/u_thread.h
-@@ -129,7 +129,7 @@ static inline thrd_t u_thread_create(int
+@@ -129,7 +129,7 @@
  static inline void u_thread_setname( const char *name )
  {
  #if defined(HAVE_PTHREAD)
@@ -18,7 +20,7 @@ handle NetBSD-style pthread_setaffinity_np(3)
     int ret = pthread_setname_np(pthread_self(), name);
     if (ret == ERANGE) {
        char buf[16];
-@@ -169,8 +169,32 @@ util_set_thread_affinity(thrd_t thread,
+@@ -169,8 +169,32 @@
                           unsigned num_mask_bits)
  {
  #if defined(HAVE_PTHREAD_SETAFFINITY)
@@ -31,14 +33,14 @@ handle NetBSD-style pthread_setaffinity_np(3)
 +   if (old_mask) {
 +      if (pthread_getaffinity_np(thread, cpuset_size(cpuset), cpuset) != 0)
 +         return false;
- 
++
 +      memset(old_mask, 0, num_mask_bits / 8);
 +      for (unsigned i = 0; i < num_mask_bits && i < CPU_SETSIZE; i++) {
 +         if (cpuset_isset(i, cpuset))
 +            old_mask[i / 32] |= 1u << (i % 32);
 +      }
 +   }
-+
+ 
 +   cpuset_zero(cpuset);
 +   for (unsigned i = 0; i < num_mask_bits && i < CPU_SETSIZE; i++) {
 +      if (mask[i / 32] & (1u << (i % 32)))
@@ -52,7 +54,7 @@ handle NetBSD-style pthread_setaffinity_np(3)
     if (old_mask) {
        if (pthread_getaffinity_np(thread, sizeof(cpuset), &cpuset) != 0)
           return false;
-@@ -188,7 +212,7 @@ util_set_thread_affinity(thrd_t thread,
+@@ -188,7 +212,7 @@
           CPU_SET(i, &cpuset);
     }
     return pthread_setaffinity_np(thread, sizeof(cpuset), &cpuset) == 0;
@@ -61,12 +63,21 @@ handle NetBSD-style pthread_setaffinity_np(3)
  #elif defined(_WIN32) && !defined(__CYGWIN__)
     DWORD_PTR m = mask[0];
  
-@@ -242,7 +266,7 @@ util_set_current_thread_affinity(const u
+@@ -242,7 +266,7 @@
  static inline int64_t
  util_thread_get_time_nano(thrd_t thread)
  {
 -#if defined(HAVE_PTHREAD) && !defined(__APPLE__) && !defined(__HAIKU__)
-+#if defined(HAVE_PTHREAD) && !defined(__APPLE__) && !defined(__HAIKU__) && !defined(__sun)
++#if defined(HAVE_PTHREAD) && !defined(__APPLE__) && !defined(__HAIKU__) && !defined(__sun) && !defined(__sgi)
     struct timespec ts;
     clockid_t cid;
+ 
+@@ -282,7 +306,7 @@
+  * util_barrier
+  */
+ 
+-#if defined(HAVE_PTHREAD) && !defined(__APPLE__) && !defined(__HAIKU__)
++#if defined(HAVE_PTHREAD) && !defined(__APPLE__) && !defined(__HAIKU__) && !defined(__sgi)
+ 
+ typedef pthread_barrier_t util_barrier;
  
