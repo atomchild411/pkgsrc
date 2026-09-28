@@ -76,6 +76,17 @@ CMAKE_LIBRARY_PATH+=	${COMPILER_LIB_DIRS:@.d.@${_CROSS_DESTDIR:U}${.d.}@}
 
 CONFIGURE_ENV+=		BUILDLINK_DIR=${BUILDLINK_DIR}
 
+# Cross builds: tell cmake what the target is. Without CMAKE_SYSTEM_NAME it
+# configures for the build host (on a Mac: -arch and -isysroot for the
+# target's compiler). pkgsrc's mk/cmake-Modules has Platform files for
+# targets cmake no longer knows (IRIX); cmake loads them at project().
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_SYSTEM_NAME:STRING=${OPSYS}
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_SYSTEM_VERSION:STRING=${OS_VERSION}
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_SYSTEM_PROCESSOR:STRING=${MACHINE_GNU_ARCH}
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_MODULE_PATH:PATH=${PKGSRCDIR}/mk/cmake-Modules
+.endif
+
 CMAKE_BUILD_DIR?=	cmake-pkgsrc-build
 CMAKE_BUILD_ARGS?=	-j ${_MAKE_JOBS_N:U1}
 CMAKE_INSTALL_ARGS?=	-j ${_MAKE_JOBS_N:U1}

@@ -91,6 +91,16 @@ CMAKE_CONFIGURE_ARGS+=	-DCMAKE_INSTALL_LOCALEDIR:PATH=${PKGLOCALEDIR}/locale
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_APPLE_SILICON_PROCESSOR=arm64
 .endif
 
+# Cross builds: tell cmake what the target is. Without CMAKE_SYSTEM_NAME it
+# configures for the build host (on a Mac: -arch and -isysroot for the
+# target's compiler). mk/cmake-Modules/Platform has files for targets cmake
+# no longer knows (IRIX).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_SYSTEM_NAME:STRING=${OPSYS}
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_SYSTEM_VERSION:STRING=${OS_VERSION}
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_SYSTEM_PROCESSOR:STRING=${MACHINE_GNU_ARCH}
+.endif
+
 .if defined(CMAKE_PREFIX_PATH)
 CMAKE_CONFIGURE_ARGS+=-DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH:ts;:Q}
 .endif
