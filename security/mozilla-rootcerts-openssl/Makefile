@@ -15,7 +15,9 @@ WRKSRC=		${WRKDIR}
 BUILD_DIRS=	# empty
 
 TOOL_DEPENDS+=	mozilla-rootcerts>=1.1.20260715:../../security/mozilla-rootcerts
-SCRIPT=		${LOCALBASE}/sbin/mozilla-rootcerts
+# The TOOL_DEPENDS copy: TOOLBASE, which differs from LOCALBASE when
+# cross-compiling.
+SCRIPT=		${TOOLBASE}/sbin/mozilla-rootcerts
 
 CHECK_BUILTIN.openssl=	yes
 .include "../../security/openssl/builtin.mk"
@@ -47,7 +49,7 @@ OPENSSLDIR=		${PLACE}/openssl/certs
 
 do-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${OPENSSLDIR}
-	cd ${WRKSRC} && ${SCRIPT} -d ${DESTDIR} install
+	cd ${WRKSRC} && ${SETENV} SSLDIR=${PLACE}/openssl ${SCRIPT} -d ${DESTDIR} install
 	${CHMOD} go+r ${DESTDIR}${OPENSSLDIR}/*.pem
 	${CHMOD} go+r ${DESTDIR}${OPENSSLDIR}/*.crt
 

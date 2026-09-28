@@ -1842,6 +1842,7 @@ lib/clang/21/include/intrin0.h
 lib/clang/21/include/inttypes.h
 lib/clang/21/include/invpcidintrin.h
 lib/clang/21/include/irix_wrappers/__irix_int_c.h
+lib/clang/21/include/irix_wrappers/assert.h
 lib/clang/21/include/irix_wrappers/ctype.h
 lib/clang/21/include/irix_wrappers/fenv.h
 lib/clang/21/include/irix_wrappers/internal/sgimacros.h
@@ -1851,7 +1852,11 @@ lib/clang/21/include/irix_wrappers/stdint.h
 lib/clang/21/include/irix_wrappers/stdio.h
 lib/clang/21/include/irix_wrappers/stdlib.h
 lib/clang/21/include/irix_wrappers/string.h
+lib/clang/21/include/irix_wrappers/sys/select.h
+lib/clang/21/include/irix_wrappers/sys/socket.h
+lib/clang/21/include/irix_wrappers/sys/types.h
 lib/clang/21/include/irix_wrappers/unistd.h
+lib/clang/21/include/irix_wrappers/uuid.h
 lib/clang/21/include/irix_wrappers/wchar.h
 lib/clang/21/include/iso646.h
 lib/clang/21/include/keylockerintrin.h
