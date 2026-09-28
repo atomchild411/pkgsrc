@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.12 2026/08/05 04:14:30 wiz Exp $
 BLAKE2s (libXfont2-2.0.9.tar.xz) = a8ed98a56f2f882781aa051f5c2502ec9285452ceb20315bf876b59364dcd0a0
 SHA512 (libXfont2-2.0.9.tar.xz) = ccd6d6abf6aa814a940d137813dba638f8259c3672abf00808d82df033c1026ae29d40c9068da4f112637338ad0d0fc15818a4afa9369a626c8f17e466b4fa72
 Size (libXfont2-2.0.9.tar.xz) = 478844 bytes
+SHA1 (patch-src_fontfile_dirfile.c) = 0432320031e0e92e3229476a045166fa25f2819f
