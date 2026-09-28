@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.38 2026/05/19 09:47:11 jperkin Exp $
 
 DISTNAME=	nettle-4.0
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	http://www.lysator.liu.se/~nisse/archive/
 MASTER_SITES+=	ftp://ftp.lysator.liu.se/pub/security/lsh/
