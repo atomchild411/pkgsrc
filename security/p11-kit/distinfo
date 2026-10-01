@@ -4,4 +4,5 @@ BLAKE2s (p11-kit-0.26.5.tar.xz) = 682ded284582136fe9a66ac7df84cc5ac135b142580547
 SHA512 (p11-kit-0.26.5.tar.xz) = 180d8bfd07332aeb31b3008c6bf68492a754a81cd59c761ed76673210312b9c6ac7fbcf57df8328e897044a09f3531fd1701e462731feec4427b7430bb4c789e
 Size (p11-kit-0.26.5.tar.xz) = 1082584 bytes
 SHA1 (patch-common_message.c) = 4169ab2cb0b923d306c0b77908e1a412fec261c8
+SHA1 (patch-common_unix-peer.c) = e274dddc66a9174d3e1e68734f984d155eab8479
 SHA1 (patch-meson.build) = eb1c4130b097e3d57a74c9aa5482872670f3472b
