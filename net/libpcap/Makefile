@@ -20,6 +20,10 @@ PKGCONFIG_OVERRIDE=	libpcap.pc.in
 CONFIGURE_ARGS.SunOS+=	--with-pcap=dlpi
 CONFIGURE_ENV.SunOS+=	ac_cv_func_getifaddrs=no
 
+# IPv6 is enabled whenever getaddrinfo exists, and then pcap-snoop.c pulls in
+# netinet/ip6.h, which IRIX does not have.
+CONFIGURE_ARGS.IRIX+=	--disable-ipv6
+
 .include "../../mk/bsd.prefs.mk"
 
 # Requires Availability.h, which debuted with 10.5.
