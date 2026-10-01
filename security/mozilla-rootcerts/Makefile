@@ -47,7 +47,9 @@ SUBST_MESSAGE.paths=	Replacing hard-coded paths.
 SUBST_STAGE.paths=	post-configure
 SUBST_FILES.paths=	${CERT_SCRIPT}
 SUBST_VARS.paths=	AWK DATADIR ECHO EXPR LN LS MKDIR PREFIX RM SH SSLDIR
-SUBST_SED.paths=	-e 's,@OPENSSL@,${TOOLS_PATH.openssl},g'
+# Where openssl is when the script runs: in a cross build the target's
+# (TARGET_TOOL, mk/tools/replace.mk), not the build host's.
+SUBST_SED.paths=	-e 's,@OPENSSL@,${TARGET_TOOL.OPENSSL:U${TOOLS_PATH.openssl}},g'
 
 INSTALLATION_DIRS=	sbin ${DATADIR} share/doc/${PKGBASE}
 

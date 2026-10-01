@@ -5,6 +5,24 @@
 COMMENT=	Cross platform make
 
 USE_TOOLS+=		gmake pkg-config
+
+LDFLAGS.Darwin+=	-framework CoreServices # for LSOpenCFURLRef()
+LDFLAGS.SunOS+=		-lsocket -lnsl
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# The bootstrap script runs the programs it compiles, which a cross build
+# cannot: configure with the build host's cmake instead, as any CMake
+# project is, with the same choices as the bootstrap arguments below.
+.include "build.mk"
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_USE_SYSTEM_LIBRARIES:BOOL=ON
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_USE_SYSTEM_LIBRARY_CPPDAP:BOOL=OFF
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_USE_SYSTEM_LIBRARY_JSONCPP:BOOL=OFF
+CMAKE_CONFIGURE_ARGS+=	-DCMake_ENABLE_DEBUGGER:BOOL=OFF
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_DOC_DIR:PATH=share/doc/cmake-${CMAKE_API}
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_MAN_DIR:PATH=${PKGMANDIR}
+.else
 HAS_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	bootstrap
 
@@ -23,11 +41,7 @@ CONFIGURE_ARGS+=	--no-debugger
 # cppdap and jsoncpp require cmake to build, so use the one provided with cmake
 CONFIGURE_ARGS+=	--no-system-cppdap
 CONFIGURE_ARGS+=	--no-system-jsoncpp
-
-LDFLAGS.Darwin+=	-framework CoreServices # for LSOpenCFURLRef()
-LDFLAGS.SunOS+=		-lsocket -lnsl
-
-.include "../../mk/bsd.prefs.mk"
+.endif
 
 .if ${INSTALL_UNSTRIPPED:Uno:tl} != yes
 INSTALL_TARGET=		install/strip
