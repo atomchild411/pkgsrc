@@ -21,7 +21,9 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # new header wrappers.
 # nb3: lld handles R_MIPS_LITERAL, R_MIPS_PJUMP and puts .sbss before .bss
 # (llvm iris/main 39fc2ba): every n32 archive in /usr/lib32 links.
-PKGREVISION=	3
+# nb4: the builtins' libc stand-ins are weak, so a program's own copy wins
+# (llvm iris/main 369bd58).
+PKGREVISION=	4
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
