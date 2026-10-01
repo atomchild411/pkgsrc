@@ -25,7 +25,12 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # (llvm iris/main 369bd58).
 # nb5: sysconf names IRIX lacks, <stdint.h> outside C99 mode, <endian.h>,
 # cfmakeraw, lchmod, get_nprocs (iris/main 8828451 .. 4a504a7).
-PKGREVISION=	5
+# nb6: long double is a double, as IRIX's libc and libm can take it
+# (iris/main 6d2c7cb); wchar_t, wint_t and intptr_t are long, as in IRIX's
+# headers (67535f6); <sys/select.h>, <fenv.h>, <math.h> and wide-character
+# gaps; lld takes MIPSpro ld's -n32/-rdata_shared and drops SGI debug info
+# (iris/main 07631468 .. 267a506).
+PKGREVISION=	6
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix

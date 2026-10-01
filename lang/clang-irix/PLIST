@@ -1858,6 +1858,7 @@ lib/clang/21/include/irix_wrappers/math.h
 lib/clang/21/include/irix_wrappers/net/if.h
 lib/clang/21/include/irix_wrappers/netdb.h
 lib/clang/21/include/irix_wrappers/netinet/in.h
+lib/clang/21/include/irix_wrappers/netinet/ip.h
 lib/clang/21/include/irix_wrappers/pthread.h
 lib/clang/21/include/irix_wrappers/spawn.h
 lib/clang/21/include/irix_wrappers/stdint.h
