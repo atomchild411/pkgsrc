@@ -1,0 +1,17 @@
+$NetBSD$
+
+configure defines MAJOR_IN_MKDEV (finfo.c tests that name), not
+MAJOR_IN_MAKEDEV: major() and minor() from <sys/mkdev.h> (IRIX, Solaris)
+never reached config.h.
+
+--- config.h.in.orig
++++ config.h.in
+@@ -294,7 +294,7 @@
+ #undef HAVE_ALLOCA_H
+ 
+ /* Define if major/minor/makedev is defined in <sys/mkdev.h> */
+-#undef MAJOR_IN_MAKEDEV
++#undef MAJOR_IN_MKDEV
+ 
+ /* Define if major/minor/makedev is defined in <sys/sysmacros.h> */
+ #undef MAJOR_IN_SYSMACROS

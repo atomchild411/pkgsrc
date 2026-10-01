@@ -2,26 +2,9 @@ $NetBSD: patch-examples_loadables_Makefile.in,v 1.1 2022/11/25 23:29:47 adam Exp
 
 Correctly install shared objects (e.g. unstripped on some platforms).
 
-IRIX: leave out the loadable builtins that need what IRIX 6.5 lacks:
-getconf (POSIX 2001 _SC_* names), cut (strsep), finfo (major/minor),
-fltexpr (C99 math: fmax, nearbyint, isgreater, ...).
-
---- examples/loadables/Makefile.in.orig
+--- examples/loadables/Makefile.in.orig	2022-11-25 23:21:05.000000000 +0000
 +++ examples/loadables/Makefile.in
-@@ -100,10 +100,10 @@
- .c.o:
- 	$(SHOBJ_CC) $(SHOBJ_CFLAGS) $(CCFLAGS) $(INC) -c -o $@ $<
- 
--ALLPROG = print truefalse sleep finfo logname basename dirname fdflags \
-+ALLPROG = print truefalse sleep logname basename dirname fdflags \
- 	  tty pathchk tee head mkdir rmdir mkfifo mktemp printenv id whoami \
- 	  uname sync push ln unlink realpath strftime mypid setpgid seq rm \
--	  accept csv dsv cut stat getconf kv strptime chmod fltexpr
-+	  accept csv dsv stat kv strptime chmod
- OTHERPROG = necho hello cat pushd asort
- 
- SUBDIRS = perl
-@@ -301,7 +301,7 @@
+@@ -281,7 +281,7 @@ install-supported:	all installdirs insta
  	@echo installing example loadable builtins in $(DESTDIR)${loadablesdir}
  	@for prog in ${ALLPROG}; do \
  		echo $$prog ; \
