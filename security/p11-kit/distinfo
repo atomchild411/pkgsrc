@@ -6,3 +6,4 @@ Size (p11-kit-0.26.5.tar.xz) = 1082584 bytes
 SHA1 (patch-common_message.c) = 4169ab2cb0b923d306c0b77908e1a412fec261c8
 SHA1 (patch-common_unix-peer.c) = e274dddc66a9174d3e1e68734f984d155eab8479
 SHA1 (patch-meson.build) = eb1c4130b097e3d57a74c9aa5482872670f3472b
+SHA1 (patch-p11-kit_server.c) = e3476c0a945fb3748ce2f6a01b714e95b699b5e3
