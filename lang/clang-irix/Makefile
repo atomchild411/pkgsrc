@@ -19,7 +19,9 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # nb1: the IRIX header wrappers work against a stock 6.5.22 root too.
 # nb2: lld reads SGI's own relocatable objects (llvm iris/main 349c3a1);
 # new header wrappers.
-PKGREVISION=	2
+# nb3: lld handles R_MIPS_LITERAL, R_MIPS_PJUMP and puts .sbss before .bss
+# (llvm iris/main 39fc2ba): every n32 archive in /usr/lib32 links.
+PKGREVISION=	3
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
