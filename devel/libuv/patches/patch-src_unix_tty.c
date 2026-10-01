@@ -1,10 +1,12 @@
-$NetBSD: patch-src_unix_tty.c,v 1.1 2022/01/28 21:13:10 schmonz Exp $
+$NetBSD$
 
 Apply MacPorts patch-libuv-legacy.diff for pre-10.7 platforms.
 
---- src/unix/tty.c.orig	2022-01-04 14:18:00.000000000 +0000
+IRIX has no cfmakeraw(): use the Solaris implementation.
+
+--- src/unix/tty.c.orig
 +++ src/unix/tty.c
-@@ -72,7 +72,7 @@ static int uv__tty_is_slave(const int fd
+@@ -85,7 +85,7 @@ static int uv__tty_is_slave(const int fd) {
    int dummy;
  
    result = ioctl(fd, TIOCGPTN, &dummy) != 0;
@@ -13,3 +15,12 @@ Apply MacPorts patch-libuv-legacy.diff for pre-10.7 platforms.
    char dummy[256];
  
    result = ioctl(fd, TIOCPTYGNAME, &dummy) != 0;
+@@ -244,7 +244,7 @@ skip:
+ static void uv__tty_make_raw(struct termios* tio) {
+   assert(tio != NULL);
+ 
+-#if defined __sun || defined __MVS__
++#if defined __sun || defined __MVS__ || defined __sgi
+   /*
+    * This implementation of cfmakeraw for Solaris and derivatives is taken from
+    * http://www.perkin.org.uk/posts/solaris-portability-cfmakeraw.html.

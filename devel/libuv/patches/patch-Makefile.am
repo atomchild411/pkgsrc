@@ -1,0 +1,22 @@
+$NetBSD$
+
+IRIX: the POSIX poll(2) backend, as for GNU/Hurd, plus src/unix/irix.c (files/irix.c).
+
+--- Makefile.am.orig
++++ Makefile.am
+@@ -485,6 +485,15 @@ libuv_la_SOURCES += src/unix/bsd-ifaddrs.c \
+                     src/unix/hurd.c
+ endif
+ 
++if IRIX
++uvinclude_HEADERS += include/uv/posix.h
++libuv_la_SOURCES += src/unix/no-fsevents.c \
++                    src/unix/no-proctitle.c \
++                    src/unix/posix-hrtime.c \
++                    src/unix/posix-poll.c \
++                    src/unix/irix.c
++endif
++
+ if LINUX
+ uvinclude_HEADERS += include/uv/linux.h
+ libuv_la_CFLAGS += -D_GNU_SOURCE

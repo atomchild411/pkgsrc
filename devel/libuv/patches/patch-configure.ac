@@ -1,0 +1,14 @@
+$NetBSD$
+
+IRIX: no platform support upstream; build the poll(2) backend plus src/unix/irix.c (files/irix.c).
+
+--- configure.ac.orig
++++ configure.ac
+@@ -65,6 +65,7 @@ AM_CONDITIONAL([DRAGONFLY],[AS_CASE([$host_os],[dragonfly*],    [true], [false])
+ AM_CONDITIONAL([FREEBSD],  [AS_CASE([$host_os],[freebsd*],      [true], [false])])
+ AM_CONDITIONAL([HAIKU],    [AS_CASE([$host_os],[haiku],         [true], [false])])
+ AM_CONDITIONAL([HURD],     [AS_CASE([$host_os],[gnu*],          [true], [false])])
++AM_CONDITIONAL([IRIX],     [AS_CASE([$host_os],[irix*],         [true], [false])])
+ AM_CONDITIONAL([LINUX],    [AS_CASE([$host_os],[linux*],        [true], [false])])
+ AM_CONDITIONAL([MSYS],     [AS_CASE([$host_os],[msys*],         [true], [false])])
+ AM_CONDITIONAL([NETBSD],   [AS_CASE([$host_os],[netbsd*],       [true], [false])])

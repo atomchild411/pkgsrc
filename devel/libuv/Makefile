@@ -34,11 +34,18 @@ INSTALLATION_DIRS+=	include/uv
 CFLAGS+=	-DSUNOS_NO_IFADDRS
 .endif
 
+# IRIX: the platform functions the poll(2) backend leaves out.
+post-extract:
+.if ${OPSYS} == "IRIX"
+	${CP} ${FILESDIR}/irix.c ${WRKSRC}/src/unix/irix.c
+.endif
+
 pre-configure:
 	${RUN} cd ${WRKSRC} && ${SH} ./autogen.sh
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/include/uv/* ${DESTDIR}${PREFIX}/include/uv/
+	${RM} -f ${DESTDIR}${PREFIX}/include/uv/*.orig
 
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

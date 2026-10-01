@@ -1,11 +1,13 @@
-$NetBSD: patch-src_unix_core.c,v 1.5 2026/02/11 09:05:25 adam Exp $
+$NetBSD$
 
 Apply MacPorts patch-libuv-unix-core-close-nocancel.diff for
 - older gcc versions to not error on pragmas
 - 32bit code to link correctly
 - Tiger to work around not having a non-cancellable close function
 
---- src/unix/core.c.orig	2026-02-11 01:57:16.000000000 +0000
+IRIX: the online processor count is _SC_NPROC_ONLN.
+
+--- src/unix/core.c.orig
 +++ src/unix/core.c
 @@ -597,18 +597,31 @@ int uv__accept(int sockfd) {
   * will unwind the thread when it's in the cancel state. Work around that
@@ -46,3 +48,17 @@ Apply MacPorts patch-libuv-unix-core-close-nocancel.diff for
  #elif defined(__linux__) && defined(__SANITIZE_THREAD__) && defined(__clang__)
    long rc;
    __sanitizer_syscall_pre_close(fd);
+@@ -2121,8 +2134,13 @@ unsigned int uv_available_parallelism(void) {
+   }
+ #endif /* __linux__ */
+ 
++#if defined(__sgi)
++  if (rc < 0)
++    rc = sysconf(_SC_NPROC_ONLN);
++#else
+   if (rc < 0)
+     rc = sysconf(_SC_NPROCESSORS_ONLN);
++#endif
+ 
+ #ifdef __linux__
+   {
