@@ -38,12 +38,11 @@ USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 GNU_CONFIGURE_ICONV=	no
 CONFIGURE_ARGS+=	--enable-shared
-CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
 CONFIGURE_ARGS+=	--with-system-expat
 CONFIGURE_ARGS+=	--without-ensurepip
-# IRIX: no bundled mimalloc; its Unix layer opens files through syscall(),
-# which IRIX's n32 libc refuses (EINVAL).
-CONFIGURE_ARGS.IRIX+=	--without-mimalloc
+# configure has no IRIX case for shared modules and falls back to a bare
+# "ld": link them with the compiler driver, as on the BSDs.
+CONFIGURE_ENV.IRIX+=	LDSHARED='$$(CC) -shared' CCSHARED=-fPIC
 CONFIGURE_ENV+=		OPT=${CFLAGS:M*:Q}
 CONFIGURE_ENV+=		ac_cv_path_mkdir=${TOOLS_PATH.mkdir}
 CONFIGURE_ENV+=		py_cv_module__gdbm="n/a"
@@ -55,6 +54,23 @@ PTHREAD_OPTS+=	require
 .include "../../mk/pthread.buildlink3.mk"
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# configure tests for ${prefix}/include/openssl/ssl.h on the build host;
+# the buildlink tree has it there, the target prefix does not.
+CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_DIR}
+.else
+CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
+.endif
+
+# IRIX: no bundled mimalloc; its Unix layer opens files through syscall(),
+# which IRIX's n32 libc refuses (EINVAL).
+PLIST_VARS+=		mimalloc
+.if ${OPSYS} == "IRIX"
+CONFIGURE_ARGS+=	--without-mimalloc
+.else
+PLIST.mimalloc=		yes
+.endif
 
 # NetBSD-8 curses has enough support for py-curses
 USE_CURSES=		getsyx update_panels wide

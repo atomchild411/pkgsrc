@@ -4,13 +4,14 @@ Chunks 1, 5, 6: Changes for consistency across pkgsrc platforms.
 Chunk 1: Simplify _sysconfigdata to include only platform name.
 Chunk 2: Disable barrier to cross-compilation.
 Chunk 3: should probably be handled in the Makefile instead
+IRIX: build libpython as a shared library, as on the BSDs.
 Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
          For upstream, detection of uuig_create and uuid_enc_be should be
          improved.
 
---- configure.orig	2026-08-05 12:25:43.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -3712,7 +3712,7 @@ fi
+@@ -3712,7 +3712,7 @@
      fi
          ac_cv_prog_PYTHON_FOR_REGEN=$with_build_python
      PYTHON_FOR_FREEZE="$with_build_python"
@@ -19,7 +20,7 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $with_build_python" >&5
  printf "%s\n" "$with_build_python" >&6; }
  
-@@ -4489,7 +4489,7 @@ fi
+@@ -4489,7 +4489,7 @@
  
  
  
@@ -28,7 +29,16 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
  	case "$host" in
  	*-*-linux*)
  		case "$host_cpu" in
-@@ -9772,7 +9772,7 @@ fi
+@@ -7587,7 +7587,7 @@
+         PY3LIBRARY=libpython3.so
+       fi
+       ;;
+-    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*)
++    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*|IRIX*)
+       LDLIBRARY='libpython$(LDVERSION).so'
+       BLDLIBRARY='-L. -lpython$(LDVERSION)'
+       RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+@@ -9772,7 +9772,7 @@
  
  case $GCC in
  yes)
@@ -37,22 +47,23 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
  
  
  
-@@ -13891,14 +13891,6 @@ then :
+@@ -13890,15 +13890,7 @@
+ 
  
  fi
- 
+-
 -# gh-124228: While the libuuid library is available on NetBSD and OpenBSD,
 -# it supports only UUID version 4.
 -# This restriction inhibits the proper generation of time-based UUIDs.
 -if test "$ac_sys_system" = "NetBSD" || test "$ac_sys_system" = "OpenBSD"; then
 -  have_uuid=missing
 -  printf "%s\n" "#define HAVE_UUID_H 0" >>confdefs.h
--
+ 
 -fi
  
  if test "x$have_uuid" = xmissing
  then :
-@@ -24953,7 +24945,7 @@ printf "%s\n" "#define ALT_SOABI \"${ALT
+@@ -24953,7 +24945,7 @@
  fi
  
  
@@ -61,7 +72,7 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
  
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking LDVERSION" >&5
  printf %s "checking LDVERSION... " >&6; }
-@@ -25022,11 +25014,7 @@ fi
+@@ -25022,11 +25014,7 @@
  
  
  
