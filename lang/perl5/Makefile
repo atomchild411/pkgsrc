@@ -51,9 +51,73 @@ PERL5_API_VERS_cmd=	\
 .include "../../mk/compiler.mk"
 
 HAS_CONFIGURE=		yes
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# Perl's Configure runs the programs it compiles to learn about the target,
+# which a cross build cannot: use perl-cross (github.com/arsv/perl-cross),
+# a configure and Makefiles that only compile, laid over the perl source.
+# It builds a miniperl for the build host to run the build with.  The
+# choices Policy.sh makes for Configure are passed as -D options.
+PERL_CROSS=		perl-cross-1.6.5
+DISTFILES=		${DEFAULT_DISTFILES} ${PERL_CROSS}.tar.gz
+SITES.${PERL_CROSS}.tar.gz= \
+	https://github.com/arsv/perl-cross/releases/download/${PERL_CROSS:S/perl-cross-//}/
+EXTRACT_ONLY=		${DEFAULT_DISTFILES}
+USE_TOOLS+=		pax gzip
+CONFIGURE_SCRIPT=	./configure
+CONFIGURE_ARGS+=	--target=${MACHINE_GNU_PLATFORM}
+CONFIGURE_ARGS+=	--prefix=${PERL5_PREFIX}
+# The target's headers, for the scans that read them (Errno); not left in
+# Config.pm (post-install).
+CONFIGURE_ARGS+=	--sysroot=${_CROSS_DESTDIR}
+CONFIGURE_ARGS+=	--host-cc=${NATIVE_CC:Q}
+CONFIGURE_ARGS+=	--with-cc=${CC:Q} --with-cpp=${CC:Q}\ -E
+CONFIGURE_ARGS+=	--with-ar=${AR:Q} --with-ranlib=${RANLIB:Q}
+CONFIGURE_ARGS+=	--with-objdump=${MACHINE_GNU_PLATFORM}-objdump
+CONFIGURE_ARGS+=	-Dosname=${LOWER_OPSYS} -Dosvers=${OS_VERSION}
+CONFIGURE_ARGS+=	-Darchname=${MACHINE_ARCH}-${LOWER_OPSYS}
+CONFIGURE_ARGS+=	-Dccflags=${CFLAGS:Q} -Doptimize=
+CONFIGURE_ARGS+=	-Dldflags=${LDFLAGS:Q}
+CONFIGURE_ARGS+=	-Dlibswanted=${LIBSWANTED:Q}
+CONFIGURE_ARGS+=	-Dinstallstyle=lib/perl5 -Dinstallusrbinperl=undef
+CONFIGURE_ARGS+=	-Di_malloc=undef
+CONFIGURE_ARGS+=	-Dsiteprefix=${PERL5_SITEPREFIX}
+CONFIGURE_ARGS+=	-Dvendorprefix=${PERL5_VENDORPREFIX}
+CONFIGURE_ARGS+=	-Dscriptdir=${PERL5_PERLBASE}/bin
+CONFIGURE_ARGS+=	-Dsitescript=${PERL5_SITEBASE}/bin
+CONFIGURE_ARGS+=	-Dvendorscript=${PERL5_VENDORBASE}/bin
+CONFIGURE_ARGS+=	-Dsitebin=${PERL5_SITEBIN}
+CONFIGURE_ARGS+=	-Dvendorbin=${PERL5_VENDORBASE}/bin
+CONFIGURE_ARGS+=	-Dprivlib=${PERL5_PRIVLIB}
+CONFIGURE_ARGS+=	-Dsitelib=${PERL5_SITELIB}
+CONFIGURE_ARGS+=	-Dvendorlib=${PERL5_VENDORLIB}
+CONFIGURE_ARGS+=	-Dsitelib_stem=${PERL5_SITEBASE}
+CONFIGURE_ARGS+=	-Dvendorlib_stem=${PERL5_VENDORBASE}
+.  for _s_ in 1 3
+CONFIGURE_ARGS+=	-Dman${_s_}ext=${_s_}
+CONFIGURE_ARGS+=	-Dman${_s_}dir=${PERL5_PERLBASE}/${PKGMANDIR}/man${_s_}
+CONFIGURE_ARGS+=	-Dsiteman${_s_}dir=${PERL5_SITEBASE}/${PKGMANDIR}/man${_s_}
+CONFIGURE_ARGS+=	-Dvendorman${_s_}dir=${PERL5_VENDORBASE}/${PKGMANDIR}/man${_s_}
+.  endfor
+# The build's sysroot, out of what is installed: perl hands ccflags and
+# ldflags to every module it builds on the target.
+SUBST_CLASSES+=		sysroot
+SUBST_STAGE.sysroot=	pre-install
+SUBST_MESSAGE.sysroot=	Removing the build's sysroot from the Config files.
+SUBST_FILES.sysroot=	lib/Config.pm lib/Config_heavy.pl lib/Config.pod
+SUBST_SED.sysroot=	-e 's, *--sysroot=${_CROSS_DESTDIR},,g'
+SUBST_SED.sysroot+=	-e "s,^sysroot='${_CROSS_DESTDIR}',sysroot='',"
+SUBST_NOOP_OK.sysroot=	yes
+# Where the tools are on the target, for what perl records and runs there.
+.  for _t_ _v_ in sh SH sed SED ln LN
+.    if defined(TARGET_TOOL.${_v_})
+CONFIGURE_ARGS+=	-D${_t_}=${TARGET_TOOL.${_v_}:Q}
+.    endif
+.  endfor
+.else
 CONFIGURE_SCRIPT=	./Configure
 CONFIGURE_ARGS+=	-sde
 CONFIGURE_ARGS+=	-Dldflags=${LDFLAGS:Q}
+.endif
 MAKE_ENV+=		LC_ALL="C"
 LDFLAGS.QNX+=		-lm
 
@@ -212,6 +276,13 @@ SUBST_SED.dirmode=	-e "s/755/${PKGDIRMODE}/g;/umask(/d"
 
 post-extract:
 	${CP} ${FILESDIR}/Policy.sh ${WRKSRC}/Policy.sh
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+	cd ${WRKSRC} && ${GZIP_CMD} -dc ${_DISTDIR}/${PERL_CROSS}.tar.gz | \
+		${PAX} -r -s ',^${PERL_CROSS}/,,'
+.  if exists(${FILESDIR}/perl-cross-${LOWER_OPSYS}.hints)
+	${CP} ${FILESDIR}/perl-cross-${LOWER_OPSYS}.hints ${WRKSRC}/cnf/hints/${LOWER_OPSYS}
+.  endif
+.endif
 
 pre-configure:
 	${FIND} ${WRKSRC} -name "*.orig" -type f -exec rm -f {} \;

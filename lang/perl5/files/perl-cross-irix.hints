@@ -1,0 +1,13 @@
+# IRIX 6.5 (n32), for perl-cross's configure: what it cannot find out by
+# compiling (it never runs what it compiles), or measures wrong.
+d_voidsig='define'
+d_nanosleep='define'
+d_clock_gettime='define'
+d_clock_getres='define'
+d_clock_nanosleep='undef'
+d_clock='define'
+d_procselfexe='undef'
+d_fcntl_can_lock='define'
+# n32's ino_t is 64 bits (perl-cross measured 4).
+st_ino_sign=1
+st_ino_size=8
