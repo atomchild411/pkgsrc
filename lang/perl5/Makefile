@@ -320,6 +320,12 @@ perl5-post-install:
 .if ${OPSYS} == "Haiku"
 	${CHMOD} a+x ${DESTDIR}${PREFIX}/bin/perl
 .endif
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+	# perl-cross's install removes the versioned name installperl made
+	# (and recorded in the .packlist); a native build has it.
+	${LN} -f ${DESTDIR}${PREFIX}/bin/perl \
+		${DESTDIR}${PREFIX}/bin/perl${PKGVERSION_NOREV}
+.endif
 
 .include "packlist.mk"
 .include "../../mk/bsd.pkg.mk"
