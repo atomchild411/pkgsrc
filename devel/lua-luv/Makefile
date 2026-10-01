@@ -35,7 +35,8 @@ PKGCONFIG_OVERRIDE+=	libluv.pc.in
 
 pre-configure:
 .if ${_LUA_VERSION} == "51" || ${_LUA_VERSION} == "52"
-	${CP} ${PREFIX}/${LUA_INCDIR}/compat-5.3.* ${WRKSRC}/src
+# (Through _CROSS_DESTDIR: in a cross build the headers are in the target root.)
+	${CP} ${_CROSS_DESTDIR}${LOCALBASE}/${LUA_INCDIR}/compat-5.3.* ${WRKSRC}/src
 .endif
 
 .include "../../devel/cmake/build.mk"
