@@ -117,6 +117,34 @@ MAKE_PARAMS.modinst+=	installdirs=vendor
 
 MAKE_PARAMS+=	${MAKE_PARAMS.${PERL5_MODTYPE}}
 
+# The perl that runs Makefile.PL and Build.PL.  A cross build runs the
+# build host's (the same lang/perl5, as a tool) with only the target's
+# Config files first in @INC, so that MakeMaker and Module::Build write a
+# build for the target's compiler and directories while the modules the
+# build itself loads stay the host's; XS code compiles against the
+# target perl's headers in the cross destdir.
+.  if ${USE_CROSS_COMPILE:tl} == "yes"
+USE_TOOLS+=		perl
+PERL5_CONFIGURE_PERL=	${TOOLBASE}/bin/perl
+_PERL5_CROSS_CONFIG=	${WRKDIR}/.perl5-cross-config
+MAKE_ENV+=		PERL5LIB=${_PERL5_CROSS_CONFIG}
+.    if !empty(_PERL5_CROSS_ARCHLIB)
+MAKE_PARAMS.makemaker+=	PERL_INC=${_PERL5_CROSS_ARCHLIB}/CORE
+MAKE_PARAMS.modinst+=	PERL_INC=${_PERL5_CROSS_ARCHLIB}/CORE
+.    endif
+pre-configure: perl5-cross-config
+.PHONY: perl5-cross-config
+perl5-cross-config:
+	${RUN}[ -n ${_PERL5_CROSS_ARCHLIB:Q} ] ||			\
+		${FAIL_MSG} "perl5: no target perl (Config.pm) in ${_CROSS_DESTDIR}${LOCALBASE}"
+	${RUN}${MKDIR} ${_PERL5_CROSS_CONFIG}
+	${RUN}${CP} ${_PERL5_CROSS_ARCHLIB}/Config.pm			\
+		${_PERL5_CROSS_ARCHLIB}/Config_heavy.pl			\
+		${_PERL5_CROSS_ARCHLIB}/Config_git.pl ${_PERL5_CROSS_CONFIG}/
+.  else
+PERL5_CONFIGURE_PERL=	${BUILDLINK_PREFIX.perl}/bin/perl
+.  endif
+
 .PHONY: do-makemaker-configure
 do-makemaker-configure:
 	${RUN}								\
@@ -125,7 +153,7 @@ do-makemaker-configure:
 		if ${TEST} -f "$$dir"/Makefile.PL; then			\
 			cd "$$dir";					\
 			${SETENV} ${MAKE_ENV}				\
-				${BUILDLINK_PREFIX.perl}/bin/perl Makefile.PL ${MAKE_PARAMS};	\
+				${PERL5_CONFIGURE_PERL} Makefile.PL ${MAKE_PARAMS};	\
 		fi;							\
 	done
 
@@ -137,7 +165,7 @@ do-modbuild-configure:
 		if ${TEST} -f "$$dir"/Build.PL; then			\
 			cd "$$dir";					\
 			${SETENV} ${MAKE_ENV}				\
-				${BUILDLINK_PREFIX.perl}/bin/perl Build.PL ${MAKE_PARAMS};	\
+				${PERL5_CONFIGURE_PERL} Build.PL ${MAKE_PARAMS};	\
 		fi;							\
 	done
 
@@ -153,7 +181,7 @@ do-modinst-configure:
 		if ${TEST} -f "$$dir"/Makefile.PL; then			\
 			cd "$$dir";					\
 			${SETENV} ${MAKE_ENV}				\
-				${BUILDLINK_PREFIX.perl}/bin/perl Makefile.PL --skipdeps ${MAKE_PARAMS};	\
+				${PERL5_CONFIGURE_PERL} Makefile.PL --skipdeps ${MAKE_PARAMS};	\
 		fi;							\
 	done
 .  else
@@ -163,7 +191,7 @@ do-modinst-configure:
 		if ${TEST} -f "$$dir"/Makefile.PL; then			\
 			cd "$$dir";					\
 			${SETENV} ${MAKE_ENV}				\
-				${BUILDLINK_PREFIX.perl}/bin/perl Makefile.PL --skipdeps ${MAKE_PARAMS};	\
+				${PERL5_CONFIGURE_PERL} Makefile.PL --skipdeps ${MAKE_PARAMS};	\
 		fi;							\
 	done
 .  endif
