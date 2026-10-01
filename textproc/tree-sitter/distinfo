@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.35 2026/09/12 20:58:42 wiz Exp $
 BLAKE2s (tree-sitter-0.27.0.tar.gz) = 13236daed652e74dd092f84476e086e06db30b399d3c4b7b9de52ddd88440a83
 SHA512 (tree-sitter-0.27.0.tar.gz) = 80b29a718fa58909c57537e2ecf8e4df52384bf86ef60c15671f87d10292dfb4a2115243a505e809f02d6370f4ba0e74da0993bbc201d58593abf4819d1373ce
 Size (tree-sitter-0.27.0.tar.gz) = 1020259 bytes
+SHA1 (patch-lib_src_portable_endian.h) = 9088f82f2a190e8b4290dc8da82ebadd8b1e306e
