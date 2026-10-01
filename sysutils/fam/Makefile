@@ -13,9 +13,6 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 COMMENT=		File Alteration Monitor
 LICENSE=		gnu-gpl-v2 AND gnu-lgpl-v2.1 # fam and libfam
 
-# fam is bundled with IRIX
-NOT_FOR_PLATFORM=	IRIX-*-*
-
 USE_TOOLS+=		gmake
 USE_LIBTOOL=		YES
 GNU_CONFIGURE=		YES
@@ -23,9 +20,25 @@ USE_LANGUAGES=		c c++
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 
 EGDIR=			${PREFIX}/share/examples/fam
-CONF_FILES=		${EGDIR}/fam.conf ${PKG_SYSCONFDIR}/fam.conf
 
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX runs its own fam daemon (/usr/etc/fam), which speaks the protocol
+# of this one, SGI's open-source release: build only the client library.
+# IRIX's own libfam.a is MIPSpro C++ that other compilers cannot link.
+PLIST_VARS+=		server
+.if ${OPSYS} == "IRIX"
+BUILD_DIRS=		lib
+INSTALL_DIRS=		include lib
+BUILDLINK_TRANSFORM+=	rm:-lstdc++
+INSTALLATION_DIRS+=	${PKGMANDIR}/man3
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/man/fam.3 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3
+.else
+PLIST.server=		yes
+CONF_FILES=		${EGDIR}/fam.conf ${PKG_SYSCONFDIR}/fam.conf
 RCD_SCRIPTS=		famd
+.endif
 
 SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Fixing hardcoded paths.
