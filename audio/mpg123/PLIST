@@ -14,6 +14,7 @@ ${PLIST.alsa}lib/mpg123/output_alsa.so
 ${PLIST.coreaudio}lib/mpg123/output_coreaudio.so
 lib/mpg123/output_dummy.so
 ${PLIST.oss}lib/mpg123/output_oss.so
+${PLIST.sgi}lib/mpg123/output_sgi.so
 ${PLIST.sun}lib/mpg123/output_sun.so
 lib/pkgconfig/libmpg123.pc
 lib/pkgconfig/libout123.pc

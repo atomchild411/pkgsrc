@@ -11,7 +11,7 @@ MPG123_BUILDING_BASE=	# empty
 
 .include "../../mk/bsd.prefs.mk"
 
-PLIST_VARS+=	coreaudio oss sun alsa
+PLIST_VARS+=	coreaudio oss sun alsa sgi
 
 .if ${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS"
 MPG123_DEFAULT_MODULE=	sun
@@ -25,6 +25,9 @@ MPG123_TRY_MODULES=	pulse,jack,alsa,oss
 PLIST.alsa=		yes
 PLIST.oss=		yes
 .include "../../audio/alsa-lib/buildlink3.mk"
+.elif ${OPSYS} == "IRIX"
+MPG123_DEFAULT_MODULE=	sgi
+PLIST.sgi=		yes
 .else
 MPG123_DEFAULT_MODULE=	oss
 PLIST.oss=		yes
