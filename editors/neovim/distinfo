@@ -1,6 +1,17 @@
 $NetBSD: distinfo,v 1.28 2026/08/27 07:48:41 adam Exp $
 
+BLAKE2s (lpeg-1.1.0.tar.gz) = d3681bbc523cb81bc921bb22ce5a4ccaae8ce593916ba17b573b788b05651e75
+SHA512 (lpeg-1.1.0.tar.gz) = 01b2a4ceb2d110e143603bc63c84a59736ea735dd0ed9866286ba115d41be48d09c9ff21c8e2327974d2296944f6508d50a5c3a18f26ac1d81b8b2fc41f61222
+Size (lpeg-1.1.0.tar.gz) = 78042 bytes
 BLAKE2s (neovim-0.12.5.tar.gz) = ff02d489d68b1c47d83fc9ed44b1d1dc0e876e6ee8e9a7adc924a36e150c7e79
 SHA512 (neovim-0.12.5.tar.gz) = 94b681395a60ce06ec327c578f875b828256891d660c9e34f1f9c0b48577d2f85cbe0c2a8f377fba3b068782cc54dcaeda046045a2bdb7166340e12cf3d70354
 Size (neovim-0.12.5.tar.gz) = 13720423 bytes
+SHA1 (patch-cmake.config_CMakeLists.txt) = 0ca79de4877c3e58740f743f62a76dd9422fefb1
+SHA1 (patch-runtime_lua_vim__core_defaults.lua) = 2c595cac53dcc13b0cde42cd2708bff400d3733e
 SHA1 (patch-runtime_lua_vim_pack.lua) = 9a3890f7faebb169b26679884e0c7e687627cac6
+SHA1 (patch-runtime_plugin_osc52.lua) = eefaf121727ef74e949a6c7a9b23d947cc359eb7
+SHA1 (patch-src_nvim_channel.c) = e06a4f0691bd81383034e20c8394932613d142b6
+SHA1 (patch-src_nvim_option.c) = 7c8e8b7fd49a3a44ec488f73584b75d25f89eb7f
+SHA1 (patch-src_nvim_option_defs.h) = 4c20be67b7d7530a7ac90f7793c7576f40fa796f
+SHA1 (patch-src_nvim_os_pty_proc_unix.c) = 33b045853e8a7dca15a2d6d5a1eb165bec611b38
+SHA1 (patch-src_nvim_tui_tui.c) = 6462ba9fc573e6bd513202ea75f4b2f7b1410360

@@ -31,6 +31,48 @@ LDFLAGS.SunOS+=		-lrt
 # should follow the LuaJIT API compatibility
 LUA_VERSIONS_ACCEPTED=	51
 
+PLIST_VARS+=	nls
+.if ${OPSYS} == "IRIX"
+# No NLS; and nothing provides the stack protector's __stack_chk_* symbols.
+CMAKE_CONFIGURE_ARGS+=	-DENABLE_TRANSLATIONS=OFF
+CMAKE_CONFIGURE_ARGS+=	-DHAS_FSTACK_PROTECTOR_STRONG_FLAG=OFF
+CMAKE_CONFIGURE_ARGS+=	-DHAS_FSTACK_PROTECTOR_FLAG=OFF
+.else
+PLIST.nls=	yes
+.endif
+
+# A cross build runs neovim's code generators and its help-tags step on the
+# build host: a host Lua 5.1 with nlua0 (neovim's mpack and bit modules and
+# lpeg, compiled here for the host) for the generators, and a host neovim
+# for the help tags.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=		lua51-[0-9]*:../../lang/lua51
+TOOL_DEPENDS+=		neovim-[0-9]*:../../editors/neovim
+LPEG_DISTNAME=		lpeg-1.1.0
+DISTFILES=		${DEFAULT_DISTFILES} ${LPEG_DISTNAME}.tar.gz
+SITES.${LPEG_DISTNAME}.tar.gz=	https://www.inf.puc-rio.br/~roberto/lpeg/
+HOST_NLUA0=		${WRKDIR}/host-nlua0/nlua0.so
+CMAKE_CONFIGURE_ARGS+=	-DLUA_GEN_PRG=${TOOLBASE}/bin/lua5.1
+CMAKE_CONFIGURE_ARGS+=	-DNLUA0_HOST_PRG=${HOST_NLUA0}
+CMAKE_CONFIGURE_ARGS+=	-DNVIM_HOST_PRG=${TOOLBASE}/bin/nvim
+# The host Lua's bytecode is not the target's (byte order, sizes): embed
+# the built-in Lua modules as source.
+CMAKE_CONFIGURE_ARGS+=	-DCOMPILE_LUA=OFF
+.  if ${NATIVE_OPSYS} == "Darwin"
+HOST_NLUA0_LDFLAGS=	-bundle -undefined dynamic_lookup
+.  else
+HOST_NLUA0_LDFLAGS=	-shared
+.  endif
+
+pre-configure:
+	${MKDIR} ${WRKDIR}/host-nlua0
+	cd ${WRKDIR}/host-nlua0 && ${NATIVE_CC} -O2 -fPIC -DNVIM_NLUA0	\
+	    -I${TOOLBASE}/include/lua-5.1 -I${WRKSRC}/src		\
+	    -I${WRKDIR}/${LPEG_DISTNAME} ${HOST_NLUA0_LDFLAGS}		\
+	    -o ${HOST_NLUA0} ${WRKSRC}/src/nlua0.c ${WRKSRC}/src/bit.c	\
+	    ${WRKSRC}/src/mpack/*.c ${WRKDIR}/${LPEG_DISTNAME}/lp*.c
+.endif
+
 # https://github.com/neovim/neovim/issues/223#issuecomment-374763255
 FORTIFY_SUPPORTED=	no
 
@@ -44,12 +86,15 @@ DEPENDS+=	${LUA_PKGPREFIX}-mpack-[0-9]*:../../devel/lua-mpack
 .if ${SHLIB_TYPE} == "ELF"
 CFLAGS+=	${COMPILER_RPATH_FLAG}${PREFIX}/lib/lua/5.1
 
+.  if ${OPSYS} != "IRIX"
 TOOL_DEPENDS+=	patchelf-[0-9]*:../../devel/patchelf
+.  endif
 .endif
 
 post-install:
-	${RM} -f ${DESTDIR}${PREFIX}/share/nvim/runtime/lua/vim/pack.lua.orig
-.if ${SHLIB_TYPE} == "ELF"
+	${FIND} ${DESTDIR}${PREFIX}/share/nvim/runtime -name "*.orig" -exec ${RM} -f {} +
+# (IRIX: lua-lpeg's lpeg.so has a SONAME there, so nvim names it plainly.)
+.if ${SHLIB_TYPE} == "ELF" && ${OPSYS} != "IRIX"
 	${TOOLBASE}/bin/patchelf ${DESTDIR}${PREFIX}/bin/nvim \
 		--replace-needed ${BUILDLINK_DIR.lua-lpeg}/lib/lua/5.1/lpeg.so lpeg.so
 .endif

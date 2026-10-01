@@ -1,0 +1,15 @@
+$NetBSD$
+
+IRIX has no forkpty(): check for it, as on Solaris and Haiku (nvim then uses its SVR4 fallback).
+
+--- cmake.config/CMakeLists.txt.orig
++++ cmake.config/CMakeLists.txt
+@@ -91,7 +91,7 @@ int main(void)
+ }
+ " HAVE_BITSCANFORWARD64)
+ 
+-if(CMAKE_SYSTEM_NAME STREQUAL "SunOS" OR CMAKE_SYSTEM_NAME STREQUAL "Haiku")
++if(CMAKE_SYSTEM_NAME STREQUAL "SunOS" OR CMAKE_SYSTEM_NAME STREQUAL "Haiku" OR CMAKE_SYSTEM_NAME STREQUAL "IRIX")
+   check_c_source_compiles("
+ #include <termios.h>
+ int
