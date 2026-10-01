@@ -33,9 +33,8 @@ PKG_SUGGESTED_OPTIONS=		threads
 .endif
 
 .if ${OPSYS} == "IRIX"
-.  if defined(ABI) && ${ABI} == "64"
+# n32 as well as 64: both have a 64-bit long long.
 PKG_SUGGESTED_OPTIONS+=		perl-64bitint
-.  endif
 .elif ${OPSYS} == "AIX"
 .  if defined(ABI) && ${ABI} == "64"
 PKG_SUGGESTED_OPTIONS+=		perl-64bitall
