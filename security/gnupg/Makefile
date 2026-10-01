@@ -34,6 +34,13 @@ CONFIGURE_ARGS+=	--disable-asm
 CONFIGURE_ARGS+=	--disable-asm
 .endif
 
+# clang says GCC 4.2, so mpi/longlong.h takes the MIPS asm GCC 4.4 dropped
+# (the "h" constraint, casts on outputs): use its C instead.
+.if ${OPSYS} == "IRIX"
+CONFIGURE_ARGS+=	--disable-asm
+CPPFLAGS+=		-DNO_ASM
+.endif
+
 .if ${USE_CROSS_COMPILE:U:tl} == yes
 CONFIGURE_ENV+=		CC_FOR_BUILD=${NATIVE_CC:Q}
 .endif
