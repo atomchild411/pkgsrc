@@ -62,7 +62,7 @@ DISTFILES=		${DEFAULT_DISTFILES} ${PERL_CROSS}.tar.gz
 SITES.${PERL_CROSS}.tar.gz= \
 	https://github.com/arsv/perl-cross/releases/download/${PERL_CROSS:S/perl-cross-//}/
 EXTRACT_ONLY=		${DEFAULT_DISTFILES}
-USE_TOOLS+=		pax gzip
+USE_TOOLS+=		pax gzip gmake	# perl-cross's Makefiles are GNU make
 CONFIGURE_SCRIPT=	./configure
 CONFIGURE_ARGS+=	--target=${MACHINE_GNU_PLATFORM}
 CONFIGURE_ARGS+=	--prefix=${PERL5_PREFIX}
