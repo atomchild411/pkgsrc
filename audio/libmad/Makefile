@@ -19,7 +19,9 @@ INSTALLATION_DIRS=	lib/pkgconfig
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${MACHINE_ARCH:Mmips64*} || ${MACHINE_ARCH:Mmipsn64*}
+# IRIX n32 too: 64-bit registers, and the mips FPM's asm uses the "h"
+# constraint, which no current compiler has.
+.if ${MACHINE_ARCH:Mmips64*} || ${MACHINE_ARCH:Mmipsn64*} || ${OPSYS} == "IRIX"
 # Disable MIPS-specific ASM on MIPS64 due to:
 # error: impossible constraint in 'asm'
 CONFIGURE_ARGS+=	--enable-fpm=64bit
