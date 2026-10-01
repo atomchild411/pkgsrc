@@ -17,7 +17,9 @@
 DISTNAME=	pkgsrc-clang-${CLANG_IRIX_VERSION}-irix65-n32
 PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # nb1: the IRIX header wrappers work against a stock 6.5.22 root too.
-PKGREVISION=	1
+# nb2: lld reads SGI's own relocatable objects (llvm iris/main 349c3a1);
+# new header wrappers.
+PKGREVISION=	2
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
