@@ -4,4 +4,5 @@ BLAKE2s (openssl-3.6.4.tar.gz) = a53beb887698b14996f8a98efb813a7e91b19d304c7b83e
 SHA512 (openssl-3.6.4.tar.gz) = 9e7f4039082880357969c0857f33b20a6a4306d1b5e4f8fcbd7ec8dc41edc96e87c526a1db0b8259f5000c4ced84149b03547562ce4f9df35194634a7576dac0
 Size (openssl-3.6.4.tar.gz) = 55003802 bytes
 SHA1 (patch-Configurations_unix-Makefile.tmpl) = ea9b0a0c8de810362813d84a4f85c5ebdedf9fc6
+SHA1 (patch-crypto_dso_dso__dlfcn.c) = 8a2ba71c1f91d350fc97325d8b52b63a2df1a0be
 SHA1 (patch-util_perl_OpenSSL_config.pm) = 3ba3c23046bf69c7d348b4c1c8c8269d83cfa2b4
