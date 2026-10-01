@@ -53,8 +53,29 @@ INSTALLATION_DIRS+=	share/ninja
 INSTALLATION_DIRS+=	share/bash-completion/completions
 INSTALLATION_DIRS+=	share/zsh/site-functions
 
+# configure.py runs on the build machine (python is a tool here).  Its
+# --bootstrap compiles a ninja and then runs it, which a cross build cannot:
+# there it writes build.ninja for the target compiler, and the build host's
+# ninja runs it.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+TOOL_DEPENDS+=	ninja-build-[0-9]*:../../devel/ninja-build
+.endif
+# IRIX has neither ppoll nor pselect of its own (the toolchain provides
+# pselect).  To configure.py, "linux" is the plain POSIX platform: nothing
+# from /usr/local, ppoll unless --force-pselect.
+.if ${OPSYS} == "IRIX"
+NINJA_CONFIGURE_ARGS=	--platform=linux --force-pselect
+.endif
+
 do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${PYTHONBIN} ./configure.py --bootstrap
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${TOOL_PYTHONBIN} ./configure.py \
+		${NINJA_CONFIGURE_ARGS}
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${TOOLBASE}/bin/ninja -j${_MAKE_JOBS_N} ninja
+.else
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${TOOL_PYTHONBIN} ./configure.py \
+		--bootstrap ${NINJA_CONFIGURE_ARGS}
+.endif
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/ninja \
