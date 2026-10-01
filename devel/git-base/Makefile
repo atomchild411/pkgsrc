@@ -11,7 +11,16 @@ SUPERSEDES+=	scmgit-base-[0-9]*
 
 USE_CC_FEATURES=	c99
 USE_LANGUAGES=		c
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && ${OPSYS} == "IRIX"
+# Cross builds to IRIX: a run-time sh tool cannot be resolved, and IRIX's
+# /bin/sh is too old for git's scripts anyway (git's own IRIX settings use
+# bash). Build with the host's sh and run the scripts with pkgsrc's bash.
+USE_TOOLS+=		sh msgfmt
+DEPENDS+=		bash-[0-9]*:../../shells/bash
+.else
 USE_TOOLS+=		sh:run msgfmt bash:test
+.endif
 
 CFLAGS+=		-DHAVE_DEV_TTY
 CFLAGS.NetBSD+=		-D_NETBSD_SOURCE

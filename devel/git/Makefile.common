@@ -38,6 +38,32 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ENV.NetBSD+=	ac_cv_iconv_omits_bom=no
 CONFIGURE_ENV.NetBSD+=	ac_cv_fread_reads_directories=yes
 CONFIGURE_ENV.NetBSD+=	ac_cv_snprintf_returns_bogus=no
+# IRIX: configure's run tests, answered as git's own IRIX settings do
+# (config.mak.uname: SNPRINTF_RETURNS_BOGUS); fread on a directory gets the
+# safe wrapper, and pkgsrc's libiconv does not drop the BOM.
+CONFIGURE_ENV.IRIX+=	ac_cv_iconv_omits_bom=no
+CONFIGURE_ENV.IRIX+=	ac_cv_fread_reads_directories=yes
+CONFIGURE_ENV.IRIX+=	ac_cv_snprintf_returns_bogus=yes
+# git's Makefile picks its platform settings from the *build* machine's uname:
+# name the target instead, so its IRIX section applies, not the host's. No
+# IPv6 (our builds leave it out everywhere), and the scripts run under
+# pkgsrc's bash, which git-base depends on there.
+MAKE_FLAGS.IRIX+=	uname_S=IRIX uname_R=6.5 uname_M=mips uname_P=mips
+MAKE_FLAGS.IRIX+=	NO_IPV6=YesPlease
+CONFIGURE_ARGS.IRIX+=	--with-shell=${PREFIX}/bin/bash
+# SHELL_PATH is both the shell written into the scripts and the binary (the
+# target's) and the shell the Makefile runs its build steps with (the build
+# machine's). Give the build steps their own, BUILD_SHELL_PATH.
+.  if ${OPSYS} == "IRIX"
+SUBST_CLASSES+=		buildsh
+SUBST_STAGE.buildsh=	post-patch
+SUBST_MESSAGE.buildsh=	Running build steps with the build machine's shell.
+SUBST_FILES.buildsh=	Makefile shared.mak
+SUBST_SED.buildsh=	-e 's|^SHELL = $$(SHELL_PATH)$$|SHELL = $$(BUILD_SHELL_PATH)|'
+SUBST_SED.buildsh+=	-e 's|$$(QUIET_GEN)$$(SHELL_PATH) |$$(QUIET_GEN)$$(BUILD_SHELL_PATH) |'
+SUBST_SED.buildsh+=	-e 's|^$$(SHELL_PATH) "$$(1)/GIT-VERSION-GEN"|$$(BUILD_SHELL_PATH) "$$(1)/GIT-VERSION-GEN"|'
+MAKE_FLAGS.IRIX+=	BUILD_SHELL_PATH=${SH:Q}
+.  endif
 .endif
 
 CHECK_PORTABILITY_SKIP+=	ci/run-test-slice.sh

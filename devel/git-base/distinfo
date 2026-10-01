@@ -10,6 +10,7 @@ SHA1 (patch-contrib_completion_git-completion.zsh) = 695c78c8be7cc2a3792d1c428eb
 SHA1 (patch-dircompat.h) = f0cf20a95f2144c0dee17a2aa45955c57141452d
 SHA1 (patch-git-gui_Makefile) = 16f0f2679a24aabc09af26ef1cc5b338993b6c12
 SHA1 (patch-gitk-git_Makefile) = 028fa483f20f40ae3ec81c2dc7bd2e412a7d17f0
+SHA1 (patch-run-command.c) = a841fbacb00b1c2b5e72b22dc9445ab2c6aeca5a
 SHA1 (patch-t-helper-test-rot13-filter.c) = 6694898541213cc235e9d9053cbc021b6dd3b2e5
 SHA1 (patch-t_unit-tests_clar_clar_sandbox.h) = 0176fc4b01ded93422c7c298c9182bb101930796
 SHA1 (patch-templates_Makefile) = a5bd26b4e37ab5337f10d52565156c2e21e7ba93
