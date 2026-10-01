@@ -31,7 +31,9 @@ EXECINFO_OBJS=		execinfo.lo stacktraverse.lo
 .if ${OPSYS} == "IRIX"
 EXECINFO_OBJS=		execinfo.lo
 CFLAGS+=		-funwind-tables
-LIBS+=			-Wl,-Bstatic -lunwind -Wl,-Bdynamic
+# One -Wl token: libtool would record a bare -lunwind in libexecinfo.la,
+# and every program linking it would then need libunwind.so (cmake did).
+LIBS+=			-Wl,-Bstatic,-lunwind,-Bdynamic
 .endif
 
 do-build:
