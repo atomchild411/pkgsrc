@@ -57,9 +57,14 @@ do-extract:
 	${CP} ${FILESDIR}/${CERT_SCRIPT} ${WRKSRC}
 	${CP} ${DISTDIR}/${CERTDATA} ${WRKSRC}/certdata.txt
 
+# The script's paths are where the tools are when it is installed (in a
+# cross build, on the target); running it here, give it the build
+# machine's (it takes them from the environment first).
 do-build:
 	${MKDIR} ${WRKSRC}/certs
 	cd ${WRKSRC}/certs && \
+	${SETENV} AWK=${AWK:Q} ECHO=${ECHO:Q} EXPR=${EXPR:Q} LN=${LN:Q} \
+	    LS=${LS:Q} MKDIR=${MKDIR:Q} OPENSSL=${TOOLS_PATH.openssl:Q} RM=${RM:Q} \
 	${SH} ${WRKSRC}/${CERT_SCRIPT} -f ${WRKSRC}/certdata.txt extract
 	${LS} -rt ${WRKSRC}/certs/*.pem | ${XARGS} ${CAT} >${WRKSRC}/cacert.pem
 
