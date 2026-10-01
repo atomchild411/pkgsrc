@@ -124,23 +124,28 @@ MAKE_PARAMS+=	${MAKE_PARAMS.${PERL5_MODTYPE}}
 # build itself loads stay the host's; XS code compiles against the
 # target perl's headers in the cross destdir.
 .  if ${USE_CROSS_COMPILE:tl} == "yes"
-USE_TOOLS+=		perl xargs grep
+USE_TOOLS+=		perl xargs grep sed
 PERL5_CONFIGURE_PERL=	${TOOLBASE}/bin/perl
-_PERL5_CROSS_CONFIG=	${WRKDIR}/.perl5-cross-config
+# Named after the archname, which MakeMaker checks against the directory
+# Config.pm was loaded from.
+_PERL5_CROSS_CONFIG=	${WRKDIR}/.perl5-cross/${_PERL5_CROSS_ARCHLIB:T}
 MAKE_ENV+=		PERL5LIB=${_PERL5_CROSS_CONFIG}
-.    if !empty(_PERL5_CROSS_ARCHLIB)
-MAKE_PARAMS.makemaker+=	PERL_INC=${_PERL5_CROSS_ARCHLIB}/CORE
-MAKE_PARAMS.modinst+=	PERL_INC=${_PERL5_CROSS_ARCHLIB}/CORE
-.    endif
 pre-configure: perl5-cross-config
 .PHONY: perl5-cross-config
 perl5-cross-config:
 	${RUN}[ -n ${_PERL5_CROSS_ARCHLIB:Q} ] ||			\
 		${FAIL_MSG} "perl5: no target perl (Config.pm) in ${_CROSS_DESTDIR}${LOCALBASE}"
 	${RUN}${MKDIR} ${_PERL5_CROSS_CONFIG}
-	${RUN}${CP} ${_PERL5_CROSS_ARCHLIB}/Config.pm			\
-		${_PERL5_CROSS_ARCHLIB}/Config_heavy.pl			\
-		${_PERL5_CROSS_ARCHLIB}/Config_git.pl ${_PERL5_CROSS_CONFIG}/
+	# The target's Config, but with perl's own files (archlibexp: headers
+	# in CORE/; privlibexp: typemaps, xsubpp) read from the cross destdir.
+	# What is installed or recorded (install*, startperl, perlpath) keeps
+	# the target's paths.
+.  for f in Config.pm Config_heavy.pl
+	${RUN}${SED} -E -e "s,((arch|priv)libexp( => |=)')${LOCALBASE}/,\1${_CROSS_DESTDIR}${LOCALBASE}/," \
+		${_PERL5_CROSS_ARCHLIB}/${f} > ${_PERL5_CROSS_CONFIG}/${f}
+.  endfor
+	${RUN}${CP} ${_PERL5_CROSS_ARCHLIB}/Config_git.pl ${_PERL5_CROSS_CONFIG}/
+	${RUN}${GREP} -q "archlibexp => '${_CROSS_DESTDIR}" ${_PERL5_CROSS_CONFIG}/Config.pm
 	# The host's Errno.pm (host error numbers, which the host perl needs)
 	# refuses to load under a Config of another architecture: a copy
 	# without that check.
