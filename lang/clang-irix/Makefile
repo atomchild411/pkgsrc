@@ -23,7 +23,9 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # (llvm iris/main 39fc2ba): every n32 archive in /usr/lib32 links.
 # nb4: the builtins' libc stand-ins are weak, so a program's own copy wins
 # (llvm iris/main 369bd58).
-PKGREVISION=	4
+# nb5: sysconf names IRIX lacks, <stdint.h> outside C99 mode, <endian.h>,
+# cfmakeraw, lchmod, get_nprocs (iris/main 8828451 .. 4a504a7).
+PKGREVISION=	5
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
