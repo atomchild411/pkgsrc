@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.22 2026/01/07 08:39:52 wiz Exp $
 
 DISTNAME=	lpeg-1.1.0
-PKGREVISION=	2
+PKGREVISION=	3
 PKGNAME=	${DISTNAME:S/lpeg/${LUA_PKGPREFIX}-lpeg/}
 CATEGORIES=	devel lua
 MASTER_SITES=	https://www.inf.puc-rio.br/~roberto/lpeg/
@@ -20,6 +20,9 @@ TEST_TARGET=	test
 
 BUILD_TARGET.Darwin=	macosx
 BUILD_TARGET.*=		linux
+# IRIX: a SONAME, so programs linked against the module (editors/neovim)
+# name it plainly and find it through their run path.
+LDFLAGS.IRIX+=		-Wl,-soname,lpeg.so
 
 SUBST_CLASSES+=		test
 SUBST_MESSAGE.test=	Fixing shebang in test.lua
