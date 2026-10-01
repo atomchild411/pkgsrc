@@ -1,8 +1,8 @@
 $NetBSD$
 
-IRIX 6.5.7: no _xpg5_vsnprintf (keep that branch for later IRIX only), and
-no if_nametoindex() (6.5's IPv6 predates RFC 2553).  From the hand-built
-libevent proven on IRIX (tools/irix-cross/pkg/patches).
+IRIX 6.5.7: no _xpg5_vsnprintf (keep that branch for later IRIX only).
+From the hand-built libevent proven on IRIX (tools/irix-cross/pkg/patches).
+(if_nametoindex comes from the toolchain now: compiler-rt irix/netdb.c.)
 
 --- evutil.c.orig
 +++ evutil.c
@@ -24,24 +24,3 @@ libevent proven on IRIX (tools/irix-cross/pkg/patches).
  	extern int      _xpg5_vsnprintf(char * __restrict,
  		__SGI_LIBC_NAMESPACE_QUALIFIER size_t,
  		const char * __restrict, /* va_list */ char *);
-@@ -1988,6 +1995,20 @@
- #endif
- }
- 
-+/* IRIX 6.5's IPv6 predates RFC 2553: there is no if_nametoindex(), and no
-+ * interface-index API at all. 0 is the documented "unknown interface" return,
-+ * which makes the caller fall through to parsing the zone as a number -- the
-+ * only form this system could act on anyway. libevent's configure does not
-+ * probe for this function; it simply assumes it exists. */
-+#ifdef __sgi
-+static unsigned int
-+if_nametoindex(const char *name)
-+{
-+	(void)name;
-+	return 0;
-+}
-+#endif
-+
- int
- evutil_inet_pton_scope(int af, const char *src, void *dst, unsigned *indexp)
- {
