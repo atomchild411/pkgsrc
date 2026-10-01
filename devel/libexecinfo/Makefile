@@ -20,11 +20,27 @@ USE_LIBTOOL=		yes
 
 INSTALLATION_DIRS=	include lib
 
+EXECINFO_OBJS=		execinfo.lo stacktraverse.lo
+
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX: backtrace() walks the stack with the unwinder (patch-execinfo.c),
+# LLVM's libunwind, linked in statically so that nothing needs its shared
+# library at run time; stacktraverse.c, which clang cannot compile for
+# MIPS, is not used.
+.if ${OPSYS} == "IRIX"
+EXECINFO_OBJS=		execinfo.lo
+CFLAGS+=		-funwind-tables
+LIBS+=			-Wl,-Bstatic -lunwind -Wl,-Bdynamic
+.endif
+
 do-build:
 	cd ${WRKSRC} && ${LIBTOOL} --mode=compile --tag=CC ${CC} ${CFLAGS} -c execinfo.c
+.if !empty(EXECINFO_OBJS:Mstacktraverse.lo)
 	cd ${WRKSRC} && ${LIBTOOL} --mode=compile --tag=CC ${CC} ${CFLAGS} -c stacktraverse.c
+.endif
 	cd ${WRKSRC} && ${LIBTOOL} --mode=link --tag=CC ${CC} ${LDFLAGS} ${LIBS}	\
-		-o libexecinfo.la execinfo.lo stacktraverse.lo				\
+		-o libexecinfo.la ${EXECINFO_OBJS}					\
 		-version-info 1:0:0 -rpath ${PREFIX}/lib
 
 do-install:
