@@ -41,6 +41,9 @@ CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
 CONFIGURE_ARGS+=	--with-system-expat
 CONFIGURE_ARGS+=	--without-ensurepip
+# IRIX: no bundled mimalloc; its Unix layer opens files through syscall(),
+# which IRIX's n32 libc refuses (EINVAL).
+CONFIGURE_ARGS.IRIX+=	--without-mimalloc
 CONFIGURE_ENV+=		OPT=${CFLAGS:M*:Q}
 CONFIGURE_ENV+=		ac_cv_path_mkdir=${TOOLS_PATH.mkdir}
 CONFIGURE_ENV+=		py_cv_module__gdbm="n/a"
