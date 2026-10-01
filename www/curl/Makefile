@@ -2,7 +2,14 @@
 
 .include "Makefile.common"
 
+# Cross builds: configure looks for <prefix>/lib/pkgconfig/openssl.pc, then
+# <prefix>/include/openssl/ssl.h, on the build machine, where the target
+# prefix does not exist; buildlink's directory has both.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CONFIGURE_ARGS+=	--with-ssl=${BUILDLINK_DIR}
+.else
 CONFIGURE_ARGS+=	--with-ssl=${BUILDLINK_PREFIX.openssl}
+.endif
 
 SUBST_CLASSES+=		rpath
 SUBST_FILES.rpath+=	curl-config.in
