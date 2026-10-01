@@ -2001,14 +2001,8 @@ lib/clang/21/lib/mips64-sgi-irix6.5/clang_rt.crtend.o
 lib/clang/21/lib/mips64-sgi-irix6.5/libclang_rt.builtins.a
 lib/libc++.a
 lib/libc++.so
-lib/libc++.so.1
-lib/libc++.so.1.0
 lib/libc++abi.a
 lib/libc++abi.so
-lib/libc++abi.so.1
-lib/libc++abi.so.1.0
 lib/libc++experimental.a
 lib/libunwind.a
 lib/libunwind.so
-lib/libunwind.so.1
-lib/libunwind.so.1.0

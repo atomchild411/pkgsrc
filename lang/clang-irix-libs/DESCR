@@ -1,0 +1,3 @@
+The C++ runtime of the clang toolchain for IRIX 6.5 (n32): the shared
+libc++, libc++abi and libunwind that C++ programs and libraries built
+with lang/clang-irix (or the matching cross toolchain) need to run.

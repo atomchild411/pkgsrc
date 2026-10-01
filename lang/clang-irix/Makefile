@@ -32,7 +32,7 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # (iris/main 07631468 .. 267a506).
 # nb7: the rest of POSIX.1-2008's sysconf names (iris/main 9586a52);
 # struct winsize and TIOCGWINSZ from <sys/ioctl.h> in every mode (261e226).
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
@@ -71,6 +71,11 @@ WRKSRC=		${WRKDIR}/opt/pkgsrc
 
 # A build-tree leftover in some tarballs, not part of the toolchain.
 NOT_INSTALLED=	lib/clang/21/lib/mips64-sgi-irix6.5/libclang_rt.builtins.a.pre-compat
+# The shared runtime is lang/clang-irix-libs, which programs built with
+# this compiler depend on; the compiler keeps the link-time names.
+NOT_INSTALLED+=	lib/libc++.so.1 lib/libc++.so.1.0 lib/libc++abi.so.1
+NOT_INSTALLED+=	lib/libc++abi.so.1.0 lib/libunwind.so.1 lib/libunwind.so.1.0
+DEPENDS+=	clang-irix-libs-${CLANG_IRIX_VERSION}{,nb*}:../../lang/clang-irix-libs
 
 do-fetch:
 	${RUN}src=${CLANG_IRIX_DIST:Q}/${DISTFILES:Q};			\
@@ -80,6 +85,6 @@ do-fetch:
 
 do-install:
 	cd ${WRKSRC} && ${PAX} -rw -pp . ${DESTDIR}${PREFIX}
-	${RM} -f ${DESTDIR}${PREFIX}/${NOT_INSTALLED}
+	${RM} -f ${NOT_INSTALLED:S,^,${DESTDIR}${PREFIX}/,}
 
 .include "../../mk/bsd.pkg.mk"

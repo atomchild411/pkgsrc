@@ -54,6 +54,12 @@ CC_VERSION=		clang-${CLANG_VERSION}
 _COMPILER_ABI_FLAG.32=	-mabi=n32
 _COMPILER_ABI_FLAG.n32=	-mabi=n32
 _COMPILER_ABI_FLAG.64=	-mabi=64
+# C++ links clang's shared libc++ (and libc++abi), which IRIX does not
+# have: depend on the package with them, as gcc's runtime is gccNN-libs.
+.  if !empty(USE_LANGUAGES:Mc++*) && ${PKGPATH} != "lang/clang-irix-libs" && \
+      ${PKGPATH} != "lang/clang-irix"
+DEPENDS+=	clang-irix-libs>=21.1.8:../../lang/clang-irix-libs
+.  endif
 .else
 _COMPILER_ABI_FLAG.32=	-m32
 _COMPILER_ABI_FLAG.64=	-m64

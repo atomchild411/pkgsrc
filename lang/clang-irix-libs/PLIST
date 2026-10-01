@@ -1,0 +1,7 @@
+@comment $NetBSD$
+lib/libc++.so.1
+lib/libc++.so.1.0
+lib/libc++abi.so.1
+lib/libc++abi.so.1.0
+lib/libunwind.so.1
+lib/libunwind.so.1.0
