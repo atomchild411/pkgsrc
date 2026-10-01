@@ -124,7 +124,7 @@ MAKE_PARAMS+=	${MAKE_PARAMS.${PERL5_MODTYPE}}
 # build itself loads stay the host's; XS code compiles against the
 # target perl's headers in the cross destdir.
 .  if ${USE_CROSS_COMPILE:tl} == "yes"
-USE_TOOLS+=		perl
+USE_TOOLS+=		perl xargs grep
 PERL5_CONFIGURE_PERL=	${TOOLBASE}/bin/perl
 _PERL5_CROSS_CONFIG=	${WRKDIR}/.perl5-cross-config
 MAKE_ENV+=		PERL5LIB=${_PERL5_CROSS_CONFIG}
@@ -141,6 +141,14 @@ perl5-cross-config:
 	${RUN}${CP} ${_PERL5_CROSS_ARCHLIB}/Config.pm			\
 		${_PERL5_CROSS_ARCHLIB}/Config_heavy.pl			\
 		${_PERL5_CROSS_ARCHLIB}/Config_git.pl ${_PERL5_CROSS_CONFIG}/
+	# The host's Errno.pm (host error numbers, which the host perl needs)
+	# refuses to load under a Config of another architecture: a copy
+	# without that check.
+	${RUN}${PERL5_CONFIGURE_PERL} -MErrno -e 'print $$INC{"Errno.pm"}' | \
+		${XARGS} ${PERL5_CONFIGURE_PERL} -0pe \
+		's/^"\$$Config\{.archname.\}-\$$Config\{.osvers.\}" eq\n.*?;\n//ms' \
+		> ${_PERL5_CROSS_CONFIG}/Errno.pm
+	${RUN}! ${GREP} -q 'does not match executable' ${_PERL5_CROSS_CONFIG}/Errno.pm
 .  else
 PERL5_CONFIGURE_PERL=	${BUILDLINK_PREFIX.perl}/bin/perl
 .  endif
