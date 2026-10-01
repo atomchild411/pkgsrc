@@ -6,5 +6,6 @@ Size (zstd-1.5.7.tar.gz) = 2451884 bytes
 SHA1 (patch-Makefile) = 191425fc04c43161710c3bb03f34047e2827b327
 SHA1 (patch-lib_Makefile) = 22ce3c9d44e230777075de29cc9f6d2cf110e027
 SHA1 (patch-lib_decompress_huf__decompress__amd64.S) = 199d101b3ff03248c24aac662f7948820bf8e2b8
+SHA1 (patch-programs_Makefile) = 2cda05e7e684bfeb605d941c38d6671b47858fc2
 SHA1 (patch-tests_Makefile) = b4aa7bd0bf1b3e7df231a32dadc6cce4ab78ac9e
 SHA1 (patch-zlibWrapper_examples_minigzip.c) = 4ed0cb648bdd6efa61b3f66ba6eb1ea74b7767ec
