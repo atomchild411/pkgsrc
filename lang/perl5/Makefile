@@ -3,7 +3,7 @@
 .include "license.mk"
 .include "Makefile.common"
 
-PKGREVISION=	2
+PKGREVISION=	3
 
 COMMENT=	Practical Extraction and Report Language
 
@@ -75,7 +75,12 @@ CONFIGURE_ARGS+=	--with-ar=${AR:Q} --with-ranlib=${RANLIB:Q}
 CONFIGURE_ARGS+=	--with-objdump=${MACHINE_GNU_PLATFORM}-objdump
 CONFIGURE_ARGS+=	-Dosname=${LOWER_OPSYS} -Dosvers=${OS_VERSION}
 CONFIGURE_ARGS+=	-Darchname=${MACHINE_ARCH}-${LOWER_OPSYS}
-CONFIGURE_ARGS+=	-Dccflags=${CFLAGS:Q} -Doptimize=
+# pkgsrc's flags go in optimize, so that ccflags keeps what perl-cross
+# finds (the large-file defines, which its lseeksize/fpossize assume).
+# -fwrapv and -fno-strict-aliasing, which perl needs from gcc and clang
+# alike (Configure adds them for both), perl-cross adds only for a
+# compiler it recognizes as gcc.
+CONFIGURE_ARGS+=	-Doptimize=${CFLAGS:Q}\ -fwrapv\ -fno-strict-aliasing
 CONFIGURE_ARGS+=	-Dldflags=${LDFLAGS:Q}
 CONFIGURE_ARGS+=	-Dlibswanted=${LIBSWANTED:Q}
 CONFIGURE_ARGS+=	-Dinstallstyle=lib/perl5 -Dinstallusrbinperl=undef
