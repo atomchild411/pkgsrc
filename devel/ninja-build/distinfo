@@ -4,3 +4,4 @@ BLAKE2s (ninja-build/ninja-1.13.2.tar.gz) = 8a5c284016bb7c3cf83d3331f7aa84c1cfba
 SHA512 (ninja-build/ninja-1.13.2.tar.gz) = c0b401b4db91a2eea01a474ee979b2c6f1daa97b4c8d1f856871ce5f6d567c4b26d6246bc57e2a5f914329302abcd9c00ab0d4394a25f2ad502b6b00a07903d2
 Size (ninja-build/ninja-1.13.2.tar.gz) = 292385 bytes
 SHA1 (patch-src_subprocess-posix.cc) = aff45ff1080c8556bc9a749666c532896bd73609
+SHA1 (patch-src_util.cc) = e5d17df1f1c505c847421e1b1052299600cedead
