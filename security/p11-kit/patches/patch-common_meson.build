@@ -1,0 +1,19 @@
+$NetBSD$
+
+libp11-common uses pthread mutexes (compat.c): programs linking it need
+the threads dependency too (p11-kit-remote and p11-kit-server did not
+get it).  Unnoticed where pthreads are in libc (glibc 2.34+); IRIX keeps
+them in libpthread.
+
+--- common/meson.build.orig
++++ common/meson.build
+@@ -27,7 +27,8 @@
+ 
+ libp11_common_dep = declare_dependency(include_directories: [configinc,
+                                                              commoninc],
+-                                       link_with: libp11_common)
++                                       link_with: libp11_common,
++                                       dependencies: thread_deps)
+ 
+ libp11_library = static_library('p11-library', 'library.c',
+                                 gnu_symbol_visibility: 'hidden',
