@@ -30,7 +30,9 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # headers (67535f6); <sys/select.h>, <fenv.h>, <math.h> and wide-character
 # gaps; lld takes MIPSpro ld's -n32/-rdata_shared and drops SGI debug info
 # (iris/main 07631468 .. 267a506).
-PKGREVISION=	6
+# nb7: the rest of POSIX.1-2008's sysconf names (iris/main 9586a52);
+# struct winsize and TIOCGWINSZ from <sys/ioctl.h> in every mode (261e226).
+PKGREVISION=	7
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
