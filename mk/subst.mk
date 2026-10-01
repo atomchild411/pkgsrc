@@ -140,7 +140,14 @@ PKG_FAIL_REASON+=		"[subst.mk:${class}] SUBST_FILTER_CMD and SUBST_SED/SUBST_VAR
 SUBST_FILTER_CMD.${class}?=	LC_ALL=C ${SED} ${SUBST_SED.${class}}
 SUBST_MESSAGE.${class}?=	Substituting "${class}" in ${SUBST_FILES.${class}}
 .  for v in ${SUBST_VARS.${class}}
-SUBST_FILTER_CMD.${class}+=	-e s,@${v:C|[.[\\*^]|\\\\&|gW:Q}@,${${v}:S|\\|\\\\|gW:S|,|\\,|gW:S|&|\\\&|gW:S|${.newline}|\\${.newline}|gW:Q},g
+# Cross builds substitute where a tool is on the target (TARGET_TOOL.<VAR>
+# from mk/tools/cross.${OPSYS}.mk), not where the build host has it.
+.    if ${USE_CROSS_COMPILE:tl} == yes && !empty(TARGET_TOOLS:M${v})
+_SUBST_VALUE.${v}=	${TARGET_TOOL.${v}}
+.    else
+_SUBST_VALUE.${v}=	${${v}}
+.    endif
+SUBST_FILTER_CMD.${class}+=	-e s,@${v:C|[.[\\*^]|\\\\&|gW:Q}@,${_SUBST_VALUE.${v}:S|\\|\\\\|gW:S|,|\\,|gW:S|&|\\\&|gW:S|${.newline}|\\${.newline}|gW:Q},g
 .  endfor
 .  if ${SUBST_SHOW_DIFF.${class}:U${SUBST_SHOW_DIFF}:tl} == yes
 _SUBST_KEEP.${class}?=		LC_ALL=C ${DIFF} -u "$$file" "$$tmpfile" || ${TRUE}

@@ -149,10 +149,20 @@ _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	TOOL_DEPENDS
 # Font packages likewise: +FONTS runs the target's mkfontscale/mkfontdir
 # when it has them and skips them otherwise (see bsd.pkginstall.mk).
 _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	TOOL_DEPENDS
-.  else
-.    if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} != ${NATIVE_OPSYS}
-PKG_FAIL_REASON+=	"USE_TOOLS+=${_t_} not supported in cross-compilation"
+.  elif ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} != ${NATIVE_OPSYS}
+# Cross builds: the build runs the build host's copy of the tool.  What
+# the package runs on the target is the target system's copy when it has
+# one (TARGET_TOOL.<VAR> from mk/tools/cross.${OPSYS}.mk, outside
+# LOCALBASE), and otherwise the tool's package, built for the target and
+# added to DEPENDS below (_TOOLS_CROSS_RUN).
+_TOOLS_DEPMETHOD.${_t_:C/:.*//}=	TOOL_DEPENDS
+_tv_:=	${_TOOLS_VARNAME.${_t_:C/:.*//}:U:[1]}
+.    if empty(_tv_) || !defined(TARGET_TOOL.${_tv_}) || \
+        !empty(TARGET_TOOL.${_tv_}:M${LOCALBASE}/*)
+_TOOLS_USE_PKGSRC.${_t_:C/:.*//}=	yes
+_TOOLS_CROSS_RUN+=			${_t_:C/:.*//}
 .    endif
+.  else
 _TOOLS_DEPMETHOD.${_t_:C/:.*//}=	DEPENDS
 .  endif
 .endfor
@@ -1360,6 +1370,21 @@ _dep_test:= ${_dep_:C/\:.*$//}
 ${_TOOLS_DEPMETHOD.${_t_}}+=	${_dep_}
 .        endif
 .      endfor
+.    endif
+.    if !empty(_TOOLS_CROSS_RUN:M${_t_}) && defined(TOOLS_DEPENDS.${_t_})
+.      for _dep_ in ${TOOLS_DEPENDS.${_t_}}
+_dep_test:= ${_dep_:C/\:.*$//}
+.        if empty(DEPENDS:C/\:.*$//:M${_dep_test})
+DEPENDS+=	${_dep_}
+.        endif
+.      endfor
+# Where the target package puts it, for TARGET_TOOL users (FILES_SUBST,
+# SUBST_VARS).
+.      if defined(_TOOLS_VARNAME.${_t_}) && defined(TOOLS_PATH.${_t_})
+TARGET_TOOL.${_TOOLS_VARNAME.${_t_}:[1]}?=	\
+	${TOOLS_PATH.${_t_}:S|^${TOOLBASE}/|${LOCALBASE}/|}
+TARGET_TOOLS+=	${_TOOLS_VARNAME.${_t_}:[1]}
+.      endif
 .    endif
 .  elif defined(TOOLS_PLATFORM.${_t_}) && !empty(TOOLS_PLATFORM.${_t_})
 #####
