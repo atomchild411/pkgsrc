@@ -1,0 +1,15 @@
+$NetBSD$
+
+Cross builds cannot run the gnu.c probe: ask the preprocessor instead.
+
+--- config/get_cc.orig
++++ config/get_cc
+@@ -91,7 +91,7 @@
+ if test -z "$__gnuc__"; then
+   exe=$osname-$arch-gnu$$
+   $CC $extraflag -o $exe gnu.c
+-  if $exe; then
++  if (test -n "$cross_doubleformat" && $CC -E -dM - </dev/null 2>/dev/null | grep __GNUC__ >/dev/null) || $exe; then
+     # avoid internationalization trouble by setting LANG=C
+     __gnuc__=`env LANG=C LC_ALL=C LC_MESSAGES=C $CC -v 2>&1 | sed -n 's/.*version //p'`
+     echo GNU compiler version $__gnuc__
