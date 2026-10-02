@@ -20,10 +20,14 @@ INFO_FILES=	yes
 .include "../../mk/bsd.prefs.mk"
 
 # The documentation's examples come from running gengetopt: in a cross
-# build, the build host's.
+# build, the build host's. The examples made from the tests are only built
+# natively (NO_CROSSCOMPILING).
+PLIST_VARS+=	native
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
 TOOL_DEPENDS+=	${PKGNAME}:../../${PKGPATH}
 MAKE_FLAGS+=	PROGNAME=${TOOLBASE}/bin/gengetopt
+.else
+PLIST.native=	yes
 .endif
 
 .include "../../mk/bsd.pkg.mk"
