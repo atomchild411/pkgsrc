@@ -16,7 +16,9 @@ pkgbase:= libidn
 .if ${PKG_BUILD_OPTIONS.libidn:Mnls}
 .include "../../devel/gettext-lib/buildlink3.mk"
 .endif
+.if ${OPSYS} != "IRIX"
 .include "../../devel/libgetopt/buildlink3.mk"
+.endif
 .endif # LIBIDN_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-libidn

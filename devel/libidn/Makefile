@@ -28,5 +28,10 @@ TEST_TARGET=		check
 .include "options.mk"
 
 .include "../../converters/libiconv/buildlink3.mk"
+# IRIX's <stdio.h> includes <getopt.h>, where gnulib's getopt replacement
+# and libgetopt's header would both define struct option; gnulib's
+# getopt_long serves idn there.
+.if ${OPSYS} != "IRIX"
 .include "../../devel/libgetopt/buildlink3.mk"
+.endif
 .include "../../mk/bsd.pkg.mk"
