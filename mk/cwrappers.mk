@@ -69,6 +69,10 @@ CWRAPPERS_APPEND.cpp+=		-I${PREFIX}/include
 
 .if defined(USE_IMAKE) || !empty(USE_TOOLS:Mimake)
 CWRAPPERS_TRANSFORM.imake+=	I:${PREFIX}/lib/X11/config:${PREFIX}/lib/X11/config
+# A cross build runs the build host's imake, with its own config files.
+.  if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CWRAPPERS_TRANSFORM.imake+=	I:${TOOLBASE}/lib/X11/config:${TOOLBASE}/lib/X11/config
+.  endif
 CWRAPPERS_APPEND.imake+=	${IMAKEOPTS}
 .endif
 
