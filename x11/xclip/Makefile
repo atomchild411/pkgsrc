@@ -16,6 +16,8 @@ USE_TOOLS+=	autoconf gmake
 pre-configure:
 	cd ${WRKSRC} && autoreconf
 
+# GNU libiconv on IRIX: its <iconv.h> renames the calls to libiconv_*.
+LDFLAGS.IRIX+=		-liconv
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../x11/libXmu/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -18,6 +18,8 @@ MAKE_FLAGS+=	MANDIR=${PREFIX}/${PKGMANDIR}/man1
 
 BUILD_TARGET=	wmtime
 
+# GNU libiconv on IRIX: its <iconv.h> renames the calls to libiconv_*.
+LDFLAGS.IRIX+=		-liconv
 .include "../../converters/libiconv/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libdockapp+=	libdockapp>=0.7.0
 .include "../../devel/libdockapp/buildlink3.mk"

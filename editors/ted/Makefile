@@ -22,6 +22,7 @@ INDDIR=		${PREFIX}/share/Ted/dfa
 INFODIR=	${PREFIX}/share/doc/Ted
 
 LDFLAGS.Darwin+=	-liconv
+LDFLAGS.IRIX+=		-liconv
 
 .include "../../mk/bsd.prefs.mk"
 

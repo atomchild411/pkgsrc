@@ -24,6 +24,8 @@ GNARWL_LIBS=		-L${BUILDLINK_PREFIX.openldap}/lib	\
 		-L${BUILDLINK_PREFIX.gdbm}/lib 		\
 		-W,-lR${BUILDLINK_PREFIX.gdbm}/lib
 CONFIGURE_ENV+=		LDFLAGS=${GNARWL_LIBS:Q}
+# GNU libiconv on IRIX: its <iconv.h> renames the calls to libiconv_*.
+LIBS.IRIX+=		-liconv
 CONFIGURE_ARGS+=	--with-homedir=${GNARWL_HOME}
 
 GNARWL_USER?=		gnarwl

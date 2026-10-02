@@ -15,6 +15,8 @@ USE_TOOLS+=	gmake
 
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1
 
+# GNU libiconv on IRIX: its <iconv.h> renames the calls to libiconv_*.
+LDFLAGS.IRIX+=		-liconv
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
