@@ -7,10 +7,11 @@ branch iris/main):
 - headers: POSIX struct msghdr by default
 - getsockname/getpeername: AF_UNIX for unnamed Unix sockets
 - <sys/socket.h>: no sa_len macro; <netinet/ip.h>: self-contained
+- Wrapper <sys/socket.h>: msg_namelen is a socklen_t
 
 --- lib/Headers/irix_wrappers/sys/socket.h.orig
 +++ lib/Headers/irix_wrappers/sys/socket.h
-@@ -0,0 +1,126 @@
+@@ -0,0 +1,129 @@
 +/*===---- sys/socket.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -70,9 +71,21 @@ branch iris/main):
 +#undef msg_control
 +#undef msg_controllen
 +
++#ifndef _SOCKLEN_T
++#define _SOCKLEN_T
++#if _NO_XOPEN4
++typedef int socklen_t;
++#else
++typedef size_t socklen_t;
++#endif
++#endif
++
++/* msg_namelen is a socklen_t, as POSIX has it (code such as asio passes its
++ * address to accept()): int or size_t, 32 bits either way, as the
++ * kernel's. */
 +struct msghdr {
 +  void *msg_name;
-+  size_t msg_namelen;
++  socklen_t msg_namelen;
 +  struct iovec *msg_iov;
 +  int msg_iovlen;
 +  void *msg_control;
@@ -97,15 +110,6 @@ branch iris/main):
 +#endif
 +#ifndef SCM_RIGHTS
 +#define SCM_RIGHTS 0x01
-+#endif
-+
-+#ifndef _SOCKLEN_T
-+#define _SOCKLEN_T
-+#if _NO_XOPEN4
-+typedef int socklen_t;
-+#else
-+typedef size_t socklen_t;
-+#endif
 +#endif
 +
 +#if _MIPS_SZLONG == 32
