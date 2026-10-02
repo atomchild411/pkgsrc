@@ -1,6 +1,6 @@
 @comment $NetBSD: PLIST,v 1.2 2025/05/08 14:19:50 jperkin Exp $
-bin/phar${PHP_VER}
-bin/phar${PHP_VER}.phar
+${PLIST.pharcmd}bin/phar${PHP_VER}
+${PLIST.pharcmd}bin/phar${PHP_VER}.phar
 bin/php-config${PHP_VER}
 bin/php${PHP_VER}
 bin/phpdbg${PHP_VER}
@@ -315,8 +315,8 @@ ${PHP_LIBDIR}/build/pkg.m4
 ${PHP_LIBDIR}/build/run-tests.php
 ${PHP_LIBDIR}/build/shtool
 libexec/cgi-bin/php${PHP_VER}
-man/man1/phar${PHP_VER}.1
-man/man1/phar${PHP_VER}.phar.1
+${PLIST.pharcmd}man/man1/phar${PHP_VER}.1
+${PLIST.pharcmd}man/man1/phar${PHP_VER}.phar.1
 man/man1/php-cgi${PHP_VER}.1
 man/man1/php-config${PHP_VER}.1
 man/man1/php${PHP_VER}.1

@@ -51,6 +51,13 @@ REPLACE_PHP=		ext/phar/phar/phar.php run-tests.php
 INSTALLATION_DIRS+=	${CGIDIR} ${PHP_EXTENSION_DIR} ${PHP_EGDIR} \
 			${PHP_SHAREDIR}
 
+# The phar command is made by running the new php, which a cross build
+# cannot do.
+PLIST_VARS+=	pharcmd
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.pharcmd=	yes
+.endif
+
 # Make sure modules can link correctly
 .if ${OPSYS} == "Darwin"
 INSTALL_UNSTRIPPED=	yes
