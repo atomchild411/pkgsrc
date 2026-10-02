@@ -26,7 +26,7 @@ CFLAGS+=	-Wno-implicit-function-declaration
 
 DESCR_SRC+=	${.CURDIR}/DESCR
 
-.if ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
+.if ${OPSYS} == "Linux" || ${OPSYS} == "SunOS" || ${OPSYS} == "IRIX"
 PLIST_SUBST+=	"NO_ALLOCA_H=@comment "
 PLIST_SUBST+=	"NOMALLOC_H=@comment "
 .endif
