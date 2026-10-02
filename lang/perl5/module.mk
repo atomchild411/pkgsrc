@@ -132,6 +132,13 @@ _PERL5_CROSS_CONFIG=	${WRKDIR}/.perl5-cross/${_PERL5_CROSS_ARCHLIB:T}
 MAKE_ENV+=		PERL5LIB=${_PERL5_CROSS_CONFIG}
 # Devel::CheckLib (patched) links its test programs without running them.
 MAKE_ENV+=		PKGSRC_CROSS_NO_EXECUTE=1
+# Copies of it bundled in a distribution's inc/ get the same switch.
+SUBST_CLASSES+=		checklib
+SUBST_STAGE.checklib=	pre-configure
+SUBST_MESSAGE.checklib=	Letting the bundled Devel::CheckLib skip running its tests.
+SUBST_FILES.checklib=	inc/Devel/CheckLib.pm
+SUBST_SED.checklib=	-e 's/my $$execute = !$$args{not_execute};/my $$execute = !$$args{not_execute} \&\& !$$ENV{PKGSRC_CROSS_NO_EXECUTE};/'
+SUBST_NOOP_OK.checklib=	yes
 pre-configure: perl5-cross-config
 .PHONY: perl5-cross-config
 perl5-cross-config:
