@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.114 2026/09/02 19:01:20 wiz Exp $
 
 DISTNAME=	SDL2-2.32.10
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=libsdl-org/}
 GITHUB_PROJECT=	SDL
@@ -46,6 +46,15 @@ SUBST_CLASSES+=		rpath
 SUBST_STAGE.rpath=	pre-configure
 SUBST_FILES.rpath=	sdl2-config.in
 SUBST_VARS.rpath=	COMPILER_RPATH_FLAG
+
+# sdl2-config works out the prefix from where it is run, which in a cross
+# build is the tools directory pkgsrc runs it from (see buildlink3.mk);
+# packages do not move, so let it name the prefix it was configured with.
+SUBST_CLASSES+=		prefix
+SUBST_STAGE.prefix=	pre-configure
+SUBST_MESSAGE.prefix=	Fixing the prefix in sdl2-config.
+SUBST_FILES.prefix=	sdl2-config.in
+SUBST_SED.prefix=	-e 's,^prefix=`cd -P .*,prefix=@prefix@,'
 
 LDFLAGS.FreeBSD+=	-lusb
 
