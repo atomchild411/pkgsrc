@@ -45,7 +45,7 @@ PKG_SYSCONFSUBDIR=	postgresql
 .include "../../mk/bsd.prefs.mk"
 
 PG_TEMPLATE.SunOS=	solaris
-PG_TEMPLATE.IRIX=	irix5
+PG_TEMPLATE.IRIX=	openbsd	# no IRIX template any more; this one only sets PIC flags
 PG_TEMPLATE.DragonFly=	freebsd
 .if !defined(PG_TEMPLATE.${OPSYS})
 PG_TEMPLATE.${OPSYS}=	${LOWER_OPSYS}
