@@ -60,6 +60,8 @@ ${MESON_NATIVE_FILE}:
 .  endfor
 	${RUN}${MV} -f ${.TARGET}.tmp ${.TARGET}
 
+_MESON_ARGS=	${MESON_ARGS}
+
 .else
 
 MESON_CPU_FAMILY.amd64=		x86_64
@@ -156,8 +158,20 @@ ${MESON_CROSS_FILE}:
 	${RUN}${ECHO} ${MESON_BINARY_KEY.${_v_}:U${_v_}} = \'${MESON_BINARY.${_v_}:Q}\' \
 		>>${.TARGET}.tmp
 .  endfor
+	${RUN}${ECHO} '[project options]' >>${.TARGET}.tmp
+	${RUN}for d in ${CONFIGURE_DIRS}; do				\
+		for f in meson_options.txt meson.options; do		\
+			[ -f ${WRKSRC}/$$d/$$f ] || continue;		\
+			${AWK} -f ${PKGSRCDIR}/devel/meson/files/cross-no-introspection.awk \
+				${WRKSRC}/$$d/$$f;			\
+		done;							\
+	done | ${SORT} -u >>${.TARGET}.tmp
 	${RUN}${MV} -f ${.TARGET}.tmp ${.TARGET}
 
+
+# The cross file turns these off (see above); the packages' own settings
+# would override it.
+_MESON_ARGS=	${MESON_ARGS:N-Dintrospection=*:N-Dgir=*:N-Dvapi=*}
 .endif				# ${USE_CROSS_COMPILE:U:tl} == yes
 
 .if defined(USE_PKGLOCALEDIR) && ${USE_PKGLOCALEDIR:tl} != "no"
@@ -178,7 +192,7 @@ meson-configure:
 		--sysconfdir ${PKG_SYSCONFDIR} \
 		--wrap-mode=nodownload \
 		${MESON_CROSS_ARGS} ${MESON_NATIVE_ARGS} \
-		--buildtype=plain ${MESON_ARGS} . output
+		--buildtype=plain ${_MESON_ARGS} . output
 .endfor
 
 do-build: meson-build
