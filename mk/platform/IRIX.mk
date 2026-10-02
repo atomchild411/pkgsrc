@@ -27,6 +27,8 @@ IMAKEOPTS+=	-DShLibDir=${X11BASE}/lib
 IMAKEOPTS+=	-DOptimizerLevel="${CFLAGS}"
 IMAKEOPTS+=	-DManPath=${PREFIX}/man
 .endif
+# crypt(3) is in libc; IRIX has no libcrypt for -lcrypt to find.
+BUILDLINK_TRANSFORM+=	rm:-lcrypt
 PKGLOCALEDIR?=	share
 PS?=		/sbin/ps
 SU?=		/sbin/su

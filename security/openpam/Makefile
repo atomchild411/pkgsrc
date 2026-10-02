@@ -22,7 +22,6 @@ CONFIGURE_ARGS+=	--with-modules-dir=${PREFIX}/lib/security
 CPPFLAGS+=		-DSYSCONFDIR=\"${PKG_SYSCONFDIR}\"
 
 BUILDLINK_TRANSFORM.Darwin+=	rm:-lcrypt
-BUILDLINK_TRANSFORM.IRIX+=	rm:-lcrypt	# crypt(3) is in libc
 
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
 CONF_FILES+=		${EGDIR}/pam.d/other ${PKG_SYSCONFDIR}/pam.d/other
