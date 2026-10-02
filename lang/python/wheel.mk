@@ -60,6 +60,13 @@ PY_RENAME_BINARIES?=	# empty
 
 .include "../../mk/bsd.fast.prefs.mk"
 
+# meson-python runs meson, which in a cross build needs meson's cross file.
+.if ${USE_CROSS_COMPILE:tl} == "yes" && !empty(TOOL_DEPENDS:M*-meson_python[->]*)
+.  include "../../devel/meson/cross.mk"
+WHEEL_ARGS+=	-Csetup-args=--cross-file=${MESON_CROSS_FILE}
+do-build: ${MESON_CROSS_FILE}
+.endif
+
 .if !target(do-build)
 TOOL_DEPENDS+= ${PYPKGPREFIX}-build>=0:../../devel/py-build
 do-build:
