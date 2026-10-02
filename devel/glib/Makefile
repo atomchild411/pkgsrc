@@ -36,6 +36,8 @@ CONFIGURE_ENV.IRIX+=	glib_cv_rtldglobal_broken=no glib_cv_uscore=no
 CONFIGURE_ENV.IRIX+=	glib_cv_sane_realloc=yes ac_cv_func_getpwuid_r=yes
 CONFIGURE_ENV.IRIX+=	glib_cv_va_copy=yes glib_cv___va_copy=yes
 CONFIGURE_ENV.IRIX+=	glib_cv_va_val_copy=yes glib_cv_sizeof_gmutex=32
+CONFIGURE_ENV.IRIX+=	glib_cv_has__inline=yes glib_cv_has__inline__=yes
+CONFIGURE_ENV.IRIX+=	glib_cv_hasinline=yes
 
 # Tests are insufficient, override with correct values.
 .if ${OPSYS} == "Darwin" && ${PKGSRC_COMPILER:Mclang}
