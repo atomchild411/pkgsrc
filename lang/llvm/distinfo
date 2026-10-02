@@ -13,6 +13,7 @@ SHA1 (patch-include_llvm_CodeGen_RDFGraph.h) = 057a04619997fd7812b93dafa52f00e85
 SHA1 (patch-include_llvm_CodeGen_RDFRegisters.h) = 906be4b85954ca4a1dc4b34946a7bfcbf6c4758a
 SHA1 (patch-include_llvm_IR_RuntimeLibcalls.td) = 29cd3309ef10bcf7153735a2e5e65c8039f3bf10
 SHA1 (patch-include_llvm_TargetParser_Triple.h) = f09f8b5c50e9b02c0dd71d614f55a6848d3ff821
+SHA1 (patch-include_llvm_XRay_Graph.h) = f105b78592d5a8deecaab53711a660e3e94577ec
 SHA1 (patch-lib_CodeGen_RDFLiveness.cpp) = 1baf8a89f5f0e6b346f6e848cebefcf794d56eb5
 SHA1 (patch-lib_CodeGen_TargetLoweringObjectFileImpl.cpp) = 99a5718d2bba79ae28360505541d4b8a9ce4c7be
 SHA1 (patch-lib_MC_MCObjectFileInfo.cpp) = beb55806222b4235b02de6ba136c8901fe434946
