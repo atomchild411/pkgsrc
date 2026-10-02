@@ -74,6 +74,6 @@ SHA1 (patch-lib_Headers_irix__wrappers_sys_wait.h) = cf360250cd67ab54936361b442c
 SHA1 (patch-lib_Headers_irix__wrappers_syslog.h) = 9cf5131be0fc9f6cb9b1461c8a50af744a84a351
 SHA1 (patch-lib_Headers_irix__wrappers_termios.h) = 04cd03a80c7d5bab6e11c566886d084f3e2abe71
 SHA1 (patch-lib_Headers_irix__wrappers_time.h) = d02836e2d7c2b6622826337bc18e171f82c9a894
-SHA1 (patch-lib_Headers_irix__wrappers_unistd.h) = 750ecf7ec11c403183f38064c6f131f3163fd851
+SHA1 (patch-lib_Headers_irix__wrappers_unistd.h) = 9e039c9521555925d97193c0ce005d587209836b
 SHA1 (patch-lib_Headers_irix__wrappers_uuid.h) = 75115b004e9165de9222e85851ad26c93c35a5c2
 SHA1 (patch-lib_Headers_irix__wrappers_wchar.h) = 477bfc6fda520430b586d8b94e10b50f99d930d7
