@@ -12,3 +12,4 @@ SHA1 (patch-Makefile.pre.in) = fdb5794d112f422a1f28aa9f8b179dc05520f9e1
 SHA1 (patch-Modules_readline.c) = 232f6ac43b5a0e87c915f13117bae91ef069a6c1
 SHA1 (patch-configure) = a6d9a00ff160581245bc30d1b0d2ec0e9da8fb0b
 SHA1 (patch-setup.py) = 874b114febf51181509593a272ad5cdd4acaf3b4
+SHA1 (patch-Modules_selectmodule.c) = 712136e3e651b7727b88496749dda8f933431319

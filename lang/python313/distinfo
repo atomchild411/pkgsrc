@@ -11,3 +11,4 @@ SHA1 (patch-Modules_faulthandler.c) = ca59c378d25bfc0769a7f5da887369d8c913e70c
 SHA1 (patch-Modules_readline.c) = 232f6ac43b5a0e87c915f13117bae91ef069a6c1
 SHA1 (patch-Modules_socketmodule.c) = 9d88a801af6e2cbd36b9935a46c8a86727222d56
 SHA1 (patch-configure) = bbc82593739800d611f7c8725aff7d97052ea8fe
+SHA1 (patch-Modules_selectmodule.c) = 62bc5dfb7962d3fd43ceffc2165746588d5fdbb3

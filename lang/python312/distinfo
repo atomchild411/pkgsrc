@@ -10,3 +10,4 @@ SHA1 (patch-Makefile.pre.in) = 6306bf72186346b6698a2ee99c4a89364f1bf188
 SHA1 (patch-Modules_readline.c) = 232f6ac43b5a0e87c915f13117bae91ef069a6c1
 SHA1 (patch-Modules_socketmodule.c) = 9d88a801af6e2cbd36b9935a46c8a86727222d56
 SHA1 (patch-configure) = 041b53b35713165bc6c299538154a0bb798e5b4b
+SHA1 (patch-Modules_selectmodule.c) = 0a56fd210111fc35fcdb12f0a401f52633af2e9a
