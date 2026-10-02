@@ -11,10 +11,15 @@ INSTALLATION_DIRS+=	lib
 
 BJAM_ARGS+=		--without-headers
 BJAM_ARGS+=		--without-python
-# IRIX lacks POSIX 2008's per-locale functions (strcoll_l, toupper_l, ...)
-# that Boost.Locale's posix backend uses; it keeps its other backends.
-BJAM_ARGS+=		${OPSYS:MIRIX:S/IRIX/boost.locale.posix=off/}
-PLIST_VARS+=		cobalt context fiber log stacktrace_from_exception
+PLIST_VARS+=		cobalt context fiber locale log stacktrace_from_exception
+
+# Boost.Locale keeps UTF-16 conversion state in an mbstate_t, which on IRIX
+# is a char (libc++'s streampos holds one, so it stays that size).
+.if ${OPSYS} == "IRIX"
+BJAM_ARGS+=		--without-locale
+.else
+PLIST.locale=		yes
+.endif
 
 .include "../../mk/compiler.mk"
 

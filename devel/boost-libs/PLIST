@@ -66,10 +66,10 @@ lib/cmake/boost_json-${PKGVERSION}/boost_json-config-version.cmake
 lib/cmake/boost_json-${PKGVERSION}/boost_json-config.cmake
 lib/cmake/boost_json-${PKGVERSION}/libboost_json-variant-shared.cmake
 lib/cmake/boost_json-${PKGVERSION}/libboost_json-variant-static.cmake
-lib/cmake/boost_locale-${PKGVERSION}/boost_locale-config-version.cmake
-lib/cmake/boost_locale-${PKGVERSION}/boost_locale-config.cmake
-lib/cmake/boost_locale-${PKGVERSION}/libboost_locale-variant-shared.cmake
-lib/cmake/boost_locale-${PKGVERSION}/libboost_locale-variant-static.cmake
+${PLIST.locale}lib/cmake/boost_locale-${PKGVERSION}/boost_locale-config-version.cmake
+${PLIST.locale}lib/cmake/boost_locale-${PKGVERSION}/boost_locale-config.cmake
+${PLIST.locale}lib/cmake/boost_locale-${PKGVERSION}/libboost_locale-variant-shared.cmake
+${PLIST.locale}lib/cmake/boost_locale-${PKGVERSION}/libboost_locale-variant-static.cmake
 ${PLIST.log}lib/cmake/boost_log-${PKGVERSION}/boost_log-config-version.cmake
 ${PLIST.log}lib/cmake/boost_log-${PKGVERSION}/boost_log-config.cmake
 ${PLIST.log}lib/cmake/boost_log-${PKGVERSION}/libboost_log-variant-shared.cmake
@@ -238,9 +238,9 @@ lib/libboost_iostreams.so.${PKGVERSION}
 lib/libboost_json.a
 lib/libboost_json.so
 lib/libboost_json.so.${PKGVERSION}
-lib/libboost_locale.a
-lib/libboost_locale.so
-lib/libboost_locale.so.${PKGVERSION}
+${PLIST.locale}lib/libboost_locale.a
+${PLIST.locale}lib/libboost_locale.so
+${PLIST.locale}lib/libboost_locale.so.${PKGVERSION}
 ${PLIST.log}lib/libboost_log.a
 ${PLIST.log}lib/libboost_log.so
 ${PLIST.log}lib/libboost_log.so.${PKGVERSION}
