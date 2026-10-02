@@ -6,6 +6,22 @@ ECHO_N?=	${ECHO} -n
 IMAKE_MAKE?=	${MAKE}		# program which gets invoked by imake
 IMAKEOPTS+=	-DMakeCmd=${PREFIX}/bin/bmake -DProjectRoot=${X11BASE}
 IMAKEOPTS+=	-DManUsr=${PREFIX}
+# A cross build runs the build host's imake: have its preprocessor see
+# IRIX, so that it picks sgi.cf, rather than the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+IMAKEOPTS+=	-Ulinux -U__linux -U__linux__ -U__gnu_linux__ -U__GLIBC__
+IMAKEOPTS+=	-U__NetBSD__ -U__APPLE__ -U__MACH__
+IMAKEOPTS+=	-U__amd64__ -U__x86_64__ -U__i386__ -U__aarch64__ -U__arm64__
+IMAKEOPTS+=	-Dsgi -D__sgi -Dmips -D__mips
+IMAKEOPTS+=	-DOSMajorVersion=${OS_VERSION:R} -DOSMinorVersion=${OS_VERSION:E}
+.endif
+# sgi.cf is written for MIPSpro. With clang: the compiler by its usual
+# name, none of MIPSpro's options, pkgsrc's install, and no -cckr for the
+# preprocessor (sgi.cf sets CppCmd unconditionally).
+.if ${PKGSRC_COMPILER:U:Mclang}
+IMAKEOPTS+=	-DCcCmd=cc -DDefaultCCOptions= -DInstallCmd=${INSTALL}
+BUILDLINK_TRANSFORM+=	rm:-cckr
+.endif
 .if empty(OS_VERSION:M6*)
 IMAKEOPTS+=	-DShLibDir=${X11BASE}/lib
 IMAKEOPTS+=	-DOptimizerLevel="${CFLAGS}"

@@ -230,6 +230,11 @@ do-configure-script:
 ###
 _CONFIGURE_IMAKE_ENV+=	XPROJECTROOT=${X11BASE:Q}
 _CONFIGURE_IMAKE_ENV+=	${SCRIPTS_ENV}
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# imake compiles and runs test programs with ${CC} (its C library and
+# compiler versions), so in a cross build it needs the build host's.
+_CONFIGURE_IMAKE_ENV+=	CC=${NATIVE_CC:Q}
+.endif
 
 .PHONY: do-configure-imake
 do-configure-imake:
