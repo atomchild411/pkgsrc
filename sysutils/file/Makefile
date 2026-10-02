@@ -41,7 +41,11 @@ CFLAGS.AIX+=	-D_LINUX_SOURCE_COMPAT
 # built for the build host.
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 TOOL_DEPENDS+=		${PKGNAME}:../../${PKGPATH}
-MAKE_FLAGS+=		FILE_COMPILE=${TOOLBASE}/bin/file
+SUBST_CLASSES+=		crossfile
+SUBST_STAGE.crossfile=	pre-configure
+SUBST_MESSAGE.crossfile=	Compiling the magic with the build host's file.
+SUBST_FILES.crossfile=	magic/myfile
+SUBST_SED.crossfile=	-e 's,^DYLD_LIBRARY_PATH=.* ./file -C -m,${TOOLBASE}/bin/file -C -m,'
 .endif
 
 .include "../../devel/zlib/buildlink3.mk"
