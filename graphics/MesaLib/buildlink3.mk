@@ -16,6 +16,10 @@ BUILDLINK_PKGSRCDIR.MesaLib?=	../../graphics/MesaLib
 BUILDLINK_LDFLAGS.MesaLib+=	-Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib
 .endif
 
+# IRIX's GL is the system's (builtin.mk), with dependencies of its own:
+# none of Mesa's. (A builtin package with pkgsrc dependencies under it would
+# be built from pkgsrc instead.)
+.if ${OPSYS} != "IRIX"
 pkgbase:= MesaLib
 
 .include "../../mk/pkg-build-options.mk"
@@ -36,6 +40,7 @@ pkgbase:= MesaLib
 .if ${MESALIB_SUPPORTS_DRI} == "yes"
 .  include "../../x11/libdrm/buildlink3.mk"
 .endif
+.endif # OPSYS != IRIX
 
 .include "../../mk/pthread.buildlink3.mk"
 .endif # MESALIB_BUILDLINK3_MK
