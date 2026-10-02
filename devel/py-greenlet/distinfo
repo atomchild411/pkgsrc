@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.43 2026/08/11 05:45:41 adam Exp $
 BLAKE2s (greenlet-3.5.5.tar.gz) = 4575d6dc969acd03870d9eb87ff7029e57e2d9e7e4b038b48d6782b1750c448a
 SHA512 (greenlet-3.5.5.tar.gz) = c3d58ce72041b0d2737861c417954df8a75d12ff6e51a0a8e69c7985cf195d07dd42b1b8a7597430cd8a577fd3110383e31d538c6a1cd8fbd114179fd4445a18
 Size (greenlet-3.5.5.tar.gz) = 207585 bytes
+SHA1 (patch-src_greenlet_slp__platformselect.h) = e13ce81280f571169332ed523b61638f87a6849d
