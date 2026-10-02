@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.49 2026/07/09 12:46:45 adam Exp $
 BLAKE2s (c-ares-1.34.8.tar.gz) = c75cc23ffb63f5ed023e768b930887943f8841b63ceb5d6b36d931a668b8b6e4
 SHA512 (c-ares-1.34.8.tar.gz) = d5997a57fda9b3a3385b1685e6b2f9292c3a1d39bd27579acaabf3d2d33aa5e91bfec5d41c5e51ca6b50dbc1f4346d75e9bfbccf44a494fbd4bc7613b167143c
 Size (c-ares-1.34.8.tar.gz) = 1036098 bytes
+SHA1 (patch-CMakeLists.txt) = 4c4a3d53856ec93c88c52d4ca27d9ac45f44e05f
