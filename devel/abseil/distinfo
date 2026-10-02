@@ -9,4 +9,4 @@ SHA1 (patch-absl_debugging_internal_elf__mem__image.cc) = 163decf88e1c39d94b3e93
 SHA1 (patch-absl_debugging_internal_elf__mem__image.h) = c83a21780c61692e650ce0cb9c7e9631c23fd343
 SHA1 (patch-absl_debugging_internal_vdso__support.cc) = 2292c5b0f2b41679039a1697508343ff5b6cc401
 SHA1 (patch-absl_time_internal_cctz_src_time__zone__format.cc) = 34d0585a7239121b04818a74241aa1fea84e6413
-SHA1 (patch-absl_time_internal_cctz_src_time__zone__libc.cc) = b5e67911877affe7630510e6da1356936e9a5c76
+SHA1 (patch-absl_time_internal_cctz_src_time__zone__libc.cc) = 2f5bb7b99f0c990c17863a73a68b2fe139cfd59d
