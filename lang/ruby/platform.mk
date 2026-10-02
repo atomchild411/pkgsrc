@@ -179,12 +179,7 @@ PLIST_VARS+=	win32
 PLIST.win32=	yes
 .endif
 
-#
-# IRIX workaround which should be fixed.
-#
 PLIST_VARS+=	io
-.if ${OPSYS} != "IRIX"
 PLIST.io=	yes
-.endif
 
 .endif # _RUBY_REPLACE_MK
