@@ -19,6 +19,20 @@ PKGCONFIG_OVERRIDE+=	gts.pc.in
 
 CPPFLAGS+=	-I${BUILDLINK_PREFIX.netpbm}/include/netpbm
 
+.include "../../mk/bsd.prefs.mk"
+
+# The build makes predicates_init.h by running predicates_init, which
+# works out IEEE double error bounds, the same on the build host: in a
+# cross build, build and run it there first.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+pre-build: gts-predicates-init
+.PHONY: gts-predicates-init
+gts-predicates-init:
+	${RUN} cd ${WRKSRC}/src &&					\
+	${NATIVE_CC} -I. -I.. -o predicates_init predicates_init.c &&	\
+	./predicates_init > predicates_init.h
+.endif
+
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../graphics/netpbm/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
