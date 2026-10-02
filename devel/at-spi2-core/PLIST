@@ -67,7 +67,7 @@ include/atk-1.0/atk/atkvalue.h
 include/atk-1.0/atk/atkversion.h
 include/atk-1.0/atk/atkwindow.h
 ${PLIST.introspection}lib/girepository-1.0/Atk-1.0.typelib
-${PLIST.dbus}lib/girepository-1.0/Atspi-2.0.typelib
+${PLIST.atspi_gir}lib/girepository-1.0/Atspi-2.0.typelib
 ${PLIST.dbus}lib/gnome-settings-daemon-3.0/gtk-modules/at-spi2-atk.desktop
 ${PLIST.dbus}lib/gtk-2.0/modules/libatk-bridge.so
 lib/libatk-1.0.so
@@ -91,7 +91,7 @@ ${PLIST.dbus}share/dbus-1/services/org.a11y.Bus.service
 ${PLIST.dbus}share/examples/at-spi2-core/at-spi2/accessibility.conf
 ${PLIST.dbus}share/examples/at-spi2-core/xdg/autostart/at-spi-dbus-bus.desktop
 ${PLIST.introspection}share/gir-1.0/Atk-1.0.gir
-${PLIST.dbus}share/gir-1.0/Atspi-2.0.gir
+${PLIST.atspi_gir}share/gir-1.0/Atspi-2.0.gir
 share/locale/ab/LC_MESSAGES/at-spi2-core.mo
 share/locale/af/LC_MESSAGES/at-spi2-core.mo
 share/locale/am/LC_MESSAGES/at-spi2-core.mo

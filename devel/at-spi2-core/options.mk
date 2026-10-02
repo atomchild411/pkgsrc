@@ -20,6 +20,11 @@ PKG_SUGGESTED_OPTIONS=	dbus ${${USE_CROSS_COMPILE:tl} == "yes":?:introspection}
 
 PLIST_VARS+=	dbus
 PLIST_VARS+=	introspection
+# Atspi's introspection data comes with dbus (at-spi2 proper) only.
+PLIST_VARS+=	atspi_gir
+.if ${PKG_OPTIONS:Mdbus} && ${PKG_OPTIONS:Mintrospection}
+PLIST.atspi_gir=	yes
+.endif
 
 .if ${PKG_OPTIONS:Mdbus}
 PLIST.dbus=	yes
