@@ -26,6 +26,9 @@ CGIDIR=			${PREFIX}/libexec/cgi-bin
 MESSAGE_SUBST+=		CGIDIR=${CGIDIR} PHP_VER=${PHP_VER}
 
 CONFIGURE_ENV+=		lt_cv_path_SED=${SED:Q}
+# IRIX has SVR4's memcntl(2), but not Solaris' MHA_MAPSIZE_VA advice that
+# Zend's allocator uses it for.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_memcntl=no
 MAKE_ENV+=		INSTALL_ROOT=${DESTDIR}
 
 CONF_FILES=		${PHP_EGDIR}/php.ini-production ${PKG_SYSCONFDIR}/php.ini
