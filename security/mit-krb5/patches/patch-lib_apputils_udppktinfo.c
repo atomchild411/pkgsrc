@@ -2,10 +2,12 @@ $NetBSD: patch-lib_apputils_udppktinfo.c,v 1.1 2018/06/15 20:46:01 tez Exp $
 
 Don't use IP_PKTINFO on NetBSD, it doesn't support all required fields.
 (based on prior patch-lib_apputils_net-server.c)
+The stand-ins for systems without IP_PKTINFO or IPV6_PKTINFO (IRIX) take
+the three arguments they are called with.
 
 --- ./lib/apputils/udppktinfo.c.orig	2018-06-13 17:53:37.880688500 +0000
 +++ ./lib/apputils/udppktinfo.c
-@@ -129,7 +129,7 @@ set_pktinfo(int sock, int family)
+@@ -132,7 +132,7 @@
      }
  }
  
@@ -14,3 +16,21 @@ Don't use IP_PKTINFO on NetBSD, it doesn't support all required fields.
  
  /*
   * Check if a socket is bound to a wildcard address.
+@@ -210,7 +210,7 @@
+ }
+ 
+ #else /* HAVE_IP_PKTINFO || IP_RECVDSTADDR */
+-#define check_cmsg_v4_pktinfo(c, t, l, a) 0
++#define check_cmsg_v4_pktinfo(c, t, a) 0
+ #endif /* HAVE_IP_PKTINFO || IP_RECVDSTADDR */
+ 
+ #ifdef HAVE_IPV6_PKTINFO
+@@ -240,7 +240,7 @@
+     return 0;
+ }
+ #else /* HAVE_IPV6_PKTINFO */
+-#define check_cmsg_v6_pktinfo(c, t, l, a) 0
++#define check_cmsg_v6_pktinfo(c, t, a) 0
+ #endif /* HAVE_IPV6_PKTINFO */
+ 
+ static int
