@@ -32,8 +32,11 @@ CONFIGURE_ENV+=		ac_cv_prog_PYTHON=""
 
 .include "../../mk/bsd.prefs.mk"
 
-PLIST_VARS+=		datarchive
+PLIST_VARS+=		datarchive uconv
 PLIST_SUBST+=		ICU_DATA_ENDIAN=${MACHINE_ENDIAN:S/big/b/:S/little/l/}
+.if ${USE_CROSS_COMPILE:tl} != "yes"
+PLIST.uconv=		yes
+.endif
 
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 
@@ -42,7 +45,9 @@ TOOL_DEPENDS+=		${PKGNAME}:../../${PKGPATH}
 # genccode writes the data library for the build host's byte order only
 # (an object, or assembly whose words it reads in the build host's order):
 # ship the data as an archive instead, which icupkg writes for the target.
+# The extras' uconv links its messages in the same way: leave it out.
 CONFIGURE_ARGS+=	--with-data-packaging=archive
+CONFIGURE_ARGS+=	--disable-extras
 PLIST.datarchive=	yes
 
 ICU_CROSS_DIR=		${WRKDIR}/.icu_cross

@@ -10,7 +10,7 @@ bin/icuexportdata
 bin/icuinfo
 bin/makeconv
 bin/pkgdata
-bin/uconv
+${PLIST.uconv}bin/uconv
 include/unicode/alphaindex.h
 include/unicode/appendable.h
 include/unicode/basictz.h
@@ -258,7 +258,7 @@ man/man1/icu-config.1
 man/man1/icuexportdata.1
 man/man1/makeconv.1
 man/man1/pkgdata.1
-man/man1/uconv.1
+${PLIST.uconv}man/man1/uconv.1
 man/man8/genccode.8
 man/man8/gencmn.8
 man/man8/gensprep.8
