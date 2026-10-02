@@ -1,0 +1,23 @@
+$NetBSD$
+
+IRIX builds as a generic Unix.
+
+--- configure.orig	2026-10-02 13:54:32.075625211 +0000
++++ configure	2026-10-02 13:54:32.095625534 +0000
+@@ -28633,7 +28633,7 @@
+ have_locale=no
+ 
+ case "$host" in
+-    *-*-linux*|*-*-uclinux*|*-*-gnu*|*-*-k*bsd*-gnu|*-*-bsdi*|*-*-freebsd*|*-*-dragonfly*|*-*-netbsd*|*-*-openbsd*|*-*-sysv5*|*-*-solaris*|*-*-hpux*|*-*-aix*|*-*-minix*|*-*-nto*)
++    *-*-linux*|*-*-uclinux*|*-*-gnu*|*-*-k*bsd*-gnu|*-*-bsdi*|*-*-freebsd*|*-*-dragonfly*|*-*-netbsd*|*-*-openbsd*|*-*-sysv5*|*-*-solaris*|*-*-hpux*|*-*-aix*|*-*-minix*|*-*-nto*|*-*-irix*)
+         case "$host" in
+             *-*-android*)
+                 # Android
+@@ -28669,6 +28669,7 @@
+             *-*-hpux*)          ARCH=hpux ;;
+             *-*-aix*)           ARCH=aix ;;
+             *-*-minix*)         ARCH=minix ;;
++            *-*-irix*)          ARCH=irix ;;
+             *-*-nto*)           ARCH=nto
+                 CheckQNXVideo
+                 ;;
