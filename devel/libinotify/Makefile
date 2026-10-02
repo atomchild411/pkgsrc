@@ -27,6 +27,8 @@ CFLAGS+=	-Wno-deprecated-pragma
 TEST_TARGET=	test
 
 NOT_FOR_PLATFORM+=	SunOS-*-* Linux-*-*
+# Built on kqueue, which IRIX does not have.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 
 pre-configure:
 	cd ${WRKSRC} && autoreconf -fvi

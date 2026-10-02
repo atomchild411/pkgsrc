@@ -12,7 +12,7 @@ LICENSE=	gnu-lgpl-v2 AND gnu-lgpl-v2.1 AND modified-bsd
 
 LDFLAGS.SunOS+=		-lsocket
 
-.if ${OPSYS} != "SunOS"
+.if ${OPSYS} != "SunOS" && ${OPSYS} != "IRIX"
 .include "../../devel/libinotify/buildlink3.mk"
 .else
 CMAKE_CONFIGURE_ARGS+=	-DENABLE_INOTIFY=OFF

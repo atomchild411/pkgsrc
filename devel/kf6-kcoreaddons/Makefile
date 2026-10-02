@@ -13,7 +13,7 @@ CMAKE_CONFIGURE_ARGS+=	-DBUILD_PYTHON_BINDINGS=OFF
 
 LDFLAGS.SunOS+=		-lsocket
 
-.if ${OPSYS} != "SunOS"
+.if ${OPSYS} != "SunOS" && ${OPSYS} != "IRIX"
 .include "../../devel/libinotify/buildlink3.mk"
 .else
 CMAKE_CONFIGURE_ARGS+=	-DENABLE_INOTIFY=OFF
