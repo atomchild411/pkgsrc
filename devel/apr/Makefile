@@ -26,6 +26,16 @@ TEST_TARGET=		check
 
 .include "../../mk/bsd.prefs.mk"
 
+# apr_rules.mk, which builds of other programs read later, names the awk
+# configure found: in a cross build, name the target's instead.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+SUBST_CLASSES+=		awk
+SUBST_STAGE.awk=	post-build
+SUBST_MESSAGE.awk=	Naming the target's awk in apr_rules.mk.
+SUBST_FILES.awk=	build/apr_rules.mk
+SUBST_SED.awk=		-e 's,^AWK=.*,AWK=${TARGET_TOOL.AWK},'
+.endif
+
 .if ${OPSYS} == "SunOS"
 REPLACE_SH+=		apr-config.in
 .endif
