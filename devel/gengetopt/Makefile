@@ -17,4 +17,13 @@ USE_TOOLS+=	gmake
 MAKE_JOBS_SAFE=	no
 INFO_FILES=	yes
 
+.include "../../mk/bsd.prefs.mk"
+
+# The documentation's examples come from running gengetopt: in a cross
+# build, the build host's.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=	${PKGNAME}:../../${PKGPATH}
+MAKE_FLAGS+=	PROGNAME=${TOOLBASE}/bin/gengetopt
+.endif
+
 .include "../../mk/bsd.pkg.mk"
