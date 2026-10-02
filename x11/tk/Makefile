@@ -33,6 +33,15 @@ CONFIGURE_ARGS+=	--enable-64bit
 
 .include "options.mk"
 
+# IRIX: configure links shared libraries with SGI's ld and its flags (as
+# tcl's does); link them with the compiler instead.
+SUBST_CLASSES.IRIX+=		irix-shlib
+SUBST_STAGE.irix-shlib=		pre-configure
+SUBST_MESSAGE.irix-shlib=	Linking shared libraries with the compiler.
+SUBST_FILES.irix-shlib=		unix/configure
+SUBST_SED.irix-shlib=		-e "s|SHLIB_LD=\"ld -n32 -shared -rdata_shared\"|SHLIB_LD='\$${CC} -shared'|"
+SUBST_SED.irix-shlib+=		-e "s|LD_SEARCH_FLAGS='-rpath \$${LIB_RUNTIME_DIR}'|LD_SEARCH_FLAGS='-Wl,-rpath,\$${LIB_RUNTIME_DIR}'|"
+
 SUBST_CLASSES+=		tk-config
 SUBST_STAGE.tk-config=	post-build
 SUBST_FILES.tk-config=	unix/tkConfig.sh
