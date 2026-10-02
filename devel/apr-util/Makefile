@@ -13,7 +13,7 @@ LICENSE=	apache-2.0
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--with-apr=${BUILDLINK_PREFIX.apr}/bin/apr-1-config
+CONFIGURE_ARGS+=	--with-apr=${APR_CONFIG}
 CONFIGURE_ARGS+=	--with-expat=${BUILDLINK_PREFIX.expat}
 CONFIGURE_ARGS+=	--without-gdbm
 CONFIGURE_ARGS+=	--without-odbc
@@ -35,6 +35,20 @@ MAKE_ENV+=	WRAPPER_DIR=${WRAPPER_DIR}
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
+
+# A cross build runs the target's apr-1-config, from a copy whose build
+# directory (apr_rules.mk and libtool) is the one in the cross destdir.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+APR_CONFIG=	${WRKDIR}/apr-1-config
+pre-configure: apr-cross-config
+apr-cross-config:
+	${RUN}${SED} -e 's|^installbuilddir="|installbuilddir="${_CROSS_DESTDIR}|' \
+		${_CROSS_DESTDIR}${BUILDLINK_PREFIX.apr}/bin/apr-1-config \
+		> ${APR_CONFIG}
+	${RUN}${CHMOD} +x ${APR_CONFIG}
+.else
+APR_CONFIG=	${BUILDLINK_PREFIX.apr}/bin/apr-1-config
+.endif
 
 TEST_TARGET=	test
 
