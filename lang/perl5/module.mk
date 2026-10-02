@@ -130,6 +130,8 @@ PERL5_CONFIGURE_PERL=	${TOOLBASE}/bin/perl
 # Config.pm was loaded from.
 _PERL5_CROSS_CONFIG=	${WRKDIR}/.perl5-cross/${_PERL5_CROSS_ARCHLIB:T}
 MAKE_ENV+=		PERL5LIB=${_PERL5_CROSS_CONFIG}
+# Devel::CheckLib (patched) links its test programs without running them.
+MAKE_ENV+=		PKGSRC_CROSS_NO_EXECUTE=1
 pre-configure: perl5-cross-config
 .PHONY: perl5-cross-config
 perl5-cross-config:
