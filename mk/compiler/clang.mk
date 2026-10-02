@@ -56,8 +56,9 @@ _COMPILER_ABI_FLAG.n32=	-mabi=n32
 _COMPILER_ABI_FLAG.64=	-mabi=64
 # C++ links clang's shared libc++ (and libc++abi), which IRIX does not
 # have: depend on the package with them, as gcc's runtime is gccNN-libs.
+# Not cross-libtool-base: a build host script that only poses as IRIX.
 .  if !empty(USE_LANGUAGES:Mc++*) && ${PKGPATH} != "lang/clang-irix-libs" && \
-      ${PKGPATH} != "lang/clang-irix"
+      ${PKGPATH} != "lang/clang-irix" && ${PKGPATH} != "cross/cross-libtool-base"
 DEPENDS+=	clang-irix-libs>=21.1.8:../../lang/clang-irix-libs
 .  endif
 .else
