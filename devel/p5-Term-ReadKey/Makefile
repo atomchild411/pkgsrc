@@ -16,4 +16,10 @@ USE_LANGUAGES=		c
 PERL5_PACKLIST=		auto/Term/ReadKey/.packlist
 
 .include "../../lang/perl5/module.mk"
+# Cross builds: what blockoptions() answers on the target, which the
+# build cannot load the module to ask (patch-ReadKey.pm.PL). IRIX has
+# non-blocking reads, poll and select: 1 | 2 | 4.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+MAKE_ENV.IRIX+=	PKGSRC_READKEY_BLOCKOPTIONS=7
+.endif
 .include "../../mk/bsd.pkg.mk"
