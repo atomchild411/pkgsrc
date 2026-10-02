@@ -11,6 +11,9 @@ INSTALLATION_DIRS+=	lib
 
 BJAM_ARGS+=		--without-headers
 BJAM_ARGS+=		--without-python
+# IRIX lacks POSIX 2008's per-locale functions (strcoll_l, toupper_l, ...)
+# that Boost.Locale's posix backend uses; it keeps its other backends.
+BJAM_ARGS+=		${OPSYS:MIRIX:S/IRIX/boost.locale.posix=off/}
 PLIST_VARS+=		cobalt context fiber log stacktrace_from_exception
 
 .include "../../mk/compiler.mk"
