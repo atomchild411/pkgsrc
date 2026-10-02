@@ -9,6 +9,14 @@ BUILDLINK_API_DEPENDS.libgpg-error+=	libgpg-error>=0.6
 BUILDLINK_ABI_DEPENDS.libgpg-error+=	libgpg-error>=1.10nb1
 BUILDLINK_PKGSRCDIR.libgpg-error?=	../../security/libgpg-error
 
+# Cross builds: the scripts libgpg-error installs describe the target, so
+# consumers run those from the cross destdir rather than the build host's
+# (whose paths would end up in their own *-config scripts and .la files).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CONFIGURE_ENV+=	GPGRT_CONFIG=${CROSS_DESTDIR:Q}${PREFIX}/bin/gpgrt-config
+CONFIGURE_ENV+=	GPG_ERROR_CONFIG=${CROSS_DESTDIR:Q}${PREFIX}/bin/gpg-error-config
+.endif
+
 .include "../../devel/gettext-lib/buildlink3.mk"
 .endif # LIBGPG_ERROR_BUILDLINK3_MK
 
