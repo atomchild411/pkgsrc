@@ -626,6 +626,9 @@ RUBY_ARCH?=	${MACHINE_GNU_ARCH}-${LOWER_OPSYS}${APPEND_ELF}${LOWER_OPSYS_VERSUFF
 # NetBSD does not append an OS version, so we have to do this OPSYS-specific.
 .if ${OPSYS} == "NetBSD" || ${OPSYS} == "Linux"
 RUBY_EXTARCH?=	${MACHINE_GNU_ARCH}-${LOWER_OPSYS}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}
+.elif ${OPSYS} == "IRIX"
+# RubyGems does not know IRIX: its Gem::Platform.local is <cpu>-unknown.
+RUBY_EXTARCH?=	${MACHINE_GNU_ARCH}-unknown
 .else
 RUBY_EXTARCH?=	${MACHINE_GNU_ARCH}-${LOWER_OPSYS}${APPEND_ELF}-${LOWER_OPSYS_VERSUFFIX}${APPEND_ABI}
 .endif

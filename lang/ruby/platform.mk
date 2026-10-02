@@ -136,6 +136,15 @@ CONFIGURE_ENV.SunOS+=	OBJCOPY=:
 #
 CONFIGURE_ENV.IRIX+=	LDSHARED="${CC} -shared"
 
+#
+# Cross builds: ext/socket cannot run its test of whether recvmsg() with
+# MSG_PEEK creates the passed descriptors, and stops. Say no: at worst a
+# descriptor is left open, where yes could close an unrelated one.
+#
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CONFIGURE_ARGS+=	--disable-close-fds-by-recvmsg-with-peek
+.endif
+
 # On platforms where DTrace is available, we need to invoke dtrace(1)
 # with the original PATH. Otherwise it gets confused in the presence
 # of our cc wrapper because it tries to invoke the system-default gcc
