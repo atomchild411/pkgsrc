@@ -16,7 +16,14 @@ TEST_DEPENDS+=	p5-Test-Warn-[0-9]*:../../devel/p5-Test-Warn
 TEST_DEPENDS+=	p5-Test-NoWarnings-[0-9]*:../../devel/p5-Test-NoWarnings
 
 PERL5_PACKLIST=		auto/Net/SSLeay/.packlist
+.include "../../mk/bsd.prefs.mk"
+# Cross builds: Makefile.PL looks for the headers and libraries under the
+# prefix, which the build host has under the buildlink directory only.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_ENV+=		OPENSSL_PREFIX=${BUILDLINK_DIR}
+.else
 MAKE_ENV+=		OPENSSL_PREFIX=${SSLBASE}
+.endif
 MAKE_ENV+=		PERL_MM_USE_DEFAULT=1	# avoid network question
 MAKE_ENV+=		DYLD_LIBRARY_PATH=${PREFIX}/lib # build on Mac OS X
 
