@@ -18,4 +18,9 @@ MAKE_PARAMS+=	SQLITE_LOCATION=${BUILDLINK_PREFIX.sqlite3}
 BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.34
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../lang/perl5/module.mk"
+# Cross builds: Makefile.PL reads sqlite3.h for its version, which is not
+# at the target's path on the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_PARAMS+=	SQLITE_INC=${BUILDLINK_DIR}/include
+.endif
 .include "../../mk/bsd.pkg.mk"
