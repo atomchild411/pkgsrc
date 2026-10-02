@@ -20,6 +20,7 @@ SHA1 (patch-boost_numeric_ublas_storage.hpp) = 282b5a3b5d09216ded14fae166169d64d
 SHA1 (patch-boost_property__tree_detail_xml__parser__read__rapidxml.hpp) = 3499fcc37e72396d23a9fce0f1c97891adf12a9f
 SHA1 (patch-boost_stacktrace_detail_collect__unwind.ipp) = a5922dffd929f596b6e7d71b11f32d17e0bbd806
 SHA1 (patch-boost_test_impl_execution__monitor.ipp) = ffd449576d00b7e6ea3081421e3e70decf5d7de8
+SHA1 (patch-boost_thread_detail_config.hpp) = 85441054abe26403adb1981b03f1864cd4a61679
 SHA1 (patch-boost_thread_pthread_thread__data.hpp) = d048867f0ed98720cc375e949e5c92b92f3ce1ac
 SHA1 (patch-boostcpp.jam) = c545980fc72ce5a9fd2463899280927b495771b9
 SHA1 (patch-libs_config_configure) = e2f204d4fa4f1bd9b4131d28f9be0a1ac22bf711
