@@ -135,6 +135,8 @@ CONFIGURE_ENV.SunOS+=	OBJCOPY=:
 # ld understands; link them with the compiler.
 #
 CONFIGURE_ENV.IRIX+=	LDSHARED="${CC} -shared"
+# IRIX's IPv6 API is incomplete (no sin6_scope_id); build without it.
+CONFIGURE_ARGS.IRIX+=	--disable-ipv6
 
 #
 # Cross builds: ext/socket cannot run its test of whether recvmsg() with
