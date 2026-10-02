@@ -3,6 +3,7 @@
 .include "../../lang/llvm/version.mk"
 
 PKGNAME=	lld-${LLVM_VERSION}
+PKGREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

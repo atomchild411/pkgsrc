@@ -3,6 +3,7 @@
 .include "../../lang/llvm/version.mk"
 
 PKGNAME=	libunwind-${LLVM_VERSION}
+PKGREVISION=	1
 CATEGORIES=	lang devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

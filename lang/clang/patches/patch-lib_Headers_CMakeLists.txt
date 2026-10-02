@@ -1,0 +1,195 @@
+$NetBSD$
+
+IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
+branch iris/main):
+- clang: wrapper headers for what IRIX's lack, and _WCHAR_T in C++
+- clang: __IRIX_VERSION__, char * va_list, and C99 gaps in the headers
+- clang: C99 integer constant macros
+- The C95/C99 library IRIX 6.5.7 lacks, and wide characters in libc++
+- headers: work against a stock IRIX 6.5.22 root too
+- headers: socklen_t for IRIX 6.5.7 roots
+- headers: <sys/select.h> provides struct timeval
+- headers: <uuid.h> for IRIX's DCE UUID calls
+- headers: suseconds_t
+- headers: <assert.h> without an include guard
+- POSIX 2008 locale objects, the C locale only
+- CLOCK_MONOTONIC from times()
+- O_CLOEXEC for open()
+- pthread_cond_timedwait_relative_np
+- getaddrinfo, getnameinfo and RFC 3493's IPv6 types
+- posix_spawn
+- getopt_long and getopt_long_only
+- POSIX 2008 string, stdio, memory and time functions
+- MAP_ANON through /dev/zero
+- <err.h>: err, errx, warn, warnx and their va_list forms
+- <sys/file.h>: declare flock for C++
+- <endian.h>, cfmakeraw, lchmod, get_nprocs
+- <sys/socket.h>: no sa_len macro; <netinet/ip.h>: self-contained
+- <sys/ioctl.h>: struct winsize and TIOCGWINSZ in every mode
+- struct winsize from <sys/termios.h>, decided after IRIX's
+- Declare POSIX functions IRIX hides outside SGI mode
+- dladdr() over the runtime linker's dladdr service
+- limits.h: POSIX.1-2001 minimums, PATH_MAX and NAME_MAX
+- sys/timespec.h: include sys/types.h before the guard
+- netinet/tcp.h: bring in the BSD types it uses
+- Wrapper <byteswap.h>: bswap_16, bswap_32, bswap_64
+- Wrapper <elf.h>: Elf32_Nhdr and Elf64_Nhdr
+- Wrapper <resolv.h>: define sgi while IRIX's is read
+- Install <sys/bitypes.h>, not <resolv.h>
+- getifaddrs and freeifaddrs, with <ifaddrs.h>
+- Wrappers: <sys/queue.h>, <machine/endian.h>, SUN_LEN, I, IPPROTO_SCTP
+- POSIX 2008 *_l functions: ctype, wctype and collation
+
+--- lib/Headers/CMakeLists.txt.orig
++++ lib/Headers/CMakeLists.txt
+@@ -395,6 +395,90 @@ set(zos_wrapper_files
+   zos_wrappers/builtins.h
+ )
+ 
++set(irix_wrapper_files
++  irix_wrappers/dlfcn.h
++  irix_wrappers/ftw.h
++  irix_wrappers/limits.h
++  irix_wrappers/grp.h
++  irix_wrappers/pwd.h
++  irix_wrappers/search.h
++  irix_wrappers/signal.h
++  irix_wrappers/syslog.h
++  irix_wrappers/__irix_endian_swap.h
++  irix_wrappers/__irix_int_c.h
++  irix_wrappers/assert.h
++  irix_wrappers/termios.h
++  irix_wrappers/byteswap.h
++  irix_wrappers/elf.h
++  irix_wrappers/endian.h
++  irix_wrappers/ctype.h
++  irix_wrappers/dirent.h
++  irix_wrappers/err.h
++  irix_wrappers/fcntl.h
++  irix_wrappers/fenv.h
++  irix_wrappers/getopt.h
++  irix_wrappers/ifaddrs.h
++  irix_wrappers/inttypes.h
++  irix_wrappers/locale.h
++  irix_wrappers/math.h
++  irix_wrappers/netdb.h
++  irix_wrappers/pthread.h
++  irix_wrappers/spawn.h
++  irix_wrappers/stdint.h
++  irix_wrappers/stdio.h
++  irix_wrappers/stdlib.h
++  irix_wrappers/string.h
++  irix_wrappers/time.h
++  irix_wrappers/unistd.h
++  irix_wrappers/uuid.h
++  irix_wrappers/wchar.h
++  irix_wrappers/complex.h
++  irix_wrappers/__irix_locale_t.h
++)
++
++# Installed under irix_wrappers/internal/ (the install below flattens a list).
++set(irix_wrapper_internal_files
++  irix_wrappers/internal/sgimacros.h
++)
++
++# Installed under irix_wrappers/sys/.
++set(irix_wrapper_sys_files
++  irix_wrappers/sys/bitypes.h
++  irix_wrappers/sys/endian.h
++  irix_wrappers/sys/queue.h
++  irix_wrappers/sys/un.h
++  irix_wrappers/sys/file.h
++  irix_wrappers/sys/ipc.h
++  irix_wrappers/sys/wait.h
++  irix_wrappers/sys/termios.h
++  irix_wrappers/sys/time.h
++  irix_wrappers/sys/mman.h
++  irix_wrappers/sys/select.h
++  irix_wrappers/sys/socket.h
++  irix_wrappers/sys/stat.h
++  irix_wrappers/sys/sysinfo.h
++  irix_wrappers/sys/timespec.h
++  irix_wrappers/sys/types.h
++)
++
++# Installed under irix_wrappers/arpa/, irix_wrappers/net/ and
++# irix_wrappers/netinet/.
++set(irix_wrapper_arpa_files
++  irix_wrappers/arpa/inet.h
++)
++set(irix_wrapper_net_files
++  irix_wrappers/net/if.h
++)
++set(irix_wrapper_netinet_files
++  irix_wrappers/netinet/in.h
++  irix_wrappers/netinet/ip.h
++  irix_wrappers/netinet/tcp.h
++)
++# Installed under irix_wrappers/machine/.
++set(irix_wrapper_machine_files
++  irix_wrappers/machine/endian.h
++)
++
+ include(GetClangResourceDir)
+ get_clang_resource_dir(output_dir PREFIX ${LLVM_LIBRARY_OUTPUT_INTDIR}/.. SUBDIR include)
+ set(out_files)
+@@ -443,7 +527,7 @@ endfunction(clang_generate_header)
+ 
+ # Copy header files from the source directory to the build directory
+ foreach( f ${files} ${cuda_wrapper_files} ${cuda_wrapper_bits_files}
+-           ${ppc_wrapper_files} ${openmp_wrapper_files} ${zos_wrapper_files} ${hlsl_files}
++           ${ppc_wrapper_files} ${openmp_wrapper_files} ${zos_wrapper_files} ${irix_wrapper_files} ${irix_wrapper_internal_files} ${irix_wrapper_sys_files} ${irix_wrapper_arpa_files} ${irix_wrapper_net_files} ${irix_wrapper_netinet_files} ${irix_wrapper_machine_files} ${hlsl_files}
+ 	   ${llvm_libc_wrapper_files} ${llvm_offload_wrapper_files})
+   copy_header_to_output_dir(${CMAKE_CURRENT_SOURCE_DIR} ${f})
+ endforeach( f )
+@@ -557,7 +641,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
+ add_header_target("hexagon-resource-headers" "${hexagon_files}")
+ add_header_target("hip-resource-headers" "${hip_files}")
+ add_header_target("loongarch-resource-headers" "${loongarch_files}")
+-add_header_target("mips-resource-headers" "${mips_msa_files}")
++add_header_target("mips-resource-headers" "${mips_msa_files};${irix_wrapper_files};${irix_wrapper_internal_files};${irix_wrapper_sys_files};${irix_wrapper_arpa_files};${irix_wrapper_net_files};${irix_wrapper_netinet_files};${irix_wrapper_machine_files}")
+ add_header_target("ppc-resource-headers" "${ppc_files};${ppc_wrapper_files}")
+ add_header_target("ppc-htm-resource-headers" "${ppc_htm_files}")
+ add_header_target("riscv-resource-headers" "${riscv_files};${riscv_generated_files}")
+@@ -625,6 +709,41 @@ install(
+   DESTINATION ${header_install_dir}/zos_wrappers
+   COMPONENT clang-resource-headers)
+ 
++install(
++  FILES ${irix_wrapper_files}
++  DESTINATION ${header_install_dir}/irix_wrappers
++  COMPONENT clang-resource-headers)
++
++install(
++  FILES ${irix_wrapper_internal_files}
++  DESTINATION ${header_install_dir}/irix_wrappers/internal
++  COMPONENT clang-resource-headers)
++
++install(
++  FILES ${irix_wrapper_sys_files}
++  DESTINATION ${header_install_dir}/irix_wrappers/sys
++  COMPONENT clang-resource-headers)
++
++install(
++  FILES ${irix_wrapper_arpa_files}
++  DESTINATION ${header_install_dir}/irix_wrappers/arpa
++  COMPONENT clang-resource-headers)
++
++install(
++  FILES ${irix_wrapper_net_files}
++  DESTINATION ${header_install_dir}/irix_wrappers/net
++  COMPONENT clang-resource-headers)
++
++install(
++  FILES ${irix_wrapper_netinet_files}
++  DESTINATION ${header_install_dir}/irix_wrappers/netinet
++  COMPONENT clang-resource-headers)
++
++install(
++  FILES ${irix_wrapper_machine_files}
++  DESTINATION ${header_install_dir}/irix_wrappers/machine
++  COMPONENT clang-resource-headers)
++
+ #############################################################
+ # Install rules for separate header lists
+ install(

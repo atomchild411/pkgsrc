@@ -1,0 +1,16 @@
+$NetBSD$
+
+IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
+branch iris/main):
+- clang: IRIX target info and toolchain driver
+
+--- lib/Driver/CMakeLists.txt.orig
++++ lib/Driver/CMakeLists.txt
+@@ -65,6 +65,7 @@ add_clang_library(clangDriver
+   ToolChains/Hexagon.cpp
+   ToolChains/HLSL.cpp
+   ToolChains/Hurd.cpp
++  ToolChains/IRIX.cpp
+   ToolChains/Linux.cpp
+   ToolChains/Managarm.cpp
+   ToolChains/MipsLinux.cpp

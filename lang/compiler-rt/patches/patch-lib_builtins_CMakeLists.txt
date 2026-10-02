@@ -1,0 +1,81 @@
+$NetBSD$
+
+IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
+branch iris/main):
+- The C95/C99 library IRIX 6.5.7 lacks, and wide characters in libc++
+- printf: C99 length modifiers, and snprintf(NULL, 0) measures
+- headers: work against a stock IRIX 6.5.22 root too
+- compiler-rt: getprogname and setprogname
+- compiler-rt: strsignal
+- compiler-rt: setenv and unsetenv
+- POSIX 2008 locale objects, the C locale only
+- CLOCK_MONOTONIC from times()
+- O_CLOEXEC for open()
+- pthread_cond_timedwait_relative_np
+- getaddrinfo, getnameinfo and RFC 3493's IPv6 types
+- headers: POSIX struct msghdr by default
+- compiler-rt: memmem, mkdtemp, basename, dirname
+- posix_spawn
+- getopt_long and getopt_long_only
+- POSIX 2008 string, stdio, memory and time functions
+- C99 math declarations; the functions 6.5.7 lacks
+- MAP_ANON through /dev/zero
+- <err.h>: err, errx, warn, warnx and their va_list forms
+- sysconf: the names IRIX 6.5 lacks
+- <endian.h>, cfmakeraw, lchmod, get_nprocs
+- long double is a double
+- POSIX 2008's *at() calls and fdopendir
+- dladdr() over the runtime linker's dladdr service
+- pselect() over sigprocmask and select
+- Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
+- getifaddrs and freeifaddrs, with <ifaddrs.h>
+- [IRIX] Keep _exit out of the string compat object
+- POSIX 2008 *_l functions: ctype, wctype and collation
+
+--- lib/builtins/CMakeLists.txt.orig
++++ lib/builtins/CMakeLists.txt
+@@ -236,6 +236,44 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
+   "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
+   Off)
+ 
++# C95/C99 library functions IRIX's libc lacks before 6.5.22 (see the file).
++if(CMAKE_SYSTEM_NAME STREQUAL "IRIX")
++  set(GENERIC_SOURCES
++    ${GENERIC_SOURCES}
++    irix/libc_compat.c
++    irix/printf_c99.c
++    irix/scanf_c99.c
++    irix/strtof.c
++    irix/progname.c
++    irix/ssp.c
++    irix/compat_bsd2.c
++    irix/strsignal.c
++    irix/env.c
++    irix/locale.c
++    irix/clock.c
++    irix/cloexec.c
++    irix/pthread_np.c
++    irix/netdb.c
++    irix/socket.c
++    irix/misc.c
++    irix/spawn.c
++    irix/getopt_long.c
++    irix/posix2008.c
++    irix/atfile.c
++    irix/math_c99.c
++    irix/mman.c
++    irix/err.c
++    irix/fenv.c
++    irix/sysconf.c
++    irix/compat_bsd.c
++    irix/dladdr.c
++    irix/pselect.c
++    irix/ifaddrs.c
++    irix/process_bsd.c
++    irix/locale_l.c
++  )
++endif()
++
+ if(NOT FUCHSIA AND NOT COMPILER_RT_BAREMETAL_BUILD AND NOT COMPILER_RT_GPU_BUILD)
+   set(GENERIC_SOURCES
+     ${GENERIC_SOURCES}

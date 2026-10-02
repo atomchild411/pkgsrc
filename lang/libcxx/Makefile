@@ -6,6 +6,7 @@ EXTRACT_ELEMENTS+=	${DISTNAME}/libc
 EXTRACT_ELEMENTS+=	${DISTNAME}/libcxxabi
 
 PKGNAME=	libcxx-${LLVM_VERSION}
+PKGREVISION=	1
 CATEGORIES=	lang devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
