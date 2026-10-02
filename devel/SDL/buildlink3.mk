@@ -19,6 +19,13 @@ PTHREAD_OPTS+=	require
 
 .include "../../mk/bsd.fast.prefs.mk"
 
+# sdl-config is a script that we need to run at build time to learn the
+# target's SDL options (as SDL2's sdl2-config): run the target's.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOLS_CREATE+=		sdl-config
+TOOLS_PATH.sdl-config=	${CROSS_DESTDIR}${LOCALBASE}/bin/sdl-config
+.endif
+
 .if ${OPSYS} != "IRIX" && ${OPSYS} != "Darwin"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
