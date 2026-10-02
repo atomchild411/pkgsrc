@@ -11,3 +11,6 @@ d_fcntl_can_lock='define'
 # n32's ino_t is 64 bits (perl-cross measured 4).
 st_ino_sign=1
 st_ino_size=8
+# <sys/mode.h> is a kernel header (it needs <sys/vnode.h>'s kernel types);
+# C++ extensions that include perl.h fail on it.
+i_sysmode='undef'
