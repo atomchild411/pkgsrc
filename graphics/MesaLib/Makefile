@@ -12,6 +12,9 @@ HOMEPAGE=	https://www.mesa3d.org/
 COMMENT=	Open source OpenGL implementation (amber branch)
 LICENSE=	mit
 
+# IRIX uses its own GL (builtin.mk); no software GL is built for it.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_TOOLS+=	bison flex pkg-config xgettext
 USE_LANGUAGES=	c c++03
 

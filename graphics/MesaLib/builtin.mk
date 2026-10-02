@@ -2,6 +2,16 @@
 
 BUILTIN_PKG:=	MesaLib
 
+# IRIX: GL is always IRIX's own libGL.so (with libGLcore.so): hardware
+# OpenGL on accelerated boards, SGI's software OpenGL on REX3. Mesa is not
+# built for it.
+.if ${OPSYS} == "IRIX"
+IS_BUILTIN.MesaLib=	yes
+BUILTIN_PKG.MesaLib=	MesaLib-1.2
+USE_BUILTIN.MesaLib=	yes
+BUILDLINK_PREFIX.MesaLib=	/usr
+.endif
+
 BUILTIN_FIND_FILES_VAR:=	H_MESALIB PC_GL
 BUILTIN_FIND_FILES.H_MESALIB=	${X11BASE}/include/GL/glx.h
 BUILTIN_FIND_FILES.PC_GL=	${X11BASE}/lib/pkgconfig/gl.pc
@@ -85,6 +95,26 @@ CHECK_BUILTIN.MesaLib?=	no
 BUILTIN_PKG:=	MesaLib
 .  endif
 
-.  include "../../mk/x11.builtin.mk"
+.  if ${OPSYS} != "IRIX"
+.    include "../../mk/x11.builtin.mk"
+.  else
+# IRIX's GL has no pkg-config file: write one for the build.
+BUILDLINK_TARGETS+=	irix-gl-pc
+.    if !defined(HAS_IRIX_GL_PC)
+HAS_IRIX_GL_PC=
+.PHONY: irix-gl-pc
+irix-gl-pc:
+	${RUN}${MKDIR} ${BUILDLINK_DIR}/lib/pkgconfig;			\
+	{ ${ECHO} 'prefix=/usr';						\
+	  ${ECHO} 'includedir=$${prefix}/include';				\
+	  ${ECHO};								\
+	  ${ECHO} 'Name: gl';						\
+	  ${ECHO} 'Description: IRIX OpenGL';					\
+	  ${ECHO} 'Version: 1.2';						\
+	  ${ECHO} 'Libs: -lGL';						\
+	  ${ECHO} 'Cflags:';							\
+	} > ${BUILDLINK_DIR}/lib/pkgconfig/gl.pc
+.    endif
+.  endif
 
 .endif	# CHECK_BUILTIN.MesaLib

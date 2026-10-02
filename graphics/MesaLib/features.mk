@@ -18,9 +18,13 @@ _MESALIB_ARCH_SUPPORTS_XA?=	no # Only for graphics/MesaLib/Makefile
 _MESALIB_ARCH_SUPPORTS_XA=	yes
 .endif
 
-# IRIX: EGL (surfaceless) without DRI; see Makefile.
+# IRIX: GL is IRIX's own (builtin.mk), with GLX only; EGL and GLES come
+# from irix-egl-gles, not from here.
 .if ${OPSYS} == "IRIX"
-MESALIB_SUPPORTS_EGL?=		yes
+MESALIB_SUPPORTS_EGL?=		no
+MESALIB_SUPPORTS_GLESv2?=	no
+MESALIB_SUPPORTS_OSMESA?=	no
+MESALIB_SUPPORTS_XA?=		no
 .endif
 
 .if ${X11_TYPE} == "modular"

@@ -2,6 +2,14 @@
 
 BUILTIN_PKG:=	glu
 
+# IRIX: GLU is always IRIX's own libGLU.so, as GL is (MesaLib/builtin.mk).
+.if ${OPSYS} == "IRIX"
+IS_BUILTIN.glu=		yes
+BUILTIN_PKG.glu=	glu-1.2
+USE_BUILTIN.glu=	yes
+BUILDLINK_PREFIX.glu=	/usr
+.endif
+
 BUILTIN_FIND_FILES_VAR:=	H_GLU PC_GLU
 BUILTIN_FIND_FILES.H_GLU=	${X11BASE}/include/GL/glu.h
 BUILTIN_FIND_FILES.PC_GLU=	${X11BASE}/lib/pkgconfig/glu.pc
@@ -74,7 +82,28 @@ MAKEVARS+=		USE_BUILTIN.glu
 ### solely to determine whether a built-in implementation exists.
 ###
 
-.include "../../mk/x11.builtin.mk"
+.if ${OPSYS} != "IRIX"
+.  include "../../mk/x11.builtin.mk"
+.else
+# IRIX's GLU has no pkg-config file: write one for the build.
+BUILDLINK_TARGETS+=	irix-glu-pc
+.  if !defined(HAS_IRIX_GLU_PC)
+HAS_IRIX_GLU_PC=
+.PHONY: irix-glu-pc
+irix-glu-pc:
+	${RUN}${MKDIR} ${BUILDLINK_DIR}/lib/pkgconfig;			\
+	{ ${ECHO} 'prefix=/usr';						\
+	  ${ECHO} 'includedir=$${prefix}/include';				\
+	  ${ECHO};								\
+	  ${ECHO} 'Name: glu';						\
+	  ${ECHO} 'Description: IRIX OpenGL utility library';					\
+	  ${ECHO} 'Version: 1.2';						\
+	  ${ECHO} 'Requires: gl';						\
+	  ${ECHO} 'Libs: -lGLU';						\
+	  ${ECHO} 'Cflags:';							\
+	} > ${BUILDLINK_DIR}/lib/pkgconfig/glu.pc
+.  endif
+.endif
 
 CHECK_BUILTIN.glu?=	no
 .if ${CHECK_BUILTIN.glu:tl} == no
