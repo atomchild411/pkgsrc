@@ -27,7 +27,8 @@ BUILD_TARGET.Linux=	${LOWER_OPSYS}
 BUILD_TARGET.${OPSYS}=	netbsd
 .endif
 BUILD_TARGET.SunOS=	sunos5
-BUILD_TARGET.IRIX=	irix5
+# irix5 links -lsun, which IRIX 6 does not have.
+BUILD_TARGET.IRIX=	irix${OS_VERSION:R}
 .if ${OS_VARIANT} == "SCOOSR5"
 BUILD_TARGET.SCO_SV=	sco-os5
 LDFLAGS.SCO_SV+=	-lsocket
