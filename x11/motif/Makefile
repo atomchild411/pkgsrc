@@ -79,12 +79,12 @@ CPPFLAGS_FOR_BUILD+=	${BUILDLINK_CPPFLAGS}
 LDFLAGS_FOR_BUILD+=	${BUILDLINK_LDFLAGS}
 .else
 MAKE_FLAGS+=		CROSS_COMPILING=yes
-# XXX should support independent cross PREFIX
-CPPFLAGS_FOR_BUILD+=	-I${PREFIX:Q}/include
-LDFLAGS_FOR_BUILD+=	-L${PREFIX:Q}/lib
-LDFLAGS_FOR_BUILD+=	${COMPILER_RPATH_FLAG:Q}${PREFIX:Q}/lib
-CONFIGURE_ARGS.NetBSD+=	ac_cv_file__usr_X_include_X11_X_h=no
-CONFIGURE_ARGS.NetBSD+=	ac_cv_file__usr_X11R6_include_X11_X_h=no
+# The build tools use the build host's X libraries, in TOOLBASE.
+CPPFLAGS_FOR_BUILD+=	-I${TOOLBASE:Q}/include
+LDFLAGS_FOR_BUILD+=	-L${TOOLBASE:Q}/lib
+LDFLAGS_FOR_BUILD+=	${COMPILER_RPATH_FLAG:Q}${TOOLBASE:Q}/lib
+CONFIGURE_ARGS+=	ac_cv_file__usr_X_include_X11_X_h=no
+CONFIGURE_ARGS+=	ac_cv_file__usr_X11R6_include_X11_X_h=no
 .  if ${X11_TYPE} != "native"
 # Motif's build involves building and running tools, wml*, that are
 # linked against libXt.  Thus we need libXt as a tool dependency, not
