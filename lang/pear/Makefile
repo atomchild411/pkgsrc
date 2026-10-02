@@ -39,9 +39,18 @@ INSTALLATION_DIRS+=	${PHP_EGDIR} ${PHP_SHAREDIR}
 # TODO: This should probably be set in lang/php
 PHPBIN=		${PREFIX}/bin/php${PHP_VER}
 
+# The php that unpacks, repacks and runs the installer. Cross builds use the
+# build host's; PHPBIN stays the one the installed commands run.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=	${PHP_PKG_PREFIX}-[0-9]*:${PHPPKGSRCDIR}
+PHPBIN_BUILD=	${TOOLBASE}/bin/php${PHP_VER}
+.else
+PHPBIN_BUILD=	${PHPBIN}
+.endif
+
 # Unpack the .phar archive so that we can patch the source files.
 post-extract:
-	cd ${WRKSRC} && ${PHPBIN} -d phar.readonly=0 -r \
+	cd ${WRKSRC} && ${PHPBIN_BUILD} -d phar.readonly=0 -r \
 		'$$p = new Phar("go-pear.phar"); \
 		 $$p->extractTo("src");'
 	${MV} ${WRKSRC}/go-pear.phar ${WRKSRC}/go-pear-orig.phar
@@ -50,7 +59,7 @@ post-extract:
 # This does not actually build anything, just packs our patched source files
 # back to an updated .phar.
 do-build:
-	cd ${WRKSRC} && ${PHPBIN} -d phar.readonly=0 -r \
+	cd ${WRKSRC} && ${PHPBIN_BUILD} -d phar.readonly=0 -r \
 		'$$p = new Phar("go-pear.phar", 0, "go-pear.phar"); \
 		 $$p->buildFromDirectory(dirname(__FILE__) . "/src"); \
 		 $$p->setStub($$p->createDefaultStub("index.php"));'
@@ -59,7 +68,7 @@ INSTALL_ENV+=	PHP_PEAR_PHP_BIN=${PHPBIN}
 
 do-install:
 	cd ${WRKSRC} && \
-		${PKGSRC_SETENV} ${INSTALL_ENV} ${PHPBIN} go-pear.phar
+		${PKGSRC_SETENV} ${INSTALL_ENV} ${PHPBIN_BUILD} go-pear.phar
 	${INSTALL_DATA} ${WRKSRC}/pear.conf \
 		${DESTDIR}${PREFIX}/${PHP_EGDIR}/pear.conf
 	${INSTALL_DATA} ${WRKDIR}/README-pear.pkgsrc \
