@@ -49,6 +49,15 @@ TOOL_DEPENDS+=		${PKGNAME}:../../${PKGPATH}
 CONFIGURE_ARGS+=	--with-data-packaging=archive
 CONFIGURE_ARGS+=	--disable-extras
 PLIST.datarchive=	yes
+# pkgdata writes the archive's own header in the build host's byte order
+# too: convert the installed archive to the target's.
+post-install: icu-cross-data
+.PHONY: icu-cross-data
+icu-cross-data:
+	${RUN} for f in ${DESTDIR}${PREFIX}/share/icu/*/icudt*${MACHINE_ENDIAN:S/big/b/:S/little/l/}.dat; do \
+		${ICU_CROSS_DIR}/bin/icupkg -t${MACHINE_ENDIAN:S/big/b/:S/little/l/} "$$f" "$$f.tmp" && \
+		${MV} -f "$$f.tmp" "$$f"; \
+	done
 
 ICU_CROSS_DIR=		${WRKDIR}/.icu_cross
 ICU_CROSS_COOKIE=	${ICU_CROSS_DIR}/.cookie
