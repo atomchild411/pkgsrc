@@ -147,6 +147,20 @@ CONFIGURE_ARGS.IRIX+=	--disable-ipv6
 CONFIGURE_ARGS+=	--disable-close-fds-by-recvmsg-with-peek
 .endif
 
+#
+# Cross builds: the bundled gems' installed exts.mk name the build host's
+# ruby and the fake rbconfig it loaded. Name the installed ruby instead.
+#
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		cross-exts
+SUBST_STAGE.cross-exts=	post-install
+SUBST_MESSAGE.cross-exts=	Pointing exts.mk at the installed ruby.
+SUBST_FILES.cross-exts=	${DESTDIR}${PREFIX}/${GEM_HOME}/gems/*/exts.mk
+SUBST_SED.cross-exts=	-e 's|${TOOLBASE}/bin/ruby|${PREFIX}/bin/ruby|g'
+SUBST_SED.cross-exts+=	-e 's| -r[^ ]*-fake||g'
+SUBST_NOOP_OK.cross-exts=	yes
+.endif
+
 # On platforms where DTrace is available, we need to invoke dtrace(1)
 # with the original PATH. Otherwise it gets confused in the presence
 # of our cc wrapper because it tries to invoke the system-default gcc
