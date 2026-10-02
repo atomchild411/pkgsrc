@@ -25,6 +25,11 @@ BJAM_ARGS+=	cxxflags=-stdlib=libc++ linkflags=-stdlib=libc++
 .  endif
 .endif
 
+# b2's name for IRIX. It defaults to the build host's system: a cross build
+# was Linux to it (boost.log then asks for _XOPEN_SOURCE=600).
+.if ${OPSYS} == "IRIX"
+BJAM_BUILD+=	target-os=sgi
+.endif
 BJAM_BUILD+=	variant=release
 BJAM_BUILD+=	threading=multi
 BJAM_BUILD+=	link=shared,static

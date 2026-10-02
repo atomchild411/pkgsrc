@@ -2,9 +2,20 @@ $NetBSD: patch-tools_build_src_tools_gcc.jam,v 1.5 2018/05/11 14:45:23 jperkin E
 
 SunOS supports soname.
 
---- tools/build/src/tools/gcc.jam.orig	2018-04-11 13:49:09.000000000 +0000
+IRIX has POSIX threads: build with -pthread there too.
+
+--- tools/build/src/tools/gcc.jam.orig
 +++ tools/build/src/tools/gcc.jam
-@@ -922,6 +922,9 @@ toolset.flags gcc.link.dll .IMPLIB-COMMA
+@@ -412,7 +412,7 @@
+ 
+     # iOS doesn't need pthread flag according to the https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/pthread.3.html
+     # The default system libraries include pthread functions.  No additional libraries or CFLAGS are necessary to use this API.
+-    local no-threading = android beos haiku sgi darwin vxworks iphone appletv ;
++    local no-threading = android beos haiku darwin vxworks iphone appletv ;
+     local threading-generic-os = [ set.difference $(all-os) : $(no-threading) $(bsd) windows cygwin solaris qnx ] ;
+     threading-flags <target-os>$(threading-generic-os) : -pthread : rt ;
+ }
+@@ -1017,6 +1017,9 @@
  
      toolset.flags gcc.link OPTIONS <target-os>solaris/<strip>on : -Wl,-s ;
  

@@ -31,4 +31,6 @@ SHA1 (patch-libs_fiber_build_Jamfile.v2) = 4b4a6698111042a3e54dc181b555516e06857
 SHA1 (patch-tools_boost__install_boost-install-dirs.jam) = 560db410080cbb8f8d98ef84c05a2c75e171936d
 SHA1 (patch-tools_boost__install_boost-install.jam) = e404dd58cf9a287a4187d06158ee349f24af5ba5
 SHA1 (patch-tools_build_src_engine_build.sh) = 7a756f04a2f11fd06bfa69c5d8ad160926f7da95
-SHA1 (patch-tools_build_src_tools_gcc.jam) = 4d895f14965ee29e328dda15e9975ccc1c14673f
+SHA1 (patch-tools_build_src_tools_gcc.jam) = 4de0c433b5515faab1227c2307df046625f20555
+SHA1 (patch-boost_asio_detail_impl_posix__event.ipp) = d581b098570182f141b45fe64869676d94e9b602
+SHA1 (patch-boost_asio_detail_posix__event.hpp) = 7a02be2cc0536f85c553e9b702afdbf0824b7a7f
