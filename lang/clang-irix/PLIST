@@ -1845,9 +1845,11 @@ lib/clang/21/include/irix_wrappers/__irix_endian_swap.h
 lib/clang/21/include/irix_wrappers/__irix_int_c.h
 lib/clang/21/include/irix_wrappers/arpa/inet.h
 lib/clang/21/include/irix_wrappers/assert.h
+lib/clang/21/include/irix_wrappers/byteswap.h
 lib/clang/21/include/irix_wrappers/ctype.h
 lib/clang/21/include/irix_wrappers/dirent.h
 lib/clang/21/include/irix_wrappers/dlfcn.h
+lib/clang/21/include/irix_wrappers/elf.h
 lib/clang/21/include/irix_wrappers/endian.h
 lib/clang/21/include/irix_wrappers/err.h
 lib/clang/21/include/irix_wrappers/fcntl.h
@@ -1874,6 +1876,7 @@ lib/clang/21/include/irix_wrappers/stdint.h
 lib/clang/21/include/irix_wrappers/stdio.h
 lib/clang/21/include/irix_wrappers/stdlib.h
 lib/clang/21/include/irix_wrappers/string.h
+lib/clang/21/include/irix_wrappers/sys/bitypes.h
 lib/clang/21/include/irix_wrappers/sys/endian.h
 lib/clang/21/include/irix_wrappers/sys/file.h
 lib/clang/21/include/irix_wrappers/sys/ipc.h
