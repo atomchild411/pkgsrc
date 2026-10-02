@@ -51,7 +51,7 @@ ${MESON_NATIVE_FILE}:
 	@${STEP_MSG} Creating meson native file
 	${RUN}${RM} -f ${.TARGET}.tmp
 	${RUN}${ECHO} '[binaries]' >>${.TARGET}.tmp
-.  for _v_ in ${MESON_BINARIES}
+.  for _v_ in ${MESON_BINARIES:O:u}
 .    if !defined(MESON_BINARY.${_v_})
 .      error MESON_BINARIES lists ${_v_} but MESON_BINARY.${_v_} is undefined
 .    endif
@@ -149,7 +149,7 @@ ${MESON_CROSS_FILE}:
 	${RUN}${ECHO} "cpu = '${MESON_CPU}'" >>${.TARGET}.tmp
 	${RUN}${ECHO} "endian = '${MESON_CPU_ENDIAN}'" >>${.TARGET}.tmp
 	${RUN}${ECHO} '[binaries]' >>${.TARGET}.tmp
-.  for _v_ in ${MESON_BINARIES}
+.  for _v_ in ${MESON_BINARIES:O:u}
 .    if !defined(MESON_BINARY.${_v_})
 .      error MESON_BINARIES lists ${_v_} but MESON_BINARY.${_v_} is undefined
 .    endif
