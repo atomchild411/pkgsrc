@@ -216,17 +216,25 @@ perl5-configure: do-${PERL5_MODTYPE}-configure
 do-configure: perl5-configure
 .  endif
 
+# Build.PL writes ./Build with the target perl's #! line; a cross build
+# runs it with the perl that ran Build.PL.
+.  if ${USE_CROSS_COMPILE:tl} == "yes"
+_PERL5_MODBUILD=	${PERL5_CONFIGURE_PERL} ./Build
+.  else
+_PERL5_MODBUILD=	./Build
+.  endif
+
 .PHONY: do-modbuild-build
 do-modbuild-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ./Build ${BUILD_PARAMS}
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${_PERL5_MODBUILD} ${BUILD_PARAMS}
 
 .PHONY: do-modbuild-test
 do-modbuild-test:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ./Build test ${BUILD_PARAMS}
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${_PERL5_MODBUILD} test ${BUILD_PARAMS}
 
 .PHONY: do-modbuild-install
 do-modbuild-install:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ./Build install ${PERL5_MODBUILD_DESTDIR_OPTION} ${BUILD_PARAMS}
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${_PERL5_MODBUILD} install ${PERL5_MODBUILD_DESTDIR_OPTION} ${BUILD_PARAMS}
 
 .  if target(do-${PERL5_MODTYPE}-build) && !defined(NO_BUILD)
 do-build: do-${PERL5_MODTYPE}-build
