@@ -6,10 +6,11 @@ branch iris/main):
 - headers: blksize_t
 - fd_set and the BSD types with _GNU_SOURCE; <sys/select.h> first
 - Wrapper headers: u_int64_t, CRTSCTS, <strings.h>, sig_t, IOV_MAX
+- Wrapper <sys/types.h>: bring in <sys/cdefs.h>, as glibc and the BSDs do
 
 --- lib/Headers/irix_wrappers/sys/types.h.orig
 +++ lib/Headers/irix_wrappers/sys/types.h
-@@ -0,0 +1,50 @@
+@@ -0,0 +1,54 @@
 +/*===---- sys/types.h - IRIX wrapper ----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -37,6 +38,10 @@ branch iris/main):
 +#define __CLANG_IRIX_SYS_TYPES_H
 +
 +#include_next <sys/types.h>
++
++/* __BEGIN_DECLS, __P and the rest: glibc's and the BSDs' <sys/types.h>
++ * bring <sys/cdefs.h> in, and programs use them without including it. */
++#include <sys/cdefs.h>
 +
 +#if !_XOPEN5 || !__has_include(<internal/wchar_core.h>)
 +typedef long suseconds_t;
