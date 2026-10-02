@@ -17,7 +17,7 @@ USE_TOOLS=		makeinfo pax
 BUILD_TARGET=		all all-doc
 INSTALL_TARGET=		install install-doc
 
-MAKE_PROGRAM=		${PREFIX}/bin/bmake
+MAKE_PROGRAM=		${TOOLBASE}/bin/bmake
 
 MAKE_ENV+=		MANDIR=${PREFIX}/${PKGMANDIR} \
 			SYSCONFDIR=${PKG_SYSCONFDIR} \
