@@ -17,13 +17,21 @@ BUILDLINK_FILES.glib2+=		bin/glib-compile-schemas
 
 TOOL_DEPENDS+=	glib2-tools-[0-9]*:../../devel/glib2-tools
 
+.include "../../mk/bsd.fast.prefs.mk"
+
 # Meson's gnome module runs the tools glib-2.0's and gio-2.0's .pc files
 # name, which in a cross build are target programs: name the build host's
-# in meson's cross file instead.
+# in meson's cross file instead, and in what pkg-config answers for those
+# variables (meson checks them, gsettings-desktop-schemas for one).
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
 .  for _t_ in glib-mkenums glib-genmarshal glib-compile-resources glib-compile-schemas
 MESON_BINARIES+=	${_t_}
 MESON_BINARY.${_t_}=	${TOOLBASE}/bin/${_t_}
+.  endfor
+.  for _pc_ _t_ in GLIB_2_0 glib-mkenums GLIB_2_0 glib-genmarshal \
+	GLIB_2_0 gobject-query GIO_2_0 glib-compile-resources \
+	GIO_2_0 glib-compile-schemas GIO_2_0 gdbus-codegen
+ALL_ENV+=	PKG_CONFIG_${_pc_}_${_t_:tu:S/-/_/g}=${TOOLBASE}/bin/${_t_}
 .  endfor
 .endif
 
