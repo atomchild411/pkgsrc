@@ -42,4 +42,11 @@ PYTHON_VERSIONS_INCOMPATIBLE=	310 311
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../lang/python/wheel.mk"
 .include "../../mk/jpeg.buildlink3.mk"
+# Cross builds: setup.py looks for the libraries' headers and files on the
+# build host, where the target's are under the buildlink directory.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+.  for r in AVIF FREETYPE HARFBUZZ FRIBIDI IMAGEQUANT JPEG2K JPEG LCMS RAQM TIFF WEBP ZLIB
+MAKE_ENV+=	${r}_ROOT=${BUILDLINK_DIR}
+.  endfor
+.endif
 .include "../../mk/bsd.pkg.mk"
