@@ -4,6 +4,10 @@ PKG_OPTIONS_VAR=	PKG_OPTIONS.ruby
 PKG_SUPPORTED_OPTIONS=	ruby-build-ri-db
 PKG_SUGGESTED_OPTIONS=	ruby-build-ri-db
 
+# MACHINE_ARCH is the target's only once bsd.prefs.mk has run; the
+# Makefile includes this file before anything else does.
+.include "../../mk/bsd.prefs.mk"
+
 .for a in x86_64 aarch64 aarch64eb arm64
 .  if ${a} == ${MACHINE_ARCH}
 PKG_OPTIONS_REQUIRED_GROUPS=	jit
