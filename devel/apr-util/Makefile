@@ -13,7 +13,7 @@ LICENSE=	apache-2.0
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--with-apr=${_APR_CONFIG}
+CONFIGURE_ARGS+=	--with-apr=${BUILDLINK_PREFIX.apr}/bin/apr-1-config
 CONFIGURE_ARGS+=	--with-expat=${BUILDLINK_PREFIX.expat}
 CONFIGURE_ARGS+=	--without-gdbm
 CONFIGURE_ARGS+=	--without-odbc
@@ -34,13 +34,6 @@ MAKE_ENV+=	WRAPPER_DIR=${WRAPPER_DIR}
 # testxlate      		    7	   1	 14.29%
 
 .include "../../mk/bsd.prefs.mk"
-
-# apr-1-config answers for a cross build when run from the cross destdir.
-.if ${USE_CROSS_COMPILE:tl} == "yes"
-_APR_CONFIG=	${_CROSS_DESTDIR}${BUILDLINK_PREFIX.apr}/bin/apr-1-config
-.else
-_APR_CONFIG=	${BUILDLINK_PREFIX.apr}/bin/apr-1-config
-.endif
 .include "options.mk"
 
 TEST_TARGET=	test
