@@ -904,7 +904,9 @@ PKG_OPTIONS?=		# empty
 .if ${X11_TYPE} != "modular" && defined(USE_X11)
 PREPEND_PATH+=		${X11BASE}/bin
 .endif
-PREPEND_PATH+=		${LOCALBASE}/bin
+# The build host's prefix: in a cross build LOCALBASE is the target's, whose
+# programs the build host cannot run. TOOLBASE is LOCALBASE otherwise.
+PREPEND_PATH+=		${TOOLBASE}/bin
 
 .if ${_USE_NEW_PKGINSTALL:Uno} == "no"
 # Support alternative init systems.
