@@ -57,6 +57,10 @@ USE_GNU_CONFIGURE_HOST=	no
 OVERRIDE_DIRDEPTH=	4
 
 CONFIGURE_ARGS+=	--with-ssl=${BUILDLINK_PREFIX.openssl}
+# IRIX's OpenSSL is always pkgsrc's, and cross builds have no ${PREFIX} on
+# the build host for configure's directory check: use the buildlink tree.
+CONFIGURE_ARGS.IRIX+=	--with-ssl=${BUILDLINK_DIR}
+CONFIGURE_ARGS.IRIX+=	--with-ssl-rpath=${BUILDLINK_PREFIX.openssl}/lib
 
 PTHREAD_OPTS+=		require native
 CONFIGURE_ARGS+=	--enable-threads
