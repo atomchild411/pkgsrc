@@ -32,9 +32,18 @@ CONFIGURE_ENV+=		ac_cv_prog_PYTHON=""
 
 .include "../../mk/bsd.prefs.mk"
 
+PLIST_VARS+=		datarchive
+PLIST_SUBST+=		ICU_DATA_ENDIAN=${MACHINE_ENDIAN:S/big/b/:S/little/l/}
+
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 
 TOOL_DEPENDS+=		${PKGNAME}:../../${PKGPATH}
+
+# genccode writes the data library for the build host's byte order only
+# (an object, or assembly whose words it reads in the build host's order):
+# ship the data as an archive instead, which icupkg writes for the target.
+CONFIGURE_ARGS+=	--with-data-packaging=archive
+PLIST.datarchive=	yes
 
 ICU_CROSS_DIR=		${WRKDIR}/.icu_cross
 ICU_CROSS_COOKIE=	${ICU_CROSS_DIR}/.cookie

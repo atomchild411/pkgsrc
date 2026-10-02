@@ -271,5 +271,6 @@ sbin/gensprep
 sbin/icupkg
 share/icu/${PKGVERSION}/LICENSE
 share/icu/${PKGVERSION}/config/${MH_NAME}
+${PLIST.datarchive}share/icu/${PKGVERSION}/icudt78${ICU_DATA_ENDIAN}.dat
 share/icu/${PKGVERSION}/install-sh
 share/icu/${PKGVERSION}/mkinstalldirs
