@@ -25,6 +25,9 @@ INSTALLATION_DIRS+=	lib/pkgconfig
 
 .if !empty(PKGSRC_COMPILER:Mgcc) || !empty(PKGSRC_COMPILER:Mclang)
 MAKE_ENV.SunOS+=	SYSTEM=solaris-gcc
+# config/Makefile.irix is for MIPSpro: none of its warning options, and
+# the ABI the compiler is set up for (it would add -64).
+MAKE_FLAGS.IRIX+=	ABI= WARN=
 .endif
 
 .if ${OPSYS} != "Darwin"
