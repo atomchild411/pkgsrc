@@ -456,8 +456,11 @@ install-cross-interpreters: plist
 		*) continue ;;						\
 		esac;							\
 		${SED} -e '1s|^#!${TOOLBASE}/|#!${LOCALBASE}/|'		\
-			"$${f}" > "$${f}.cross-tmp" &&			\
-		${CAT} "$${f}.cross-tmp" > "$${f}";			\
+			"$${f}" > "$${f}.cross-tmp" || exit 1;		\
+		ro=;							\
+		[ -w "$${f}" ] || { ro=yes; ${CHMOD} u+w "$${f}"; };	\
+		${CAT} "$${f}.cross-tmp" > "$${f}" || exit 1;		\
+		[ -z "$${ro}" ] || ${CHMOD} u-w "$${f}";		\
 		${RM} -f "$${f}.cross-tmp";				\
 	done < ${_PLIST_NOKEYWORDS}
 
