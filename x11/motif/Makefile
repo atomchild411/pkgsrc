@@ -134,6 +134,8 @@ post-build:
 		${MV} -f $${manpage}.tblized $${manpage};		\
 	done
 
+# libXm calls iconv, and configure does not add its library.
+LIBS+=	${BUILDLINK_LDADD.iconv}
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
