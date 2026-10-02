@@ -6,6 +6,9 @@ PKGNAME=	${GCC_PKGNAME}-libjit-${GCC10_DIST_VERSION}
 PKGREVISION=	1
 COMMENT=	GNU Compiler Collection 10 (gcclibjit library)
 
+# GCC removed its IRIX port in 4.8.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 # /usr/bin/ld: ./../intl/libintl.a(bindtextdom.o): relocation R_X86_64_32 against symbol `libintl_nl_default_dirname' can not be used when making a shared object; recompile with -fPIC
 CFLAGS+=	-fPIC
 

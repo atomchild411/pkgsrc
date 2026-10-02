@@ -16,6 +16,9 @@ EXTRACT_SUFX=	.tar.xz
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://gcc.gnu.org/
 COMMENT=	The GNU Compiler Collection (GCC) - Release 9 Series
+
+# GCC removed its IRIX port in 4.8.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
 # These are conditionally overwritten depending on the package options.

@@ -17,6 +17,9 @@ EXTRACT_USING=	bsdtar
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://gcc.gnu.org/
 COMMENT=	The GNU Compiler Collection (GCC) - 7.0 Release Series
+
+# GCC removed its IRIX port in 4.8.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
 DISTFILES=		${DEFAULT_DISTFILES}

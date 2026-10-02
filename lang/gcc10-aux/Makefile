@@ -13,6 +13,9 @@ EXTRACT_SUFX=	.tar.xz
 MAINTAINER=	irvise@irvise.xyz
 HOMEPAGE=	https://gcc.gnu.org/
 COMMENT=	The GNU Compiler Collection (GCC) with Ada support v10
+
+# GCC removed its IRIX port in 4.8.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
 DISTFILES=		${DEFAULT_DISTFILES}

@@ -10,6 +10,9 @@ DISTFILES=	${DISTNAME}.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.dragonlace.net/
 COMMENT=	GNAT Ada compiler based on GCC ${GCC_BRANCH}
+
+# GCC removed its IRIX port in 4.8.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 LICENSE=	gnu-gpl-v3 AND gnu-lgpl-v3
 
 LANGS=		c ada c++

@@ -10,6 +10,9 @@ EXTRACT_SUFX=	.tar.xz
 MAINTAINER=	dkazankov@NetBSD.org
 HOMEPAGE=	https://gcc.gnu.org/
 COMMENT=	GNAT Compiler and Ada tools
+
+# GCC removed its IRIX port in 4.8.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
 # The list is copy of one from gcc6-aux as it used as a bootstrapper

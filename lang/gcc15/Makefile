@@ -7,6 +7,9 @@ PKGNAME=	${GCC_PKGNAME}-${GCC15_DIST_VERSION}
 PKGREVISION=	2
 COMMENT=	The GNU Compiler Collection (GCC) - 15.0 Release Series
 
+# GCC removed its IRIX port in 4.8.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 LANGS=		c
 
 # perhaps lower, but 4.8 is not good enough
