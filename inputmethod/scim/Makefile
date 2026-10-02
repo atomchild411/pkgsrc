@@ -48,6 +48,8 @@ CONFIGURE_ENV.NetBSD+=	ac_cv_func_gethostbyname_r=no
 CONFIGURE_ENV.SunOS+=	ac_cv_func_gethostbyname_r=no
 # IRIX has no DocBook stylesheets, and cross builds cannot look.
 CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_share_sgml_docbook_xsl_stylesheets_html_tldp_html_xsl=no
+CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_share_sgml_docbook_xsl_stylesheets_html_docbook_xsl=no
+CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_share_xml_docbook_stylesheet_nwalsh_current_html_docbook_xsl=no
 LDFLAGS.SunOS+=		-lsocket -lnsl
 
 # unused test script

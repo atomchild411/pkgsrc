@@ -50,6 +50,17 @@ post-install:
 
 .include "../../mk/bsd.prefs.mk"
 
+# Cross builds run mkc_compiler_settings, which runs BMAKE, while building:
+# the build host's then, and the installed scripts name the target's.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_ENV+=		BMAKE=${TOOLBASE}/bin/bmake
+SUBST_CLASSES+=		bmake
+SUBST_STAGE.bmake=	post-build
+SUBST_MESSAGE.bmake=	Naming the target's bmake in the scripts.
+SUBST_FILES.bmake=	scripts/mkcmake scripts/mkc_compiler_settings
+SUBST_SED.bmake=	-e 's|${TOOLBASE}/bin/bmake|${PREFIX}/bin/bmake|g'
+.endif
+
 CHECK_PERMS_SKIP=	*/foobar.in */hello_world3.in */prog1.awk.in
 
 .if ${OPSYS} != NetBSD && ${OPSYS} != FreeBSD && ${OPSYS} != OpenBSD && ${OPSYS} != DragonFly
