@@ -21,6 +21,12 @@ PKGCONFIG_OVERRIDE+=	libvala.pc.in
 PKGCONFIG_OVERRIDE+=	vapigen/vapigen.pc.in
 TEST_TARGET=		check
 
+.include "../../mk/bsd.prefs.mk"
+# Cross builds have no gobject-introspection to ask where .gir files go.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CONFIGURE_ENV+=		GI_GIRDIR=${PREFIX}/share/gir-1.0
+.endif
+
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.48.0
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"

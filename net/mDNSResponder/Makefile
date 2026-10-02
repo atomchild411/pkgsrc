@@ -42,6 +42,8 @@ MAKE_ENV.SunOS+=	os=solaris
 MAKE_ENV.Linux+=	os=linux tls=no
 MAKE_ENV.Darwin+=	os=x
 MAKE_ENV.*+=		os=netbsd
+# IRIX takes the BSD settings, but its sockaddrs have no length member.
+CFLAGS.IRIX+=		-DNOT_HAVE_SA_LEN
 
 OPSYSVARS+=		SO_SUFFIX
 SO_SUFFIX.Darwin=	dylib
