@@ -6,5 +6,6 @@ Size (abseil-20260817.0-20260817.0.tar.gz) = 2430876 bytes
 SHA1 (patch-absl_base_internal_sysinfo.cc) = c96dd302dde0f6071a8353a5877a3bac37949467
 SHA1 (patch-absl_base_internal_unscaledcycleclock.cc) = 13151a6cf8a5052ca07ee7745a04c0a6577e2858
 SHA1 (patch-absl_debugging_internal_elf__mem__image.cc) = 163decf88e1c39d94b3e93a7a9c758b18310fc5d
+SHA1 (patch-absl_debugging_internal_elf__mem__image.h) = c83a21780c61692e650ce0cb9c7e9631c23fd343
 SHA1 (patch-absl_debugging_internal_vdso__support.cc) = 2292c5b0f2b41679039a1697508343ff5b6cc401
 SHA1 (patch-absl_time_internal_cctz_src_time__zone__format.cc) = 34d0585a7239121b04818a74241aa1fea84e6413
