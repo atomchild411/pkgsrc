@@ -171,5 +171,16 @@ do-install:
 	${CHMOD} -x *.pl */*.pl */*.gif */*/*.gif */*/*.html */*.ca lang/* \
 	*/lang/* */*.svg */*.png */*.eu
 
+# Webmin's setup runs with the perl it is given and records it; in a cross
+# build that is the build host's, so name the target's in what it wrote.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+SUBST_CLASSES+=		tperl
+SUBST_STAGE.tperl=	post-install
+SUBST_MESSAGE.tperl=	Naming the target's perl.
+SUBST_FILES.tperl=	${DESTDIR}${WEBMIN_EGDIR}/perl-path
+SUBST_FILES.tperl+=	${DESTDIR}${WEBMIN_DIR}/setup-pre.sh
+SUBST_SED.tperl=	-e 's,${PERL5},${TARGET_TOOL.PERL5},g'
+.endif
+
 .include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"
