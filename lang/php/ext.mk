@@ -98,6 +98,10 @@ SHLIB_SUFFIX=		sl
 SHLIB_SUFFIX=		so
 .endif
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=		${PHP_PKG_PREFIX}-[0-9]*:${PHPPKGSRCDIR}
+.endif
+
 pre-configure:	phpize-module
 
 phpize-module:
@@ -108,7 +112,7 @@ phpize-module:
 			AUTOCONF=${TOOLS_DIR:Q}/bin/autoconf		\
 			AUTOHEADER=${TOOLS_DIR:Q}/bin/autoheader	\
 			ACLOCAL=${TOOLS_DIR:Q}/bin/aclocal		\
-			LIBTOOLIZE=${LOCALBASE:Q}/bin/libtoolize	\
+			LIBTOOLIZE=${TOOLBASE:Q}/bin/libtoolize	\
 			${PHPIZE} &&					\
 		${TOUCH} ${TOUCH_FLAGS} $${cookie};			\
 	fi

@@ -205,6 +205,12 @@ PHPPKGSRCDIR=		../../lang/php${PHP_VER}
 PHP_PKG_PREFIX=		php${PHP_VER}
 PHP_NAME=		php${PHP_VER}
 
+# Cross builds run the build host's phpize, whose build files do not depend
+# on the machine, and the target's php-config, a script that prints paths.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+PHPIZE?=		${TOOLBASE}/bin/phpize${PHP_VER}
+PHP_CONFIG?=		${_CROSS_DESTDIR}${PREFIX}/bin/php-config${PHP_VER}
+.endif
 PHPIZE?=		${PREFIX}/bin/phpize${PHP_VER}
 PHP_CONFIG?=		${PREFIX}/bin/php-config${PHP_VER}
 
