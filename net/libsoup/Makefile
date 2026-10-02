@@ -26,6 +26,9 @@ MAKE_ENV+=			LD_LIBRARY_PATH=${WRKSRC}/output/${PKGBASE}
 MESON_ARGS+=		-Dvapi=disabled
 # disable sysprof, broken on at least macOS
 MESON_ARGS+=		-Dsysprof=disabled
+# A cross build cannot run the program that checks glib-networking (a
+# dependency) provides TLS.
+MESON_ARGS+=		${USE_CROSS_COMPILE:U:tl:Myes:S/yes/-Dtls_check=false/}
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
