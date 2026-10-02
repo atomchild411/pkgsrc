@@ -184,6 +184,9 @@ _INSTALL_ALL_TARGETS+=		pre-install
 _INSTALL_ALL_TARGETS+=		do-install
 _INSTALL_ALL_TARGETS+=		post-install
 _INSTALL_ALL_TARGETS+=		plist
+.if ${USE_CROSS_COMPILE:Uno:tl} == "yes"
+_INSTALL_ALL_TARGETS+=		install-cross-interpreters
+.endif
 .if ${_PKGSRC_USE_CTF} == "yes"
 _INSTALL_ALL_TARGETS+=		install-ctf
 .endif
@@ -430,6 +433,32 @@ install-strip-debug: plist
 		if [ -f "$${tmp_f}" ]; then				\
 			${RM} -f "$${tmp_f}";				\
 		fi;							\
+	done < ${_PLIST_NOKEYWORDS}
+
+######################################################################
+### install-cross-interpreters (PRIVATE)
+######################################################################
+### In a cross build, configure finds the build host's interpreters
+### (perl, python, tcsh, ...) under TOOLBASE, and packages whose own
+### build writes that path into installed scripts' #! lines (rather than
+### through REPLACE_*) leave scripts that cannot run on the target. The
+### target has the same tools under LOCALBASE: rewrite the #! lines.
+###
+.PHONY: install-cross-interpreters
+install-cross-interpreters: plist
+	${RUN}								\
+	cd ${DESTDIR:Q}${PREFIX:Q};					\
+	while read f; do						\
+		[ -f "$${f}" ] && [ ! -h "$${f}" ] || continue;		\
+		IFS= read -r first < "$${f}" 2>/dev/null || continue;	\
+		case "$${first}" in					\
+		"#!"${TOOLBASE:Q}/*) ;;					\
+		*) continue ;;						\
+		esac;							\
+		${SED} -e '1s|^#!${TOOLBASE}/|#!${LOCALBASE}/|'		\
+			"$${f}" > "$${f}.cross-tmp" &&			\
+		${CAT} "$${f}.cross-tmp" > "$${f}";			\
+		${RM} -f "$${f}.cross-tmp";				\
 	done < ${_PLIST_NOKEYWORDS}
 
 ######################################################################
