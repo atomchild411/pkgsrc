@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.27 2025/12/20 22:17:00 wiz Exp $
 
 DISTNAME=		xorgproto-2025.1
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=proto/}
 EXTRACT_SUFX=		.tar.xz
@@ -51,5 +51,18 @@ PKGCONFIG_OVERRIDE+=	xf86vidmodeproto.pc.in
 PKGCONFIG_OVERRIDE+=	xineramaproto.pc.in
 PKGCONFIG_OVERRIDE+=	xproto.pc.in
 PKGCONFIG_OVERRIDE+=	xproxymngproto.pc.in
+
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX's own GL (builtin, see graphics/MesaLib) has a GL/glxtokens.h, which
+# its GL/glx.h includes; this one, for X servers, lacks SGI's tokens and
+# was found first. Leave it to IRIX there.
+PLIST_VARS+=	glxtokens
+.if ${OPSYS} == "IRIX"
+post-install:
+	${RM} -f ${DESTDIR}${PREFIX}/include/GL/glxtokens.h
+.else
+PLIST.glxtokens=	yes
+.endif
 
 .include "../../mk/bsd.pkg.mk"

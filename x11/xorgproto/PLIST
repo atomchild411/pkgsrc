@@ -2,7 +2,7 @@
 include/GL/glxint.h
 include/GL/glxmd.h
 include/GL/glxproto.h
-include/GL/glxtokens.h
+${PLIST.glxtokens}include/GL/glxtokens.h
 include/GL/internal/glcore.h
 include/X11/DECkeysym.h
 include/X11/HPkeysym.h
