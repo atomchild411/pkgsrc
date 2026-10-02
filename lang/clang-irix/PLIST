@@ -1843,6 +1843,7 @@ lib/clang/21/include/inttypes.h
 lib/clang/21/include/invpcidintrin.h
 lib/clang/21/include/irix_wrappers/__irix_endian_swap.h
 lib/clang/21/include/irix_wrappers/__irix_int_c.h
+lib/clang/21/include/irix_wrappers/__irix_locale_t.h
 lib/clang/21/include/irix_wrappers/arpa/inet.h
 lib/clang/21/include/irix_wrappers/assert.h
 lib/clang/21/include/irix_wrappers/byteswap.h
