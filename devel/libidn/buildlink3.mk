@@ -16,6 +16,7 @@ pkgbase:= libidn
 .if ${PKG_BUILD_OPTIONS.libidn:Mnls}
 .include "../../devel/gettext-lib/buildlink3.mk"
 .endif
+.include "../../mk/bsd.fast.prefs.mk"
 .if ${OPSYS} != "IRIX"
 .include "../../devel/libgetopt/buildlink3.mk"
 .endif
