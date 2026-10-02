@@ -6,3 +6,4 @@ Size (libpcap-1.10.7.tar.gz) = 994575 bytes
 SHA1 (patch-Makefile.in) = f7604ba12b15452aadfa21b5b8ed50f24c497567
 SHA1 (patch-configure) = 04e2918dda48d0c37df08a12ca25dcf9dc5302ee
 SHA1 (patch-fad-getad.c) = 5f2f137f4249d2d4be36efabc5e9456f943f86e2
+SHA1 (patch-pcap-snoop.c) = 903bee8211919f0d4641b2bc99f643742a3bd4b7
