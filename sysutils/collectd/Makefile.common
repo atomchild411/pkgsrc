@@ -106,6 +106,9 @@ CONFIGURE_ARGS+=	--with-lib${lib}=${COLLECTD_LIB.${lib}:Uno}
 CONFIGURE_ARGS+=	--with-libgrpc++=${COLLECTD_LIB.grpcpp:Uno}
 
 CONFIGURE_ARGS+=	--disable-werror
+# Network byte order, x86 layout: big-endian IRIX swaps doubles, and
+# configure cannot run its own test in cross builds.
+CONFIGURE_ARGS.IRIX+=	--with-fp-layout=endianflip
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 
 CONFIGURE_ARGS.NetBSD+=	ac_cv_func_getfsstat=no
