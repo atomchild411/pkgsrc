@@ -128,6 +128,14 @@ LIBS.SunOS+=	-lm
 
 CONFIGURE_ENV.SunOS+=	OBJCOPY=:
 
+#
+# IRIX
+#
+# configure links shared objects with "$(LD) -shared" there, which only SGI's
+# ld understands; link them with the compiler.
+#
+CONFIGURE_ENV.IRIX+=	LDSHARED="${CC} -shared"
+
 # On platforms where DTrace is available, we need to invoke dtrace(1)
 # with the original PATH. Otherwise it gets confused in the presence
 # of our cc wrapper because it tries to invoke the system-default gcc
