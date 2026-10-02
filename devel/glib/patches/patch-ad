@@ -1,8 +1,12 @@
 $NetBSD: patch-ad,v 1.16 2016/02/15 11:42:11 jperkin Exp $
 
---- configure.orig	2001-03-15 15:44:01.000000000 +0000
+Cross builds: run the tests that have no cache variable anyway. The
+program cannot run, and the answer that gives is the right one for IRIX
+(no extra ANSI flags, POSIX trylock and timedwait, SysV poll values).
+
+--- configure.orig
 +++ configure
-@@ -26,7 +26,7 @@ ac_default_prefix=/usr/local
+@@ -26,7 +26,7 @@
  #
  GLIB_MAJOR_VERSION=1
  GLIB_MINOR_VERSION=2
@@ -11,7 +15,25 @@ $NetBSD: patch-ad,v 1.16 2016/02/15 11:42:11 jperkin Exp $
  GLIB_INTERFACE_AGE=10
  GLIB_BINARY_AGE=10
  GLIB_VERSION=$GLIB_MAJOR_VERSION.$GLIB_MINOR_VERSION.$GLIB_MICRO_VERSION
-@@ -3871,7 +3871,6 @@ cat > conftest.$ac_ext <<EOF
+@@ -2098,7 +2098,7 @@
+ echo "configure:2099: checking for extra flags to get ANSI library prototypes" >&5
+ glib_save_LIBS=$LIBS
+ LIBS="$LIBS -lm"
+-if test "$cross_compiling" = yes; then
++if false; then
+     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
+ else
+   cat > conftest.$ac_ext <<EOF
+@@ -2116,7 +2116,7 @@
+   rm -fr conftest*
+   glib_save_CFLAGS=$CFLAGS
+      CFLAGS="$CFLAGS -std1"
+-     if test "$cross_compiling" = yes; then
++     if false; then
+     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
+ else
+   cat > conftest.$ac_ext <<EOF
+@@ -3871,7 +3871,6 @@
  #line 3872 "configure"
  #include "confdefs.h"
  #include <stdlib.h>
@@ -19,7 +41,7 @@ $NetBSD: patch-ad,v 1.16 2016/02/15 11:42:11 jperkin Exp $
  
  #if (defined(HAVE_WCTYPE_H) || defined(HAVE_WCHAR_H))
  #  ifdef HAVE_WCTYPE_H
-@@ -3884,6 +3883,7 @@ int main() {
+@@ -3884,6 +3883,7 @@
  #else
  #  define iswalnum(c) ((wchar_t)(c) <= 0xFF && isalnum(c))
  #endif
@@ -27,7 +49,7 @@ $NetBSD: patch-ad,v 1.16 2016/02/15 11:42:11 jperkin Exp $
  iswalnum((wchar_t) 0);
  
  ; return 0; }
-@@ -5177,6 +5177,9 @@ G_THREAD_CFLAGS="$G_THREAD_CFLAGS -D_REE
+@@ -5177,6 +5177,9 @@
              	        G_THREAD_CFLAGS="$G_THREAD_CFLAGS -mthreads"
  		fi
  		;;
@@ -37,3 +59,30 @@ $NetBSD: patch-ad,v 1.16 2016/02/15 11:42:11 jperkin Exp $
  	*-freebsd2.2*)
  		G_THREAD_CFLAGS="$G_THREAD_CFLAGS -D_THREAD_SAFE"
  
+@@ -5384,7 +5387,7 @@
+ 		echo $ac_n "checking whether pthread_mutex_trylock is posix like""... $ac_c" 1>&6
+ echo "configure:5386: checking whether pthread_mutex_trylock is posix like" >&5
+ 		# DCE Threads return 1 as success, posix 0. what a mess.
+-		if test "$cross_compiling" = yes; then
++		if false; then
+     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
+ else
+   cat > conftest.$ac_ext <<EOF
+@@ -5414,7 +5417,7 @@
+ 		echo $ac_n "checking whether pthread_cond_timedwait is posix like""... $ac_c" 1>&6
+ echo "configure:5416: checking whether pthread_cond_timedwait is posix like" >&5
+ 		# DCE Threads return -1 as failure, posix ETIMEDOUT.
+-		if test "$cross_compiling" = yes; then
++		if false; then
+     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
+ else
+   cat > conftest.$ac_ext <<EOF
+@@ -5599,7 +5602,7 @@
+ 	echo "#endif" >>confrun.c
+ done
+ echo "return 0; }" >>confrun.c
+-if test "$cross_compiling" = yes; then
++if false; then
+     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
+ else
+   cat > conftest.$ac_ext <<EOF

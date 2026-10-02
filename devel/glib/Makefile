@@ -30,6 +30,12 @@ PTHREAD_OPTS+=		require
 # Force the result of this configure test, because the testing technique
 # breaks with NetBSD's native libpthread.so.
 CONFIGURE_ENV.NetBSD+=	glib_cv_rtldglobal_broken=no
+# IRIX 6.5 n32, for the run tests a cross build cannot do (the native
+# answers too): sizes and byte order come from the platform's config.site.
+CONFIGURE_ENV.IRIX+=	glib_cv_rtldglobal_broken=no glib_cv_uscore=no
+CONFIGURE_ENV.IRIX+=	glib_cv_sane_realloc=yes ac_cv_func_getpwuid_r=yes
+CONFIGURE_ENV.IRIX+=	glib_cv_va_copy=yes glib_cv___va_copy=yes
+CONFIGURE_ENV.IRIX+=	glib_cv_va_val_copy=yes glib_cv_sizeof_gmutex=32
 
 # Tests are insufficient, override with correct values.
 .if ${OPSYS} == "Darwin" && ${PKGSRC_COMPILER:Mclang}
