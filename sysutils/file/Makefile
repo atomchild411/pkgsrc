@@ -37,5 +37,12 @@ BUILDLINK_TRANSFORM+=	rm:-Wunused-parameter
 
 CFLAGS.AIX+=	-D_LINUX_SOURCE_COMPAT
 
+# Cross builds compile the magic database with this same version of file,
+# built for the build host.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+TOOL_DEPENDS+=		${PKGNAME}:../../${PKGPATH}
+MAKE_FLAGS+=		FILE_COMPILE=${TOOLBASE}/bin/file
+.endif
+
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
