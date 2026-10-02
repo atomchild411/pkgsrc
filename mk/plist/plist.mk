@@ -205,6 +205,9 @@ _PLIST_AWK+=		-f ${.CURDIR}/../../mk/plist/plist-libtool.awk
 .if ${OPSYS} == "Cygwin"
 _PLIST_AWK+=		-f ${.CURDIR}/../../mk/plist/plist-cygwin.awk
 .endif
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+_PLIST_AWK+=		-f ${.CURDIR}/../../mk/plist/plist-introspection.awk
+.endif
 _PLIST_AWK+=		${PLIST_AWK}
 _PLIST_AWK+=		-f ${.CURDIR}/../../mk/plist/plist-default.awk
 

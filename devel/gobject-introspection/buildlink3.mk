@@ -1,5 +1,11 @@
 # $NetBSD: buildlink3.mk,v 1.18 2026/09/02 19:01:26 wiz Exp $
 
+.include "../../mk/bsd.fast.prefs.mk"
+
+# Cross builds cannot make introspection data (g-ir-scanner runs programs
+# built for the target): add no dependency, so that configure leaves
+# introspection out. mk/plist/plist-introspection.awk drops the files.
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
 BUILDLINK_TREE+=	gobject-introspection
 
 .if !defined(GOBJECT_INTROSPECTION_BUILDLINK3_MK)
@@ -19,3 +25,4 @@ ALL_ENV+=	GI_SCANNER_DISABLE_CACHE=yes
 .endif	# GOBJECT_INTROSPECTION_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-gobject-introspection
+.endif
