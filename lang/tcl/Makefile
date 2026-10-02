@@ -71,6 +71,15 @@ SUBST_STAGE.sqllink=	pre-configure
 SUBST_FILES.sqllink=	pkgs/sqlite${SQLITE3_VERSION}/configure
 SUBST_SED.sqllink=	-e "/LIBS=/s|-lsqlite3|-L${BUILDLINK_PREFIX.sqlite3}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.sqlite3}/lib -lsqlite3|g"
 
+# IRIX: the configure scripts link shared libraries with SGI's ld and its
+# flags; link them with the compiler instead, as everywhere else.
+SUBST_CLASSES.IRIX+=		irix-shlib
+SUBST_STAGE.irix-shlib=		pre-configure
+SUBST_MESSAGE.irix-shlib=	Linking shared libraries with the compiler.
+SUBST_FILES.irix-shlib=		unix/configure pkgs/*/configure
+SUBST_SED.irix-shlib=		-e "s|SHLIB_LD=\"ld -n32 -shared -rdata_shared\"|SHLIB_LD='\$${CC} -shared'|"
+SUBST_SED.irix-shlib+=		-e "s|LD_SEARCH_FLAGS='-rpath \$${LIB_RUNTIME_DIR}'|LD_SEARCH_FLAGS='-Wl,-rpath,\$${LIB_RUNTIME_DIR}'|"
+
 # install-sh requires $SHELL is an extremely close match to /bin/sh
 MAKE_ENV+=		SHELL=${SH:Q}
 
