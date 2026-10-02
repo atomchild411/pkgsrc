@@ -20,4 +20,10 @@ post-install: pam-move
 pam-move:
 	${MV} ${DESTDIR}${PKG_SYSCONFDIR}/pam.d/polkit-1 \
 		${DESTDIR}${PREFIX}/share/examples/pam.d/polkit-1
+.elif ${OPSYS} == "OpenBSD"
+MESON_ARGS+=	-Dauthfw=bsdauth
+.else
+# Without PAM, check passwords against the shadow file (meson's default
+# is PAM).
+MESON_ARGS+=	-Dauthfw=shadow
 .endif
