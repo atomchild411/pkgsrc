@@ -73,6 +73,19 @@ MAKE_ENV+=		ROOT_USER=${ROOT_USER}
 MAKE_ENV+=		YFLAGS="-Wnone"
 LIBS.SunOS=		-lrt
 
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# configure takes its default credential names from the krb5-config on
+# PATH, which in a cross build is the build host's.
+CONFIGURE_ARGS+=	--without-krb5-config
+# compile_et names the awk configure found (the build host's, which the
+# build itself uses): name the target's in the installed script.
+SUBST_CLASSES+=		awk
+SUBST_STAGE.awk=	post-install
+SUBST_MESSAGE.awk=	Naming the target's awk in compile_et.
+SUBST_FILES.awk=	${DESTDIR}${PREFIX}/bin/compile_et
+SUBST_SED.awk=		-e 's,^AWK=.*,AWK=${TARGET_TOOL.AWK},'
+.endif
+
 OWN_DIRS_PERMS=		${MIT_KRB5_STATEDIR}/krb5kdc			\
 			${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0700
 RCD_SCRIPTS=		kadmind kdc
