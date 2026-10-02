@@ -11,7 +11,7 @@ HOMEPAGE=	https://icculus.org/smpeg/
 COMMENT=	SDL MPEG Player Library
 LICENSE=	gnu-lgpl-v2
 
-USE_TOOLS+=	aclocal automake autoconf gmake
+USE_TOOLS+=	aclocal automake autoconf gmake pkg-config
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
 GNU_CONFIGURE=	yes
