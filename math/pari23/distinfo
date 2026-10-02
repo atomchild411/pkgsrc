@@ -41,3 +41,4 @@ SHA1 (patch-src_language_anal.c) = d0028a51e8ef14cae766cb881fcfce82cec0346f
 SHA1 (patch-src_language_es.c) = 27c286da66ce1a2fc6e5179cfb3f4e222984813d
 SHA1 (patch-src_modules_elliptic.c) = 0042c59b6aa4c223b792320378040d6882f75637
 SHA1 (patch-src_modules_mpqs.c) = 3dd164e5c686fd2eb8317569cf05906a4c527721
+SHA1 (patch-config_get__double__format) = e4f47296755a31dec86049f596b7f7329556fc34

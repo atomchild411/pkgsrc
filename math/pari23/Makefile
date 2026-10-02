@@ -23,6 +23,9 @@ FORCE_C_STD=		gnu89
 HAS_CONFIGURE=		yes
 CONFIGURE_ENV+=		LOCALBASE=${LOCALBASE}
 CONFIGURE_ENV+=		PERL5=${PERL5:Q}
+# config/get_double_format's answer, which cross builds cannot run: IRIX
+# n32 keeps a double's sign and exponent in l[0]; n64 has a 64-bit long.
+CONFIGURE_ENV.IRIX+=	cross_doubleformat=${ABI:U32:S/64/-/:S/32/0/}
 
 CONFIGURE_SCRIPT=	${WRKSRC}/Configure
 CONFIGURE_ARGS+=	--prefix=${PREFIX}

@@ -1,0 +1,15 @@
+$NetBSD$
+
+Cross builds cannot run the probe: take the answer from the environment.
+
+--- config/get_double_format.orig
++++ config/get_double_format
+@@ -1,5 +1,7 @@
+ exe=$osname-$arch-endian$$
+-if ($CC $CFLAGS $extraflag endian.c -o $exe 2>/dev/null); then
++if test -n "$cross_doubleformat"; then
++  doubleformat=$cross_doubleformat
++elif ($CC $CFLAGS $extraflag endian.c -o $exe 2>/dev/null); then
+   doubleformat=`$exe`;
+ else
+   echo "***************************************************************"
