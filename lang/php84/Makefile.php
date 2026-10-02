@@ -89,6 +89,11 @@ SUBST_FILES.path+=	scripts/php-config.in scripts/phpize.in
 SUBST_VARS.path=	PREFIX CGIDIR PHP_VER PHP_API_VERS
 SUBST_VARS.path+=	PHP_EGDIR PHP_INCDIR PHP_LIBDIR
 SUBST_VARS.path+=	TOOLS_PATH.pkg-config PHP_PKGCONFIG_PATH
+# A cross build records the target's pkg-config, not the build host's
+# (SUBST_SED applies before SUBST_VARS).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_SED.path+=	-e 's,@TOOLS_PATH.pkg-config@,${PREFIX}/bin/pkg-config,g'
+.endif
 
 .include "../../textproc/libxml2/buildlink3.mk"
 
