@@ -4,3 +4,4 @@ BLAKE2s (openldap-2.7.1.tgz) = 29b898e04902f8edd7f33e7db442fbd336dfabb353f963d77
 SHA512 (openldap-2.7.1.tgz) = 37e74c7b6da012e0dbefba94ed9ee661e0a58109f4598b0936df52d744cb39249542e8650347f970e1e993c8db61472f32cd233d4f8e3d4e7e4e39f2e15d4cb8
 Size (openldap-2.7.1.tgz) = 6509401 bytes
 SHA1 (patch-libraries_liblmdb_Makefile) = 259eec0a50a7339a8e0c5a2baa3f5e6926ef2ca4
+SHA1 (patch-libraries_liblmdb_mdb.c) = 0b8c9df6f7cd5d16844f90d9a9e0b508c356c5ae
