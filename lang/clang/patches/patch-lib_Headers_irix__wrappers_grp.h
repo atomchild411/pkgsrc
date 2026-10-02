@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
+- getgrouplist
 
 --- lib/Headers/irix_wrappers/grp.h.orig
 +++ lib/Headers/irix_wrappers/grp.h
-@@ -0,0 +1,44 @@
+@@ -0,0 +1,46 @@
 +/*===---- grp.h - IRIX wrapper ----------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -45,6 +46,8 @@ branch iris/main):
 +extern "C" {
 +#endif
 +int initgroups(const char *, gid_t);
++/* The BSDs' and glibc's, which compiler-rt's IRIX builtins define. */
++int getgrouplist(const char *, gid_t, gid_t *, int *);
 +int setgroups(int, const gid_t *);
 +#ifdef __cplusplus
 +}

@@ -33,10 +33,11 @@ branch iris/main):
 - POSIX 2008 *_l functions: ctype, wctype and collation
 - [IRIX] The libc stand-ins keep default visibility
 - F_DUPFD_CLOEXEC
+- getgrouplist
 
 --- lib/builtins/CMakeLists.txt.orig
 +++ lib/builtins/CMakeLists.txt
-@@ -236,6 +236,53 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
+@@ -236,6 +236,54 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
    "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
    Off)
  
@@ -76,6 +77,7 @@ branch iris/main):
 +    irix/process_bsd.c
 +    irix/locale_l.c
 +    irix/fcntl.c
++    irix/grouplist.c
 +  )
 +  # They stand in for libc's functions, so they keep default visibility: a
 +  # shared library linked without the builtins (libtool links C++ libraries

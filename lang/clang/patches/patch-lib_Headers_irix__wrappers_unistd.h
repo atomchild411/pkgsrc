@@ -11,10 +11,11 @@ branch iris/main):
 - Declare the BSD functions IRIX hides outside SGI mode
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
 - Wrapper <unistd.h>: declare environ
+- getgrouplist
 
 --- lib/Headers/irix_wrappers/unistd.h.orig
 +++ lib/Headers/irix_wrappers/unistd.h
-@@ -0,0 +1,305 @@
+@@ -0,0 +1,312 @@
 +/*===---- unistd.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -310,6 +311,13 @@ branch iris/main):
 +#ifdef __cplusplus
 +}
 +#endif
++
++/* getgrouplist, which the BSDs declare here (glibc in <grp.h>, where it is
++ * too); compiler-rt's IRIX builtins define it. */
++#ifdef __cplusplus
++extern "C"
++#endif
++int getgrouplist(const char *, gid_t, gid_t *, int *);
 +
 +/* The environment, which IRIX's libc has and none of its headers declare;
 + * glibc's <unistd.h> and the BSDs' do (Boost.Process uses it). */
