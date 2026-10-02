@@ -24,7 +24,7 @@ TOOL_DEPENDS+=		tex-pdftex>=1.40.11:../../print/tex-pdftex
 PLIST.doc=		yes
 BUILD_TARGET+=		doc
 INSTALL_TARGET+=	install-doc
-MAKE_ENV+=		PDFTEX=${PREFIX}/bin/pdftex
+MAKE_ENV+=		PDFTEX=${TOOLBASE}/bin/pdftex
 .endif
 
 PLIST_VARS+=		nogmp gmp
