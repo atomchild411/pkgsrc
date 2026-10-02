@@ -28,8 +28,6 @@ INSTALL_TARGET=	install-dev install-run
 MAKE_ENV+=	INSTALL=${INSTALL:Q} STRIPFLAG=${_STRIPFLAG_INSTALL:Q} \
 		pkgdir=${STAGEDIR} MACHINE=${MACHINE:Q}
 MAKE_FLAGS+=	PKGMANDIR=${PKGMANDIR}
-MAKE_FLAGS+=	CFLAGS_FOR_BUILD=${CFLAGS:Q}
-MAKE_FLAGS+=	LDFLAGS_FOR_BUILD=${LDFLAGS:Q}
 MAKE_FILE=	GNUmakefile
 REPLACE_PERL+=	converter/pbm/pbmtox10bm
 REPLACE_PERL+=	editor/pnmflip
@@ -91,6 +89,34 @@ SUBST_SED.xopen+=	-e '/_POSIX_SOURCE.*fdopen/s/_POSIX_SOURCE/_XOPEN_SOURCE 600/'
 INSTALLATION_DIRS=	${PKGMANDIR}/man1 ${PKGMANDIR}/man3 ${PKGMANDIR}/man5 share/netpbm
 
 .include "options.mk"
+
+# The build runs programs it builds (typegen, endiangen). A cross build
+# builds them with the build host's compiler, and writes what endiangen
+# would have printed for the target itself.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+MAKE_FLAGS+=	CC_FOR_BUILD=${NATIVE_CC:Q} LD_FOR_BUILD=${NATIVE_CC:Q}
+MAKE_FLAGS+=	CFLAGS_FOR_BUILD= LDFLAGS_FOR_BUILD=
+SUBST_CLASSES+=		endiangen
+SUBST_STAGE.endiangen=	pre-configure
+SUBST_MESSAGE.endiangen=	Using the target's byte order and long size.
+SUBST_FILES.endiangen=	GNUmakefile
+SUBST_SED.endiangen=	-e 's,$$(ENDIANGEN) >>$$@,cat $$(BUILDDIR)/endian-target.h >>$$@,'
+post-configure: netpbm-endian-target
+.PHONY: netpbm-endian-target
+netpbm-endian-target:
+	${RUN} bits=`${ECHO} __SIZEOF_LONG__ | ${CC} -E -P - | ${SED} -n 's/^\([0-9]*\)$$/\1/p'`; \
+	order=${MACHINE_ENDIAN:S/big/BIG_ENDIAN/:S/little/LITTLE_ENDIAN/}; \
+	{ ${ECHO} '/* endiangen output for the target, written by pkgsrc */'; \
+	  ${ECHO} '#include <ctype.h>'; \
+	  ${ECHO} '#ifndef LITTLE_ENDIAN'; ${ECHO} '#define LITTLE_ENDIAN 1234'; ${ECHO} '#endif'; \
+	  ${ECHO} '#ifndef BIG_ENDIAN'; ${ECHO} '#define BIG_ENDIAN 4321'; ${ECHO} '#endif'; \
+	  ${ECHO} '#ifndef BYTE_ORDER'; ${ECHO} "#define BYTE_ORDER $$order"; ${ECHO} '#endif'; \
+	  ${ECHO} "#define BITS_PER_LONG `expr $$bits \* 8`"; \
+	} > ${WRKSRC}/endian-target.h
+.else
+MAKE_FLAGS+=	CFLAGS_FOR_BUILD=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS_FOR_BUILD=${LDFLAGS:Q}
+.endif
 
 post-extract:
 	cd ${WRKSRC} && ${CP} config.mk.in config.mk
