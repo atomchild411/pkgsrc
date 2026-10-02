@@ -6,10 +6,11 @@ branch iris/main):
 - O_NOFOLLOW for open()
 - O_DIRECTORY in the open() compatibility shim
 - POSIX 2008's *at() calls and fdopendir
+- F_DUPFD_CLOEXEC
 
 --- lib/Headers/irix_wrappers/fcntl.h.orig
 +++ lib/Headers/irix_wrappers/fcntl.h
-@@ -0,0 +1,70 @@
+@@ -0,0 +1,87 @@
 +/*===---- fcntl.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -54,6 +55,23 @@ branch iris/main):
 +extern "C" {
 +#endif
 +int open(const char *, int, ...) __asm__("__irix_open");
++#ifdef __cplusplus
++}
++#endif
++#endif
++
++/* F_DUPFD_CLOEXEC, which IRIX's fcntl() lacks: Linux's command number, which
++ * IRIX does not use, and fcntl() routed to compiler-rt's IRIX builtins
++ * (irix/fcntl.c), which duplicate with F_DUPFD and then set FD_CLOEXEC (not
++ * atomic against a fork in another thread) and pass every other command to
++ * IRIX's fcntl(). */
++#ifndef F_DUPFD_CLOEXEC
++#define F_DUPFD_CLOEXEC 1030
++#define __IRIX_F_DUPFD_CLOEXEC F_DUPFD_CLOEXEC
++#ifdef __cplusplus
++extern "C" {
++#endif
++int fcntl(int, int, ...) __asm__("__irix_fcntl");
 +#ifdef __cplusplus
 +}
 +#endif
