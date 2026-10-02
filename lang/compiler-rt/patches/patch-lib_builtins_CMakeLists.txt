@@ -31,10 +31,11 @@ branch iris/main):
 - getifaddrs and freeifaddrs, with <ifaddrs.h>
 - [IRIX] Keep _exit out of the string compat object
 - POSIX 2008 *_l functions: ctype, wctype and collation
+- [IRIX] The libc stand-ins keep default visibility
 
 --- lib/builtins/CMakeLists.txt.orig
 +++ lib/builtins/CMakeLists.txt
-@@ -236,6 +236,44 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
+@@ -236,6 +236,52 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
    "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
    Off)
  
@@ -74,6 +75,14 @@ branch iris/main):
 +    irix/process_bsd.c
 +    irix/locale_l.c
 +  )
++  # They stand in for libc's functions, so they keep default visibility: a
++  # shared library linked without the builtins (libtool links C++ libraries
++  # with -nostdlib) leaves them undefined, and the program that links them
++  # from here then has to export them to it, as libc would.
++  set(irix_compat_sources ${GENERIC_SOURCES})
++  list(FILTER irix_compat_sources INCLUDE REGEX "^irix/")
++  set_source_files_properties(${irix_compat_sources}
++    PROPERTIES COMPILE_OPTIONS -fvisibility=default)
 +endif()
 +
  if(NOT FUCHSIA AND NOT COMPILER_RT_BAREMETAL_BUILD AND NOT COMPILER_RT_GPU_BUILD)
