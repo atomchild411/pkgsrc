@@ -1857,6 +1857,7 @@ lib/clang/21/include/irix_wrappers/fenv.h
 lib/clang/21/include/irix_wrappers/ftw.h
 lib/clang/21/include/irix_wrappers/getopt.h
 lib/clang/21/include/irix_wrappers/grp.h
+lib/clang/21/include/irix_wrappers/ifaddrs.h
 lib/clang/21/include/irix_wrappers/internal/sgimacros.h
 lib/clang/21/include/irix_wrappers/inttypes.h
 lib/clang/21/include/irix_wrappers/limits.h
