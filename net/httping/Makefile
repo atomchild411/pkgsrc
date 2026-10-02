@@ -23,5 +23,7 @@ LDFLAGS.NetBSD=		-lintl
 LDFLAGS.SunOS=		-lnsl -lsocket -lresolv
 
 .include "../../devel/gettext-lib/buildlink3.mk"
+# Some programs are linked without $(LIBINTL); IRIX's gettext is libintl.
+LIBS.IRIX+=	${BUILDLINK_LDADD.gettext}
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

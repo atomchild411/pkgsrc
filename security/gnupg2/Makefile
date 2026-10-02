@@ -40,6 +40,8 @@ LDFLAGS.Darwin+=	-lintl
 BUILDLINK_API_DEPENDS.sqlite3+=		sqlite3>=3.27.0
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
+# Some programs are linked without $(LIBINTL); IRIX's gettext is libintl.
+LIBS.IRIX+=	${BUILDLINK_LDADD.gettext}
 BUILDLINK_API_DEPENDS.npth+=		npth>=1.2
 .include "../../devel/npth/buildlink3.mk"
 .include "../../devel/readline/buildlink3.mk"
