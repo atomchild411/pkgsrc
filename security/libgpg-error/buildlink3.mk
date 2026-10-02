@@ -9,6 +9,8 @@ BUILDLINK_API_DEPENDS.libgpg-error+=	libgpg-error>=0.6
 BUILDLINK_ABI_DEPENDS.libgpg-error+=	libgpg-error>=1.10nb1
 BUILDLINK_PKGSRCDIR.libgpg-error?=	../../security/libgpg-error
 
+.include "../../mk/bsd.fast.prefs.mk"
+
 # Cross builds: the scripts libgpg-error installs describe the target, so
 # consumers run those from the cross destdir rather than the build host's
 # (whose paths would end up in their own *-config scripts and .la files).
