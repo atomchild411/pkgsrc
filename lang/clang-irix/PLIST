@@ -1846,6 +1846,7 @@ lib/clang/21/include/irix_wrappers/__irix_int_c.h
 lib/clang/21/include/irix_wrappers/arpa/inet.h
 lib/clang/21/include/irix_wrappers/assert.h
 lib/clang/21/include/irix_wrappers/byteswap.h
+lib/clang/21/include/irix_wrappers/complex.h
 lib/clang/21/include/irix_wrappers/ctype.h
 lib/clang/21/include/irix_wrappers/dirent.h
 lib/clang/21/include/irix_wrappers/dlfcn.h
@@ -1862,6 +1863,7 @@ lib/clang/21/include/irix_wrappers/internal/sgimacros.h
 lib/clang/21/include/irix_wrappers/inttypes.h
 lib/clang/21/include/irix_wrappers/limits.h
 lib/clang/21/include/irix_wrappers/locale.h
+lib/clang/21/include/irix_wrappers/machine/endian.h
 lib/clang/21/include/irix_wrappers/math.h
 lib/clang/21/include/irix_wrappers/net/if.h
 lib/clang/21/include/irix_wrappers/netdb.h
@@ -1882,6 +1884,7 @@ lib/clang/21/include/irix_wrappers/sys/endian.h
 lib/clang/21/include/irix_wrappers/sys/file.h
 lib/clang/21/include/irix_wrappers/sys/ipc.h
 lib/clang/21/include/irix_wrappers/sys/mman.h
+lib/clang/21/include/irix_wrappers/sys/queue.h
 lib/clang/21/include/irix_wrappers/sys/select.h
 lib/clang/21/include/irix_wrappers/sys/socket.h
 lib/clang/21/include/irix_wrappers/sys/stat.h
@@ -1890,6 +1893,7 @@ lib/clang/21/include/irix_wrappers/sys/termios.h
 lib/clang/21/include/irix_wrappers/sys/time.h
 lib/clang/21/include/irix_wrappers/sys/timespec.h
 lib/clang/21/include/irix_wrappers/sys/types.h
+lib/clang/21/include/irix_wrappers/sys/un.h
 lib/clang/21/include/irix_wrappers/sys/wait.h
 lib/clang/21/include/irix_wrappers/syslog.h
 lib/clang/21/include/irix_wrappers/termios.h
