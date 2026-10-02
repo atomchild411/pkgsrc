@@ -26,6 +26,14 @@ CONFIGURE_ARGS+=	--disable-tests
 CONFIGURE_ARGS+=	--enable-silent-rules
 CONFIGURE_ARGS+=	--enable-checks
 
+.include "../../mk/bsd.prefs.mk"
+# The build runs dbus-binding-tool on its own examples: in a cross build,
+# the build host's.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=		${PKGNAME}:../../${PKGPATH}
+CONFIGURE_ARGS+=	--with-dbus-binding-tool=${TOOLBASE}/bin/dbus-binding-tool
+.endif
+
 .include "options.mk"
 
 .include "../../devel/gettext-lib/buildlink3.mk"
