@@ -95,3 +95,16 @@ _OPSYS_CAN_CHECK_SHLIBS=	no # can't use readelf in check/bsd.check-vars.mk
 # check for maximum command line length and set it in configure's environment,
 # to avoid a test required by the libtool script that takes forever.
 _OPSYS_MAX_CMDLEN_CMD=	/usr/sbin/sysconf ARG_MAX
+
+# The C++ library is LLVM's libc++, which leaves out what C++17 and C++20
+# removed (auto_ptr, unary_function, bind1st, random_shuffle, ...) when a
+# program is built for them, as clang builds C++ by default. libstdc++,
+# which most packages are written against, keeps them: keep them here too.
+.for _f_ in CXX17_REMOVED_AUTO_PTR CXX17_REMOVED_BINDERS \
+	CXX17_REMOVED_RANDOM_SHUFFLE CXX17_REMOVED_UNARY_BINARY_FUNCTION \
+	CXX17_REMOVED_UNEXPECTED_FUNCTIONS CXX20_REMOVED_BINDER_TYPEDEFS \
+	CXX20_REMOVED_NEGATORS CXX20_REMOVED_RAW_STORAGE_ITERATOR \
+	CXX20_REMOVED_SHARED_PTR_UNIQUE CXX20_REMOVED_TEMPORARY_BUFFER \
+	CXX20_REMOVED_TYPE_TRAITS CXX20_REMOVED_UNCAUGHT_EXCEPTION
+CWRAPPERS_PREPEND.cxx+=	-D_LIBCPP_ENABLE_${_f_}
+.endfor
