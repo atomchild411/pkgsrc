@@ -21,6 +21,17 @@ SUBST_STAGE.rpath=	pre-configure
 SUBST_FILES.rpath+=	Makefile.PL
 SUBST_VARS.rpath+=	COMPILER_RPATH_FLAG
 
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# Makefile.PL runs its test programs to compare their output, which cannot
+# run here: that they compile and link against libidn must do.
+SUBST_CLASSES+=		cross
+SUBST_STAGE.cross=	pre-configure
+SUBST_MESSAGE.cross=	Not running the test programs when cross-compiling.
+SUBST_FILES.cross=	Makefile.PL
+SUBST_SED.cross=	-e 's|next unless \$$match;|\# cross-compiling: not run|'
+.endif
+
 .include "../../devel/libidn/buildlink3.mk"
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"
