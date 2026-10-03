@@ -44,6 +44,19 @@ DEPENDS+=	${PHP_PKG_PREFIX}-pear-[0-9]*:../../lang/pear
 PEAR_CMD=	${PREFIX}/bin/pear${PHP_VER}
 PEAR_LIB=	${PHP_LIBDIR}
 PEAR_DESTDIR=	-P ${DESTDIR} -f
+# PEAR's directories, as pkgsrc's pear.conf has them. PEAR takes these
+# only as defaults, which pear.conf overrides; they matter where there is
+# no pear.conf to read -- a cross build, whose PEAR runs on the build
+# host's php and would otherwise put the registry under that php's prefix.
+PEAR_ENV+=	PHP_PEAR_INSTALL_DIR=${PREFIX}/${PEAR_LIB}
+PEAR_ENV+=	PHP_PEAR_BIN_DIR=${PREFIX}/bin
+PEAR_ENV+=	PHP_PEAR_DOC_DIR=${PREFIX}/${PEAR_LIB}/doc
+PEAR_ENV+=	PHP_PEAR_DATA_DIR=${PREFIX}/${PEAR_LIB}/data
+PEAR_ENV+=	PHP_PEAR_CFG_DIR=${PREFIX}/${PEAR_LIB}/cfg
+PEAR_ENV+=	PHP_PEAR_WWW_DIR=${PREFIX}/${PEAR_LIB}/www
+PEAR_ENV+=	PHP_PEAR_TEST_DIR=${PREFIX}/${PEAR_LIB}/test
+PEAR_ENV+=	PHP_PEAR_MAN_DIR=${PREFIX}/${PKGMANDIR}
+PEAR_ENV+=	PHP_PEAR_PHP_BIN=${PREFIX}/bin/php${PHP_VER}
 
 NO_BUILD=	yes
 
@@ -75,7 +88,7 @@ post-extract:
 	@cd ${WRKSRC} && ${LN} -s ${WRKDIR}/package.xml package.xml
 
 do-install:
-	cd ${WRKSRC} && ${SETENV} TZ=UTC \
+	cd ${WRKSRC} && ${SETENV} TZ=UTC ${PEAR_ENV} \
 		${PEAR_CMD} "install" ${PEAR_DESTDIR} -n -O package.xml || exit 1
 	${RM} -f ${PEAR_FILES_SKIP:S/^/${DESTDIR}${PREFIX}\/${PEAR_LIB}\//}
 
