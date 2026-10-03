@@ -18,6 +18,14 @@ BUILDLINK_PKGSRCDIR.llvm?=	../../lang/llvm
 
 LLVM_CONFIG_PATH?=		${BUILDLINK_PREFIX.llvm}/bin/llvm-config
 
+# Cross builds: llvm's bin, first in PATH, is the target's code, and CMake
+# takes its llvm-ar and llvm-ranlib (for its checks, too); use the cross
+# toolchain's instead.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_AR:FILEPATH=${TOOLS_PATH.ar:Q}
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_RANLIB:FILEPATH=${TOOLS_PATH.ranlib:Q}
+.endif
+
 BUILDLINK_FILES.llvm+=		bin/FileCheck
 BUILDLINK_FILES.llvm+=		bin/UnicodeNameMappingGenerator
 BUILDLINK_FILES.llvm+=		bin/bugpoint
