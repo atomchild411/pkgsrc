@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - dladdr() over the runtime linker's dladdr service
 - dlfcn.h: __CLANG_IRIX_DLADDR says dladdr is declared
+- RTLD_DEFAULT
 
 --- lib/Headers/irix_wrappers/dlfcn.h.orig
 +++ lib/Headers/irix_wrappers/dlfcn.h
-@@ -0,0 +1,43 @@
+@@ -0,0 +1,60 @@
 +/*===---- dlfcn.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -48,6 +49,23 @@ branch iris/main):
 +int dladdr(const void *, Dl_info *);
 +#ifdef __cplusplus
 +}
++#endif
++
++/* RTLD_DEFAULT, glibc's value: a null handle, on which IRIX's dlsym() fails.
++ * dlsym() is routed to compiler-rt's IRIX builtins (irix/dlsym.c), which
++ * look such a name up among the global symbols of the program and all its
++ * libraries with rld's _RLD_NAME_TO_ADDR, and pass any other handle to
++ * IRIX's dlsym(). There is no RTLD_NEXT: rld cannot search only the objects
++ * after the caller's. */
++#ifndef RTLD_DEFAULT
++#define RTLD_DEFAULT ((void *)0)
++#ifdef __cplusplus
++extern "C" {
++#endif
++void *dlsym(void *, const char *) __asm__("__irix_dlsym");
++#ifdef __cplusplus
++}
++#endif
 +#endif
 +
 +#endif /* __CLANG_IRIX_DLFCN_H */
