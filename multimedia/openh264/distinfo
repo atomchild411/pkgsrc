@@ -5,4 +5,4 @@ SHA512 (openh264-2.6.0.tar.gz) = 26a03acde7153a6b40b99f00641772433a244c72a3cc4bc
 Size (openh264-2.6.0.tar.gz) = 60302243 bytes
 SHA1 (patch-Makefile) = 8dfd1e2bba933ec8280ac8db8b7c661fee64ba47
 SHA1 (patch-codec_common_generate__version.sh) = 5f0d3b33c6730e3da824acb503ceb4c84347a320
-SHA1 (patch-codec_common_src_WelsThreadLib.cpp) = 06a6154330f58c5cca96ab9c3287258796248aaa
+SHA1 (patch-codec_common_src_WelsThreadLib.cpp) = 232fa0c48e1a07d99fc3fdc9aa7e6a0de459a9d7
