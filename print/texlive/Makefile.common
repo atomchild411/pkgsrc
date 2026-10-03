@@ -46,3 +46,13 @@ GNU_CONFIGURE=		yes
 GNU_CONFIGURE_STRICT?=	yes
 CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
 CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub
+
+.include "../../mk/bsd.prefs.mk"
+
+# Cross-compiling, TeX Live configures the helpers the build runs (dvipsk's
+# squeeze, ...) for the build machine, with BUILDCC: unset, configure finds
+# the target's compiler for them.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+CONFIGURE_ENV+=	BUILDCC=${NATIVE_CC:Q} BUILDCFLAGS=-O2
+CONFIGURE_ENV+=	BUILDCPPFLAGS= BUILDLDFLAGS=
+.endif
