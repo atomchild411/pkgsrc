@@ -9,6 +9,8 @@ COMMENT+=	(Sun audio plugin)
 
 # no support for the sun audio interface
 NOT_FOR_PLATFORM+=	Darwin-*-* DragonFly-*-* FreeBSD-*-* Linux-*-*
+# IRIX has no Sun audio device; libao drives IRIX audio itself.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 
 CONFIGURE_ENV:=		${CONFIGURE_ENV:S/ac_cv_header_sys_audioio_h=no//1}
 BUILD_DIRS=		src/plugins/sun
