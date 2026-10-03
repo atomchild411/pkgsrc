@@ -24,12 +24,13 @@ PKGCONFIG_OVERRIDE_STAGE=	pre-install
 
 CHECK_PORTABILITY_SKIP+=	hooks/pre-commit.hook
 
-REPLACE_PYTHON+=	gst/parse/get_flex_version.py
-REPLACE_PYTHON+=	docs/gst-plugins-doc-cache-generator.py
-REPLACE_PYTHON+=	gst/parse/gen_grammar.py.in
-REPLACE_PYTHON+=	gst/parse/gen_lex.py.in
-REPLACE_PYTHON+=	scripts/dist-translations.py
-REPLACE_PYTHON+=	scripts/extract-release-date-from-doap-file.py
+# Build helpers, run by meson and never installed: the build's python.
+REPLACE_TOOL_PYTHON+=	gst/parse/get_flex_version.py
+REPLACE_TOOL_PYTHON+=	docs/gst-plugins-doc-cache-generator.py
+REPLACE_TOOL_PYTHON+=	gst/parse/gen_grammar.py.in
+REPLACE_TOOL_PYTHON+=	gst/parse/gen_lex.py.in
+REPLACE_TOOL_PYTHON+=	scripts/dist-translations.py
+REPLACE_TOOL_PYTHON+=	scripts/extract-release-date-from-doap-file.py
 
 MESON_ARGS+=		-Dptp-helper=disabled
 
