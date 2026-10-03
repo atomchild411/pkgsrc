@@ -42,6 +42,28 @@ CONFIGURE_ARGS+=	--disable-mflua
 CONFIGURE_ARGS+=	--disable-mfluajit
 CONFIGURE_ARGS+=	--disable-xetex
 CONFIGURE_ARGS+=	--with-x=no
+
+.include "../../mk/bsd.prefs.mk"
+
+# texprof times TeX with CLOCK_THREAD_CPUTIME_ID, which IRIX does not have
+# (it keeps no CPU time per thread).
+PLIST_VARS+=		texprof
+.if ${OPSYS} == "IRIX"
+CONFIGURE_ARGS+=	--disable-texprof
+.else
+PLIST.texprof=		yes
+.endif
+
+# Cross-compiling, HiTeX's tables cannot come from running himktables: take
+# the copy of its output that the sources ship.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+SUBST_CLASSES+=		hitables
+SUBST_STAGE.hitables=	pre-configure
+SUBST_MESSAGE.hitables=	Using the shipped hitables.c.
+SUBST_FILES.hitables=	Makefile.in
+SUBST_SED.hitables=	-e 's|^hitables.c: himktables\$$(EXEEXT)$$|hitables.c: $$(srcdir)/hitexdir/hitables.c|'
+SUBST_SED.hitables+=	-e 's|\./himktables\$$(EXEEXT) > \$$@|cp $$(srcdir)/hitexdir/hitables.c $$@|'
+.endif
 CONFIGURE_ARGS+=	--without-mf-x-toolkit
 CONFIGURE_ARGS+=	--with-system-kpathsea
 CONFIGURE_ARGS+=	--with-system-libpng

@@ -57,8 +57,8 @@ bin/r-upmpost
 bin/synctex
 bin/tangle
 bin/tex
-bin/texprof
-bin/texprofile
+${PLIST.texprof}bin/texprof
+${PLIST.texprof}bin/texprofile
 bin/tftopl
 bin/tie
 bin/ttf2afm
@@ -104,6 +104,9 @@ man/man1/euptex.1
 man/man1/gftodvi.1
 man/man1/gftopk.1
 man/man1/gftype.1
+man/man1/hishrink.1
+man/man1/histretch.1
+man/man1/hitex.1
 man/man1/inimf.1
 man/man1/initex.1
 man/man1/latex-dev.1
@@ -141,8 +144,8 @@ man/man1/ptftopl.1
 man/man1/synctex.1
 man/man1/tangle.1
 man/man1/tex.1
-man/man1/texprof.1
-man/man1/texprofile.1
+${PLIST.texprof}man/man1/texprof.1
+${PLIST.texprof}man/man1/texprofile.1
 man/man1/tftopl.1
 man/man1/tie.1
 man/man1/ttf2afm.1
