@@ -7,10 +7,11 @@ branch iris/main):
 - fd_set and the BSD types with _GNU_SOURCE; <sys/select.h> first
 - Wrapper headers: u_int64_t, CRTSCTS, <strings.h>, sig_t, IOV_MAX
 - Wrapper <sys/types.h>: bring in <sys/cdefs.h>, as glibc and the BSDs do
+- Wrapper <sys/types.h>: the byte-order constants
 
 --- lib/Headers/irix_wrappers/sys/types.h.orig
 +++ lib/Headers/irix_wrappers/sys/types.h
-@@ -0,0 +1,54 @@
+@@ -0,0 +1,79 @@
 +/*===---- sys/types.h - IRIX wrapper ----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -62,6 +63,31 @@ branch iris/main):
 +#ifndef __CLANG_IRIX_U_INT64_T
 +#define __CLANG_IRIX_U_INT64_T
 +typedef __uint64_t u_int64_t;
++#endif
++
++/* The byte-order constants, which glibc's and the BSDs' <sys/types.h>
++ * define (glibc outside the strict modes) and IRIX's only <sys/endian.h>:
++ * code tests BYTE_ORDER == BIG_ENDIAN with nothing else included (Tremor,
++ * whose two definitions of a union then both compiled). In SGI mode, as
++ * <sys/endian.h> defines them, and with the same definitions, so that it
++ * can still be included after this; not its htonl and friends, which it
++ * defines as macros and code that declares them would trip on. */
++#if _SGIAPI
++#ifndef LITTLE_ENDIAN
++#define LITTLE_ENDIAN 1234
++#endif
++#ifndef BIG_ENDIAN
++#define BIG_ENDIAN 4321
++#endif
++#ifndef PDP_ENDIAN
++#define PDP_ENDIAN 3412
++#endif
++#if !defined(_BYTE_ORDER) && defined(_MIPSEB)
++#define _BYTE_ORDER 4321
++#endif
++#if !defined(BYTE_ORDER) && defined(_BYTE_ORDER)
++#define BYTE_ORDER _BYTE_ORDER
++#endif
 +#endif
 +
 +#endif /* __CLANG_IRIX_SYS_TYPES_H */
