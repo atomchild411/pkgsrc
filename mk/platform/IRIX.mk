@@ -4,11 +4,16 @@
 
 ECHO_N?=	${ECHO} -n
 IMAKE_MAKE?=	${MAKE}		# program which gets invoked by imake
-IMAKEOPTS+=	-DMakeCmd=${PREFIX}/bin/bmake -DProjectRoot=${X11BASE}
+IMAKEOPTS+=	-DProjectRoot=${X11BASE}
 IMAKEOPTS+=	-DManUsr=${PREFIX}
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+IMAKEOPTS+=	-DMakeCmd=${PREFIX}/bin/bmake
+.else
+# The generated Makefiles run make themselves (make Makefiles, subdirs):
+# the build host's, which there is no copy of under PREFIX.
+IMAKEOPTS+=	-DMakeCmd=${TOOLBASE}/bin/bmake
 # A cross build runs the build host's imake: have its preprocessor see
 # IRIX, so that it picks sgi.cf, rather than the build host.
-.if ${USE_CROSS_COMPILE:U:tl} == "yes"
 IMAKEOPTS+=	-Ulinux -U__linux -U__linux__ -U__gnu_linux__ -U__GLIBC__
 IMAKEOPTS+=	-U__NetBSD__ -U__APPLE__ -U__MACH__
 IMAKEOPTS+=	-U__amd64__ -U__x86_64__ -U__i386__ -U__aarch64__ -U__arm64__
