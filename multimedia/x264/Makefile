@@ -24,8 +24,8 @@ SUPERSEDES+=	x264-devel-[0-9]*
 # NetBSD/i386 needs ASM disabled to avoid text relocations.
 # NetBSD/mips needs ASM disabled because it uses the MSA extension
 # Darwin/powerpc needs ASM disabled; it needs Altivec and build fails on G4.
-# (requires MIPS64 revision 2) and fails to build.
-.if ${OPSYS} == "SunOS" || \
+# (requires MIPS64 revision 2) and fails to build; so does IRIX/mips.
+.if ${OPSYS} == "SunOS" || ${OPSYS} == "IRIX" || \
     ${MACHINE_PLATFORM:MNetBSD-*-i386} || \
     ${MACHINE_PLATFORM:MNetBSD-*-mips*} || \
     ${MACHINE_PLATFORM:MDarwin-*-powerpc*}
