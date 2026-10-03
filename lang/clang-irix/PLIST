@@ -1884,6 +1884,7 @@ lib/clang/21/include/irix_wrappers/string.h
 lib/clang/21/include/irix_wrappers/sys/bitypes.h
 lib/clang/21/include/irix_wrappers/sys/endian.h
 lib/clang/21/include/irix_wrappers/sys/file.h
+lib/clang/21/include/irix_wrappers/sys/kabi.h
 lib/clang/21/include/irix_wrappers/sys/ipc.h
 lib/clang/21/include/irix_wrappers/sys/mman.h
 lib/clang/21/include/irix_wrappers/sys/queue.h
