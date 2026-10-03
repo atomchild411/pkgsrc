@@ -20,6 +20,14 @@ USE_CXX_FEATURES=	c++11
 
 PKGCONFIG_OVERRIDE=	teckit.pc.in
 
+# IRIX's <sys/types.h> has a uchar_t of its own (unsigned char), which
+# UtfCodec.h's (uint32_t, used in it alone) clashes with.
+SUBST_CLASSES.IRIX+=	uchar
+SUBST_STAGE.uchar=	pre-configure
+SUBST_MESSAGE.uchar=	Renaming UtfCodec.h's uchar_t, which IRIX's <sys/types.h> has.
+SUBST_FILES.uchar=	SFconv/UtfCodec.h
+SUBST_SED.uchar=	-e 's/\([^A-Za-z0-9_]\)uchar_t\([^A-Za-z0-9_]\)/\1utf_uchar_t\2/g'
+
 pre-configure:
 	cd ${WRKSRC} && libtoolize -c && aclocal && \
 	    autoheader && autoconf && automake -a
