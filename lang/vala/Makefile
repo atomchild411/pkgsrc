@@ -25,6 +25,9 @@ TEST_TARGET=		check
 # Cross builds have no gobject-introspection to ask where .gir files go.
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
 CONFIGURE_ENV+=		GI_GIRDIR=${PREFIX}/share/gir-1.0
+# configure runs a program to tell graphviz's cgraph from the old graph
+# library; pkgsrc's graphviz has only cgraph.
+CONFIGURE_ARGS+=	--with-cgraph=yes
 .endif
 
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.48.0
