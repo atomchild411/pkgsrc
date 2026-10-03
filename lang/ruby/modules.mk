@@ -50,6 +50,24 @@ DEPENDS+= ${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
 
 CONFIGURE_ENV+=		RUBY=${RUBY:Q} RDOC=${RDOC:Q}
 
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# A cross build runs the build host's ruby (of the same version) for
+# extconf.rb and for gems' native extensions, and its mkmf would compile
+# for the build host. Give it the target's rbconfig.rb, alone in a
+# directory first on its load path -- not the target's archdir, whose .so
+# files are target code -- so that mkmf compiles and links for the target.
+_RUBY_CROSS_RBCONFIG=	${WRKDIR}/.ruby-cross
+CONFIGURE_ENV+=		RUBYOPT=-I${_RUBY_CROSS_RBCONFIG}
+MAKE_ENV+=		RUBYOPT=-I${_RUBY_CROSS_RBCONFIG}
+INSTALL_ENV+=		RUBYOPT=-I${_RUBY_CROSS_RBCONFIG}
+pre-configure: ${_RUBY_CROSS_RBCONFIG}/.stamp
+${_RUBY_CROSS_RBCONFIG}/.stamp:
+	${RUN} ${MKDIR} ${.TARGET:H}; set --				\
+	    ${_CROSS_DESTDIR}${LOCALBASE}/${RUBY_LIB}/*/rbconfig.rb;	\
+	if [ -f "$$1" ]; then ${CP} "$$1" ${.TARGET:H}/rbconfig.rb; fi;	\
+	${TOUCH} ${.TARGET}
+.endif
+
 # extconf.rb support
 #
 .if defined(USE_RUBY_EXTCONF) && empty(USE_RUBY_EXTCONF:M[nN][oO])
