@@ -57,7 +57,7 @@ post-build:
 	${RM} ${WRKSRC}/texmf/XDvi
 	${MKDIR} ${WRKSRC}/texmf/xdvi
 	# cp XDvi from tex-xdvi
-	${CP} ${PREFIX}/share/texmf-dist/xdvi/XDvi ${WRKSRC}/texmf/xdvi
+	${CP} ${TOOLBASE}/share/texmf-dist/xdvi/XDvi ${WRKSRC}/texmf/xdvi
 	# set the pagesize
 #	${SETENV} TEXMFCONFIG=${PREFIX}/share/texmf \
 #		TFC_TEXMFCONFIG=${WRKSRC}/texmf \
