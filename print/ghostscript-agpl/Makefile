@@ -54,6 +54,33 @@ MESSAGE_SUBST+=		GS_RESOURCEDIR=${GS_RESOURCEDIR}
 .include "../../mk/bsd.prefs.mk"
 .include "../../mk/compiler.mk"
 
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# The tools built for the build machine (configure runs itself again for
+# them) use the native compiler, without the target's flags. Their
+# configure insists on the bundled zlib, so post-extract keeps it, but they
+# link with -lz like the target's build, which uses pkgsrc's: give them the
+# build machine's from TOOLBASE (LDFLAGSAUX on make's command line: what
+# configure would pass on is lost on the way through its second run).
+TOOL_DEPENDS+=		zlib>=1.2.3:../../devel/zlib
+CONFIGURE_ENV+=		CCAUX=${NATIVE_CC:Q} CFLAGSAUX=-O2
+CONFIGURE_ENV+=		CPPFLAGSAUX=-I${TOOLBASE}/include
+GS_AUX_LDFLAGS=		-L${TOOLBASE}/lib -Wl,-rpath,${TOOLBASE}/lib
+MAKE_FLAGS+=		LDFLAGSAUX=${GS_AUX_LDFLAGS:Q}
+CONFIGURE_ARGS+=	--without-local-zlib
+# configure drops a pkg-config that is also the build machine's, looking
+# first for one named for the target: pkgsrc's serves the target already.
+TOOLS_ALIASES.pkg-config+=	${MACHINE_GNU_PLATFORM}-pkg-config
+.endif
+
+# IRIX's <sys/types.h> has a cell_t of its own, which the bundled extract
+# library's clashes with.
+SUBST_CLASSES.IRIX+=	cellt
+SUBST_STAGE.cellt=	pre-configure
+SUBST_MESSAGE.cellt=	Renaming extract's cell_t, which IRIX's <sys/types.h> has.
+SUBST_FILES.cellt=	extract/src/*.c extract/src/*.h
+SUBST_SED.cellt=	-e 's/\([^A-Za-z0-9_]\)cell_t\([^A-Za-z0-9_]\)/\1extract_cell_t\2/g'
+SUBST_SED.cellt+=	-e 's/^cell_t\([^A-Za-z0-9_]\)/extract_cell_t\1/'
+
 .if defined(PAPERSIZE) && ${PAPERSIZE} == "A4"
 BUILD_DEFS+=		PAPERSIZE
 CFLAGS+=		-DA4
@@ -104,7 +131,9 @@ post-extract:
 	${RM} -rf ${WRKSRC}/libpng
 	${RM} -rf ${WRKSRC}/openjpeg
 	${RM} -rf ${WRKSRC}/tiff
+.if ${USE_CROSS_COMPILE:tl} != "yes"
 	${RM} -rf ${WRKSRC}/zlib
+.endif
 
 #  To allow outside customization, rename cidfmap
 #	 (if you look at inside of the file, it is logically empty)

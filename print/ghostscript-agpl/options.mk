@@ -31,6 +31,10 @@ CONFIGURE_ARGS+=	--enable-cups
 # SUBST_SED.cupsetc=	-e 's|$$(CUPSSERVERROOT)|${CUPS_EGDIR}|g'
 
 .include "../../print/libcups/buildlink3.mk"
+.  if ${USE_CROSS_COMPILE:tl} == "yes"
+# configure drops a cups-config that is the build machine's; name the target's.
+CONFIGURE_ENV+=		CUPSCONFIG=${BUILDLINK_PREFIX.libcups}/bin/cups-config
+.  endif
 .else
 CONFIGURE_ARGS+=	--disable-cups
 .endif

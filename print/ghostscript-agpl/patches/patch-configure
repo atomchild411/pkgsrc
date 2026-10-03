@@ -6,10 +6,11 @@ Get all LDFLAGS for FreeType2.
 Use correct install_name with path on Darwin.
 Remove -Werror flags that are suitable for development but not for
 packaging for a wide range of OSes and architectures.
+Build the shared libraries on IRIX as on the BSDs.
 
 --- configure.orig	2025-09-09 09:36:39.000000000 +0000
 +++ configure
-@@ -4845,7 +4845,7 @@ CFLAGSAUX_STANDARDTMP="\$(CFLAGS_STANDAR
+@@ -4843,7 +4843,7 @@
  CFLAGSAUX_DEBUGTMP="\$(CFLAGS_DEBUG)"
  CFLAGSAUX_PROFILETMP="\$(CFLAGS_PROFILE)"
  LDFLAGSAUXTMP="\$(LDFLAGS)"
@@ -18,7 +19,7 @@ packaging for a wide range of OSes and architectures.
  
  # purposefully do not include "help" output for this
  # Check whether --enable-save_confaux was given.
-@@ -5601,10 +5601,7 @@ case $host in
+@@ -5599,10 +5599,7 @@
          *-sun*|*-solaris*)
          CC_OPT_FLAGS_TO_TRY="-O2 -DNDEBUG"
          CFLAGS_LARGEFILE="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
@@ -30,7 +31,7 @@ packaging for a wide range of OSes and architectures.
          if test x"$GCC" = x"yes"; then
              CC_OPT_FLAGS_TO_TRY="-O2 -DNDEBUG"
              CC_DBG_FLAGS_TO_TRY="-gdwarf-2 -g3 -O0"
-@@ -5630,8 +5627,8 @@ esac
+@@ -5628,8 +5625,8 @@
  if test x"$GCC" = x"yes"; then
      cflags_to_try="-Wall -Wstrict-prototypes -Wundef \
  -Wmissing-declarations -Wmissing-prototypes -Wwrite-strings \
@@ -41,7 +42,7 @@ packaging for a wide range of OSes and architectures.
      optflags_to_try="$CC_OPT_FLAGS_TO_TRY"
      dbgflags_to_try="$CC_DBG_FLAGS_TO_TRY"
  else
-@@ -9257,7 +9254,7 @@ fi
+@@ -9270,7 +9267,7 @@
  fi
  
  if test x$with_libpaper != xno; then
@@ -50,7 +51,16 @@ packaging for a wide range of OSes and architectures.
  
  printf "%s\n" "#define USE_LIBPAPER 1" >>confdefs.h
  
-@@ -13496,11 +13493,11 @@ case $host in
+@@ -13607,7 +13604,7 @@
+       GPDL_SONAME_MAJOR="lib\$(GPDL${libname3}"
+       GPDL_SONAME_MAJOR_MINOR="cyg\$(GPDL${libname2}"
+     ;;
+-    *bsd*)
++    *bsd*|*-irix*)
+       DYNAMIC_CFLAGS="-fPIC $DYNAMIC_CFLAGS"
+       GS_DYNAMIC_LDFLAGS="-shared -Wl,\$(LD_SET_DT_SONAME)\$(LDFLAGS_SO_PREFIX)\$(GS_SONAME_MAJOR)"
+       PCL_DYNAMIC_LDFLAGS="-shared -Wl,\$(LD_SET_DT_SONAME)\$(LDFLAGS_SO_PREFIX)\$(PCL_SONAME_MAJOR)"
+@@ -13619,11 +13616,11 @@
      ;;
      *-darwin*)
        DYNAMIC_CFLAGS="-fPIC $DYNAMIC_CFLAGS"
@@ -67,7 +77,7 @@ packaging for a wide range of OSes and architectures.
        DYNAMIC_LIBS=""
        SO_LIB_EXT=""
        DLL_EXT=".dylib"
-@@ -13517,11 +13514,11 @@ case $host in
+@@ -13640,11 +13637,11 @@
          #fi
          # ^^^ untested
        fi
