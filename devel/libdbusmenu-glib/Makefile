@@ -8,6 +8,13 @@ COMMENT=	Glib2 library created by pulling some code from indicator-applet
 
 TOOL_DEPENDS+=		glib2-introspection-[0-9]*:../../devel/glib2-introspection
 
+.include "../../mk/bsd.prefs.mk"
+
+# Cross builds make no introspection data, so no Vala bindings from it.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+CONFIGURE_ARGS+=	--disable-vala
+.endif
+
 CONFIGURE_ARGS+=	--disable-gtk
 CONFIGURE_ARGS+=	--disable-dumper
 CONFIGURE_ARGS+=	--disable-tests
