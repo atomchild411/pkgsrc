@@ -5,3 +5,4 @@ SHA512 (protobuf-36.1.tar.gz) = 10dd7277bcc37f93ad9997696a597bcb4649f549cc527a74
 Size (protobuf-36.1.tar.gz) = 7314419 bytes
 SHA1 (patch-src_file__lists.cmake) = 0b693792cefcff5bed559c6abbe9092e4fb1efdc
 SHA1 (patch-src_google_protobuf_io_zero_copy_stream_impl.cc) = 379eeacfd54d4d3ad577844449d44e29d16ce254
+SHA1 (patch-upb_message_internal_iterator.c) = fd0de466024379619b0f1c8358c213d483f09056
