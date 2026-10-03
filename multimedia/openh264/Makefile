@@ -26,6 +26,12 @@ CXXFLAGS.SunOS+=	-fpermissive #  signed char / int8_t cast confusion
 
 .include "../../mk/bsd.prefs.mk"
 
+# The build includes build/platform-$(OS).mk, OS from uname; there is none
+# for IRIX. The BSD one is plain ELF with -lpthread, which IRIX is too.
+.if ${OPSYS} == "IRIX"
+MAKE_FLAGS+=	OS=bsd
+.endif
+
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 TOOL_DEPENDS+=	nasm>=2.07:../../devel/nasm
 .endif
