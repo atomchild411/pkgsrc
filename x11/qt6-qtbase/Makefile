@@ -54,6 +54,13 @@ USE_TOOLS+=		bash:run
 
 .include "../../mk/bsd.prefs.mk"
 
+# Cross-compiling, Qt builds with the build machine's own Qt of the same
+# version, for the tools the build runs (syncqt, moc, rcc, ...).
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+TOOL_DEPENDS+=		qt6-qtbase>=${QTVERSION}:../../x11/qt6-qtbase
+CONFIGURE_ARGS+=	-qt-host-path ${TOOLBASE}/qt6
+.endif
+
 .if ${OPSYS} != "Darwin"
 CONFIGURE_ARGS+=	-fontconfig
 QMAKE_CONF=		qmake.conf
