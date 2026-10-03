@@ -36,6 +36,10 @@ post-install:
 TOOL_DEPENDS+=		clang>=${LLVM_VERSION}nb3:../../lang/clang
 CMAKE_CONFIGURE_ARGS+=	-DLLVM_TABLEGEN_EXE:FILEPATH=${TOOLBASE:Q}/bin/llvm-tblgen
 CMAKE_CONFIGURE_ARGS+=	-DLLVM_NATIVE_TOOL_DIR:PATH=${TOOLBASE:Q}/bin
+# The archiver too: the target's llvm-ar, which lang/llvm's buildlink
+# puts first in PATH, is target code.
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_AR:FILEPATH=${TOOLBASE:Q}/bin/llvm-ar
+CMAKE_CONFIGURE_ARGS+=	-DCMAKE_RANLIB:FILEPATH=${TOOLBASE:Q}/bin/llvm-ranlib
 .endif
 
 .include "../../mk/atomic64.mk"
