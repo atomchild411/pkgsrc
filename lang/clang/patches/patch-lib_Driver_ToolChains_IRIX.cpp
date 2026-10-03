@@ -8,10 +8,11 @@ branch iris/main):
 - clang driver: find libc++ in a pkgsrc tree, and RPATH it natively
 - Link the compiler-rt builtins as -lclang_rt.builtins
 - Driver: a link with -lGL gets -lGLcore
+- Driver: --unwindlib is no unused argument
 
 --- lib/Driver/ToolChains/IRIX.cpp.orig
 +++ lib/Driver/ToolChains/IRIX.cpp
-@@ -0,0 +1,356 @@
+@@ -0,0 +1,361 @@
 +//===--- IRIX.cpp - IRIX ToolChain Implementations --------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -229,6 +230,11 @@ branch iris/main):
 +  Args.ClaimAllArgs(options::OPT_g_Group);
 +  Args.ClaimAllArgs(options::OPT_emit_llvm);
 +  Args.ClaimAllArgs(options::OPT_w);
++  // --unwindlib: only C++ links that take the C++ library read it (through
++  // AddRunTimeLibs); C links and -nostdlib++ ones do not need an unwinder.
++  // It is still no unused argument there: LLVM's runtimes pass it to every
++  // compiler check, with -Werror (libunwind's -funwind-tables check failed).
++  Args.ClaimAllArgs(options::OPT_unwindlib_EQ);
 +
 +  if (!D.SysRoot.empty())
 +    CmdArgs.push_back(Args.MakeArgString("--sysroot=" + D.SysRoot));
