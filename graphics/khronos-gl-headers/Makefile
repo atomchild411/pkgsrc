@@ -12,9 +12,9 @@ HOMEPAGE=	https://registry.khronos.org/OpenGL/
 COMMENT=	OpenGL extension headers (glext.h, glxext.h, khrplatform.h)
 LICENSE=	mit
 
-# For systems whose OpenGL is their own and predates these headers (IRIX):
-# Mesa installs the same files.
-CONFLICTS+=	MesaLib-[0-9]*
+# For systems whose OpenGL is their own and predates these headers (IRIX).
+# No CONFLICTS with MesaLib: there it is the builtin one (no files), which
+# a bulk build registers as installed.
 
 EXTRACT_ELEMENTS=	${DISTNAME}/include/GL/glext.h
 EXTRACT_ELEMENTS+=	${DISTNAME}/include/GL/glxext.h
