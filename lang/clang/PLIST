@@ -1098,6 +1098,7 @@ lib/clang/21/include/irix_wrappers/endian.h
 lib/clang/21/include/irix_wrappers/err.h
 lib/clang/21/include/irix_wrappers/fcntl.h
 lib/clang/21/include/irix_wrappers/fenv.h
+lib/clang/21/include/irix_wrappers/fts.h
 lib/clang/21/include/irix_wrappers/ftw.h
 lib/clang/21/include/irix_wrappers/getopt.h
 lib/clang/21/include/irix_wrappers/grp.h
