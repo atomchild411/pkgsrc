@@ -9,6 +9,9 @@ COMMENT=	Modular X11 server from modular X.org
 SPECIAL_PERMS+=		bin/Xorg ${SETUID_ROOT_PERMS}
 
 NOT_FOR_PLATFORM=	Darwin-*-*
+# IRIX's X server is SGI's Xsgi, and there are no xf86 drivers for SGI
+# graphics; the nested server is x11/modular-xorg-xephyr.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 
 .include "Makefile.common"
 
