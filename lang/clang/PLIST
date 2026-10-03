@@ -19,6 +19,7 @@ bin/clang-refactor
 bin/clang-repl
 bin/clang-scan-deps
 bin/clang-sycl-linker
+bin/clang-tblgen
 bin/diagtool
 bin/git-clang-format
 bin/hmaptool
