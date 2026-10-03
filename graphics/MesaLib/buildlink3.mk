@@ -40,13 +40,17 @@ pkgbase:= MesaLib
 .if ${MESALIB_SUPPORTS_DRI} == "yes"
 .  include "../../x11/libdrm/buildlink3.mk"
 .endif
-.else
-# IRIX's <GL/gl.h> stops at OpenGL 1.4 and has no <GL/glext.h>: the
-# Khronos extension headers, for programs that include them.
-.  include "../../graphics/khronos-gl-headers/buildlink3.mk"
 .endif # OPSYS != IRIX
 
 .include "../../mk/pthread.buildlink3.mk"
 .endif # MESALIB_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-MesaLib
+
+# IRIX's <GL/gl.h> stops at OpenGL 1.4 and has no <GL/glext.h>: the
+# Khronos extension headers, for the programs that include them. After
+# MesaLib's tree, so they are the program's dependency: under MesaLib
+# they would make the builtin MesaLib one built from pkgsrc.
+.if ${OPSYS} == "IRIX"
+.  include "../../graphics/khronos-gl-headers/buildlink3.mk"
+.endif
