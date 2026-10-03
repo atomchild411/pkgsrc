@@ -63,4 +63,11 @@ fix-darwin-install-name:
 .include "../../converters/libiconv/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libxml2+=	libxml2>=${PKGVERSION_NOREV}
 .include "../../textproc/libxml2/buildlink3.mk"
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# lang/python/pyversion.mk's PYTHONPATH (the cross build's sitecustomize)
+# comes after the one above and replaces it, and setup.py then cannot
+# import xmlgenerator: give both.
+MAKE_ENV+=	PYTHONPATH=${WRKSRC}/python:${WRKDIR}/.pysite:${_CROSS_DESTDIR:Q}${LOCALBASE}/${PYLIB:Q}
+.endif
+
 .include "../../mk/bsd.pkg.mk"
