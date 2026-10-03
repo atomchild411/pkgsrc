@@ -15,8 +15,11 @@ USE_LIBTOOL=	yes
 
 BUILDLINK_TRANSFORM+=	rm:-Werror
 
+# autogen.sh ends by running configure with whatever it is given: give it
+# the real environment and arguments, or a cross build runs it as a native
+# one and it stops ("cannot run C compiled programs").
 pre-configure:
-	cd ${WRKSRC} && ./autogen.sh
+	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${SH} ./autogen.sh ${CONFIGURE_ARGS}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/xsel.1x ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/xsel.1

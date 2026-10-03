@@ -21,8 +21,11 @@ TEST_TARGET=	check
 
 REPLACE_PYTHON+=	test_jbig2dec.py
 
+# autogen.sh ends by running configure with whatever it is given: give it
+# the real environment and arguments, or a cross build runs it as a native
+# one and it stops ("cannot run C compiled programs").
 pre-configure:
-	${RUN} cd ${WRKSRC} && ${SH} ./autogen.sh
+	${RUN} cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${SH} ./autogen.sh ${CONFIGURE_ARGS}
 
 .include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"
