@@ -39,10 +39,11 @@ branch iris/main):
 - getifaddrs and freeifaddrs, with <ifaddrs.h>
 - Wrappers: <sys/queue.h>, <machine/endian.h>, SUN_LEN, I, IPPROTO_SCTP
 - POSIX 2008 *_l functions: ctype, wctype and collation
+- Wrapper <net/if_dl.h>: an include guard, and the BSD types it uses
 
 --- lib/Headers/CMakeLists.txt.orig
 +++ lib/Headers/CMakeLists.txt
-@@ -395,6 +395,90 @@ set(zos_wrapper_files
+@@ -395,6 +395,91 @@ set(zos_wrapper_files
    zos_wrappers/builtins.h
  )
  
@@ -119,6 +120,7 @@ branch iris/main):
 +)
 +set(irix_wrapper_net_files
 +  irix_wrappers/net/if.h
++  irix_wrappers/net/if_dl.h
 +)
 +set(irix_wrapper_netinet_files
 +  irix_wrappers/netinet/in.h
@@ -133,7 +135,7 @@ branch iris/main):
  include(GetClangResourceDir)
  get_clang_resource_dir(output_dir PREFIX ${LLVM_LIBRARY_OUTPUT_INTDIR}/.. SUBDIR include)
  set(out_files)
-@@ -443,7 +527,7 @@ endfunction(clang_generate_header)
+@@ -443,7 +528,7 @@ endfunction(clang_generate_header)
  
  # Copy header files from the source directory to the build directory
  foreach( f ${files} ${cuda_wrapper_files} ${cuda_wrapper_bits_files}
@@ -142,7 +144,7 @@ branch iris/main):
  	   ${llvm_libc_wrapper_files} ${llvm_offload_wrapper_files})
    copy_header_to_output_dir(${CMAKE_CURRENT_SOURCE_DIR} ${f})
  endforeach( f )
-@@ -557,7 +641,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
+@@ -557,7 +642,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
  add_header_target("hexagon-resource-headers" "${hexagon_files}")
  add_header_target("hip-resource-headers" "${hip_files}")
  add_header_target("loongarch-resource-headers" "${loongarch_files}")
@@ -151,7 +153,7 @@ branch iris/main):
  add_header_target("ppc-resource-headers" "${ppc_files};${ppc_wrapper_files}")
  add_header_target("ppc-htm-resource-headers" "${ppc_htm_files}")
  add_header_target("riscv-resource-headers" "${riscv_files};${riscv_generated_files}")
-@@ -625,6 +709,41 @@ install(
+@@ -625,6 +710,41 @@ install(
    DESTINATION ${header_install_dir}/zos_wrappers
    COMPONENT clang-resource-headers)
  
