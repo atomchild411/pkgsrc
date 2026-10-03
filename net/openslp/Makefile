@@ -37,7 +37,7 @@ post-extract:
 
 pre-configure:
 	@cd ${WRKSRC} && aclocal && autoheader && autoconf &&		\
-		${LOCALBASE}/bin/libtoolize && automake --add-missing
+		${TOOLBASE}/bin/libtoolize && automake --add-missing
 
 post-install:
 	@cd ${WRKSRC}/doc && pax -rw . ${DESTDIR}${PREFIX}/share/doc/openslp

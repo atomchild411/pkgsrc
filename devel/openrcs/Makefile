@@ -15,7 +15,7 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 
 pre-configure:
-	cd ${WRKSRC} && ${PREFIX}/bin/libtoolize --copy --force
+	cd ${WRKSRC} && ${TOOLBASE}/bin/libtoolize --copy --force
 	cd ${WRKSRC} && ${TOOLS_CMD.aclocal}
 	cd ${WRKSRC} && ${TOOLS_CMD.autoconf}
 	cd ${WRKSRC} && ${TOOLS_CMD.autoheader}

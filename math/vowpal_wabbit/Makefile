@@ -19,7 +19,7 @@ USE_LIBTOOL=		yes
 AUTOCONF_REQD=		2.60
 GNU_CONFIGURE=		yes
 
-LIBTOOLIZE=		${PREFIX}/bin/libtoolize
+LIBTOOLIZE=		${TOOLBASE}/bin/libtoolize
 
 CONFIGURE_ARGS+=	--with-boost=${BUILDLINK_PREFIX.boost-headers}
 LDFLAGS.SunOS+=		-lsocket -lnsl

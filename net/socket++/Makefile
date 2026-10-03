@@ -19,7 +19,7 @@ TEST_TARGET=		check
 
 pre-configure:
 	cd ${WRKSRC};						\
-	${LOCALBASE}/bin/libtoolize --automake;                 \
+	${TOOLBASE}/bin/libtoolize --automake;                 \
 	aclocal -I .;						\
 	autoheader;						\
 	automake --add-missing;					\

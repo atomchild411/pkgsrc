@@ -21,7 +21,7 @@ CPPFLAGS.SunOS+=	-std=gnu99 -D_XOPEN_SOURCE=600
 
 pre-configure:
 	cd ${WRKSRC} && \
-		${PREFIX}/bin/libtoolize && \
+		${TOOLBASE}/bin/libtoolize && \
 		aclocal && \
 		autoheader && \
 		automake --add-missing && \

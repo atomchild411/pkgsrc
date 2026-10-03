@@ -28,7 +28,7 @@ CFLAGS.SunOS+=		-Dalloca=__builtin_alloca
 pre-configure:
 	touch ${WRKSRC}/config.h.in
 	cd ${WRKSRC} && aclocal
-	cd ${WRKSRC} && ${LOCALBASE}/bin/libtoolize --automake
+	cd ${WRKSRC} && ${TOOLBASE}/bin/libtoolize --automake
 	cd ${WRKSRC} && automake --add-missing
 	cd ${WRKSRC} && autoconf
 
