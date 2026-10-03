@@ -56,6 +56,14 @@ BUILDLINK_API_DEPENDS.apr-util+=	apr-util>=1.5.3
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 # configure looks for ${host}-pcre2-config, which no one installs.
 CONFIGURE_ARGS+=	--with-pcre=${BUILDLINK_PREFIX.pcre2}/bin/pcre2-config
+# gen_test_char writes a header during the build, so it runs on the build
+# machine: built by the native compiler, without APR (-DCROSS_COMPILE).
+SUBST_CLASSES+=		gentest
+SUBST_STAGE.gentest=	pre-configure
+SUBST_MESSAGE.gentest=	Building gen_test_char for the build machine.
+SUBST_FILES.gentest=	server/Makefile.in
+SUBST_SED.gentest=	-e 's|^gen_test_char: \$$(gen_test_char_OBJECTS)|gen_test_char: gen_test_char.c|'
+SUBST_SED.gentest+=	-e 's|\$$(LINK) \$$(EXTRA_LDFLAGS) \$$(gen_test_char_OBJECTS) \$$(EXTRA_LIBS)|${NATIVE_CC} -DCROSS_COMPILE -o gen_test_char gen_test_char.c|'
 .endif
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
