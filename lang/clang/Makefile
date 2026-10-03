@@ -29,7 +29,8 @@ LDFLAGS.SunOS+=	-lsocket
 # build has to run the build host's, so install it (as lang/llvm installs
 # llvm-tblgen) and take both from this package built for the host.
 post-install:
-	${INSTALL_PROGRAM} ${CMAKE_BUILD_DIR}/bin/clang-tblgen ${DESTDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/${CONFIGURE_DIR}/${CMAKE_BUILD_DIR}/bin/clang-tblgen \
+		${DESTDIR}${PREFIX}/bin
 
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
 TOOL_DEPENDS+=		clang>=${LLVM_VERSION}nb3:../../lang/clang
