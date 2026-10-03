@@ -56,6 +56,15 @@ PLIST_VARS+=	ctf gas gold gprof ld ldint
 #
 .if ${OPSYS} == "Darwin" || ${OPSYS} == "Linux"
 CONFIGURE_ARGS+=	--disable-libctf
+# gprofng builds by default on Linux and is not in the PLIST; ldint.info
+# is installed all the same. libsframe decides by itself not to install
+# its library and headers (no shared build there, and the guessed target
+# differs from --host), so ask for them.
+.  if ${OPSYS} == "Linux"
+CONFIGURE_ARGS+=	--disable-gprofng
+CONFIGURE_ARGS+=	--enable-install-libbfd
+PLIST.ldint=		yes
+.  endif
 .else
 PLIST.ctf=		yes
 PLIST.ldint=		yes
