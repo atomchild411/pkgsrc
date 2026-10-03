@@ -44,6 +44,13 @@ SUBST_MESSAGE.fix-cfg=	Adding CFLAGS to Configure scripts.
 SUBST_FILES.fix-cfg=	config/get_*
 SUBST_SED.fix-cfg=	-e 's,$$CC $$extraflag,$$CC $$CFLAGS $$extraflag,g'
 
+# pari.cfg records the ranlib Configure found, which is pkgsrc's wrapper.
+SUBST_CLASSES+=		cfg-tools
+SUBST_STAGE.cfg-tools=	post-install
+SUBST_MESSAGE.cfg-tools=	Removing tool wrapper paths from pari.cfg.
+SUBST_FILES.cfg-tools=	${DESTDIR}${PREFIX}/lib/pari/pari.cfg
+SUBST_SED.cfg-tools=	-e 's,${TOOLS_DIR}/bin/,,g'
+
 .include "options.mk"
 
 .include "../../devel/ncurses/buildlink3.mk"
