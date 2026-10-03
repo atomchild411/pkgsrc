@@ -438,11 +438,14 @@ install-strip-debug: plist
 ######################################################################
 ### install-cross-interpreters (PRIVATE)
 ######################################################################
-### In a cross build, configure finds the build host's interpreters
-### (perl, python, tcsh, ...) under TOOLBASE, and packages whose own
-### build writes that path into installed scripts' #! lines (rather than
-### through REPLACE_*) leave scripts that cannot run on the target. The
-### target has the same tools under LOCALBASE: rewrite the #! lines.
+### In a cross build, configure finds the build host's tools (perl,
+### python, bison, awk, msgfmt, ...) under TOOLBASE, and packages whose
+### own build writes those paths into installed files -- scripts' #!
+### lines (rather than through REPLACE_*), a Makefile.global or .cfg
+### that records the tools it found -- leave files that name the build
+### host; CHECK_WRKREF stops them. A native build would have found the
+### same tools under LOCALBASE: rewrite the paths to that in every
+### installed text file. Binaries keep theirs (CHECK_WRKREF reports them).
 ###
 .PHONY: install-cross-interpreters
 install-cross-interpreters: plist
@@ -450,12 +453,8 @@ install-cross-interpreters: plist
 	cd ${DESTDIR:Q}${PREFIX:Q};					\
 	while read f; do						\
 		[ -f "$${f}" ] && [ ! -h "$${f}" ] || continue;		\
-		IFS= read -r first < "$${f}" 2>/dev/null || continue;	\
-		case "$${first}" in					\
-		"#!"${TOOLBASE:Q}/*) ;;					\
-		*) continue ;;						\
-		esac;							\
-		${SED} -e '1s|^#!${TOOLBASE}/|#!${LOCALBASE}/|'		\
+		${GREP} -q -I -F ${TOOLBASE:Q}/ "$${f}" 2>/dev/null || continue; \
+		${SED} -e 's|${TOOLBASE}/|${LOCALBASE}/|g'		\
 			"$${f}" > "$${f}.cross-tmp" || exit 1;		\
 		ro=;							\
 		[ -w "$${f}" ] || { ro=yes; ${CHMOD} u+w "$${f}"; };	\
