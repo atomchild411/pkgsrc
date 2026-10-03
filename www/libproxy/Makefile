@@ -33,6 +33,17 @@ REPLACE_BASH+=	data/pre-commit-hook
 # https://github.com/libproxy/libproxy/issues/237
 LDFLAGS+=	${COMPILER_RPATH_FLAG}${PREFIX}/lib/libproxy
 
+.include "../../mk/bsd.prefs.mk"
+
+# The documentation is made from the introspection data, which cross builds
+# do not make.
+PLIST_VARS+=	docs
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+MESON_ARGS+=	-Ddocs=false
+.else
+PLIST.docs=	yes
+.endif
+
 .include "../../devel/meson/build.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"
