@@ -5,10 +5,11 @@ branch iris/main):
 - O_CLOEXEC for open()
 - O_NOFOLLOW for open()
 - O_DIRECTORY in the open() compatibility shim
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/cloexec.c.orig
 +++ lib/builtins/irix/cloexec.c
-@@ -0,0 +1,84 @@
+@@ -0,0 +1,85 @@
 +//===-- irix/cloexec.c - O_CLOEXEC for IRIX -------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -36,6 +37,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <fcntl.h>
 +#include <stdarg.h>
 +#include <sys/stat.h>
@@ -64,7 +66,7 @@ branch iris/main):
 +  if (flags & __IRIX_O_NOFOLLOW) {
 +    struct stat st;
 +    if (lstat(path, &st) == 0 && S_ISLNK(st.st_mode)) {
-+      errno = ELOOP;
++      __irix_seterrno(ELOOP);
 +      return -1;
 +    }
 +    flags &= ~__IRIX_O_NOFOLLOW;
@@ -79,7 +81,7 @@ branch iris/main):
 +      struct stat st;
 +      if (fstat(fd, &st) != 0 || !S_ISDIR(st.st_mode)) {
 +        close(fd);
-+        errno = ENOTDIR;
++        __irix_seterrno(ENOTDIR);
 +        return -1;
 +      }
 +    }

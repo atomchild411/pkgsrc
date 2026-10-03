@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - MAP_ANON through /dev/zero
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/mman.c.orig
 +++ lib/builtins/irix/mman.c
-@@ -0,0 +1,71 @@
+@@ -0,0 +1,72 @@
 +//===-- irix/mman.c - MAP_ANON for IRIX -----------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -30,6 +31,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <fcntl.h>
 +#include <sys/mman.h>
 +#include <sys/types.h>
@@ -66,7 +68,7 @@ branch iris/main):
 +  p = __irix_libc_mmap(addr, len, prot, anon_flags(flags), zfd, 0);
 +  e = errno;
 +  close(zfd);
-+  errno = e;
++  __irix_seterrno(e);
 +  return p;
 +}
 +

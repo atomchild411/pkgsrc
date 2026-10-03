@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - POSIX 2008 locale objects, the C locale only
 - compiler-rt: the libc stand-ins are weak
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/locale.c.orig
 +++ lib/builtins/irix/locale.c
-@@ -0,0 +1,95 @@
+@@ -0,0 +1,96 @@
 +//===-- irix/locale.c - POSIX 2008 locale objects for IRIX ----------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -37,6 +38,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <locale.h>
 +#include <stdlib.h>
 +#include <string.h>
@@ -75,11 +77,11 @@ branch iris/main):
 +locale_t newlocale(int mask, const char *name, locale_t base) {
 +  (void)base;
 +  if ((mask & ~LC_ALL_MASK) || !name) {
-+    errno = EINVAL;
++    __irix_seterrno(EINVAL);
 +    return 0;
 +  }
 +  if (!is_c(name) && !(name[0] == 0 && environment_is_c())) {
-+    errno = ENOENT;
++    __irix_seterrno(ENOENT);
 +    return 0;
 +  }
 +  return &c_locale;
@@ -87,7 +89,7 @@ branch iris/main):
 +
 +locale_t duplocale(locale_t loc) {
 +  if (!loc) {
-+    errno = EINVAL;
++    __irix_seterrno(EINVAL);
 +    return 0;
 +  }
 +  return &c_locale;

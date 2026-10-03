@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - CLOCK_MONOTONIC from times()
 - CLOCK_PROCESS_CPUTIME_ID from times()
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/clock.c.orig
 +++ lib/builtins/irix/clock.c
-@@ -0,0 +1,83 @@
+@@ -0,0 +1,84 @@
 +//===-- irix/clock.c - CLOCK_MONOTONIC for IRIX ---------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -36,6 +37,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <sys/times.h>
 +#include <time.h>
 +#include <unistd.h>
@@ -67,7 +69,7 @@ branch iris/main):
 +    unsigned long ticks = (unsigned long)times(&t);
 +    long hz = ticks_per_second();
 +    if (!ts) {
-+      errno = EFAULT;
++      __irix_seterrno(EFAULT);
 +      return -1;
 +    }
 +    if (id == __IRIX_CLOCK_PROCESS_CPUTIME_ID)

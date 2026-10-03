@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - <endian.h>, cfmakeraw, lchmod, get_nprocs
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/compat_bsd.c.orig
 +++ lib/builtins/irix/compat_bsd.c
-@@ -0,0 +1,56 @@
+@@ -0,0 +1,57 @@
 +//===-- irix/compat_bsd.c - BSD and glibc calls IRIX lacks ---------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -24,6 +25,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <sys/stat.h>
 +#include <sys/types.h>
 +#include <termios.h>
@@ -53,7 +55,7 @@ branch iris/main):
 +  if (lstat(path, &st) == -1)
 +    return -1;
 +  if (S_ISLNK(st.st_mode)) {
-+    errno = ENOTSUP;
++    __irix_seterrno(ENOTSUP);
 +    return -1;
 +  }
 +  return chmod(path, mode);

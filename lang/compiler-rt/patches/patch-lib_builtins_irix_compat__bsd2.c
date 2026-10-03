@@ -5,10 +5,11 @@ branch iris/main):
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
 - [IRIX] Keep _exit out of the string compat object
 - strtonum
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/compat_bsd2.c.orig
 +++ lib/builtins/irix/compat_bsd2.c
-@@ -0,0 +1,91 @@
+@@ -0,0 +1,92 @@
 +//===-- irix/compat_bsd2.c - more BSD and glibc calls IRIX lacks ----------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -30,6 +31,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <stddef.h>
 +#include <stdlib.h>
 +#include <string.h>
@@ -74,22 +76,22 @@ branch iris/main):
 +  int saved = errno;
 +  if (lo > hi) {
 +    why = "invalid";
-+    errno = EINVAL;
++    __irix_seterrno(EINVAL);
 +  } else {
 +    char *end;
-+    errno = 0;
++    __irix_seterrno(0);
 +    v = strtoll(s, &end, 10);
 +    if (end == s || *end != '\0') {
 +      why = "invalid";
-+      errno = EINVAL;
++      __irix_seterrno(EINVAL);
 +    } else if ((v == llmin && errno == ERANGE) || v < lo) {
 +      why = "too small";
-+      errno = ERANGE;
++      __irix_seterrno(ERANGE);
 +    } else if ((v == llmax && errno == ERANGE) || v > hi) {
 +      why = "too large";
-+      errno = ERANGE;
++      __irix_seterrno(ERANGE);
 +    } else {
-+      errno = saved;
++      __irix_seterrno(saved);
 +    }
 +    if (why)
 +      v = 0;

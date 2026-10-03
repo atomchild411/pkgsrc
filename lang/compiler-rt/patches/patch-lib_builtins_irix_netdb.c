@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - getaddrinfo, getnameinfo and RFC 3493's IPv6 types
 - compiler-rt: the libc stand-ins are weak
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/netdb.c.orig
 +++ lib/builtins/irix/netdb.c
-@@ -0,0 +1,368 @@
+@@ -0,0 +1,369 @@
 +//===-- irix/netdb.c - getaddrinfo and friends for IRIX -------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -36,6 +37,7 @@ branch iris/main):
 +
 +#include <arpa/inet.h>
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <net/if.h>
 +#include <netdb.h>
 +#include <netinet/in.h>
@@ -364,14 +366,14 @@ branch iris/main):
 +// IPv6 scope ids name interfaces; IRIX has no IPv6 to scope.
 +unsigned int if_nametoindex(const char *name) {
 +  (void)name;
-+  errno = ENXIO;
++  __irix_seterrno(ENXIO);
 +  return 0;
 +}
 +
 +char *if_indextoname(unsigned int index, char *name) {
 +  (void)index;
 +  (void)name;
-+  errno = ENXIO;
++  __irix_seterrno(ENXIO);
 +  return 0;
 +}
 +

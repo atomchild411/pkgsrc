@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - posix_spawn
 - compiler-rt: the libc stand-ins are weak
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/spawn.c.orig
 +++ lib/builtins/irix/spawn.c
-@@ -0,0 +1,495 @@
+@@ -0,0 +1,496 @@
 +//===-- irix/spawn.c - posix_spawn for IRIX -------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -38,6 +39,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <fcntl.h>
 +#include <sched.h>
 +#include <signal.h>
@@ -394,7 +396,7 @@ branch iris/main):
 +    if (!*end)
 +      break;
 +  }
-+  errno = saw_eacces ? EACCES : ENOENT;
++  __irix_seterrno(saw_eacces ? EACCES : ENOENT);
 +}
 +
 +static int spawn(pid_t *pidp, const char *file,

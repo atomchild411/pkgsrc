@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - getentropy and arc4random
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/random.c.orig
 +++ lib/builtins/irix/random.c
-@@ -0,0 +1,93 @@
+@@ -0,0 +1,94 @@
 +//===-- irix/random.c - getentropy and arc4random for IRIX ----------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -31,6 +32,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <fcntl.h>
 +#include <stddef.h>
 +#include <stdlib.h>
@@ -57,7 +59,7 @@ branch iris/main):
 +    if (got <= 0) {
 +      saved = got < 0 ? errno : EIO;
 +      close(fd);
-+      errno = saved;
++      __irix_seterrno(saved);
 +      return -1;
 +    }
 +    p += got;
@@ -69,7 +71,7 @@ branch iris/main):
 +
 +int getentropy(void *buf, size_t n) {
 +  if (n > 256) {
-+    errno = EIO;
++    __irix_seterrno(EIO);
 +    return -1;
 +  }
 +  return urandom(buf, n);

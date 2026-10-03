@@ -32,7 +32,7 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # (iris/main 07631468 .. 267a506).
 # nb7: the rest of POSIX.1-2008's sysconf names (iris/main 9586a52);
 # struct winsize and TIOCGWINSZ from <sys/ioctl.h> in every mode (261e226).
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix

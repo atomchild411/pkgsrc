@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - POSIX 2008's *at() calls and fdopendir
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/atfile.c.orig
 +++ lib/builtins/irix/atfile.c
-@@ -0,0 +1,314 @@
+@@ -0,0 +1,315 @@
 +//===-- irix/atfile.c - POSIX 2008's *at() functions on IRIX --------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -39,6 +40,7 @@ branch iris/main):
 +
 +#include <dirent.h>
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <fcntl.h>
 +#include <limits.h>
 +#include <stdarg.h>
@@ -66,13 +68,13 @@ branch iris/main):
 +  int cwd, e;
 +  size_t n;
 +  if (path == 0) {
-+    errno = EFAULT;
++    __irix_seterrno(EFAULT);
 +    return 0;
 +  }
 +  if (fd == AT_FDCWD || path[0] == '/')
 +    return path;
 +  if (path[0] == '\0') {
-+    errno = ENOENT;
++    __irix_seterrno(ENOENT);
 +    return 0;
 +  }
 +  cwd = __irix_libc_open(".", O_RDONLY);
@@ -81,23 +83,23 @@ branch iris/main):
 +  if (fchdir(fd) < 0) {
 +    e = errno;
 +    close(cwd);
-+    errno = e;
++    __irix_seterrno(e);
 +    return 0;
 +  }
 +  if (getcwd(buf, PATH_MAX) == 0) {
 +    e = errno;
 +    fchdir(cwd);
 +    close(cwd);
-+    errno = e;
++    __irix_seterrno(e);
 +    return 0;
 +  }
 +  e = errno;
 +  fchdir(cwd);
 +  close(cwd);
-+  errno = e;
++  __irix_seterrno(e);
 +  n = strlen(buf);
 +  if (n + 1 + strlen(path) + 1 > PATH_MAX) {
-+    errno = ENAMETOOLONG;
++    __irix_seterrno(ENAMETOOLONG);
 +    return 0;
 +  }
 +  if (n == 0 || buf[n - 1] != '/')
@@ -136,7 +138,7 @@ branch iris/main):
 +    if (lstat(at_p_, &st) < 0)
 +      return -1;
 +    if (S_ISLNK(st.st_mode)) {
-+      errno = EOPNOTSUPP;
++      __irix_seterrno(EOPNOTSUPP);
 +      return -1;
 +    }
 +  }
@@ -238,7 +240,7 @@ branch iris/main):
 +    if ((((st.st_mode >> shift) & 7) & mode) == mode)
 +      return 0;
 +  }
-+  errno = EACCES;
++  __irix_seterrno(EACCES);
 +  return -1;
 +}
 +
@@ -254,7 +256,7 @@ branch iris/main):
 +    if (lstat(at_p_, &st) < 0)
 +      return -1;
 +    if (S_ISLNK(st.st_mode)) {
-+      errno = EOPNOTSUPP;
++      __irix_seterrno(EOPNOTSUPP);
 +      return -1;
 +    }
 +  }
@@ -272,7 +274,7 @@ branch iris/main):
 +      tv[i].tv_sec = i == 0 ? st.st_atime : st.st_mtime;
 +      tv[i].tv_usec = 0;
 +    } else if (ts[i].tv_nsec < 0 || ts[i].tv_nsec >= 1000000000L) {
-+      errno = EINVAL;
++      __irix_seterrno(EINVAL);
 +      return -1;
 +    } else {
 +      tv[i].tv_sec = ts[i].tv_sec;
@@ -295,7 +297,7 @@ branch iris/main):
 +    return 0;
 +  fdflags = fcntl(fd, F_GETFD);
 +  if (!S_ISDIR(st.st_mode)) {
-+    errno = ENOTDIR;
++    __irix_seterrno(ENOTDIR);
 +    return 0;
 +  }
 +  p = at_path(fd, ".", buf);
@@ -309,7 +311,7 @@ branch iris/main):
 +    if (dup2(dfd, fd) < 0) {
 +      e = errno;
 +      closedir(d);
-+      errno = e;
++      __irix_seterrno(e);
 +      return 0;
 +    }
 +    close(dfd);

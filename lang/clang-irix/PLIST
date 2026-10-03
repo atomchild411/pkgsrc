@@ -1875,6 +1875,7 @@ lib/clang/21/include/irix_wrappers/netinet/tcp.h
 lib/clang/21/include/irix_wrappers/pthread.h
 lib/clang/21/include/irix_wrappers/pwd.h
 lib/clang/21/include/irix_wrappers/search.h
+lib/clang/21/include/irix_wrappers/semaphore.h
 lib/clang/21/include/irix_wrappers/signal.h
 lib/clang/21/include/irix_wrappers/spawn.h
 lib/clang/21/include/irix_wrappers/stdint.h

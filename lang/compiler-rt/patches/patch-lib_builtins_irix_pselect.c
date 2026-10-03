@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - pselect() over sigprocmask and select
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/pselect.c.orig
 +++ lib/builtins/irix/pselect.c
-@@ -0,0 +1,60 @@
+@@ -0,0 +1,61 @@
 +//===-- irix/pselect.c - pselect for IRIX ---------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -31,6 +32,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <signal.h>
 +#include <sys/select.h>
 +#include <sys/time.h>
@@ -45,7 +47,7 @@ branch iris/main):
 +  if (timeout) {
 +    if (timeout->tv_sec < 0 || timeout->tv_nsec < 0 ||
 +        timeout->tv_nsec >= 1000000000L) {
-+      errno = EINVAL;
++      __irix_seterrno(EINVAL);
 +      return -1;
 +    }
 +    tv.tv_sec = timeout->tv_sec;
@@ -62,7 +64,7 @@ branch iris/main):
 +  saved_errno = errno;
 +  if (sigmask)
 +    sigprocmask(SIG_SETMASK, &saved, 0);
-+  errno = saved_errno;
++  __irix_seterrno(saved_errno);
 +  return r;
 +}
 +

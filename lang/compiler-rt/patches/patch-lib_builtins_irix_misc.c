@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - compiler-rt: memmem, mkdtemp, basename, dirname
 - compiler-rt: the libc stand-ins are weak
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/misc.c.orig
 +++ lib/builtins/irix/misc.c
-@@ -0,0 +1,115 @@
+@@ -0,0 +1,116 @@
 +//===-- irix/misc.c - memmem, mkdtemp, basename, dirname for IRIX ---------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -29,6 +30,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <stdlib.h>
 +#include <string.h>
 +#include <sys/stat.h>
@@ -69,7 +71,7 @@ branch iris/main):
 +  int tries;
 +
 +  if (len < 6 || strcmp(tmpl + len - 6, "XXXXXX") != 0) {
-+    errno = EINVAL;
++    __irix_seterrno(EINVAL);
 +    return 0;
 +  }
 +  x = tmpl + len - 6;
@@ -84,7 +86,7 @@ branch iris/main):
 +    if (errno != EEXIST)
 +      return 0;
 +  }
-+  errno = EEXIST;
++  __irix_seterrno(EEXIST);
 +  return 0;
 +}
 +

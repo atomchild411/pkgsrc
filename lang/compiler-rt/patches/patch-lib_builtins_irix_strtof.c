@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - headers: work against a stock IRIX 6.5.22 root too
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/strtof.c.orig
 +++ lib/builtins/irix/strtof.c
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,33 @@
 +//===-- irix/strtof.c - C99 strtof for IRIX -------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -24,6 +25,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +
 +extern double __irix_libc_strtod(const char *, char **) __asm__("strtod");
 +
@@ -32,9 +34,9 @@ branch iris/main):
 +  float f = (float)d;
 +  // Out of float's range, though not double's.
 +  if (__builtin_isinf(f) && !__builtin_isinf(d))
-+    errno = ERANGE;
++    __irix_seterrno(ERANGE);
 +  else if (f == 0 && d != 0)
-+    errno = ERANGE;
++    __irix_seterrno(ERANGE);
 +  return f;
 +}
 +

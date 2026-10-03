@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - compiler-rt: setenv and unsetenv
 - compiler-rt: the libc stand-ins are weak
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/env.c.orig
 +++ lib/builtins/irix/env.c
-@@ -0,0 +1,79 @@
+@@ -0,0 +1,80 @@
 +//===-- irix/env.c - setenv and unsetenv for IRIX -------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -31,6 +32,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <stdlib.h>
 +#include <string.h>
 +
@@ -51,7 +53,7 @@ branch iris/main):
 +  char *s;
 +
 +  if (!valid_name(name)) {
-+    errno = EINVAL;
++    __irix_seterrno(EINVAL);
 +    return -1;
 +  }
 +  if (!overwrite && getenv(name))
@@ -60,7 +62,7 @@ branch iris/main):
 +  v = strlen(value);
 +  s = (char *)malloc(n + v + 2);
 +  if (!s) {
-+    errno = ENOMEM;
++    __irix_seterrno(ENOMEM);
 +    return -1;
 +  }
 +  memcpy(s, name, n);
@@ -74,7 +76,7 @@ branch iris/main):
 +  char **p, **q;
 +
 +  if (!valid_name(name)) {
-+    errno = EINVAL;
++    __irix_seterrno(EINVAL);
 +    return -1;
 +  }
 +  n = strlen(name);

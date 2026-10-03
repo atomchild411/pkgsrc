@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - getifaddrs and freeifaddrs, with <ifaddrs.h>
+- [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 
 --- lib/builtins/irix/ifaddrs.c.orig
 +++ lib/builtins/irix/ifaddrs.c
-@@ -0,0 +1,118 @@
+@@ -0,0 +1,119 @@
 +//===-- irix/ifaddrs.c - getifaddrs for IRIX ------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -29,6 +30,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <ifaddrs.h>
 +#include <net/if.h>
 +#include <net/soioctl.h>
@@ -120,7 +122,7 @@ branch iris/main):
 +  freeifaddrs(head);
 +  free(buf);
 +  close(s);
-+  errno = err;
++  __irix_seterrno(err);
 +  return -1;
 +}
 +
