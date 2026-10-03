@@ -12,10 +12,11 @@ branch iris/main):
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
 - Wrapper <unistd.h>: declare environ
 - getgrouplist
+- Wrapper <unistd.h>: SGI's atfork_* hooks under other names
 
 --- lib/Headers/irix_wrappers/unistd.h.orig
 +++ lib/Headers/irix_wrappers/unistd.h
-@@ -0,0 +1,312 @@
+@@ -0,0 +1,327 @@
 +/*===---- unistd.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -32,6 +33,13 @@ branch iris/main):
 + * their own, above IRIX's, and sysconf is bound to compiler-rt's
 + * irix/sysconf.c, which answers them and passes every other name to IRIX's
 + * sysconf.
++ *
++ * Outside the strict modes IRIX's header also declares SGI's own fork
++ * hooks, atfork_child, atfork_child_prepend, atfork_parent and atfork_pre:
++ * common names for a program's own static functions (GStreamer's leak
++ * tracer has two), which then clash with them. They are declared here under
++ * other names, so the program's own are free; portable code registers fork
++ * hooks with pthread_atfork.
 + */
 +
 +#ifndef __CLANG_IRIX_UNISTD_H
@@ -44,8 +52,16 @@ branch iris/main):
 +#define __IRIX_GETOPT_INDIRECT_UNISTD
 +#endif
 +#define sysconf __irix_libc_sysconf
++#define atfork_child __irix_atfork_child
++#define atfork_child_prepend __irix_atfork_child_prepend
++#define atfork_parent __irix_atfork_parent
++#define atfork_pre __irix_atfork_pre
 +#include_next <unistd.h>
 +#undef sysconf
++#undef atfork_child
++#undef atfork_child_prepend
++#undef atfork_parent
++#undef atfork_pre
 +#ifdef __IRIX_GETOPT_INDIRECT_UNISTD
 +#undef __IRIX_GETOPT_INDIRECT
 +#undef __IRIX_GETOPT_INDIRECT_UNISTD
