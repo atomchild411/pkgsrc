@@ -159,9 +159,9 @@ lib/pkgconfig/gstreamer-check-1.0.pc
 lib/pkgconfig/gstreamer-controller-1.0.pc
 lib/pkgconfig/gstreamer-net-1.0.pc
 libexec/gstreamer-1.0/gst-completion-helper
-libexec/gstreamer-1.0/gst-hotdoc-plugins-scanner
+${PLIST.hotdoc}libexec/gstreamer-1.0/gst-hotdoc-plugins-scanner
 libexec/gstreamer-1.0/gst-plugin-scanner
-libexec/gstreamer-1.0/gst-plugins-doc-cache-generator
+${PLIST.hotdoc}libexec/gstreamer-1.0/gst-plugins-doc-cache-generator
 man/man1/gst-inspect-1.0.1
 man/man1/gst-launch-1.0.1
 man/man1/gst-stats-1.0.1

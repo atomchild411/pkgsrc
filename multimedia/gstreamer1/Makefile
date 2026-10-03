@@ -34,6 +34,14 @@ REPLACE_TOOL_PYTHON+=	scripts/extract-release-date-from-doap-file.py
 
 MESON_ARGS+=		-Dptp-helper=disabled
 
+.include "../../mk/bsd.prefs.mk"
+
+# meson leaves docs/, and the documentation tools in it, out of cross builds.
+PLIST_VARS+=		hotdoc
+.if ${USE_CROSS_COMPILE:tl} != "yes"
+PLIST.hotdoc=		yes
+.endif
+
 # for tests
 MAKE_ENV+=		LD_LIBRARY_PATH=${WRKSRC}/output/gst:${WRKSRC}/output/libs/gst/check:${WRKSRC}/output/libs/gst/base:${WRKSRC}/output/libs/gst/controller:${WRKSRC}/output/libs/gst/net:${WRKSRC}/output/plugins/elements:${WRKSRC}/output/plugins/tracers
 
