@@ -13,10 +13,11 @@ branch iris/main):
 - Wrapper <unistd.h>: declare environ
 - getgrouplist
 - Wrapper <unistd.h>: SGI's atfork_* hooks under other names
+- getentropy and arc4random
 
 --- lib/Headers/irix_wrappers/unistd.h.orig
 +++ lib/Headers/irix_wrappers/unistd.h
-@@ -0,0 +1,327 @@
+@@ -0,0 +1,329 @@
 +/*===---- unistd.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -79,6 +80,8 @@ branch iris/main):
 +ssize_t readlinkat(int, const char *__restrict, char *__restrict, size_t);
 +int symlinkat(const char *, int, const char *);
 +int unlinkat(int, const char *, int);
++/* glibc's and OpenBSD's, from irix/random.c (IRIX's /dev/urandom). */
++int getentropy(void *, size_t);
 +#ifdef __cplusplus
 +}
 +#endif

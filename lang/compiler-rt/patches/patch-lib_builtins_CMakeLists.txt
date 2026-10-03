@@ -35,10 +35,11 @@ branch iris/main):
 - F_DUPFD_CLOEXEC
 - getgrouplist
 - RTLD_DEFAULT
+- getentropy and arc4random
 
 --- lib/builtins/CMakeLists.txt.orig
 +++ lib/builtins/CMakeLists.txt
-@@ -236,6 +236,55 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
+@@ -236,6 +236,56 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
    "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
    Off)
  
@@ -54,6 +55,7 @@ branch iris/main):
 +    irix/ssp.c
 +    irix/compat_bsd2.c
 +    irix/strsignal.c
++    irix/random.c
 +    irix/env.c
 +    irix/locale.c
 +    irix/clock.c
