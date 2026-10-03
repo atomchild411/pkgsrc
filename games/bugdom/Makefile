@@ -33,4 +33,13 @@ do-install:
 
 .include "../../devel/cmake/build.mk"
 .include "../../devel/SDL2/buildlink3.mk"
+# Pomme keeps GCC before 9 off <filesystem> by testing __GNUC__, which
+# clang sets to 4: clang got the bundled ghc::filesystem instead, which
+# knows no IRIX ("Operating system currently not supported!").
+SUBST_CLASSES+=		pommefs
+SUBST_STAGE.pommefs=	pre-configure
+SUBST_MESSAGE.pommefs=	Letting clang use <filesystem>.
+SUBST_FILES.pommefs=	extern/Pomme/src/CompilerSupport/filesystem.h
+SUBST_SED.pommefs=	-e 's/defined(__GNUC__) && __GNUC__ < 9/defined(__GNUC__) \&\& !defined(__clang__) \&\& __GNUC__ < 9/'
+
 .include "../../mk/bsd.pkg.mk"
