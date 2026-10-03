@@ -8,6 +8,13 @@ COMMENT=	GTK3+ library created by pulling some code from indicator-applet
 
 TOOL_DEPENDS+=		glib2-introspection-[0-9]*:../../devel/glib2-introspection
 
+.include "../../mk/bsd.prefs.mk"
+
+# Cross builds make no introspection data, so no Vala bindings from it.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+CONFIGURE_ARGS+=	--disable-vala
+.endif
+
 CONFIGURE_ARGS+=	--enable-gtk
 CONFIGURE_ARGS+=	--with-gtk=3
 CONFIGURE_ARGS+=	--disable-dumper
