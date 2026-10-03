@@ -7,10 +7,11 @@ branch iris/main):
 - Wrapper <netinet/in.h>: IN6_ARE_ADDR_EQUAL
 - Wrappers: <sys/queue.h>, <machine/endian.h>, SUN_LEN, I, IPPROTO_SCTP
 - Wrapper <netinet/in.h>: s6_addr16 and s6_addr32
+- Wrapper <netinet/in.h>: struct ip_mreq in every mode
 
 --- lib/Headers/irix_wrappers/netinet/in.h.orig
 +++ lib/Headers/irix_wrappers/netinet/in.h
-@@ -0,0 +1,139 @@
+@@ -0,0 +1,149 @@
 +/*===---- netinet/in.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -40,6 +41,16 @@ branch iris/main):
 +/* POSIX's IPv4 constant, which IRIX defines only under INET6. */
 +#ifndef INET_ADDRSTRLEN
 +#define INET_ADDRSTRLEN 16
++#endif
++
++/* The argument of IP_ADD_MEMBERSHIP and IP_DROP_MEMBERSHIP, which IRIX
++ * declares only in SGI mode (the option names it defines in every mode);
++ * glibc and the BSDs declare it in all of them. IRIX's layout. */
++#if !_SGIAPI
++struct ip_mreq {
++  struct in_addr imr_multiaddr;
++  struct in_addr imr_interface;
++};
 +#endif
 +
 +/* SCTP's IANA protocol number, which Linux and the BSDs define whether or
