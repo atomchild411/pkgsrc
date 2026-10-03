@@ -6,10 +6,11 @@ branch iris/main):
 - [IRIX] netinet/in.h: define INET_ADDRSTRLEN without INET6
 - Wrapper <netinet/in.h>: IN6_ARE_ADDR_EQUAL
 - Wrappers: <sys/queue.h>, <machine/endian.h>, SUN_LEN, I, IPPROTO_SCTP
+- Wrapper <netinet/in.h>: s6_addr16 and s6_addr32
 
 --- lib/Headers/irix_wrappers/netinet/in.h.orig
 +++ lib/Headers/irix_wrappers/netinet/in.h
-@@ -0,0 +1,135 @@
+@@ -0,0 +1,139 @@
 +/*===---- netinet/in.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -63,6 +64,10 @@ branch iris/main):
 +  } __u6_addr;
 +};
 +#define s6_addr __u6_addr.__u6_addr8
++/* glibc's other views of the address, which programs written for Linux
++ * use (CUPS: s6_addr32). */
++#define s6_addr16 __u6_addr.__u6_addr16
++#define s6_addr32 __u6_addr.__u6_addr32
 +
 +struct sockaddr_in6 {
 +  sa_family_t sin6_family;
