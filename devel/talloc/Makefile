@@ -38,11 +38,12 @@ SUBST_MESSAGE.docbook=	Fixing docbook URLs.
 SUBST_FILES.docbook+=	buildtools/wafsamba/samba_conftests.py
 SUBST_FILES.docbook+=	buildtools/wafsamba/wafsamba.py
 SUBST_STAGE.docbook=	pre-configure
-SUBST_SED.docbook+=	-e 's,http://docbook.sourceforge.net/release/xsl/current,${PREFIX}/share/xsl/docbook,g'
+SUBST_SED.docbook+=	-e 's,http://docbook.sourceforge.net/release/xsl/current,${TOOLBASE}/share/xsl/docbook,g'
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../devel/talloc/waf-cross.mk"
 .include "../../mk/bsd.pkg.mk"

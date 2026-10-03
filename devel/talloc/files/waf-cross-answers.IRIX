@@ -1,0 +1,17 @@
+Checking uname sysname type: "IRIX"
+Checking uname machine type: "IP28"
+Checking uname release type: "6.5"
+Checking uname version type: "10070055"
+rpath library support: OK
+Checking getconf LFS_CFLAGS: NO
+Checking for large file support without additional flags: OK
+Checking for -D_FILE_OFFSET_BITS=64: OK
+Checking for -D_LARGE_FILES: OK
+Checking correct behavior of strtoll: OK
+Checking for working strptime: NO
+Checking for C99 vsnprintf: OK
+Checking for HAVE_SHARED_MMAP: OK
+Checking for HAVE_INCOHERENT_MMAP: NO
+Checking for HAVE_SECURE_MKSTEMP: OK
+Checking value of SIGRTMAX: "64"
+Checking value of SIGRTMIN: "49"
