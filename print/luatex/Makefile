@@ -35,6 +35,7 @@ CONFIGURE_ARGS+=	--disable-mp
 CONFIGURE_ARGS+=	--disable-pdftex
 CONFIGURE_ARGS+=	--disable-pmp
 CONFIGURE_ARGS+=	--disable-ptex
+CONFIGURE_ARGS+=	--disable-texprof
 CONFIGURE_ARGS+=	--disable-upmp
 CONFIGURE_ARGS+=	--disable-uptex
 CONFIGURE_ARGS+=	--disable-web-progs

@@ -50,9 +50,16 @@ CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub
 .include "../../mk/bsd.prefs.mk"
 
 # Cross-compiling, TeX Live configures the helpers the build runs (dvipsk's
-# squeeze, ...) for the build machine, with BUILDCC: unset, configure finds
-# the target's compiler for them.
+# squeeze, web2c's converters, ...) for the build machine, with BUILDCC:
+# unset, configure finds the target's compiler for them. Some use kpathsea:
+# the build machine's, from TOOLBASE.
 .if ${USE_CROSS_COMPILE:tl} == "yes"
+.  if ${PKGPATH} != "print/kpathsea"
+TOOL_DEPENDS+=	kpathsea-[0-9]*:../../print/kpathsea
+.  endif
+TEX_BUILD_CPPFLAGS=	-I${TOOLBASE}/include
+TEX_BUILD_LDFLAGS=	-L${TOOLBASE}/lib -Wl,-rpath,${TOOLBASE}/lib
 CONFIGURE_ENV+=	BUILDCC=${NATIVE_CC:Q} BUILDCFLAGS=-O2
-CONFIGURE_ENV+=	BUILDCPPFLAGS= BUILDLDFLAGS=
+CONFIGURE_ENV+=	BUILDCPPFLAGS=${TEX_BUILD_CPPFLAGS:Q}
+CONFIGURE_ENV+=	BUILDLDFLAGS=${TEX_BUILD_LDFLAGS:Q}
 .endif
