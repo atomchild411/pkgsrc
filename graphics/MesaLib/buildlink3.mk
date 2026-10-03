@@ -53,4 +53,8 @@ BUILDLINK_TREE+=	-MesaLib
 # they would make the builtin MesaLib one built from pkgsrc.
 .if ${OPSYS} == "IRIX"
 .  include "../../graphics/khronos-gl-headers/buildlink3.mk"
+# Mesa's <GL/gl.h> defines APIENTRY (empty but on Windows), and code written
+# for it uses it without including <GL/glext.h>; IRIX's does not.
+CWRAPPERS_PREPEND.cc+=		-DAPIENTRY=
+CWRAPPERS_PREPEND.cxx+=		-DAPIENTRY=
 .endif
