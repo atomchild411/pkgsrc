@@ -64,7 +64,7 @@ PY_RENAME_BINARIES?=	# empty
 .if ${USE_CROSS_COMPILE:tl} == "yes" && !empty(TOOL_DEPENDS:M*-meson_python[->]*)
 .  include "../../devel/meson/cross.mk"
 WHEEL_ARGS+=	-Csetup-args=--cross-file=${MESON_CROSS_FILE}
-do-build: ${MESON_CROSS_FILE}
+_WHEEL_MESON_CROSS=	yes
 .endif
 
 .if !target(do-build)
@@ -73,6 +73,11 @@ do-build:
 	${RUN} cd ${WRKSRC}/${PYSETUPSUBDIR} && \
 	${SETENV} ${MAKE_ENV} ${TOOL_PYTHONBIN} \
 		-m build --wheel --skip-dependency-check --no-isolation ${WHEEL_ARGS}
+.endif
+# After do-build is defined: declared first, it would make target(do-build)
+# true and leave the build with no commands.
+.if defined(_WHEEL_MESON_CROSS)
+do-build: ${MESON_CROSS_FILE}
 .endif
 
 .if !target(do-install)
