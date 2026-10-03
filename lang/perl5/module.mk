@@ -124,7 +124,7 @@ MAKE_PARAMS+=	${MAKE_PARAMS.${PERL5_MODTYPE}}
 # build itself loads stay the host's; XS code compiles against the
 # target perl's headers in the cross destdir.
 .  if ${USE_CROSS_COMPILE:tl} == "yes"
-USE_TOOLS+=		perl xargs grep sed
+USE_TOOLS+=		perl xargs grep sed find pax
 PERL5_CONFIGURE_PERL=	${TOOLBASE}/bin/perl
 # Named after the archname, which MakeMaker checks against the directory
 # Config.pm was loaded from.
@@ -163,6 +163,16 @@ perl5-cross-config:
 		's/^"\$$Config\{.archname.\}-\$$Config\{.osvers.\}" eq\n.*?;\n//ms' \
 		> ${_PERL5_CROSS_CONFIG}/Errno.pm
 	${RUN}! ${GREP} -q 'does not match executable' ${_PERL5_CROSS_CONFIG}/Errno.pm
+	# ExtUtils::Depends data (Foo/Install/Files.pm: include paths and
+	# typemaps) that XS modules installed in the target leave for the XS
+	# modules built on them. Pure Perl: copies beside the Config, not the
+	# target's archdir itself, whose XS code the host perl cannot load.
+	${RUN}va=`${SED} -n "s/^vendorarchexp='\(.*\)'$$/\1/p"		\
+		${_PERL5_CROSS_ARCHLIB}/Config_heavy.pl`;			\
+	[ -n "$$va" ] && [ -d ${_CROSS_DESTDIR:Q}"$$va" ] || exit 0;		\
+	cd ${_CROSS_DESTDIR:Q}"$$va" &&						\
+	${FIND} . -path '*/Install/Files.pm' -print |				\
+		${PAX} -rw ${_PERL5_CROSS_CONFIG}
 .  else
 PERL5_CONFIGURE_PERL=	${BUILDLINK_PREFIX.perl}/bin/perl
 .  endif
