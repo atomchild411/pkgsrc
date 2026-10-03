@@ -18,10 +18,11 @@ branch iris/main):
 - stdlib.h: POSIX's putenv(char *) in every mode
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
 - Wrapper <stdlib.h>: alloca outside strict ISO C, as glibc
+- strtonum
 
 --- lib/Headers/irix_wrappers/stdlib.h.orig
 +++ lib/Headers/irix_wrappers/stdlib.h
-@@ -0,0 +1,176 @@
+@@ -0,0 +1,178 @@
 +/*===---- stdlib.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -79,6 +80,8 @@ branch iris/main):
 +/* BSD's, which IRIX's libc lacks: compiler-rt's irix/progname.c. */
 +const char *getprogname(void);
 +void setprogname(const char *);
++/* OpenBSD's, from irix/compat_bsd2.c. */
++long long strtonum(const char *, long long, long long, const char **);
 +/* POSIX 2001's, which IRIX's libc lacks: compiler-rt's irix/env.c. */
 +int setenv(const char *, const char *, int);
 +int unsetenv(const char *);
