@@ -16,6 +16,9 @@ LICENSE=	gnu-gpl-v3
 CONFLICTS+=		gzip-base-[0-9]* gzip-info-[0-9]* zutils-[0-9]*
 
 GNU_CONFIGURE=	yes
+# zless is installed only if configure finds less on the build machine;
+# the PLIST always has it.
+CONFIGURE_ENV+=	ac_cv_prog_LESS=less
 MAKE_FLAGS+=	manlinks=so
 INFO_FILES=	yes
 CHECK_PERMS=	no	# can't depend on checkperms; its distfile is gzipped
