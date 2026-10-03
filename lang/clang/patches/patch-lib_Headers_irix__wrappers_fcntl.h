@@ -7,10 +7,11 @@ branch iris/main):
 - O_DIRECTORY in the open() compatibility shim
 - POSIX 2008's *at() calls and fdopendir
 - F_DUPFD_CLOEXEC
+- Wrappers: O_ASYNC and LOGIN_NAME_MAX
 
 --- lib/Headers/irix_wrappers/fcntl.h.orig
 +++ lib/Headers/irix_wrappers/fcntl.h
-@@ -0,0 +1,87 @@
+@@ -0,0 +1,93 @@
 +/*===---- fcntl.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -95,6 +96,12 @@ branch iris/main):
 +int openat(int, const char *, int, ...);
 +#ifdef __cplusplus
 +}
++#endif
++
++/* The BSDs' and glibc's name for asynchronous I/O notification on a
++ * descriptor (F_SETFL), which IRIX calls FASYNC, in <sys/fcntl.h>. */
++#ifndef O_ASYNC
++#define O_ASYNC 0x1000
 +#endif
 +
 +#endif /* __CLANG_IRIX_FCNTL_H */

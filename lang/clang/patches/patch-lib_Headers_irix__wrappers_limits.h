@@ -5,10 +5,11 @@ branch iris/main):
 - limits.h: POSIX.1-2001 minimums, PATH_MAX and NAME_MAX
 - Wrapper headers: u_int64_t, CRTSCTS, <strings.h>, sig_t, IOV_MAX
 - Wrappers: constant HUGE_VAL; programs' own snprintf macros left alone
+- Wrappers: O_ASYNC and LOGIN_NAME_MAX
 
 --- lib/Headers/irix_wrappers/limits.h.orig
 +++ lib/Headers/irix_wrappers/limits.h
-@@ -0,0 +1,61 @@
+@@ -0,0 +1,67 @@
 +/*===---- limits.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -67,6 +68,12 @@ branch iris/main):
 + * wants a constant gets the guaranteed minimum, _XOPEN_IOV_MAX. */
 +#if !defined(IOV_MAX) && defined(_XOPEN_IOV_MAX)
 +#define IOV_MAX _XOPEN_IOV_MAX
++#endif
++
++/* POSIX's: a login name's length with its null, which IRIX gives without
++ * it as LOGNAME_MAX (8). */
++#ifndef LOGIN_NAME_MAX
++#define LOGIN_NAME_MAX 9
 +#endif
 +
 +#endif /* __CLANG_IRIX_LIMITS_H */
