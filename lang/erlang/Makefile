@@ -98,6 +98,13 @@ CONFIGURE_ARGS+=	--enable-kernel-poll
 CONFIGURE_ARGS+=	--enable-kernel-poll
 .endif
 
+# os_mon's cpu_sup program is built only where configure knows how to read
+# the CPU load, which IRIX is not among.
+PLIST_VARS+=	cpu_sup
+.if ${OPSYS} != "IRIX"
+PLIST.cpu_sup=	yes
+.endif
+
 CHECK_RELRO_SKIP+=	lib/erlang/lib/megaco-${VERSION.megaco}/priv/lib/megaco_flex_scanner_drv.so
 CHECK_RELRO_SKIP+=	lib/erlang/lib/megaco-${VERSION.megaco}/priv/lib/megaco_flex_scanner_drv_mt.so
 

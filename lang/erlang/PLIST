@@ -1840,9 +1840,9 @@ lib/erlang/lib/os_mon-${VERSION.os_mon}/ebin/os_mon.beam
 lib/erlang/lib/os_mon-${VERSION.os_mon}/ebin/os_mon_mib.beam
 lib/erlang/lib/os_mon-${VERSION.os_mon}/ebin/os_mon_sysinfo.beam
 lib/erlang/lib/os_mon-${VERSION.os_mon}/ebin/os_sup.beam
-lib/erlang/lib/os_mon-${VERSION.os_mon}/priv/bin/cpu_sup
+${PLIST.cpu_sup}lib/erlang/lib/os_mon-${VERSION.os_mon}/priv/bin/cpu_sup
 lib/erlang/lib/os_mon-${VERSION.os_mon}/priv/bin/memsup
-lib/erlang/lib/os_mon-${VERSION.os_mon}/src/cpu_sup.c
+${PLIST.cpu_sup}lib/erlang/lib/os_mon-${VERSION.os_mon}/src/cpu_sup.c
 lib/erlang/lib/os_mon-${VERSION.os_mon}/src/cpu_sup.erl
 lib/erlang/lib/os_mon-${VERSION.os_mon}/src/disksup.erl
 lib/erlang/lib/os_mon-${VERSION.os_mon}/src/memsup.c
