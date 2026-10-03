@@ -17,10 +17,11 @@ branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
 - stdlib.h: POSIX's putenv(char *) in every mode
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
+- Wrapper <stdlib.h>: alloca outside strict ISO C, as glibc
 
 --- lib/Headers/irix_wrappers/stdlib.h.orig
 +++ lib/Headers/irix_wrappers/stdlib.h
-@@ -0,0 +1,169 @@
+@@ -0,0 +1,176 @@
 +/*===---- stdlib.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -57,6 +58,13 @@ branch iris/main):
 + * function, same calling convention. */
 +#define putenv __irix_putenv_declaration
 +#include_next <stdlib.h>
++
++/* alloca: glibc's and the BSDs' <stdlib.h> declare it outside strict ISO C
++ * (and for C++ always, where g++ defines _GNU_SOURCE); IRIX's only in
++ * <alloca.h>, which maps it to the compiler's builtin. */
++#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
++#include <alloca.h>
++#endif
 +#undef putenv
 +#ifdef __IRIX_GETOPT_INDIRECT_STDLIB
 +#undef __IRIX_GETOPT_INDIRECT
