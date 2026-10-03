@@ -6,10 +6,11 @@ Avoid endian test failure for -flto.
 Do not force compiler optimisations.
 If we fail an assembly test, continue as if --disable-asm
 was passed.
+Add IRIX.
 
---- configure.orig	2025-06-08 16:24:23.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -686,6 +686,10 @@ case $host_os in
+@@ -686,6 +686,10 @@
          SYS="FREEBSD"
          libm="-lm"
          ;;
@@ -20,7 +21,19 @@ was passed.
      kfreebsd*-gnu)
          SYS="FREEBSD"
          define HAVE_MALLOC_H
-@@ -786,7 +790,7 @@ case $host_cpu in
+@@ -699,6 +703,11 @@
+         SYS="OPENBSD"
+         libm="-lm"
+         ;;
++    irix*)
++        SYS="IRIX"
++        define HAVE_MALLOC_H
++        libm="-lm"
++        ;;
+     *linux*)
+         SYS="LINUX"
+         define HAVE_MALLOC_H
+@@ -786,7 +795,7 @@
              ASFLAGS="$ASFLAGS -f elf32"
          fi
          ;;
@@ -29,7 +42,7 @@ was passed.
          ARCH="X86_64"
          AS="${AS-nasm}"
          AS_EXT=".asm"
-@@ -815,14 +819,15 @@ case $host_cpu in
+@@ -815,14 +824,15 @@
          fi
          ;;
      powerpc*)
@@ -46,7 +59,7 @@ was passed.
                  CFLAGS="$CFLAGS -maltivec -mabi=altivec"
                  define HAVE_ALTIVEC_H
              fi
-@@ -867,6 +872,18 @@ case $host_cpu in
+@@ -867,6 +877,18 @@
              AS="${AS-${CC}}"
          fi
          ;;
@@ -65,7 +78,7 @@ was passed.
      arm*)
          ARCH="ARM"
          if [ "$SYS" = MACOSX ] ; then
-@@ -1013,8 +1030,8 @@ if [ $asm = auto -a $ARCH = ARM ] ; then
+@@ -1013,8 +1035,8 @@
          ASFLAGS="$ASFLAGS -c"
      else
          echo "You specified a pre-ARMv6 or Thumb-1 CPU in your CFLAGS."
@@ -76,7 +89,7 @@ was passed.
      fi
  fi
  
-@@ -1027,8 +1044,8 @@ if [ $asm = auto -a $ARCH = AARCH64 ] ;
+@@ -1027,8 +1049,8 @@
          define HAVE_NEON
      else
          echo "no NEON support, try adding -mfpu=neon to CFLAGS"
@@ -87,7 +100,7 @@ was passed.
      fi
      # Check for higher .arch levels. We only need armv8.2-a in order to
      # enable the extensions we want below - we primarily want to control
-@@ -1071,8 +1088,8 @@ if [ $asm = auto -a $ARCH = MIPS ] ; the
+@@ -1071,8 +1093,8 @@
          define HAVE_MSA
      else
          echo "You specified a pre-MSA CPU in your CFLAGS."
@@ -98,7 +111,7 @@ was passed.
      fi
  fi
  
-@@ -1096,7 +1113,7 @@ ASFLAGS="$ASFLAGS -DSTACK_ALIGNMENT=$sta
+@@ -1096,7 +1118,7 @@
  CPU_ENDIAN="little-endian"
  if [ $compiler = GNU ]; then
      echo "int i[2] = {0x42494745,0}; double f[2] = {0x1.0656e6469616ep+102,0};" > conftest.c
@@ -107,7 +120,7 @@ was passed.
      if (${STRINGS} -a conftest.o | grep -q BIGE) && (${STRINGS} -a conftest.o | grep -q FPendian) ; then
          define WORDS_BIGENDIAN
          CPU_ENDIAN="big-endian"
-@@ -1119,7 +1136,7 @@ fi
+@@ -1119,7 +1141,7 @@
  
  # autodetect options that weren't forced nor disabled
  
@@ -116,7 +129,7 @@ was passed.
  if [ "$SYS" = "WINDOWS" -a "$thread" = "posix" ] ; then
      if [ "$gpl" = "no" ] ; then
          echo "Warning: pthread-win32 is LGPL and is therefore not supported with --disable-gpl"
-@@ -1394,7 +1411,7 @@ if [ "$pic" = "yes" ] ; then
+@@ -1394,7 +1416,7 @@
      [ "$SYS" != WINDOWS -a "$SYS" != CYGWIN ] && CFLAGS="$CFLAGS -fPIC"
      [[ "$ASFLAGS" != *"-DPIC"* ]] && ASFLAGS="$ASFLAGS -DPIC"
      # resolve textrels in the x86 asm
@@ -125,7 +138,7 @@ was passed.
      [ $SYS = SunOS -a "$ARCH" = "X86" ] && SOFLAGS="$SOFLAGS -mimpure-text"
  fi
  
-@@ -1410,7 +1427,6 @@ if [ "$debug" = "yes" ]; then
+@@ -1410,7 +1432,6 @@
      CFLAGS="-O1 -g $CFLAGS"
      RCFLAGS="$RCFLAGS -DDEBUG"
  else
