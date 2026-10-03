@@ -53,6 +53,10 @@ BUILDLINK_API_DEPENDS.apr+=	apr>=1.5.0
 BUILDLINK_API_DEPENDS.apr-util+=	apr-util>=1.5.3
 .include "../../devel/apr-util/buildlink3.mk"
 .include "../../devel/pcre2/buildlink3.mk"
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# configure looks for ${host}-pcre2-config, which no one installs.
+CONFIGURE_ARGS+=	--with-pcre=${BUILDLINK_PREFIX.pcre2}/bin/pcre2-config
+.endif
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
