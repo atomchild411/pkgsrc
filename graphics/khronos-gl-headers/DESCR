@@ -1,0 +1,5 @@
+The Khronos OpenGL extension headers, <GL/glext.h> and <GL/glxext.h>,
+with <KHR/khrplatform.h> that they include: the tokens, types and
+function prototypes of the OpenGL versions and extensions after the
+ones a system's own <GL/gl.h> and <GL/glx.h> declare. Taken from Mesa,
+for systems whose OpenGL is their own and older than these headers.

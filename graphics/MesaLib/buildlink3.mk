@@ -40,6 +40,10 @@ pkgbase:= MesaLib
 .if ${MESALIB_SUPPORTS_DRI} == "yes"
 .  include "../../x11/libdrm/buildlink3.mk"
 .endif
+.else
+# IRIX's <GL/gl.h> stops at OpenGL 1.4 and has no <GL/glext.h>: the
+# Khronos extension headers, for programs that include them.
+.  include "../../graphics/khronos-gl-headers/buildlink3.mk"
 .endif # OPSYS != IRIX
 
 .include "../../mk/pthread.buildlink3.mk"

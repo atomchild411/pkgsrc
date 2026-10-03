@@ -289,6 +289,7 @@ SUBDIR+=	kf6-kplotting
 SUBDIR+=	kf6-ksvg
 SUBDIR+=	kf6-prison
 SUBDIR+=	kgamma
+SUBDIR+=	khronos-gl-headers
 SUBDIR+=	kiconthemes
 SUBDIR+=	kimageannotator
 SUBDIR+=	kimageformats
