@@ -32,6 +32,9 @@ IMAKEOPTS+=	-DShLibDir=${X11BASE}/lib
 IMAKEOPTS+=	-DOptimizerLevel="${CFLAGS}"
 IMAKEOPTS+=	-DManPath=${PREFIX}/man
 .endif
+# CMake's FindOpenGL prefers GLVND's split libraries (libOpenGL, libGLX),
+# which IRIX does not have, and then wants them: use the one libGL.
+CMAKE_CONFIGURE_ARGS+=	-DOpenGL_GL_PREFERENCE=LEGACY
 # crypt(3) is in libc; IRIX has no libcrypt for -lcrypt to find.
 BUILDLINK_TRANSFORM+=	rm:-lcrypt
 PKGLOCALEDIR?=	share
