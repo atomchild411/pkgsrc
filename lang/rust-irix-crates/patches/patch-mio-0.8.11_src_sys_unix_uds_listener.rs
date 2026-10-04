@@ -1,6 +1,6 @@
 $NetBSD$
 
-IRIX 6.5 (mips64-sgi-irix): the poll() selector and plain accept/pipe, as on the systems without epoll, kqueue, accept4 or pipe2.
+IRIX 6.5 (mips64-sgi-irix): the poll() selector and plain accept/pipe, as on the systems without epoll, kqueue, accept4 or pipe2. Cargo.toml: only the dependencies IRIX builds use.
 
 --- mio-0.8.11/src/sys/unix/uds/listener.rs.orig
 +++ mio-0.8.11/src/sys/unix/uds/listener.rs

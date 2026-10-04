@@ -1,0 +1,17 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengths, IPv6 receive options or TCP keepalive tuning), as on Haiku. Cargo.toml: only the dependencies IRIX builds use.
+
+--- socket2-0.4.10/Cargo.toml.orig
++++ socket2-0.4.10/Cargo.toml
+@@ -59,10 +59,3 @@ all = []
+ [target."cfg(unix)".dependencies.libc]
+ version = "0.2.149"
+ 
+-[target."cfg(windows)".dependencies.winapi]
+-version = "0.3.9"
+-features = [
+-    "handleapi",
+-    "ws2ipdef",
+-    "ws2tcpip",
+-]

@@ -1,0 +1,20 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): IRIX dlfcn.h values: RTLD_LAZY 1, RTLD_NOW 2, RTLD_GLOBAL 4, RTLD_LOCAL 0. Cargo.toml: only the dependencies IRIX builds use.
+
+--- libloading-0.8.9/Cargo.toml.orig
++++ libloading-0.8.9/Cargo.toml
+@@ -74,13 +74,6 @@ version = "1.1"
+ [target."cfg(unix)".dependencies.cfg-if]
+ version = "1"
+ 
+-[target."cfg(windows)".dependencies.windows-link]
+-version = "0.2"
+-
+-[target."cfg(windows)".dev-dependencies.windows-sys]
+-version = "0.61"
+-features = ["Win32_Foundation"]
+-
+ [lints.rust.unexpected_cfgs]
+ level = "warn"
+ priority = 0

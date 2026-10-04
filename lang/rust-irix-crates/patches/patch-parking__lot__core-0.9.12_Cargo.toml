@@ -1,0 +1,18 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): no pthread_condattr_setclock, so condvar timeouts in CLOCK_REALTIME, as on Android. Cargo.toml: only the dependencies IRIX builds use.
+
+--- parking_lot_core-0.9.12/Cargo.toml.orig
++++ parking_lot_core-0.9.12/Cargo.toml
+@@ -62,11 +62,6 @@ optional = true
+ [dependencies.smallvec]
+ version = "1.6.1"
+ 
+-[target.'cfg(target_os = "redox")'.dependencies.redox_syscall]
+-version = "0.5"
+-
+ [target."cfg(unix)".dependencies.libc]
+ version = "0.2.95"
+ 
+-[target."cfg(windows)".dependencies.windows-link]
+-version = "0.2.0"

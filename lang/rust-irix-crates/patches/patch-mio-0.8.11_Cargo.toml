@@ -1,0 +1,28 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): the poll() selector and plain accept/pipe, as on the systems without epoll, kqueue, accept4 or pipe2. Cargo.toml: only the dependencies IRIX builds use.
+
+--- mio-0.8.11/Cargo.toml.orig
++++ mio-0.8.11/Cargo.toml
+@@ -108,21 +108,6 @@ os-ext = [
+ ]
+ os-poll = []
+ 
+-[target."cfg(target_os = \"wasi\")".dependencies.libc]
+-version = "0.2.149"
+-
+-[target."cfg(target_os = \"wasi\")".dependencies.wasi]
+-version = "0.11.0"
+-
+ [target."cfg(unix)".dependencies.libc]
+ version = "0.2.149"
+ 
+-[target."cfg(windows)".dependencies.windows-sys]
+-version = "0.48"
+-features = [
+-    "Win32_Foundation",
+-    "Win32_Networking_WinSock",
+-    "Win32_Storage_FileSystem",
+-    "Win32_System_IO",
+-    "Win32_System_WindowsProgramming",
+-]

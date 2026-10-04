@@ -37,6 +37,12 @@
 #
 #	Default: derived from NATIVE_MACHINE_ARCH and NATIVE_OPSYS
 #
+# RUST_CROSS_CFLAGS
+#	More C compiler flags for crates' C code built for the target
+#	(cc-rs), e.g. definitions describing the target.
+#
+#	Default: empty
+#
 # === Package-settable variables ===
 #
 # RUST_REQ
@@ -84,6 +90,12 @@ ALL_ENV+=	CC_${_RUST_CROSS_H}=${NATIVE_CC:Q}
 ALL_ENV+=	CXX_${_RUST_CROSS_H}=${NATIVE_CXX:Q}
 ALL_ENV+=	HOST_CC=${NATIVE_CC:Q}
 ALL_ENV+=	HOST_CXX=${NATIVE_CXX:Q}
+# cc-rs takes CFLAGS_<target> over CFLAGS, and CFLAGS for the build host too
+_RUST_CROSS_CFLAGS=	${CFLAGS} ${RUST_CROSS_CFLAGS}
+ALL_ENV+=	CFLAGS_${_RUST_CROSS_T}=${_RUST_CROSS_CFLAGS:Q}
+ALL_ENV+=	CXXFLAGS_${_RUST_CROSS_T}=${CXXFLAGS:Q}
+ALL_ENV+=	HOST_CFLAGS=-O2
+ALL_ENV+=	HOST_CXXFLAGS=-O2
 # Crates patched for the target are local sources to cargo, so their own
 # lint settings (deny(...)) apply: keep lints from failing a build.
 RUSTFLAGS+=	--cap-lints=warn
