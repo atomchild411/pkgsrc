@@ -33,9 +33,10 @@
 #
 # Cross-compiling with RUST_CROSS_TARGET (see rust.mk), the build host's
 # cargo builds for that target. CARGO_CROSS_PATCHES lists crates to take from
-# local sources instead of crates.io, as name=directory (crates ported to the
-# target that crates.io's releases do not cover yet), and CARGO_CROSS_DEPENDS
-# the tool dependencies that provide them.
+# local sources instead of crates.io, as name=directory or, for one of several
+# versions of a crate, name@version=directory (crates ported to the target
+# that crates.io's releases do not cover yet), and CARGO_CROSS_DEPENDS the
+# tool dependencies that provide them.
 
 MASTER_SITES?=	${MASTER_SITE_CRATESIO}${PKGBASE}/
 
@@ -85,11 +86,12 @@ cargo-vendor-crates:
 .if ${RUST_TYPE} == "cross" && !empty(CARGO_CROSS_PATCHES)
 	${RUN}${PRINTF} "[patch.crates-io]\n" >> ${WRKDIR}/.cargo/config.toml
 .  for p in ${CARGO_CROSS_PATCHES}
-	${RUN}${PRINTF} '%s = { path = "%s" }\n' ${p:C/=.*//} ${p:C/^[^=]*=//} \
+	${RUN}${PRINTF} '%s = { path = "%s", package = "%s" }\n'		\
+	  ${p:C/=.*//:S/@/-/:S/./_/g} ${p:C/^[^=]*=//} ${p:C/[@=].*//}	\
 	  >> ${WRKDIR}/.cargo/config.toml
 # cargo keeps a locked version over a patch: drop the crate from Cargo.lock
 	${RUN}if [ -f ${CARGO_WRKSRC}/Cargo.lock ]; then			\
-	  ${AWK} -v n=${p:C/=.*//} 'BEGIN { RS = ""; ORS = "\n\n" }		\
+	  ${AWK} -v n=${p:C/[@=].*//} 'BEGIN { RS = ""; ORS = "\n\n" }		\
 	    index($$0, "\nname = \"" n "\"\n") == 0'				\
 	    ${CARGO_WRKSRC}/Cargo.lock > ${CARGO_WRKSRC}/Cargo.lock.cross &&	\
 	  ${MV} ${CARGO_WRKSRC}/Cargo.lock.cross ${CARGO_WRKSRC}/Cargo.lock;	\

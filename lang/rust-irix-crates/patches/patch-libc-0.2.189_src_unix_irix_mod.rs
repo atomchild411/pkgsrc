@@ -1,10 +1,10 @@
 $NetBSD$
 
-IRIX 6.5 (N32): the mips64-sgi-irix target's module, as IRIX looks to the
-IRIX toolchain (clang with its IRIX header wrappers and builtins).
+IRIX 6.5 (mips64-sgi-irix): the target's module, IRIX as the IRIX toolchain (clang with its IRIX
+header wrappers and builtins) sees it.
 
---- src/unix/irix/mod.rs.orig
-+++ src/unix/irix/mod.rs
+--- libc-0.2.189/src/unix/irix/mod.rs.orig
++++ libc-0.2.189/src/unix/irix/mod.rs
 @@ -0,0 +1,999 @@
 +//! IRIX 6.5, N32 ABI.
 +//!

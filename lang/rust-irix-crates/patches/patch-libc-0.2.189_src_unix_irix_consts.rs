@@ -1,10 +1,10 @@
 $NetBSD$
 
-IRIX 6.5 (N32): the mips64-sgi-irix target's module, as IRIX looks to the
-IRIX toolchain (clang with its IRIX header wrappers and builtins).
+IRIX 6.5 (mips64-sgi-irix): the target's module, IRIX as the IRIX toolchain (clang with its IRIX
+header wrappers and builtins) sees it.
 
---- src/unix/irix/consts.rs.orig
-+++ src/unix/irix/consts.rs
+--- libc-0.2.189/src/unix/irix/consts.rs.orig
++++ libc-0.2.189/src/unix/irix/consts.rs
 @@ -0,0 +1,893 @@
 +//! IRIX 6.5.22's constants, N32, with the IRIX toolchain's header wrappers' additions:
 +//! generated from what those headers define.
@@ -519,7 +519,7 @@ IRIX toolchain (clang with its IRIX header wrappers and builtins).
 +pub const RLIMIT_VMEM: c_int = 6;
 +pub const RLIM_INFINITY: crate::rlim_t = 0x7fffffffffffffff;
 +pub const RLIM_NLIMITS: crate::rlim_t = 9;
-+pub const RTLD_DEFAULT: c_int = 0;
++pub const RTLD_DEFAULT: *mut c_void = 0 as *mut c_void;
 +pub const RTLD_GLOBAL: c_int = 4;
 +pub const RTLD_LAZY: c_int = 1;
 +pub const RTLD_LOCAL: c_int = 0;

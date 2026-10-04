@@ -1,10 +1,10 @@
 $NetBSD$
 
-IRIX 6.5 (N32): the mips64-sgi-irix target's module, as IRIX looks to the
-IRIX toolchain (clang with its IRIX header wrappers and builtins).
+IRIX 6.5 (mips64-sgi-irix): the target's module, IRIX as the IRIX toolchain (clang with its IRIX
+header wrappers and builtins) sees it.
 
---- src/unix/mod.rs.orig
-+++ src/unix/mod.rs
+--- libc-0.2.189/src/unix/mod.rs.orig
++++ libc-0.2.189/src/unix/mod.rs
 @@ -29,7 +29,7 @@ cfg_if! {
      ))] {
          pub type uid_t = c_ushort;

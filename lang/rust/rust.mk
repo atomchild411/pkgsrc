@@ -84,6 +84,10 @@ ALL_ENV+=	CC_${_RUST_CROSS_H}=${NATIVE_CC:Q}
 ALL_ENV+=	CXX_${_RUST_CROSS_H}=${NATIVE_CXX:Q}
 ALL_ENV+=	HOST_CC=${NATIVE_CC:Q}
 ALL_ENV+=	HOST_CXX=${NATIVE_CXX:Q}
+# Crates patched for the target are local sources to cargo, so their own
+# lint settings (deny(...)) apply: keep lints from failing a build.
+RUSTFLAGS+=	--cap-lints=warn
+ALL_ENV+=	RUSTFLAGS=${RUSTFLAGS:Q}
 .endif
 
 .if ${RUST_TYPE} == "bin"

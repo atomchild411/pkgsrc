@@ -1,5 +1,6 @@
 Sources of Rust crates with IRIX 6.5 (mips64-sgi-irix, N32) support, for
 cargo to use in place of the crates.io releases ([patch.crates-io]) when
-cross-building Rust programs for IRIX: so far libc, with an IRIX module
-describing IRIX as the IRIX toolchain (clang with its IRIX header wrappers
-and builtins) sees it.
+cross-building Rust programs for IRIX: libc, with an IRIX module describing
+IRIX as the IRIX toolchain (clang with its IRIX header wrappers and builtins)
+sees it, and the crates that pick their code by operating system (getrandom,
+mio, parking_lot_core), taught IRIX.
