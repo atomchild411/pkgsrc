@@ -152,6 +152,7 @@ SHA1 (patch-src_bootstrap_src_core_build__steps_install.rs) = 5ecf4e371fa48bca72
 SHA1 (patch-src_bootstrap_src_core_builder_cargo.rs) = 295773b2b1c9ded25b4f4c1a9f80c75285fd807f
 SHA1 (patch-src_bootstrap_src_core_sanity.rs) = 3c9697e9905f5f7e5c407c6558772c5a9b2f2ebe
 SHA1 (patch-src_bootstrap_src_lib.rs) = 735a3f6cbb3054200dd55eebce6e9acbd285f51e
+SHA1 (patch-src_librustdoc_clean_cfg.rs) = 975ec0a68f62be4ecfced2d00bbaecb8ae5ba48b
 SHA1 (patch-src_llvm-project_llvm_CMakeLists.txt) = 91a46663881236016ac7db95e362232f60f7ae53
 SHA1 (patch-src_llvm-project_llvm_cmake_modules_AddLLVM.cmake) = 29438700020db4f5beaf747645ba1977f2f0865e
 SHA1 (patch-src_llvm-project_llvm_include_llvm-c_DataTypes.h) = cb011fc19957883c01725797f7c85ed1b20f96f1
