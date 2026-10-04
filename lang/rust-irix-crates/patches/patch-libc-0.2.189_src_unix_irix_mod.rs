@@ -5,7 +5,7 @@ header wrappers and builtins) sees it.
 
 --- libc-0.2.189/src/unix/irix/mod.rs.orig
 +++ libc-0.2.189/src/unix/irix/mod.rs
-@@ -0,0 +1,1004 @@
+@@ -0,0 +1,1081 @@
 +//! IRIX 6.5, N32 ABI.
 +//!
 +//! The types, structures and constants are IRIX 6.5.22's, as its headers declare them for the
@@ -59,6 +59,7 @@ header wrappers and builtins) sees it.
 +pub type sighandler_t = size_t;
 +pub type caddr_t = *mut c_char;
 +pub type iconv_t = *mut c_void;
++pub type idtype_t = c_int;
 +
 +s! {
 +    pub struct stat {
@@ -382,6 +383,16 @@ header wrappers and builtins) sees it.
 +        pub ifa_data: *mut c_void,
 +    }
 +
++    pub struct flock {
++        pub l_type: c_short,
++        pub l_whence: c_short,
++        pub l_start: crate::off_t,
++        pub l_len: crate::off_t,
++        pub l_sysid: c_long,
++        pub l_pid: crate::pid_t,
++        l_pad: [c_long; 4],
++    }
++
 +    /// The toolchain's `<getopt.h>`.
 +    pub struct option {
 +        pub name: *const c_char,
@@ -510,12 +521,77 @@ header wrappers and builtins) sees it.
 +    pub const safe fn WCOREDUMP(status: c_int) -> bool {
 +        (status & 0x80) != 0
 +    }
++
++    /// IRIX's <sys/mkdev.h>: 18 bits of minor number, 9 of major.
++    pub const safe fn major(dev: crate::dev_t) -> c_uint {
++        ((dev >> 18) & 0x1ff) as c_uint
++    }
++
++    pub const safe fn minor(dev: crate::dev_t) -> c_uint {
++        (dev & 0x3ffff) as c_uint
++    }
++
++    pub const safe fn makedev(major: c_uint, minor: c_uint) -> crate::dev_t {
++        ((major as crate::dev_t) << 18) | (minor as crate::dev_t & 0x3ffff)
++    }
 +}
 +
 +/// One page: IRIX's `sysconf(_SC_THREAD_STACK_MIN)` answers 0.
 +pub const PTHREAD_STACK_MIN: size_t = 16384;
 +pub const F_DUPFD_CLOEXEC: c_int = 1030;
 +pub const PTHREAD_ONCE_INIT: pthread_once_t = 0;
++
++// IRIX's, measured on IRIX (the constant generator's name list did not have them).
++pub const LOCK_SH: c_int = 1;
++pub const LOCK_EX: c_int = 2;
++pub const LOCK_NB: c_int = 4;
++pub const LOCK_UN: c_int = 8;
++pub const TABDLY: crate::tcflag_t = 0o14000;
++pub const TAB0: crate::tcflag_t = 0;
++pub const TAB1: crate::tcflag_t = 0o4000;
++pub const TAB2: crate::tcflag_t = 0o10000;
++pub const TAB3: crate::tcflag_t = 0o14000;
++pub const NLDLY: crate::tcflag_t = 0o400;
++pub const NL0: crate::tcflag_t = 0;
++pub const NL1: crate::tcflag_t = 0o400;
++pub const CRDLY: crate::tcflag_t = 0o3000;
++pub const CR0: crate::tcflag_t = 0;
++pub const CR1: crate::tcflag_t = 0o1000;
++pub const CR2: crate::tcflag_t = 0o2000;
++pub const CR3: crate::tcflag_t = 0o3000;
++pub const BSDLY: crate::tcflag_t = 0o20000;
++pub const BS0: crate::tcflag_t = 0;
++pub const BS1: crate::tcflag_t = 0o20000;
++pub const VTDLY: crate::tcflag_t = 0o40000;
++pub const VT0: crate::tcflag_t = 0;
++pub const VT1: crate::tcflag_t = 0o40000;
++pub const FFDLY: crate::tcflag_t = 0o100000;
++pub const FF0: crate::tcflag_t = 0;
++pub const FF1: crate::tcflag_t = 0o100000;
++pub const IPPROTO_IGMP: c_int = 2;
++pub const IPPROTO_GGP: c_int = 3;
++pub const IPPROTO_IPIP: c_int = 4;
++pub const IPPROTO_EGP: c_int = 8;
++pub const IPPROTO_PUP: c_int = 12;
++pub const IPPROTO_IDP: c_int = 22;
++pub const IPPROTO_TP: c_int = 29;
++pub const IPPROTO_ROUTING: c_int = 43;
++pub const IPPROTO_FRAGMENT: c_int = 44;
++pub const IPPROTO_RSVP: c_int = 46;
++pub const IPPROTO_ESP: c_int = 50;
++pub const IPPROTO_AH: c_int = 51;
++pub const O_DIRECT: c_int = 0o100000;
++pub const RLIMIT_RSS: c_int = 7;
++pub const P_PID: crate::idtype_t = 0;
++pub const P_PGID: crate::idtype_t = 2;
++pub const P_SID: crate::idtype_t = 3;
++pub const P_UID: crate::idtype_t = 5;
++pub const P_GID: crate::idtype_t = 6;
++pub const P_ALL: crate::idtype_t = 7;
++pub const ST_NOTRUNC: c_ulong = 4;
++pub const ST_NODEV: c_ulong = 0x20000000;
++pub const AF_ISO: c_int = 7;
++pub const AF_DECnet: c_int = 12;
 +/// IRIX's (the constant generator's name list missed it).
 +pub const SO_REUSEPORT: c_int = 0x0200;
 +/// The RFC 2553 names, as the toolchain's `IPV6_JOIN_GROUP`/`IPV6_LEAVE_GROUP` (IRIX has no IPv6).
@@ -1009,4 +1085,5 @@ header wrappers and builtins) sees it.
 +
 +    pub fn gettimeofday(tp: *mut crate::timeval, tz: *mut c_void) -> c_int;
 +    pub fn pthread_once(control: *mut pthread_once_t, routine: extern "C" fn()) -> c_int;
++    pub fn flock(fd: c_int, operation: c_int) -> c_int;
 +}
