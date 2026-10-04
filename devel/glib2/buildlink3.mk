@@ -12,12 +12,16 @@ BUILDLINK_INCDIRS.glib2+=	include/glib-2.0
 BUILDLINK_INCDIRS.glib2+=	include/gio-unix-2.0
 BUILDLINK_INCDIRS.glib2+=	lib/glib-2.0/include
 
-BUILDLINK_FILES.glib2+=		bin/glib-compile-resources
-BUILDLINK_FILES.glib2+=		bin/glib-compile-schemas
-
 TOOL_DEPENDS+=	glib2-tools-[0-9]*:../../devel/glib2-tools
 
 .include "../../mk/bsd.fast.prefs.mk"
+
+# In a cross build these would be the target's programs, first in PATH
+# ahead of the build host's from glib2-tools.
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+BUILDLINK_FILES.glib2+=		bin/glib-compile-resources
+BUILDLINK_FILES.glib2+=		bin/glib-compile-schemas
+.endif
 
 # Meson's gnome module runs the tools glib-2.0's and gio-2.0's .pc files
 # name, which in a cross build are target programs: name the build host's
