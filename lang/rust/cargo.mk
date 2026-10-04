@@ -127,20 +127,9 @@ DEFAULT_CARGO_ARGS=	--offline -j${_MAKE_JOBS_N}	\
 			  ${CARGO_FEATURES:C/.*/--features/W}	\
 			  ${CARGO_FEATURES:S/ /,/Wg}
 .if ${RUST_TYPE} == "cross"
-# Built for the target with its C toolchain; build scripts and proc macros
-# run on the build host, built with the build host's.
+# rust.mk sets the toolchains up for the target
 DEFAULT_CARGO_ARGS+=	--target ${RUST_CROSS_TARGET}
-_CARGO_CROSS_ENV=	${RUST_CROSS_TARGET:S/-/_/g}
-MAKE_ENV+=	CARGO_TARGET_${_CARGO_CROSS_ENV:tu}_LINKER=${CC:Q}
-MAKE_ENV+=	CC_${_CARGO_CROSS_ENV}=${CC:Q}
-MAKE_ENV+=	CXX_${_CARGO_CROSS_ENV}=${CXX:Q}
-MAKE_ENV+=	AR_${_CARGO_CROSS_ENV}=${AR:Q}
-MAKE_ENV+=	HOST_CC=${NATIVE_CC:Q}
-MAKE_ENV+=	HOST_CXX=${NATIVE_CXX:Q}
-TOOL_DEPENDS+=	${CARGO_CROSS_DEPENDS}
-# ... and build scripts are linked by the build host's compiler (cargo's
-# default, cc, is the target's here), named for the build host's triple.
-_CARGO_HOST_ENV=	"CARGO_TARGET_`${TOOLBASE}/bin/rustc -vV | ${SED} -n 's/^host: //p' | ${SED} 'y/abcdefghijklmnopqrstuvwxyz-/ABCDEFGHIJKLMNOPQRSTUVWXYZ_/'`_LINKER="${NATIVE_CC:Q}
+TOOL_DEPENDS+=		${CARGO_CROSS_DEPENDS}
 .endif
 
 CARGO_ARGS?=		build --release ${DEFAULT_CARGO_ARGS}
@@ -155,7 +144,7 @@ do-build: do-cargo-build
 
 .PHONY: do-cargo-build
 do-cargo-build:
-	${RUN} cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${_CARGO_HOST_ENV} ${CARGO} ${CARGO_ARGS}
+	${RUN} cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${CARGO} ${CARGO_ARGS}
 
 .if !target(do-install) && ${GNU_CONFIGURE:Uno:tl} == no
 do-install: do-cargo-install
@@ -163,7 +152,7 @@ do-install: do-cargo-install
 
 .PHONY: do-cargo-install
 do-cargo-install:
-	${RUN} cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${_CARGO_HOST_ENV} ${CARGO} ${CARGO_INSTALL_ARGS}
+	${RUN} cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${CARGO} ${CARGO_INSTALL_ARGS}
 	# remove files cargo uses for tracking installations
 	${RM} -f ${DESTDIR}${PREFIX}/.crates.toml
 	${RM} -f ${DESTDIR}${PREFIX}/.crates2.json

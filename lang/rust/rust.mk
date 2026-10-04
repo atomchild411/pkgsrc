@@ -26,9 +26,16 @@
 #	When cross-compiling, the Rust target to build for (for example
 #	mips64-sgi-irix). The build host's lang/rust must carry that
 #	target's standard library (RUST_EXTRA_TARGETS there); Rust is then
-#	a tool dependency, and cargo.mk builds with --target.
+#	a tool dependency, and cargo (by cargo.mk or a package's own build)
+#	builds for the target: the target's C toolchain compiles and links
+#	for it, the build host's builds build scripts and proc macros.
 #
 #	Default: unset
+#
+# RUST_CROSS_HOST
+#	The build host's Rust target, when cross-compiling.
+#
+#	Default: derived from NATIVE_MACHINE_ARCH and NATIVE_OPSYS
 #
 # === Package-settable variables ===
 #
@@ -60,6 +67,23 @@ RUST_TYPE?=	src
 
 .if ${RUST_TYPE} == "cross"
 TOOL_DEPENDS+=	rust>=${RUST_REQ}:${RUST_DIR}
+.  if ${NATIVE_OPSYS:U${OPSYS}} == "Linux"
+RUST_CROSS_HOST?=	${NATIVE_MACHINE_ARCH:U${MACHINE_ARCH}}-unknown-linux-gnu
+.  elif ${NATIVE_OPSYS:U${OPSYS}} == "NetBSD"
+RUST_CROSS_HOST?=	${NATIVE_MACHINE_ARCH:U${MACHINE_ARCH}:S/^amd64$/x86_64/}-unknown-netbsd
+.  endif
+_RUST_CROSS_T=	${RUST_CROSS_TARGET:S/-/_/g}
+_RUST_CROSS_H=	${RUST_CROSS_HOST:S/-/_/g}
+ALL_ENV+=	CARGO_BUILD_TARGET=${RUST_CROSS_TARGET}
+ALL_ENV+=	CARGO_TARGET_${_RUST_CROSS_T:tu}_LINKER=${CC:Q}
+ALL_ENV+=	CARGO_TARGET_${_RUST_CROSS_H:tu}_LINKER=${NATIVE_CC:Q}
+ALL_ENV+=	CC_${_RUST_CROSS_T}=${CC:Q}
+ALL_ENV+=	CXX_${_RUST_CROSS_T}=${CXX:Q}
+ALL_ENV+=	AR_${_RUST_CROSS_T}=${AR:Q}
+ALL_ENV+=	CC_${_RUST_CROSS_H}=${NATIVE_CC:Q}
+ALL_ENV+=	CXX_${_RUST_CROSS_H}=${NATIVE_CXX:Q}
+ALL_ENV+=	HOST_CC=${NATIVE_CC:Q}
+ALL_ENV+=	HOST_CXX=${NATIVE_CXX:Q}
 .endif
 
 .if ${RUST_TYPE} == "bin"
