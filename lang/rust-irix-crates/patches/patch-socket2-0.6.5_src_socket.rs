@@ -1,6 +1,6 @@
 $NetBSD$
 
-IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengths, IPv6 receive options or TCP keepalive tuning), as on Haiku. Cargo.toml: only the dependencies (and features) IRIX builds use.
+IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengths, IPv6 receive options or TCP keepalive tuning), as on Haiku, and IP_TOS. Cargo.toml: only the dependencies (and features) IRIX builds use.
 
 --- socket2-0.6.5/src/socket.rs.orig
 +++ socket2-0.6.5/src/socket.rs
@@ -44,23 +44,7 @@ IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengt
          target_os = "hurd",
          target_os = "netbsd",
          target_os = "openbsd",
-@@ -1643,6 +1648,7 @@ impl Socket {
-         target_os = "redox",
-         target_os = "solaris",
-         target_os = "haiku",
-+        target_os = "irix",
-         target_os = "wasi",
-     )))]
-     pub fn set_tos_v4(&self, tos: u32) -> io::Result<()> {
-@@ -1662,6 +1668,7 @@ impl Socket {
-         target_os = "redox",
-         target_os = "solaris",
-         target_os = "haiku",
-+        target_os = "irix",
-         target_os = "wasi",
-     )))]
-     pub fn tos_v4(&self) -> io::Result<u32> {
-@@ -1686,6 +1693,7 @@ impl Socket {
+@@ -1686,6 +1691,7 @@ impl Socket {
          target_os = "redox",
          target_os = "solaris",
          target_os = "haiku",
@@ -68,7 +52,7 @@ IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengt
          target_os = "nto",
          target_os = "espidf",
          target_os = "nuttx",
-@@ -1721,6 +1729,7 @@ impl Socket {
+@@ -1721,6 +1727,7 @@ impl Socket {
          target_os = "redox",
          target_os = "solaris",
          target_os = "haiku",
@@ -76,7 +60,7 @@ IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengt
          target_os = "nto",
          target_os = "espidf",
          target_os = "nuttx",
-@@ -2102,6 +2111,7 @@ impl Socket {
+@@ -2102,6 +2109,7 @@ impl Socket {
          target_os = "redox",
          target_os = "solaris",
          target_os = "haiku",
@@ -84,7 +68,7 @@ IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengt
          target_os = "hurd",
          target_os = "espidf",
          target_os = "nuttx",
-@@ -2130,6 +2140,7 @@ impl Socket {
+@@ -2130,6 +2138,7 @@ impl Socket {
          target_os = "redox",
          target_os = "solaris",
          target_os = "haiku",
@@ -92,7 +76,7 @@ IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengt
          target_os = "hurd",
          target_os = "espidf",
          target_os = "nuttx",
-@@ -2165,6 +2176,7 @@ impl Socket {
+@@ -2165,6 +2174,7 @@ impl Socket {
              target_os = "redox",
              target_os = "solaris",
              target_os = "haiku",
@@ -100,7 +84,7 @@ IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengt
              target_os = "hurd",
              target_os = "espidf",
              target_os = "vita",
-@@ -2196,6 +2208,7 @@ impl Socket {
+@@ -2196,6 +2206,7 @@ impl Socket {
              target_os = "redox",
              target_os = "solaris",
              target_os = "haiku",
@@ -108,7 +92,7 @@ IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengt
              target_os = "hurd",
              target_os = "espidf",
              target_os = "vita",
-@@ -2240,6 +2253,7 @@ impl Socket {
+@@ -2240,6 +2251,7 @@ impl Socket {
          not(any(
              windows,
              target_os = "haiku",
