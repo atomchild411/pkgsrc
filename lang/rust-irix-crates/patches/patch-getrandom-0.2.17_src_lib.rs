@@ -1,6 +1,6 @@
 $NetBSD$
 
-IRIX 6.5 (mips64-sgi-irix): /dev/urandom, as on AIX; errno from __oserror. Cargo.toml: only the dependencies IRIX builds use.
+IRIX 6.5 (mips64-sgi-irix): /dev/urandom, as on AIX; errno from __oserror. Cargo.toml: only the dependencies (and features) IRIX builds use.
 
 --- getrandom-0.2.17/src/lib.rs.orig
 +++ getrandom-0.2.17/src/lib.rs

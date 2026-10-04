@@ -1,6 +1,6 @@
 $NetBSD$
 
-IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengths, IPv6 receive options or TCP keepalive tuning), as on Haiku. Cargo.toml: only the dependencies IRIX builds use.
+IRIX 6.5 (mips64-sgi-irix): the options IRIX has (none of the BSD sockaddr lengths, IPv6 receive options or TCP keepalive tuning), as on Haiku. Cargo.toml: only the dependencies (and features) IRIX builds use.
 
 --- socket2-0.4.10/src/socket.rs.orig
 +++ socket2-0.4.10/src/socket.rs

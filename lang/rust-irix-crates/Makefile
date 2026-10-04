@@ -1,6 +1,6 @@
 # $NetBSD$
 
-DISTNAME=	rust-irix-crates-20261004.2
+DISTNAME=	rust-irix-crates-20261004.3
 CATEGORIES=	lang
 MASTER_SITES=	# empty: every crate has its own site
 

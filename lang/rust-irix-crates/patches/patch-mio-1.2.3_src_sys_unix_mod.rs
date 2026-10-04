@@ -1,6 +1,6 @@
 $NetBSD$
 
-IRIX 6.5 (mips64-sgi-irix): the poll() selector and plain accept/pipe, as on the systems without epoll, kqueue, accept4 or pipe2. Cargo.toml: only the dependencies IRIX builds use.
+IRIX 6.5 (mips64-sgi-irix): the poll() selector and plain accept/pipe, as on the systems without epoll, kqueue, accept4 or pipe2. Cargo.toml: only the dependencies (and features) IRIX builds use.
 
 --- mio-1.2.3/src/sys/unix/mod.rs.orig
 +++ mio-1.2.3/src/sys/unix/mod.rs
