@@ -2,7 +2,7 @@
 
 DISTNAME=	rustc-1.96.1-src
 PKGNAME=	${DISTNAME:S/rustc/rust/:S/-src//}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	lang
 MASTER_SITES=	https://static.rust-lang.org/dist/
 
@@ -70,6 +70,26 @@ REPLACE_PYTHON+=	${CB}/etc/update-api-list.py
 
 # optional from do-cross.mk
 CONFIGURE_ARGS+=	${ADD_CONFIGURE_ARGS}
+
+# Standard libraries for more targets, for cross-building Rust programs with
+# this rustc, e.g. RUST_EXTRA_TARGETS=mips64-sgi-irix; each target's C
+# toolchain comes from RUST_TARGET_CC.<target>, RUST_TARGET_CXX.<target>,
+# RUST_TARGET_AR.<target> and RUST_TARGET_LINKER.<target> (default: its CC).
+RUST_EXTRA_TARGETS?=	# empty
+.if !empty(RUST_EXTRA_TARGETS)
+CONFIGURE_ARGS+=	--target=${RUST_ARCH},${RUST_EXTRA_TARGETS:ts,}
+.  for t in ${RUST_EXTRA_TARGETS}
+CONFIGURE_ARGS+=	--set target.${t}.cc=${RUST_TARGET_CC.${t}}
+CONFIGURE_ARGS+=	--set target.${t}.cxx=${RUST_TARGET_CXX.${t}:U${RUST_TARGET_CC.${t}}++}
+CONFIGURE_ARGS+=	--set target.${t}.ar=${RUST_TARGET_AR.${t}:Uar}
+CONFIGURE_ARGS+=	--set target.${t}.linker=${RUST_TARGET_LINKER.${t}:U${RUST_TARGET_CC.${t}}}
+# Not this platform's objects:
+CHECK_SHLIBS_SKIP+=	lib/rustlib/${t}/*
+CHECK_RELRO_SKIP+=	lib/rustlib/${t}/*
+CHECK_SSP_SKIP+=	lib/rustlib/${t}/*
+CHECK_STRIPPED_SKIP+=	lib/rustlib/${t}/*
+.  endfor
+.endif
 
 # This should allow us to perform "offline" builds (so cargo doesn't fetch
 # dependencies during the build stage) but this isn't hooked up yet.
@@ -549,6 +569,11 @@ CKSUMS+=	85ab34c72fc39f2c5a5cf98aebe896e6629f8b53f0592dde614f22b2b271fc5a
 CKSUM_CRATES+=	vendor/libc-0.2.183
 CKSUMS+=	a782d53bc9e06c87c6c8b8182ee79cab693ce39be7d9ecb9dcd7ca285284734f
 CKSUMS+=	2113dd4a3bdacf81fc125eb14b6e42d34e79c7df8909ace69c41e639bea51b4f
+# IRIX: src/new/mod.rs and src/unix/mod.rs
+CKSUMS+=	6d51a5ce7bac641973049c5c96e497f2dbe33292f1b7b245da2e75658164f9fd
+CKSUMS+=	1e1e9717c69505c9e9e8ff4289c30c9c610268132d8489356217fd78061ffa73
+CKSUMS+=	9949dcd446ad6a84b2c1bc15096afacb0acbac39eb1463af26ba4ef0290cdbb6
+CKSUMS+=	3547ecda39ce1250cb21db23fa3e9c34cbb0d076d85eb03aac88aaa88d674e4e
 
 CKSUM_CRATES+=	vendor/libc-0.2.184
 CKSUMS+=	12d1e288aa3c351000721502e3cbd7115d7d5584ffc5c37f5c00e9c56f657385

@@ -29,6 +29,10 @@ RUST_DIR?=	../../lang/rust
 PLATFORM_SUPPORTS_RUST?=	yes
 .  endif
 .endfor
+# Cross-compiling with a Rust target for the build host's rustc (rust.mk)
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && !empty(RUST_CROSS_TARGET)
+PLATFORM_SUPPORTS_RUST?=	yes
+.endif
 PLATFORM_SUPPORTS_RUST?=	no
 
 .endif # !defined(PLATFORM_SUPPORTS_RUST)

@@ -332,6 +332,7 @@ SUBDIR+=	ruby40
 SUBDIR+=	runawk
 SUBDIR+=	rust
 SUBDIR+=	rust-bin
+SUBDIR+=	rust-irix-crates
 SUBDIR+=	sablevm
 SUBDIR+=	sablevm-classpath
 SUBDIR+=	sablevm-classpath-gui

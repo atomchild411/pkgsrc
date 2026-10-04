@@ -1,0 +1,17 @@
+$NetBSD$
+
+IRIX: the mips64-sgi-irix target (IRIX 6.5, MIPS IV, N32) and its std.
+
+--- library/unwind/Cargo.toml.orig
++++ library/unwind/Cargo.toml
+@@ -35,4 +35,9 @@ system-llvm-libunwind = []
+ 
+ [lints.rust.unexpected_cfgs]
+ level = "warn"
+-check-cfg = ['cfg(emscripten_wasm_eh)', 'cfg(target_arch, values("loongarch32"))']
++check-cfg = [
++    'cfg(emscripten_wasm_eh)',
++    'cfg(target_arch, values("loongarch32"))',
++    # mips64-sgi-irix is newer than the bootstrap compiler
++    'cfg(target_os, values("irix"))',
++]

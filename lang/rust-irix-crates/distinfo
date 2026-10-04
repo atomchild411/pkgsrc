@@ -1,0 +1,11 @@
+$NetBSD$
+
+BLAKE2s (libc-0.2.189.crate) = 1783ee1cd2f111dc2c064e01ae615942f295563538c0bc6a93e59ae6a35da5a2
+SHA512 (libc-0.2.189.crate) = 0cf621171ed4e6bbfeb71fb582ebf037d62ab481bc406ca2fb766bd4a8416f220a189325a0d3cb3e3cb39d80e09312516ca6335fad71b329c5fccddabedf4110
+Size (libc-0.2.189.crate) = 851502 bytes
+SHA1 (patch-src_new_irix_mod.rs) = eaa2f8c443673519adcc8eb03c3281e0be9204ef
+SHA1 (patch-src_new_irix_unistd.rs) = f4228b40d1c22467d4a4e7dec8124b0d4e13876a
+SHA1 (patch-src_new_mod.rs) = bf9f3f77627dd1b7daee2134da126fcbc78571f5
+SHA1 (patch-src_unix_irix_consts.rs) = 176f971ff868232a7cfe39ba15aff0238b31463d
+SHA1 (patch-src_unix_irix_mod.rs) = 70a24b8bae757ce7b32c09d5a4f7e7fbeaa92f4b
+SHA1 (patch-src_unix_mod.rs) = b71f0ded5349bf129f90d715fbe3fabfde828572

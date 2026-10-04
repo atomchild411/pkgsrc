@@ -18,8 +18,17 @@
 #	MAKE_ENV pointing to the 'rustup show home' directory.  This is due to
 #	pkgsrc overwriting the HOME environment variable during build.
 #
-#	Possible values: src bin native
-#	Default: "src", except on 32-bit arm where it's "bin"
+#	Possible values: src bin native cross
+#	Default: "src", except on 32-bit arm where it's "bin", and "cross"
+#	when cross-compiling with RUST_CROSS_TARGET set
+#
+# RUST_CROSS_TARGET
+#	When cross-compiling, the Rust target to build for (for example
+#	mips64-sgi-irix). The build host's lang/rust must carry that
+#	target's standard library (RUST_EXTRA_TARGETS there); Rust is then
+#	a tool dependency, and cargo.mk builds with --target.
+#
+#	Default: unset
 #
 # === Package-settable variables ===
 #
@@ -41,10 +50,16 @@
 RUST_REQ?=	1.85.0
 RUST_RUNTIME?=	no
 
-.if ${MACHINE_PLATFORM:M*-*-earm*}
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && !empty(RUST_CROSS_TARGET)
+RUST_TYPE?=	cross
+.elif ${MACHINE_PLATFORM:M*-*-earm*}
 RUST_TYPE?=	bin
 .else
 RUST_TYPE?=	src
+.endif
+
+.if ${RUST_TYPE} == "cross"
+TOOL_DEPENDS+=	rust>=${RUST_REQ}:${RUST_DIR}
 .endif
 
 .if ${RUST_TYPE} == "bin"

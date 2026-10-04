@@ -30,6 +30,12 @@
 # CARGO_GITHUB_CRATES=	foo bar 12345
 #
 # will fetch https://github.com/foo/bar/ revision 12345
+#
+# Cross-compiling with RUST_CROSS_TARGET (see rust.mk), the build host's
+# cargo builds for that target. CARGO_CROSS_PATCHES lists crates to take from
+# local sources instead of crates.io, as name=directory (crates ported to the
+# target that crates.io's releases do not cover yet), and CARGO_CROSS_DEPENDS
+# the tool dependencies that provide them.
 
 MASTER_SITES?=	${MASTER_SITE_CRATESIO}${PKGBASE}/
 
@@ -76,6 +82,13 @@ cargo-vendor-crates:
 	${RUN}${MKDIR} ${WRKDIR}/.cargo
 	${RUN}${PRINTF} "[source.crates-io]\nreplace-with = \"vendored-sources\"\n[source.vendored-sources]\ndirectory = \"${CARGO_VENDOR_DIR}\"\n" > ${WRKDIR}/.cargo/config.toml
 	${RUN}${MKDIR} ${CARGO_VENDOR_DIR}
+.if ${RUST_TYPE} == "cross" && !empty(CARGO_CROSS_PATCHES)
+	${RUN}${PRINTF} "[patch.crates-io]\n" >> ${WRKDIR}/.cargo/config.toml
+.  for p in ${CARGO_CROSS_PATCHES}
+	${RUN}${PRINTF} '%s = { path = "%s" }\n' ${p:C/=.*//} ${p:C/^[^=]*=//} \
+	  >> ${WRKDIR}/.cargo/config.toml
+.  endfor
+.endif
 .for crate in ${CARGO_CRATE_DEPENDS}
 	${RUN}${PRINTF} '{"package":"%s","files":{}}'	\
 	  `${DIGEST} sha256 < ${_DISTDIR}/${crate}.crate` \
@@ -97,6 +110,8 @@ print-cargo-depends:
 
 .if ${RUST_TYPE} == "native"
 CARGO=			cargo
+.elif ${RUST_TYPE} == "cross"
+CARGO=			${TOOLBASE}/bin/cargo
 .else
 CARGO=			${PREFIX}/bin/cargo
 .endif
@@ -104,6 +119,20 @@ DEFAULT_CARGO_ARGS=	--offline -j${_MAKE_JOBS_N}	\
 			  ${CARGO_NO_DEFAULT_FEATURES:M[yY][eE][sS]:C/[yY][eE][sS]/--no-default-features/}	\
 			  ${CARGO_FEATURES:C/.*/--features/W}	\
 			  ${CARGO_FEATURES:S/ /,/Wg}
+.if ${RUST_TYPE} == "cross"
+# Built for the target with its C toolchain; build scripts and proc macros
+# run on the build host, built with the build host's.
+DEFAULT_CARGO_ARGS+=	--target ${RUST_CROSS_TARGET}
+_CARGO_CROSS_ENV=	${RUST_CROSS_TARGET:S/-/_/g}
+MAKE_ENV+=	CARGO_TARGET_${_CARGO_CROSS_ENV:tu}_LINKER=${CC:Q}
+MAKE_ENV+=	CC_${_CARGO_CROSS_ENV}=${CC:Q}
+MAKE_ENV+=	CXX_${_CARGO_CROSS_ENV}=${CXX:Q}
+MAKE_ENV+=	AR_${_CARGO_CROSS_ENV}=${AR:Q}
+MAKE_ENV+=	HOST_CC=${NATIVE_CC:Q}
+MAKE_ENV+=	HOST_CXX=${NATIVE_CXX:Q}
+TOOL_DEPENDS+=	${CARGO_CROSS_DEPENDS}
+.endif
+
 CARGO_ARGS?=		build --release ${DEFAULT_CARGO_ARGS}
 CARGO_INSTALL_ARGS?=	install --path . --root ${DESTDIR}${PREFIX} ${DEFAULT_CARGO_ARGS}
 
