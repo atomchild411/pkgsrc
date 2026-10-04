@@ -2,7 +2,7 @@
 
 DISTNAME=	rustc-1.96.1-src
 PKGNAME=	${DISTNAME:S/rustc/rust/:S/-src//}
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	lang
 MASTER_SITES=	https://static.rust-lang.org/dist/
 
@@ -71,26 +71,6 @@ REPLACE_PYTHON+=	${CB}/etc/update-api-list.py
 # optional from do-cross.mk
 CONFIGURE_ARGS+=	${ADD_CONFIGURE_ARGS}
 
-# Standard libraries for more targets, for cross-building Rust programs with
-# this rustc, e.g. RUST_EXTRA_TARGETS=mips64-sgi-irix; each target's C
-# toolchain comes from RUST_TARGET_CC.<target>, RUST_TARGET_CXX.<target>,
-# RUST_TARGET_AR.<target> and RUST_TARGET_LINKER.<target> (default: its CC).
-RUST_EXTRA_TARGETS?=	# empty
-.if !empty(RUST_EXTRA_TARGETS)
-CONFIGURE_ARGS+=	--target=${RUST_ARCH},${RUST_EXTRA_TARGETS:ts,}
-.  for t in ${RUST_EXTRA_TARGETS}
-CONFIGURE_ARGS+=	--set target.${t}.cc=${RUST_TARGET_CC.${t}}
-CONFIGURE_ARGS+=	--set target.${t}.cxx=${RUST_TARGET_CXX.${t}:U${RUST_TARGET_CC.${t}}++}
-CONFIGURE_ARGS+=	--set target.${t}.ar=${RUST_TARGET_AR.${t}:Uar}
-CONFIGURE_ARGS+=	--set target.${t}.linker=${RUST_TARGET_LINKER.${t}:U${RUST_TARGET_CC.${t}}}
-# Not this platform's objects:
-CHECK_SHLIBS_SKIP+=	lib/rustlib/${t}/*
-CHECK_RELRO_SKIP+=	lib/rustlib/${t}/*
-CHECK_SSP_SKIP+=	lib/rustlib/${t}/*
-CHECK_STRIPPED_SKIP+=	lib/rustlib/${t}/*
-.  endfor
-.endif
-
 # This should allow us to perform "offline" builds (so cargo doesn't fetch
 # dependencies during the build stage) but this isn't hooked up yet.
 CONFIGURE_ARGS+=	--enable-vendor
@@ -115,6 +95,26 @@ CHECK_RELRO_SUPPORTED=	no
 CHECK_SSP_SUPPORTED=	no
 
 .include "../../mk/bsd.prefs.mk"
+
+# Standard libraries for more targets, for cross-building Rust programs with
+# this rustc, e.g. RUST_EXTRA_TARGETS=mips64-sgi-irix; each target's C
+# toolchain comes from RUST_TARGET_CC.<target>, RUST_TARGET_CXX.<target>,
+# RUST_TARGET_AR.<target> and RUST_TARGET_LINKER.<target> (default: its CC).
+RUST_EXTRA_TARGETS?=	# empty
+.if !empty(RUST_EXTRA_TARGETS)
+CONFIGURE_ARGS+=	--target=${RUST_ARCH},${RUST_EXTRA_TARGETS:ts,}
+.  for t in ${RUST_EXTRA_TARGETS}
+CONFIGURE_ARGS+=	--set target.${t}.cc=${RUST_TARGET_CC.${t}}
+CONFIGURE_ARGS+=	--set target.${t}.cxx=${RUST_TARGET_CXX.${t}:U${RUST_TARGET_CC.${t}}++}
+CONFIGURE_ARGS+=	--set target.${t}.ar=${RUST_TARGET_AR.${t}:Uar}
+CONFIGURE_ARGS+=	--set target.${t}.linker=${RUST_TARGET_LINKER.${t}:U${RUST_TARGET_CC.${t}}}
+# Not this platform's objects:
+CHECK_SHLIBS_SKIP+=	lib/rustlib/${t}/*
+CHECK_RELRO_SKIP+=	lib/rustlib/${t}/*
+CHECK_SSP_SKIP+=	lib/rustlib/${t}/*
+CHECK_STRIPPED_SKIP+=	lib/rustlib/${t}/*
+.  endfor
+.endif
 
 .if ${OPSYS} == "NetBSD"
 # Getting RPATH with $ORIGIN into the bootstrap binaries is

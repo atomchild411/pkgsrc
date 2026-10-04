@@ -87,6 +87,13 @@ cargo-vendor-crates:
 .  for p in ${CARGO_CROSS_PATCHES}
 	${RUN}${PRINTF} '%s = { path = "%s" }\n' ${p:C/=.*//} ${p:C/^[^=]*=//} \
 	  >> ${WRKDIR}/.cargo/config.toml
+# cargo keeps a locked version over a patch: drop the crate from Cargo.lock
+	${RUN}if [ -f ${CARGO_WRKSRC}/Cargo.lock ]; then			\
+	  ${AWK} -v n=${p:C/=.*//} 'BEGIN { RS = ""; ORS = "\n\n" }		\
+	    index($$0, "\nname = \"" n "\"\n") == 0'				\
+	    ${CARGO_WRKSRC}/Cargo.lock > ${CARGO_WRKSRC}/Cargo.lock.cross &&	\
+	  ${MV} ${CARGO_WRKSRC}/Cargo.lock.cross ${CARGO_WRKSRC}/Cargo.lock;	\
+	fi
 .  endfor
 .endif
 .for crate in ${CARGO_CRATE_DEPENDS}
@@ -131,6 +138,9 @@ MAKE_ENV+=	AR_${_CARGO_CROSS_ENV}=${AR:Q}
 MAKE_ENV+=	HOST_CC=${NATIVE_CC:Q}
 MAKE_ENV+=	HOST_CXX=${NATIVE_CXX:Q}
 TOOL_DEPENDS+=	${CARGO_CROSS_DEPENDS}
+# ... and build scripts are linked by the build host's compiler (cargo's
+# default, cc, is the target's here), named for the build host's triple.
+_CARGO_HOST_ENV=	"CARGO_TARGET_`${TOOLBASE}/bin/rustc -vV | ${SED} -n 's/^host: //p' | ${SED} 'y/abcdefghijklmnopqrstuvwxyz-/ABCDEFGHIJKLMNOPQRSTUVWXYZ_/'`_LINKER="${NATIVE_CC:Q}
 .endif
 
 CARGO_ARGS?=		build --release ${DEFAULT_CARGO_ARGS}
@@ -145,7 +155,7 @@ do-build: do-cargo-build
 
 .PHONY: do-cargo-build
 do-cargo-build:
-	${RUN} cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${CARGO} ${CARGO_ARGS}
+	${RUN} cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${_CARGO_HOST_ENV} ${CARGO} ${CARGO_ARGS}
 
 .if !target(do-install) && ${GNU_CONFIGURE:Uno:tl} == no
 do-install: do-cargo-install
@@ -153,7 +163,7 @@ do-install: do-cargo-install
 
 .PHONY: do-cargo-install
 do-cargo-install:
-	${RUN} cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${CARGO} ${CARGO_INSTALL_ARGS}
+	${RUN} cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${_CARGO_HOST_ENV} ${CARGO} ${CARGO_INSTALL_ARGS}
 	# remove files cargo uses for tracking installations
 	${RM} -f ${DESTDIR}${PREFIX}/.crates.toml
 	${RM} -f ${DESTDIR}${PREFIX}/.crates2.json
