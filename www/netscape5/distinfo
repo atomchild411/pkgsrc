@@ -1,5 +1,5 @@
 $NetBSD$
 
-BLAKE2s (netscape-5.0beta1-599c2911cca74846f2781de451a5f32e0e38bc5f.tar.gz) = c2d86afff49f03a813e0baedb0cb2e8a988ae8e1fb431a2efbdfca11604ca5ad
-SHA512 (netscape-5.0beta1-599c2911cca74846f2781de451a5f32e0e38bc5f.tar.gz) = 7f9982d0d91b3e47bb396b1739e10bed928d902d7925bb08035c8e1ab3ed5afa82a7be8829a74c4edb1f4f4225924642a2393a83c1d47bffc35fdd6e84eaac1a
-Size (netscape-5.0beta1-599c2911cca74846f2781de451a5f32e0e38bc5f.tar.gz) = 19246776 bytes
+BLAKE2s (netscape-5.0beta1-6493d8d73c66dd192eed166ced27ebd0dee00c4d.tar.gz) = 71e9bc8c01bfd901ffee09d45f5adcaf16d66adef3d6f1b5da4650be8224cabc
+SHA512 (netscape-5.0beta1-6493d8d73c66dd192eed166ced27ebd0dee00c4d.tar.gz) = 2b0e448517dfe1ed42e72b4dd225a1f98b9e3aafdc18e4f9920ce4baa78fc84c8cfab137088d972765b3d53b855b919bd8fd92d873896531a0ebf02929c87311
+Size (netscape-5.0beta1-6493d8d73c66dd192eed166ced27ebd0dee00c4d.tar.gz) = 19247087 bytes
