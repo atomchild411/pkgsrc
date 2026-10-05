@@ -11,6 +11,7 @@ include/parserutils/types.h
 include/parserutils/utils/buffer.h
 include/parserutils/utils/stack.h
 include/parserutils/utils/vector.h
+lib/libparserutils.a
 lib/libparserutils.so
 lib/libparserutils.so.0
 lib/libparserutils.so.${PKGVERSION}

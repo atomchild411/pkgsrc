@@ -2,6 +2,7 @@
 
 DISTNAME=	libcss-0.9.2-src
 PKGNAME=	${DISTNAME:S/-src$//}
+PKGREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	https://download.netsurf-browser.org/libs/releases/
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
@@ -24,6 +25,15 @@ MAKE_ENV+=	PKGCONFIG=${TOOLS_CMD.pkg-config:Q}
 BUILDLINK_TRANSFORM+=	rm:-Werror
 
 TOOL_DEPENDS+=	netsurf-buildsystem-[0-9]*:../../devel/netsurf-buildsystem
+
+# The static library as well, for programs that must need nothing else at
+# run time (www/netscape5's irix-motif option links it in).
+post-build:
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} COMPONENT_TYPE=lib-static \
+	    ${MAKE_PROGRAM} ${MAKE_FLAGS} ${BUILD_TARGET}
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/build-*-lib-static/libcss.a ${DESTDIR}${PREFIX}/lib
 
 .include "../../mk/bsd.prefs.mk"
 

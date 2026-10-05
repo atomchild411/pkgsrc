@@ -2,7 +2,7 @@
 
 DISTNAME=	libparserutils-0.2.5-src
 PKGNAME=	${DISTNAME:S/-src$//}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	https://download.netsurf-browser.org/libs/releases/
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
@@ -27,6 +27,18 @@ BUILDLINK_TRANSFORM+=	rm:-Werror
 LDFLAGS+=	${BUILDLINK_LDADD.iconv}
 
 TOOL_DEPENDS+=	netsurf-buildsystem-[0-9]*:../../devel/netsurf-buildsystem
+
+# The static library as well, for programs that must need nothing else at
+# run time (www/netscape5's irix-motif option links it in).  It is built
+# without the iconv filter (its own UTF-8, UTF-16, ISO 8859 and Windows
+# codecs only), so that it needs nothing more either.
+post-build:
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} COMPONENT_TYPE=lib-static \
+	    CFLAGS=${CFLAGS:Q}\ -DWITHOUT_ICONV_FILTER \
+	    ${MAKE_PROGRAM} ${MAKE_FLAGS} ${BUILD_TARGET}
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/build-*-lib-static/libparserutils.a ${DESTDIR}${PREFIX}/lib
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
