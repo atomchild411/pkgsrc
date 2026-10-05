@@ -7,7 +7,7 @@ MASTER_SITES=	${MASTER_SITE_GITHUB:=atomchild411/}
 GITHUB_PROJECT=	netscape
 # Branch irix of the fork: the 1998 tree (github.com/zii/netscape) ported to
 # IRIX with today's compilers, with TLS from OpenSSL.
-GITHUB_TAG=	9a18c825751d6c8cd0dea59f277c6f6b0a9564d4
+GITHUB_TAG=	089d7357e0d71945c8bc8d5a6c65b84aa31dfb3a
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/atomchild411/netscape
@@ -67,6 +67,8 @@ do-extract:
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/libcss/buildlink3.mk"
 .include "../../lang/quickjs/buildlink3.mk"
+.include "../../textproc/libdom/buildlink3.mk"
+.include "../../www/libhubbub/buildlink3.mk"
 
 # The tree's own install target only fills its dist/ directory.  The browser
 # is one program (resources compiled in); its object directory is named for

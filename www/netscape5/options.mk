@@ -25,6 +25,9 @@ MAKE_FLAGS+=	XCFLAGS=-I${NETSCAPE_IRIX_X}/usr/include\ -L${NETSCAPE_IRIX_X}/usr/
 .else
 # pkgsrc's Motif and X.  Xft.h (from Motif) needs FreeType's headers.
 MAKE_FLAGS+=	XCFLAGS=-I${BUILDLINK_PREFIX.freetype2}/include/freetype2\ -L${PREFIX}/lib\ ${COMPILER_RPATH_FLAG}${PREFIX}/lib
+# WebP images (libwebp is built shared only: not for the tardist yet)
+MAKE_FLAGS+=	NS_WEBP=1
+.include "../../graphics/libwebp/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../x11/motif/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
