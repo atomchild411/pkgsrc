@@ -7,7 +7,7 @@ MASTER_SITES=	${MASTER_SITE_GITHUB:=atomchild411/}
 GITHUB_PROJECT=	netscape
 # Branch irix of the fork: the 1998 tree (github.com/zii/netscape) ported to
 # IRIX with today's compilers, with TLS from OpenSSL.
-GITHUB_TAG=	6493d8d73c66dd192eed166ced27ebd0dee00c4d
+GITHUB_TAG=	9a18c825751d6c8cd0dea59f277c6f6b0a9564d4
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/atomchild411/netscape
@@ -32,6 +32,11 @@ MAKE_FLAGS+=	NS_OPENSSL=1
 # owns app-defaults/Netscape and ~/.netscape.
 MAKE_FLAGS+=	NS_PROGCLASS=Netscape5 NS_PROFILE_DIR=.netscape5
 DEPENDS+=	mozilla-rootcerts-openssl-[0-9]*:../../security/mozilla-rootcerts-openssl
+# CSS by libcss (NetSurf's CSS engine) instead of JavaScript Style Sheets
+# (lib/libstyle/nscss.c).
+MAKE_FLAGS+=	NS_LIBCSS=1
+# JavaScript on QuickJS (lib/libmocha/qjs.h) instead of the 1998 engine.
+MAKE_FLAGS+=	NS_QUICKJS=1
 # C and C++ in their 1998 dialects: implicit int and implicit declarations
 # are errors from C99 on, and C++17 has no "register".  The C++ runtime is
 # linked in: the browser is one program, with no libc++ to match on IRIX.
@@ -60,6 +65,8 @@ do-extract:
 .include "options.mk"
 
 .include "../../security/openssl/buildlink3.mk"
+.include "../../textproc/libcss/buildlink3.mk"
+.include "../../lang/quickjs/buildlink3.mk"
 
 # The tree's own install target only fills its dist/ directory.  The browser
 # is one program (resources compiled in); its object directory is named for
