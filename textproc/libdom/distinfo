@@ -6,3 +6,4 @@ Size (libdom-0.4.2-src.tar.gz) = 878706 bytes
 SHA1 (patch-bindings_xml_expat__xmlparser.c) = 16e7becbbdf540b489a457a4be17a909d6609721
 SHA1 (patch-src_core_node.c) = 0603d2d68723d394eead3cdda3a8a519fda9d19d
 SHA1 (patch-src_html_html__document.c) = d12ee97d5979ccadc1ca6b8108a0f953bc7014e2
+SHA1 (patch-src_utils_validate.c) = 646844a1c6d135427a227b4138756d96c004967f
