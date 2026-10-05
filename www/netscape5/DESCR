@@ -1,0 +1,7 @@
+Netscape Navigator from the 1998 Mozilla Classic source release (the tree
+that would have become Communicator 5.0, before the move to Gecko): the
+classic layout engine, JavaScript 1.3 and the Motif front end.
+
+This package builds the browser only (MOZ_LITE: no mail/news, editor,
+LDAP or calendar), brought forward for IRIX with TLS from OpenSSL in place
+of the security code stripped from the source release.

@@ -287,6 +287,7 @@ SUBDIR+=	nanoblogger
 SUBDIR+=	nanoblogger-extra
 SUBDIR+=	neon
 SUBDIR+=	netscape
+SUBDIR+=	netscape5
 SUBDIR+=	netsurf
 SUBDIR+=	nghttp2
 SUBDIR+=	nghttp2-tools
