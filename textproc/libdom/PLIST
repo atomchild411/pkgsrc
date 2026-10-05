@@ -98,6 +98,7 @@ include/dom/html/html_title_element.h
 include/dom/html/html_ulist_element.h
 include/dom/inttypes.h
 include/dom/walk.h
+lib/libdom.a
 lib/libdom.so
 lib/libdom.so.0
 lib/libdom.so.${PKGVERSION}
