@@ -7,7 +7,7 @@ MASTER_SITES=	${MASTER_SITE_GITHUB:=atomchild411/}
 GITHUB_PROJECT=	netscape
 # Branch irix of the fork: the 1998 tree (github.com/zii/netscape) ported to
 # IRIX with today's compilers, with TLS from OpenSSL.
-GITHUB_TAG=	02f62213e22e2fa885dd48db29a60fc4288f7aca
+GITHUB_TAG=	618237fca22597936c67daeb90f87f616db4a50a
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/atomchild411/netscape
@@ -28,6 +28,9 @@ MAKE_FLAGS+=	MOZILLA_CLIENT=1 MOZ_LITE=1 BUILD_OPT=1 NO_MDUPDATE=1
 MAKE_FLAGS+=	NS_USE_GCC=1 NO_SECURITY=1 USE_PTHREADS=1 USE_N32=1
 # TLS from OpenSSL (network/main/mktls.c), trusting pkgsrc's Mozilla roots.
 MAKE_FLAGS+=	NS_OPENSSL=1
+# X class Netscape5 and profile ~/.netscape5: Netscape 4 (IRIX ships 4.8)
+# owns app-defaults/Netscape and ~/.netscape.
+MAKE_FLAGS+=	NS_PROGCLASS=Netscape5 NS_PROFILE_DIR=.netscape5
 DEPENDS+=	mozilla-rootcerts-openssl-[0-9]*:../../security/mozilla-rootcerts-openssl
 # C and C++ in their 1998 dialects: implicit int and implicit declarations
 # are errors from C99 on, and C++17 has no "register".  The C++ runtime is
@@ -35,10 +38,6 @@ DEPENDS+=	mozilla-rootcerts-openssl-[0-9]*:../../security/mozilla-rootcerts-open
 MAKE_FLAGS+=	CC=${CC:Q}\ -std=gnu89
 MAKE_FLAGS+=	CCC=${CXX:Q}\ -std=gnu++98\ -static-libstdc++
 MAKE_FLAGS+=	HOST_CC=${NATIVE_CC:Q}
-# The tree's makefiles take neither CPPFLAGS nor LDFLAGS (they link with
-# CFLAGS): Xft.h (from Motif) needs FreeType's headers, and the programs
-# need the run path to PREFIX/lib.
-MAKE_FLAGS+=	XCFLAGS=-I${BUILDLINK_PREFIX.freetype2}/include/freetype2\ -L${PREFIX}/lib\ ${COMPILER_RPATH_FLAG}${PREFIX}/lib
 # Only the statically linked program (mozilla-export): the shared variant
 # would link the tree's own libpng 0.95 as -lpng, which buildlink turns into
 # pkgsrc's libpng16.
@@ -58,13 +57,9 @@ do-extract:
 	${LN} -s ${NETSCAPE_DEVSRC} ${WRKSRC}
 .endif
 
-.include "../../graphics/freetype2/buildlink3.mk"
+.include "options.mk"
+
 .include "../../security/openssl/buildlink3.mk"
-.include "../../x11/motif/buildlink3.mk"
-.include "../../x11/libXt/buildlink3.mk"
-.include "../../x11/libXext/buildlink3.mk"
-.include "../../x11/libXmu/buildlink3.mk"
-.include "../../x11/libX11/buildlink3.mk"
 
 # The tree's own install target only fills its dist/ directory.  The browser
 # is one program (resources compiled in); its object directory is named for
