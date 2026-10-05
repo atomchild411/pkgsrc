@@ -17,6 +17,8 @@ USE_TOOLS+=		gmake
 
 MAKE_ENV+=	PREFIX=${PREFIX:Q}
 MAKE_ENV+=	COMPONENT_TYPE=lib-shared
+# The build system is a tool: installed for the build machine (TOOLBASE).
+MAKE_ENV+=	NSSHARED=${TOOLBASE}/share/netsurf-buildsystem
 
 BUILDLINK_TRANSFORM+=	rm:-Werror
 
