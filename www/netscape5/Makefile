@@ -7,7 +7,7 @@ MASTER_SITES=	${MASTER_SITE_GITHUB:=atomchild411/}
 GITHUB_PROJECT=	netscape
 # Branch irix of the fork: the 1998 tree (github.com/zii/netscape) ported to
 # IRIX with today's compilers, with TLS from OpenSSL.
-GITHUB_TAG=	618237fca22597936c67daeb90f87f616db4a50a
+GITHUB_TAG=	599c2911cca74846f2781de451a5f32e0e38bc5f
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/atomchild411/netscape
