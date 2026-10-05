@@ -2,7 +2,7 @@
 
 DISTNAME=	libhubbub-0.3.8-src
 PKGNAME=	${DISTNAME:S/-src$//}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	www
 MASTER_SITES=	https://download.netsurf-browser.org/libs/releases/
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
@@ -21,6 +21,9 @@ USE_TOOLS+=		gmake perl pkg-config
 
 MAKE_ENV+=	PREFIX=${PREFIX:Q}
 MAKE_ENV+=	COMPONENT_TYPE=lib-shared
+# The build type (the build system's VARIANT): a VARIANT in the environment
+# (an IRIX ABI variant, say) would make a debug build (-O0, tracing).
+MAKE_ENV+=	VARIANT=release
 # The build system is a tool: installed for the build machine (TOOLBASE).
 MAKE_ENV+=	NSSHARED=${TOOLBASE}/share/netsurf-buildsystem
 MAKE_ENV+=	PKGCONFIG=${TOOLS_CMD.pkg-config:Q}
