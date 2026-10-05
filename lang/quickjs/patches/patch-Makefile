@@ -83,7 +83,7 @@ Portability patch for NetBSD.
 +ifndef CONFIG_NETBSD
 +HOST_LIBS+=-ldl
 +endif
-+HOST_LIBS+=-lphtread
++HOST_LIBS+=-lpthread
  LIBS=-lm -lpthread
  ifndef CONFIG_WIN32
 +ifndef CONFIG_NETBSD

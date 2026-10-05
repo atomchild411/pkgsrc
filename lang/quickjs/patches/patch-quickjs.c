@@ -1,6 +1,7 @@
 $NetBSD: patch-quickjs.c,v 1.9 2026/08/13 18:11:24 wiz Exp $
 
 - Portability patch for NetBSD.
+- IRIX: no tm_gmtoff (use timezone/altzone), no malloc_usable_size.
 - Fix SIGBUS on strict-alignment platforms (e.g. sparc, sparc64): the
   function bytecode's constant pool (an array of JSValue, which can
   hold a double/int64_t and needs 8-byte alignment) was suballocated
@@ -38,16 +39,16 @@ $NetBSD: patch-quickjs.c,v 1.9 2026/08/13 18:11:24 wiz Exp $
  #endif
  
  #if !defined(__EMSCRIPTEN__)
-@@ -2140,7 +2148,7 @@ static size_t js_def_malloc_usable_size(const void *pt
+@@ -2140,7 +2148,7 @@
      return malloc_size(ptr);
  #elif defined(_WIN32)
      return _msize((void *)ptr);
 -#elif defined(__EMSCRIPTEN__)
-+#elif defined(__EMSCRIPTEN__) || defined(__NetBSD__)
++#elif defined(__EMSCRIPTEN__) || defined(__NetBSD__) || defined(__sgi)
      return 0;
  #elif defined(__linux__) || defined(__GLIBC__)
      return malloc_usable_size((void *)ptr);
-@@ -36006,8 +36014,8 @@ static JSValue js_create_function(JSContext *ctx, JSFu
+@@ -36006,8 +36014,8 @@
      } else {
          function_size = sizeof(*b);
      }
@@ -58,7 +59,7 @@ $NetBSD: patch-quickjs.c,v 1.9 2026/08/13 18:11:24 wiz Exp $
      vardefs_offset = function_size;
      function_size += (fd->arg_count + fd->var_count) * sizeof(*b->vardefs);
      closure_var_offset = function_size;
-@@ -38682,8 +38690,8 @@ static JSValue JS_ReadFunctionTag(BCReaderState *s)
+@@ -38682,8 +38690,8 @@
      } else {
          function_size = offsetof(JSFunctionBytecode, debug);
      }
@@ -69,3 +70,19 @@ $NetBSD: patch-quickjs.c,v 1.9 2026/08/13 18:11:24 wiz Exp $
      vardefs_offset = function_size;
      function_size += (uint64_t)local_count * sizeof(*bc.vardefs);
      closure_var_offset = function_size;
+@@ -47268,6 +47276,15 @@
+ 
+         res = (gm_ti - loc_ti) / 60;
+     }
++#elif defined(__sgi)
++    {
++        /* IRIX has no tm_gmtoff: timezone and altzone hold the offsets
++           (seconds west of UTC) for standard and daylight time. */
++        struct tm tm;
++        tzset();
++        localtime_r(&ti, &tm);
++        res = (tm.tm_isdst > 0 ? altzone : timezone) / 60;
++    }
+ #else
+     {
+         struct tm tm;

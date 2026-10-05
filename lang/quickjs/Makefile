@@ -5,7 +5,7 @@ QJS_DATE=	2026-06-04
 VERSION=	${QJS_DATE:S/-//g}
 DISTNAME=	${NAME}-${QJS_DATE}
 PKGNAME=	${NAME}-${VERSION}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	lang
 MASTER_SITES=	https://bellard.org/quickjs/
 EXTRACT_SUFX=	.tar.xz
@@ -35,6 +35,15 @@ MAKE_ENV+=	CONFIG_BIGNUM=yes
 .else # Not NetBSD && not Linux
 # Presumed to be supported
 MAKE_ENV+=	CONFIG_BIGNUM=yes
+.endif
+
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# qjsc compiles repl.js to C during the build: the Makefile's cross mode
+# builds a copy for the build machine (host-qjsc).  CROSS_PREFIX only turns
+# that mode on; the compiler and tools stay pkgsrc's.
+MAKE_FLAGS+=	CROSS_PREFIX=${MACHINE_GNU_PLATFORM}-
+MAKE_FLAGS+=	CC=${CC:Q} AR=${AR:Q} STRIP=${STRIP:Q}
+MAKE_FLAGS+=	HOST_CC=${NATIVE_CC:Q}
 .endif
 
 # Populate missing examples/message.json based on the file present in Git
