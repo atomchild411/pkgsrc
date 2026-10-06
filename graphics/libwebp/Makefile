@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.50 2026/07/02 10:42:04 ryoon Exp $
 
 DISTNAME=	libwebp-1.6.0
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	graphics
 MASTER_SITES=	https://storage.googleapis.com/downloads.webmproject.org/releases/webp/
 
@@ -30,10 +30,27 @@ PKGCONFIG_OVERRIDE+=	src/mux/libwebpmux.pc.in
 
 INSTALLATION_DIRS+=	share/doc/${PKGBASE}
 
+# The static libraries as well (only them: no tools), for programs that
+# must need nothing else at run time (www/netscape5's irix-motif option).
+post-build:
+	${RUN} cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} cmake \
+		-B cmake-pkgsrc-static -G ${_CMAKE_BUILD_SYSTEM:Q} \
+		${CMAKE_CONFIGURE_ARGS:N-DBUILD_SHARED_LIBS=*} \
+		-DBUILD_SHARED_LIBS=OFF -DWEBP_BUILD_ANIM_UTILS=OFF \
+		-DWEBP_BUILD_CWEBP=OFF -DWEBP_BUILD_DWEBP=OFF \
+		-DWEBP_BUILD_GIF2WEBP=OFF -DWEBP_BUILD_IMG2WEBP=OFF \
+		-DWEBP_BUILD_WEBPINFO=OFF -DWEBP_BUILD_WEBPMUX=OFF \
+		-DWEBP_BUILD_EXTRAS=OFF
+	${RUN} cd ${WRKSRC}/cmake-pkgsrc-static && ${SETENV} ${MAKE_ENV} \
+		${_CMAKE_BUILD_TOOL} ${CMAKE_BUILD_ARGS} webp sharpyuv
+
 # Needed to comply with the BSD license and redistribution
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/COPYING \
 		${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
+	${INSTALL_DATA} ${WRKSRC}/cmake-pkgsrc-static/libwebp.a \
+		${WRKSRC}/cmake-pkgsrc-static/libsharpyuv.a \
+		${DESTDIR}${PREFIX}/lib
 
 .include "../../devel/cmake/build.mk"
 .include "../../graphics/giflib/buildlink3.mk"

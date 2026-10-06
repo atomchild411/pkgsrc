@@ -13,9 +13,11 @@ include/webp/mux_types.h
 include/webp/sharpyuv/sharpyuv.h
 include/webp/sharpyuv/sharpyuv_csp.h
 include/webp/types.h
+lib/libsharpyuv.a
 lib/libsharpyuv.so
 lib/libsharpyuv.so.0
 lib/libsharpyuv.so.0.1.2
+lib/libwebp.a
 lib/libwebp.so
 lib/libwebp.so.7
 lib/libwebp.so.7.2.0
