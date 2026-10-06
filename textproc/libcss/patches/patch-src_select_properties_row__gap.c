@@ -1,6 +1,6 @@
 $NetBSD$
 
-CSS grid, box alignment keywords, gradients, border radii and shadows: new file.
+CSS grid, box alignment keywords, gradients, border radii, shadows, calc() and ::first-letter: new file.
 
 --- /dev/null
 +++ src/select/properties/row_gap.c

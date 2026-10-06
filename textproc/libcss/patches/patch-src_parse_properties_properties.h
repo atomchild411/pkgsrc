@@ -1,6 +1,6 @@
 $NetBSD$
 
-CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii, shadows, calc() and ::first-letter: parse, cascade and compute them.
 
 --- src/parse/properties/properties.h.orig
 +++ src/parse/properties/properties.h
