@@ -2,7 +2,7 @@
 
 DISTNAME=	libcss-0.9.2-src
 PKGNAME=	${DISTNAME:S/-src$//}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	textproc
 MASTER_SITES=	https://download.netsurf-browser.org/libs/releases/
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
