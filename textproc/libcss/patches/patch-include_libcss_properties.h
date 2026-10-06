@@ -1,10 +1,10 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
 
 --- include/libcss/properties.h.orig
 +++ include/libcss/properties.h
-@@ -140,6 +140,19 @@ enum css_properties_e {
+@@ -140,6 +140,25 @@ enum css_properties_e {
  	CSS_PROP_ORDER				= 0x07b,
  	CSS_PROP_FILL_OPACITY			= 0x07c,
  	CSS_PROP_STROKE_OPACITY			= 0x07d,
@@ -21,10 +21,16 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
 +	CSS_PROP_ROW_GAP			= 0x088,
 +	CSS_PROP_JUSTIFY_ITEMS			= 0x089,
 +	CSS_PROP_JUSTIFY_SELF			= 0x08a,
++	CSS_PROP_BORDER_TOP_LEFT_RADIUS		= 0x08b,
++	CSS_PROP_BORDER_TOP_RIGHT_RADIUS		= 0x08c,
++	CSS_PROP_BORDER_BOTTOM_RIGHT_RADIUS		= 0x08d,
++	CSS_PROP_BORDER_BOTTOM_LEFT_RADIUS		= 0x08e,
++	CSS_PROP_BOX_SHADOW			= 0x08f,
++	CSS_PROP_TEXT_SHADOW			= 0x090,
  
  	CSS_N_PROPERTIES
  };
-@@ -905,6 +918,64 @@ enum css_z_index_e {
+@@ -905,6 +924,78 @@ enum css_z_index_e {
  	CSS_Z_INDEX_AUTO			= 0x2
  };
  
@@ -84,6 +90,20 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
 +	CSS_JUSTIFY_SELF_BASELINE		= 0x6,
 +	CSS_JUSTIFY_SELF_LEFT			= 0x7,
 +	CSS_JUSTIFY_SELF_AUTO			= 0x8
++};
++
++/* border-*-radius, box-shadow and text-shadow: their text (normalised to
++ * single spaces), a string the client interprets; NULL is 0 or none */
++enum css_border_radius_e {
++	CSS_BORDER_RADIUS_INHERIT		= 0x0,
++	CSS_BORDER_RADIUS_SET			= 0x1,
++	CSS_BORDER_RADIUS_NONE			= 0x1
++};
++
++enum css_shadow_e {
++	CSS_SHADOW_INHERIT			= 0x0,
++	CSS_SHADOW_SET				= 0x1,
++	CSS_SHADOW_NONE				= 0x1
 +};
 +
  #ifdef __cplusplus

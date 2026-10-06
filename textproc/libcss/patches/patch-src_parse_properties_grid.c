@@ -1,10 +1,10 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: new file.
+CSS grid, box alignment keywords, gradients, border radii and shadows: new file.
 
 --- /dev/null
 +++ src/parse/properties/grid.c
-@@ -0,0 +1,590 @@
+@@ -0,0 +1,708 @@
 +/*
 + * This file is part of LibCSS.
 + * Licensed under the MIT License,
@@ -95,6 +95,7 @@ CSS grid properties, and the box alignment keywords: new file.
 +		case CSS_TOKEN_PERCENTAGE:
 +		case CSS_TOKEN_FUNCTION:
 +		case CSS_TOKEN_STRING:
++		case CSS_TOKEN_HASH:
 +			break;
 +		default:
 +			free(buf);
@@ -108,6 +109,8 @@ CSS grid properties, and the box alignment keywords: new file.
 +		space = false;
 +		if (ok && token->type == CSS_TOKEN_STRING)
 +			ok = grid_text_add(&buf, &len, &size, "\"", 1);
++		if (ok && token->type == CSS_TOKEN_HASH)
++			ok = grid_text_add(&buf, &len, &size, "#", 1);
 +		if (ok)
 +			ok = grid_text_add(&buf, &len, &size, s, n);
 +		if (ok && token->type == CSS_TOKEN_STRING)
@@ -594,4 +597,119 @@ CSS grid properties, and the box alignment keywords: new file.
 +		css_style *result)
 +{
 +	return css__parse_column_gap(c, vector, ctx, result);
++}
++
++/* ---- border radii and shadows: kept as text too -------------------- */
++
++css_error css__parse_border_top_left_radius(css_language *c,
++		const parserutils_vector *vector, int32_t *ctx,
++		css_style *result)
++{
++	return grid_string_property(c, vector, ctx, result,
++			CSS_PROP_BORDER_TOP_LEFT_RADIUS);
++}
++
++css_error css__parse_border_top_right_radius(css_language *c,
++		const parserutils_vector *vector, int32_t *ctx,
++		css_style *result)
++{
++	return grid_string_property(c, vector, ctx, result,
++			CSS_PROP_BORDER_TOP_RIGHT_RADIUS);
++}
++
++css_error css__parse_border_bottom_right_radius(css_language *c,
++		const parserutils_vector *vector, int32_t *ctx,
++		css_style *result)
++{
++	return grid_string_property(c, vector, ctx, result,
++			CSS_PROP_BORDER_BOTTOM_RIGHT_RADIUS);
++}
++
++css_error css__parse_border_bottom_left_radius(css_language *c,
++		const parserutils_vector *vector, int32_t *ctx,
++		css_style *result)
++{
++	return grid_string_property(c, vector, ctx, result,
++			CSS_PROP_BORDER_BOTTOM_LEFT_RADIUS);
++}
++
++css_error css__parse_box_shadow(css_language *c,
++		const parserutils_vector *vector, int32_t *ctx,
++		css_style *result)
++{
++	return grid_string_property(c, vector, ctx, result,
++			CSS_PROP_BOX_SHADOW);
++}
++
++css_error css__parse_text_shadow(css_language *c,
++		const parserutils_vector *vector, int32_t *ctx,
++		css_style *result)
++{
++	return grid_string_property(c, vector, ctx, result,
++			CSS_PROP_TEXT_SHADOW);
++}
++
++/**
++ * border-radius: 1 to 4 horizontal radii [ / 1 to 4 vertical ], given out
++ * to the corners (top-left, top-right, bottom-right, bottom-left) as the
++ * margin shorthand does; each corner's text "H" or "H V".
++ */
++css_error css__parse_border_radius(css_language *c,
++		const parserutils_vector *vector, int32_t *ctx,
++		css_style *result)
++{
++	static const opcode_t props[4] = {
++		CSS_PROP_BORDER_TOP_LEFT_RADIUS, CSS_PROP_BORDER_TOP_RIGHT_RADIUS,
++		CSS_PROP_BORDER_BOTTOM_RIGHT_RADIUS,
++		CSS_PROP_BORDER_BOTTOM_LEFT_RADIUS
++	};
++	int32_t orig_ctx = *ctx;
++	css_error error;
++	char *text, *h[4], *v[4], *p, *slash, corner[128];
++	int nh = 0, nv = 0, i;
++
++	if (grid_flag(c, vector, ctx, result, props, 4, &error))
++		return error;
++	error = grid_text(vector, ctx, false, &text);
++	if (error != CSS_OK) {
++		*ctx = orig_ctx;
++		return error;
++	}
++	slash = strchr(text, '/');
++	if (slash != NULL)
++		*slash++ = '\0';
++	for (p = strtok(text, " "); p != NULL && nh < 4; p = strtok(NULL, " "))
++		h[nh++] = p;
++	if (slash != NULL)
++		for (p = strtok(slash, " "); p != NULL && nv < 4;
++				p = strtok(NULL, " "))
++			v[nv++] = p;
++	if (nh == 0 || (slash != NULL && nv == 0)) {
++		free(text);
++		*ctx = orig_ctx;
++		return CSS_INVALID;
++	}
++	/* 1: all; 2: tl+br, tr+bl; 3: tl, tr+bl, br */
++	if (nh < 2) h[1] = h[0];
++	if (nh < 3) h[2] = h[0];
++	if (nh < 4) h[3] = h[1];
++	if (nv > 0) {
++		if (nv < 2) v[1] = v[0];
++		if (nv < 3) v[2] = v[0];
++		if (nv < 4) v[3] = v[1];
++	}
++	error = CSS_OK;
++	for (i = 0; i < 4 && error == CSS_OK; i++) {
++		if (nv > 0)
++			snprintf(corner, sizeof corner, "%s %s", h[i], v[i]);
++		else
++			snprintf(corner, sizeof corner, "%s", h[i]);
++		/* (0 is no radius) */
++		error = grid_emit(c, result, props[i],
++				strcmp(corner, "0") == 0 ? "none" : corner);
++	}
++	free(text);
++	if (error != CSS_OK)
++		*ctx = orig_ctx;
++	return error;
 +}

@@ -1,10 +1,10 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
 
 --- src/select/dispatch.c.orig
 +++ src/select/dispatch.c
-@@ -522,5 +522,57 @@ struct prop_table prop_dispatch[CSS_N_PROPERTIES] = {
+@@ -522,5 +522,81 @@ struct prop_table prop_dispatch[CSS_N_PROPERTIES] = {
  	{
  		PROPERTY_FUNCS(stroke_opacity),
  		1,
@@ -60,5 +60,29 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
 +	{
 +		PROPERTY_FUNCS(justify_self),
 +		0,
++	},
++	{
++		PROPERTY_FUNCS(border_top_left_radius),
++		0,
++	},
++	{
++		PROPERTY_FUNCS(border_top_right_radius),
++		0,
++	},
++	{
++		PROPERTY_FUNCS(border_bottom_right_radius),
++		0,
++	},
++	{
++		PROPERTY_FUNCS(border_bottom_left_radius),
++		0,
++	},
++	{
++		PROPERTY_FUNCS(box_shadow),
++		0,
++	},
++	{
++		PROPERTY_FUNCS(text_shadow),
++		1,
  	}
  };

@@ -1,6 +1,6 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
 
 --- src/bytecode/opcodes.h.orig
 +++ src/bytecode/opcodes.h

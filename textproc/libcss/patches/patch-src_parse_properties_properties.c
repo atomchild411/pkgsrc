@@ -1,10 +1,10 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
 
 --- src/parse/properties/properties.c.orig
 +++ src/parse/properties/properties.c
-@@ -158,7 +158,28 @@ const css_prop_handler property_handlers[LAST_PROP + 1 - FIRST_PROP] =
+@@ -158,7 +158,35 @@ const css_prop_handler property_handlers[LAST_PROP + 1 - FIRST_PROP] =
  	css__parse_width,
  	css__parse_word_spacing,
  	css__parse_writing_mode,
@@ -30,11 +30,18 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
 +	css__parse_grid_template_rows,
 +	css__parse_justify_items,
 +	css__parse_justify_self,
-+	css__parse_row_gap
++	css__parse_row_gap,
++	css__parse_border_radius,
++	css__parse_border_bottom_left_radius,
++	css__parse_border_bottom_right_radius,
++	css__parse_border_top_left_radius,
++	css__parse_border_top_right_radius,
++	css__parse_box_shadow,
++	css__parse_text_shadow
  };
  
  /** Mapping from property bytecode index to bytecode unit class mask. */
-@@ -289,4 +310,5 @@ const uint32_t property_unit_mask[CSS_N_PROPERTIES] = {
+@@ -289,4 +317,5 @@ const uint32_t property_unit_mask[CSS_N_PROPERTIES] = {
  	[CSS_PROP_FLEX_WRAP]             = UNIT_MASK_FLEX_WRAP,
  	[CSS_PROP_JUSTIFY_CONTENT]       = UNIT_MASK_JUSTIFY_CONTENT,
  	[CSS_PROP_ORDER]                 = UNIT_MASK_ORDER,

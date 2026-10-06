@@ -1,10 +1,10 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
 
 --- src/parse/propstrings.c.orig
 +++ src/parse/propstrings.c
-@@ -233,6 +233,27 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
+@@ -233,6 +233,34 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
  	SMAP("word-spacing"),
  	SMAP("writing-mode"),
  	SMAP("z-index"),
@@ -29,10 +29,17 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
 +	SMAP("justify-items"),
 +	SMAP("justify-self"),
 +	SMAP("row-gap"),
++	SMAP("border-radius"),
++	SMAP("border-bottom-left-radius"),
++	SMAP("border-bottom-right-radius"),
++	SMAP("border-top-left-radius"),
++	SMAP("border-top-right-radius"),
++	SMAP("box-shadow"),
++	SMAP("text-shadow"),
  
  	SMAP("inherit"),
  	SMAP("unset"),
-@@ -491,6 +512,12 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
+@@ -491,6 +519,12 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
  	SMAP("grid"),
  	SMAP("inline-grid"),
  	SMAP("sticky"),

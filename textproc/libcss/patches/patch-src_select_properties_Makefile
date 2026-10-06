@@ -1,10 +1,10 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
 
 --- src/select/properties/Makefile.orig
 +++ src/select/properties/Makefile
-@@ -125,6 +125,19 @@ widows.c \
+@@ -125,6 +125,25 @@ widows.c \
  width.c \
  word_spacing.c \
  writing_mode.c \
@@ -22,6 +22,12 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
 +grid_row_end.c \
 +row_gap.c \
 +justify_items.c \
-+justify_self.c
++justify_self.c \
++border_top_left_radius.c \
++border_top_right_radius.c \
++border_bottom_right_radius.c \
++border_bottom_left_radius.c \
++box_shadow.c \
++text_shadow.c
  
  include $(NSBUILD)/Makefile.subdir

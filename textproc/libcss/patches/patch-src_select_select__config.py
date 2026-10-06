@@ -1,6 +1,6 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
 
 --- src/select/select_config.py.orig
 +++ src/select/select_config.py
@@ -14,7 +14,7 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
      # Style group, with additional value
      ('background_color', 2, 'color'),
      ('background_image', 1, 'string'),
-@@ -106,6 +109,15 @@ style = {
+@@ -106,6 +109,21 @@ style = {
      ('vertical_align', 4, 'length', 'CSS_VERTICAL_ALIGN_SET'),
      ('width', 2, 'length', 'CSS_WIDTH_SET'),
      ('z_index', 2, 'integer'),
@@ -27,10 +27,16 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
 +    ('grid_column_end', 1, 'string'),
 +    ('grid_row_start', 1, 'string'),
 +    ('grid_row_end', 1, 'string'),
++    ('border_top_left_radius', 1, 'string'),
++    ('border_top_right_radius', 1, 'string'),
++    ('border_bottom_right_radius', 1, 'string'),
++    ('border_bottom_left_radius', 1, 'string'),
++    ('box_shadow', 1, 'string'),
++    ('text_shadow', 1, 'string'),
      # Style group, arrays
      ('font_family', 3, 'string_arr', None, None,
          'Encode font family as an array of string objects, terminated with a '
-@@ -133,6 +145,8 @@ style = {
+@@ -133,6 +151,8 @@ style = {
      ('column_fill', 2, None, None, 'CSS_COLUMN_FILL_BALANCE'),
      ('column_gap', 2, 'length',
          'CSS_COLUMN_GAP_SET', 'CSS_COLUMN_GAP_NORMAL'),

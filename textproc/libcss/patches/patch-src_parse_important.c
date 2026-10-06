@@ -1,10 +1,10 @@
 $NetBSD$
 
-CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+CSS grid, box alignment keywords, gradients, border radii and shadows: parse, cascade and compute them.
 
 --- src/parse/important.c.orig
 +++ src/parse/important.c
-@@ -124,6 +124,19 @@ void css__make_style_important(css_style *style)
+@@ -124,6 +124,25 @@ void css__make_style_important(css_style *style)
  					offset++; /* string table entry */
  				break;
  
@@ -17,6 +17,12 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
 +			case CSS_PROP_GRID_COLUMN_END:
 +			case CSS_PROP_GRID_ROW_START:
 +			case CSS_PROP_GRID_ROW_END:
++			case CSS_PROP_BORDER_TOP_LEFT_RADIUS:
++			case CSS_PROP_BORDER_TOP_RIGHT_RADIUS:
++			case CSS_PROP_BORDER_BOTTOM_RIGHT_RADIUS:
++			case CSS_PROP_BORDER_BOTTOM_LEFT_RADIUS:
++			case CSS_PROP_BOX_SHADOW:
++			case CSS_PROP_TEXT_SHADOW:
 +				if (value == GRID_STRING_SET)
 +					offset++; /* string table entry */
 +				break;
@@ -24,7 +30,7 @@ CSS grid properties, and the box alignment keywords: parse, cascade and compute 
  			case CSS_PROP_BACKGROUND_POSITION:
  				if ((value & 0xf0) == BACKGROUND_POSITION_HORZ_SET)
  					offset += 2; /* length + units */
-@@ -164,6 +177,8 @@ void css__make_style_important(css_style *style)
+@@ -164,6 +183,8 @@ void css__make_style_important(css_style *style)
  			case CSS_PROP_WIDTH:
  			case CSS_PROP_COLUMN_WIDTH:
  			case CSS_PROP_COLUMN_GAP:
