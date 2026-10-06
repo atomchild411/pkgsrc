@@ -1,0 +1,14 @@
+$NetBSD$
+
+CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+
+--- src/parse/properties/Makefile.orig
++++ src/parse/properties/Makefile
+@@ -51,6 +51,7 @@ DIR_SOURCES :=				\
+ 	font.c				\
+ 	font_family.c			\
+ 	font_weight.c			\
++	grid.c				\
+ 	list_style.c			\
+ 	list_style_type.c		\
+ 	margin.c			\

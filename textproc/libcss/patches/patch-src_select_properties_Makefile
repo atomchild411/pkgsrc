@@ -1,0 +1,27 @@
+$NetBSD$
+
+CSS grid properties, and the box alignment keywords: parse, cascade and compute them.
+
+--- src/select/properties/Makefile.orig
++++ src/select/properties/Makefile
+@@ -125,6 +125,19 @@ widows.c \
+ width.c \
+ word_spacing.c \
+ writing_mode.c \
+-z_index.c
++z_index.c \
++grid_template_columns.c \
++grid_template_rows.c \
++grid_template_areas.c \
++grid_auto_columns.c \
++grid_auto_rows.c \
++grid_auto_flow.c \
++grid_column_start.c \
++grid_column_end.c \
++grid_row_start.c \
++grid_row_end.c \
++row_gap.c \
++justify_items.c \
++justify_self.c
+ 
+ include $(NSBUILD)/Makefile.subdir
