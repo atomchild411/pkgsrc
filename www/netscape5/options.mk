@@ -28,6 +28,17 @@ MAKE_FLAGS+=	XCFLAGS=-I${BUILDLINK_PREFIX.freetype2}/include/freetype2\ -L${PREF
 # WebP images (libwebp is built shared only: not for the tardist yet)
 MAKE_FLAGS+=	NS_WEBP=1
 .include "../../graphics/libwebp/buildlink3.mk"
+# Today's image libraries for PNG, JPEG and zlib (NS_SYSTEM_IMGLIBS), and
+# HTTP/2 by nghttp2 (NS_HTTP2): config/config.mk turns both on without
+# irix-motif.
+.include "../../graphics/png/buildlink3.mk"
+.include "../../mk/jpeg.buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
+.include "../../www/nghttp2/buildlink3.mk"
+# Page text by FreeType in Arimo, Tinos and Cousine (cmd/xfe/ftfonts.c),
+# with DejaVu for what they lack.
+DEPENDS+=	croscorefonts-[0-9]*:../../fonts/croscorefonts
+DEPENDS+=	dejavu-ttf-[0-9]*:../../fonts/dejavu-ttf
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../x11/motif/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
