@@ -5,3 +5,5 @@ SHA512 (freetype-2.14.3.tar.xz) = 43de86ea70b4b47f6efaae67f3440f65a24ffac29dc6d1
 Size (freetype-2.14.3.tar.xz) = 2670220 bytes
 SHA1 (patch-builds_unix_freetype-config.in) = 60217b884a0f50c90f89529eaf909ded2693e3be
 SHA1 (patch-builds_unix_unix-cc.in) = 8f336ea7d2dec4624596e0fa7a2adb2556e0c15b
+SHA1 (patch-src_cid_cidload.c) = 92605a611148b8d018bf38c42484c82e0ce13812
+SHA1 (patch-src_truetype_ttgxvar.c) = 8123ab5352d7ee8d5e862dd8036d91a01e0f0175
