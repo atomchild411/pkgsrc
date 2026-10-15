@@ -9,10 +9,11 @@ branch iris/main):
 - Link the compiler-rt builtins as -lclang_rt.builtins
 - Driver: a link with -lGL gets -lGLcore
 - Driver: --unwindlib is no unused argument
+- Driver: no DT_RPATH to libc++ when it is linked statically
 
 --- lib/Driver/ToolChains/IRIX.cpp.orig
 +++ lib/Driver/ToolChains/IRIX.cpp
-@@ -0,0 +1,361 @@
+@@ -0,0 +1,363 @@
 +//===--- IRIX.cpp - IRIX ToolChain Implementations --------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -179,7 +180,9 @@ branch iris/main):
 +    // clang running on IRIX finds the libc++ it was linked with through
 +    // DT_RPATH. (Cross-compiled, where the driver's tree is not the
 +    // program's, it is left to the -rpath of the machine it will run on.)
++    // A program with libc++ linked in statically has no use for it.
 +    if (!RuntimeLibDir.empty() &&
++        !Args.hasArg(options::OPT_static_libstdcxx, options::OPT_static) &&
 +        llvm::Triple(llvm::sys::getProcessTriple()).isOSIRIX()) {
 +      CmdArgs.push_back("-rpath");
 +      CmdArgs.push_back(Args.MakeArgString(RuntimeLibDir));
