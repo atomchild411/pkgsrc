@@ -10,10 +10,11 @@ branch iris/main):
 - Wrapper <inttypes.h>: formats for the least and fast types
 - Wrapper <inttypes.h>: include <stdint.h> in every mode
 - Wrapper <inttypes.h>: keep programs' macros out of IRIX's own names
+- Wrapper <inttypes.h>: set aside all six of 6.5.22's C99 functions
 
 --- lib/Headers/irix_wrappers/inttypes.h.orig
 +++ lib/Headers/irix_wrappers/inttypes.h
-@@ -0,0 +1,286 @@
+@@ -0,0 +1,303 @@
 +/*===---- inttypes.h - IRIX wrapper for C99 format macros -----------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -34,11 +35,15 @@ branch iris/main):
 + * code (netpbm) uses SIZE_MAX too, and outside C99 our <stdint.h> defines
 + * what it has itself rather than reading IRIX's C99-only header.
 + *
-+ * strtoimax, strtoumax and imaxabs: IRIX declares the first two only in its
-+ * own API mode, and no IRIX library defines any of them; compiler-rt's
-+ * builtins do (irix/libc_compat.c). Declare them in every C99 mode. IRIX's
-+ * declarations have no extern "C", so in C++ they would give the functions
-+ * C++ linkage: they are renamed out of the way while its header is read.
++ * strtoimax, strtoumax and imaxabs: IRIX before 6.5.22 declares the first
++ * two only in its own API mode, and its libraries define none of them;
++ * compiler-rt's builtins do (irix/libc_compat.c). Declare them in every C99
++ * mode. 6.5.22's header declares all of C99's functions in C99 mode, and its
++ * libc defines strtoimax, strtoumax, wcstoimax and wcstoumax (imaxdiv is
++ * declared but defined nowhere). IRIX's declarations have no extern "C", so
++ * in C++ they would give the functions C++ linkage: all six are renamed out
++ * of the way while its header is read, and declared again here, the last
++ * three only when the header is 6.5.22's (the one that defines PRId8).
 + */
 +
 +#ifndef __CLANG_IRIX_INTTYPES_H
@@ -77,9 +82,17 @@ branch iris/main):
 +#undef div_max
 +#define strtoimax __irix_unused_strtoimax
 +#define strtoumax __irix_unused_strtoumax
++#define imaxabs __irix_unused_imaxabs
++#define imaxdiv __irix_unused_imaxdiv
++#define wcstoimax __irix_unused_wcstoimax
++#define wcstoumax __irix_unused_wcstoumax
 +#include_next <inttypes.h>
 +#undef strtoimax
 +#undef strtoumax
++#undef imaxabs
++#undef imaxdiv
++#undef wcstoimax
++#undef wcstoumax
 +#pragma pop_macro("strtoi8")
 +#pragma pop_macro("strtoi16")
 +#pragma pop_macro("strtoi32")
@@ -104,6 +117,11 @@ branch iris/main):
 +intmax_t strtoimax(const char *__restrict, char **__restrict, int);
 +uintmax_t strtoumax(const char *__restrict, char **__restrict, int);
 +intmax_t imaxabs(intmax_t);
++#ifdef PRId8
++imaxdiv_t imaxdiv(intmax_t, intmax_t);
++intmax_t wcstoimax(const wchar_t *__restrict, wchar_t **__restrict, int);
++uintmax_t wcstoumax(const wchar_t *__restrict, wchar_t **__restrict, int);
++#endif
 +#ifdef __cplusplus
 +}
 +#endif
