@@ -1,0 +1,32 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): errno is at __oserror(). Cargo.toml: only the dependencies (and features) IRIX builds use.
+
+--- errno-0.3.14/Cargo.toml.orig
++++ errno-0.3.14/Cargo.toml
+@@ -42,25 +42,10 @@ std = ["libc/std"]
+ name = "errno"
+ path = "src/lib.rs"
+ 
+-[target.'cfg(target_os="hermit")'.dependencies.libc]
+-version = "0.2"
+-default-features = false
+-
+-[target.'cfg(target_os="wasi")'.dependencies.libc]
+-version = "0.2"
+-default-features = false
+-
+ [target."cfg(unix)".dependencies.libc]
+ version = "0.2"
+ default-features = false
+ 
+-[target."cfg(windows)".dependencies.windows-sys]
+-version = ">=0.52, <0.62"
+-features = [
+-    "Win32_Foundation",
+-    "Win32_System_Diagnostics_Debug",
+-]
+-
+ [lints.rust.unexpected_cfgs]
+ level = "warn"
+ priority = 0

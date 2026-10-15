@@ -1,0 +1,146 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): no peer credentials for UNIX-domain sockets (an error); signed uid_t/gid_t, as on QNX. Cargo.toml: only the dependencies (and features) IRIX builds use.
+
+--- tokio-1.53.1/Cargo.toml.orig
++++ tokio-1.53.1/Cargo.toml
+@@ -85,11 +85,9 @@ full = [
+ ]
+ io-std = []
+ io-uring = [
+-    "dep:io-uring",
+     "libc",
+     "mio/os-poll",
+     "mio/os-ext",
+-    "dep:slab",
+ ]
+ io-util = ["bytes"]
+ macros = ["tokio-macros"]
+@@ -99,11 +97,6 @@ net = [
+     "mio/os-ext",
+     "mio/net",
+     "socket2",
+-    "windows-sys/Win32_Foundation",
+-    "windows-sys/Win32_Security",
+-    "windows-sys/Win32_Storage_FileSystem",
+-    "windows-sys/Win32_System_Pipes",
+-    "windows-sys/Win32_System_SystemServices",
+ ]
+ process = [
+     "bytes",
+@@ -112,9 +105,6 @@ process = [
+     "mio/os-ext",
+     "mio/net",
+     "signal-hook-registry",
+-    "windows-sys/Win32_Foundation",
+-    "windows-sys/Win32_System_Threading",
+-    "windows-sys/Win32_System_WindowsProgramming",
+ ]
+ rt = []
+ rt-multi-thread = ["rt"]
+@@ -125,11 +115,9 @@ signal = [
+     "mio/net",
+     "mio/os-ext",
+     "signal-hook-registry",
+-    "windows-sys/Win32_Foundation",
+-    "windows-sys/Win32_System_Console",
+ ]
+ sync = []
+-taskdump = ["dep:backtrace"]
++taskdump = []
+ test-util = [
+     "rt",
+     "sync",
+@@ -875,53 +863,11 @@ version = "0.4.0"
+ version = "0.7"
+ features = ["rt"]
+ 
+-[target.'cfg(all(target_family = "wasm", not(target_os = "wasi")))'.dev-dependencies.wasm-bindgen-test]
+-version = "0.3.0"
+-
+-[target.'cfg(all(tokio_unstable, target_has_atomic = "64"))'.dev-dependencies.tracing-mock]
+-version = "= 0.1.0-beta.1"
+-
+-[target.'cfg(all(tokio_unstable, target_os = "linux"))'.dependencies.backtrace]
+-version = "0.3.58"
+-optional = true
+-
+-[target.'cfg(all(tokio_unstable, target_os = "linux"))'.dependencies.io-uring]
+-version = "0.7.11"
+-optional = true
+-default-features = false
+-
+-[target.'cfg(all(tokio_unstable, target_os = "linux"))'.dependencies.libc]
+-version = "0.2.168"
+-optional = true
+-
+-[target.'cfg(all(tokio_unstable, target_os = "linux"))'.dependencies.mio]
+-version = "1.2.0"
+-features = [
+-    "os-poll",
+-    "os-ext",
+-]
+-optional = true
+-default-features = false
+-
+-[target.'cfg(all(tokio_unstable, target_os = "linux"))'.dependencies.slab]
+-version = "0.4.9"
+-optional = true
+-
+-[target.'cfg(all(tokio_unstable, target_os = "linux"))'.dev-dependencies.backtrace]
+-version = "0.3.58"
+-
+ [target.'cfg(any(not(target_family = "wasm"), all(target_os = "wasi", not(target_env = "p1"))))'.dependencies.socket2]
+ version = "0.6.3"
+ features = ["all"]
+ optional = true
+ 
+-[target."cfg(loom)".dev-dependencies.loom]
+-version = "0.7"
+-features = [
+-    "futures",
+-    "checkpoint",
+-]
+-
+ [target.'cfg(not(all(target_family = "wasm", target_os = "unknown")))'.dev-dependencies.rand]
+ version = "0.9"
+ 
+@@ -934,20 +880,6 @@ version = "0.6.0"
+ [target.'cfg(not(target_family = "wasm"))'.dev-dependencies.tempfile]
+ version = "3.1.0"
+ 
+-[target.'cfg(target_os = "freebsd")'.dev-dependencies.mio-aio]
+-version = "2"
+-features = ["tokio"]
+-
+-[target.'cfg(target_os = "wasi")'.dependencies.libc]
+-version = "0.2.168"
+-optional = true
+-
+-[target."cfg(tokio_unstable)".dependencies.tracing]
+-version = "0.1.29"
+-features = ["std"]
+-optional = true
+-default-features = false
+-
+ [target."cfg(unix)".dependencies.libc]
+ version = "0.2.168"
+ optional = true
+@@ -968,17 +900,6 @@ features = [
+ ]
+ default-features = false
+ 
+-[target."cfg(windows)".dependencies.windows-sys]
+-version = "0.61"
+-optional = true
+-
+-[target."cfg(windows)".dev-dependencies.windows-sys]
+-version = "0.61"
+-features = [
+-    "Win32_Foundation",
+-    "Win32_Security_Authorization",
+-]
+-
+ [lints.rust.unexpected_cfgs]
+ level = "warn"
+ priority = 0

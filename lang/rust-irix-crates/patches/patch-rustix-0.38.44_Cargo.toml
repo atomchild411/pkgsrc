@@ -1,0 +1,135 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): IRIX as Haiku is, where it is (poll, no accept4/pipe2/ppoll, no fadvise/posix_madvise/fallocate/futimens, no TCP keepalive tuning or TIOCSCTTY), with the standard sockaddr layouts, XPG msghdr, ioctl(int, int, ...), madvise() with MADV_* and, IRIX N32 time_t being 32 bits, fix_y2038. Cargo.toml: only the dependencies (and features) IRIX builds use.
+
+--- rustix-0.38.44/Cargo.toml.orig
++++ rustix-0.38.44/Cargo.toml
+@@ -158,24 +158,18 @@ io_uring = [
+     "event",
+     "fs",
+     "net",
+-    "linux-raw-sys/io_uring",
+ ]
+-libc-extra-traits = ["libc?/extra_traits"]
++libc-extra-traits = ["libc/extra_traits"]
+ linux_4_11 = []
+ linux_latest = ["linux_4_11"]
+ mm = []
+ mount = []
+ net = [
+-    "linux-raw-sys/net",
+-    "linux-raw-sys/netlink",
+-    "linux-raw-sys/if_ether",
+-    "linux-raw-sys/xdp",
+ ]
+ param = ["fs"]
+ pipe = []
+-process = ["linux-raw-sys/prctl"]
++process = []
+ procfs = [
+-    "once_cell",
+     "itoa",
+     "fs",
+ ]
+@@ -184,12 +178,11 @@ pty = [
+     "fs",
+ ]
+ rand = []
+-runtime = ["linux-raw-sys/prctl"]
++runtime = []
+ rustc-dep-of-std = [
+     "core",
+     "rustc-std-workspace-alloc",
+     "compiler_builtins",
+-    "linux-raw-sys/rustc-dep-of-std",
+     "bitflags/rustc-dep-of-std",
+     "compiler_builtins?/rustc-dep-of-std",
+ ]
+@@ -197,58 +190,22 @@ shm = ["fs"]
+ std = [
+     "bitflags/std",
+     "alloc",
+-    "libc?/std",
+-    "libc_errno?/std",
++    "libc/std",
++    "libc_errno/std",
+     "libc-extra-traits",
+ ]
+ stdio = []
+-system = ["linux-raw-sys/system"]
++system = []
+ termios = []
+-thread = ["linux-raw-sys/prctl"]
++thread = []
+ time = []
+ try_close = []
+ use-explicitly-provided-auxv = []
+ use-libc = [
+-    "libc_errno",
+-    "libc",
+     "libc-extra-traits",
+ ]
+ use-libc-auxv = []
+ 
+-[target.'cfg(all(any(target_os = "android", target_os = "linux"), any(rustix_use_libc, miri, not(all(target_os = "linux", any(target_endian = "little", target_arch = "s390x"), any(target_arch = "arm", all(target_arch = "aarch64", target_pointer_width = "64"), target_arch = "riscv64", all(rustix_use_experimental_asm, target_arch = "powerpc64"), all(rustix_use_experimental_asm, target_arch = "s390x"), all(rustix_use_experimental_asm, target_arch = "mips"), all(rustix_use_experimental_asm, target_arch = "mips32r6"), all(rustix_use_experimental_asm, target_arch = "mips64"), all(rustix_use_experimental_asm, target_arch = "mips64r6"), target_arch = "x86", all(target_arch = "x86_64", target_pointer_width = "64")))))))'.dependencies.linux-raw-sys]
+-version = "0.4.14"
+-features = [
+-    "general",
+-    "ioctl",
+-    "no_std",
+-]
+-default-features = false
+-
+-[target.'cfg(all(criterion, not(any(target_os = "emscripten", target_os = "wasi"))))'.dev-dependencies.criterion]
+-version = "0.4"
+-
+-[target.'cfg(all(not(rustix_use_libc), not(miri), target_os = "linux", any(target_endian = "little", target_arch = "s390x"), any(target_arch = "arm", all(target_arch = "aarch64", target_pointer_width = "64"), target_arch = "riscv64", all(rustix_use_experimental_asm, target_arch = "powerpc64"), all(rustix_use_experimental_asm, target_arch = "s390x"), all(rustix_use_experimental_asm, target_arch = "mips"), all(rustix_use_experimental_asm, target_arch = "mips32r6"), all(rustix_use_experimental_asm, target_arch = "mips64"), all(rustix_use_experimental_asm, target_arch = "mips64r6"), target_arch = "x86", all(target_arch = "x86_64", target_pointer_width = "64"))))'.dependencies.libc]
+-version = "0.2.161"
+-optional = true
+-default-features = false
+-
+-[target.'cfg(all(not(rustix_use_libc), not(miri), target_os = "linux", any(target_endian = "little", target_arch = "s390x"), any(target_arch = "arm", all(target_arch = "aarch64", target_pointer_width = "64"), target_arch = "riscv64", all(rustix_use_experimental_asm, target_arch = "powerpc64"), all(rustix_use_experimental_asm, target_arch = "s390x"), all(rustix_use_experimental_asm, target_arch = "mips"), all(rustix_use_experimental_asm, target_arch = "mips32r6"), all(rustix_use_experimental_asm, target_arch = "mips64"), all(rustix_use_experimental_asm, target_arch = "mips64r6"), target_arch = "x86", all(target_arch = "x86_64", target_pointer_width = "64"))))'.dependencies.libc_errno]
+-version = "0.3.10"
+-optional = true
+-default-features = false
+-package = "errno"
+-
+-[target.'cfg(all(not(rustix_use_libc), not(miri), target_os = "linux", any(target_endian = "little", target_arch = "s390x"), any(target_arch = "arm", all(target_arch = "aarch64", target_pointer_width = "64"), target_arch = "riscv64", all(rustix_use_experimental_asm, target_arch = "powerpc64"), all(rustix_use_experimental_asm, target_arch = "s390x"), all(rustix_use_experimental_asm, target_arch = "mips"), all(rustix_use_experimental_asm, target_arch = "mips32r6"), all(rustix_use_experimental_asm, target_arch = "mips64"), all(rustix_use_experimental_asm, target_arch = "mips64r6"), target_arch = "x86", all(target_arch = "x86_64", target_pointer_width = "64"))))'.dependencies.linux-raw-sys]
+-version = "0.4.14"
+-features = [
+-    "general",
+-    "errno",
+-    "ioctl",
+-    "no_std",
+-    "elf",
+-]
+-default-features = false
+-
+ [target.'cfg(all(not(windows), any(rustix_use_libc, miri, not(all(target_os = "linux", any(target_endian = "little", target_arch = "s390x"), any(target_arch = "arm", all(target_arch = "aarch64", target_pointer_width = "64"), target_arch = "riscv64", all(rustix_use_experimental_asm, target_arch = "powerpc64"), all(rustix_use_experimental_asm, target_arch = "s390x"), all(rustix_use_experimental_asm, target_arch = "mips"), all(rustix_use_experimental_asm, target_arch = "mips32r6"), all(rustix_use_experimental_asm, target_arch = "mips64"), all(rustix_use_experimental_asm, target_arch = "mips64r6"), target_arch = "x86", all(target_arch = "x86_64", target_pointer_width = "64")))))))'.dependencies.libc]
+ version = "0.2.161"
+ default-features = false
+@@ -258,24 +215,6 @@ version = "0.3.10"
+ default-features = false
+ package = "errno"
+ 
+-[target.'cfg(any(target_os = "android", target_os = "linux"))'.dependencies.once_cell]
+-version = "1.5.2"
+-optional = true
+-
+-[target."cfg(windows)".dependencies.libc_errno]
+-version = "0.3.10"
+-default-features = false
+-package = "errno"
+-
+-[target."cfg(windows)".dependencies.windows-sys]
+-version = ">=0.52, <=0.59"
+-features = [
+-    "Win32_Foundation",
+-    "Win32_Networking_WinSock",
+-    "Win32_NetworkManagement_IpHelper",
+-    "Win32_System_Threading",
+-]
+-
+ [lints.rust.unexpected_cfgs]
+ level = "warn"
+ priority = 0
