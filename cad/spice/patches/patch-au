@@ -6,7 +6,7 @@ $NetBSD: patch-au,v 1.4 2013/05/22 07:44:04 sbd Exp $
  extern char *printnum();
  extern int cp_numdgt;
  extern void fatal();
-+#if !defined(__DragonFly__) && !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__sun) && !defined(__linux__)
++#if !defined(__DragonFly__) && !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__sun) && !defined(__linux__) && !defined(__sgi)
  extern void setenv();
 +#endif
  extern void cp_printword();

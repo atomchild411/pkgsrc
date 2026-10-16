@@ -7,7 +7,7 @@ $NetBSD: patch-at,v 1.4 2013/05/22 07:44:04 sbd Exp $
  
  /* Library routines */
 -#ifdef HAS_FTIME
-+#if defined(HAS_FTIME) && !(defined(__DragonFly__) || defined(__sun) || defined(__linux__))
++#if defined(HAS_FTIME) && !(defined(__DragonFly__) || defined(__sun) || defined(__linux__) || defined(__sgi))
  extern void ftime();
  #endif
  

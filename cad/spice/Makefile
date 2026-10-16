@@ -33,7 +33,8 @@ INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/man3 ${PKGMANDIR}/man5
 MAKE_ENV+=	WRKSRC=${WRKSRC}
 
 .include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "Linux"
+# IRIX: SysV ttys, like Linux (os_linux.h), not bsd's sgtty.
+.if ${OPSYS} == "Linux" || ${OPSYS} == "IRIX"
 CFLAGS+=	-Dlinux
 .elif ${OPSYS} != "SunOS"
 CFLAGS+=	-Dbsd

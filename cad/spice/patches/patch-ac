@@ -20,7 +20,7 @@ $NetBSD: patch-ac,v 1.8 2013/05/22 07:44:04 sbd Exp $
 -extern char *realloc();
 -extern char *getenv();
 -extern int errno;
-+#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__linux__))
++#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__linux__) || defined(__sgi))
  extern char *sys_errlist[];
 -extern char *getenv();
 +#endif
@@ -41,7 +41,7 @@ $NetBSD: patch-ac,v 1.8 2013/05/22 07:44:04 sbd Exp $
  #    endif /* clearerr */
  #  endif /* HAS_CLEARERR */
  
-+#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__sun) || defined(__linux__))
++#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__sun) || defined(__linux__) || defined(__sgi))
  #  ifndef bzero
  extern int bzero();
  #  endif
@@ -56,7 +56,7 @@ $NetBSD: patch-ac,v 1.8 2013/05/22 07:44:04 sbd Exp $
  extern void perror();
  #endif
  
-+#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__sun) || defined(__linux__))
++#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__sun) || defined(__linux__) || defined(__sgi))
  #ifdef HAS_TIME_
  #  ifdef HAS_BSDTIME
  extern char *timezone();
@@ -68,7 +68,7 @@ $NetBSD: patch-ac,v 1.8 2013/05/22 07:44:04 sbd Exp $
  
  #ifndef HAS_MEMAVL
  #  ifdef HAS_RLIMIT_
-+#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__sun) || defined(__linux__))
++#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__OpenBSD__) || defined(__sun) || defined(__linux__) || defined(__sgi))
  extern char *sbrk();
 +#endif
  #  endif
