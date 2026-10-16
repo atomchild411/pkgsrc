@@ -23,10 +23,18 @@ RUSTFLAGS+=	-C link-arg=${COMPILER_RPATH_FLAG}${SSLBASE}/lib
 CONFLICTS+=	parallel-[0-9]*
 
 INSTALLATION_DIRS+=	bin
-INSTALLATION_DIRS+=	share/bash-completion/completions
-INSTALLATION_DIRS+=	share/zsh/site-functions
 
 CARGO_NO_DEFAULT_FEATURES=	YES
+
+PLIST_VARS+=		completions
+
+.include "../../mk/bsd.prefs.mk"
+
+# sem writes its shell completions itself, which a cross-built sem cannot.
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.completions=	yes
+INSTALLATION_DIRS+=	share/bash-completion/completions
+INSTALLATION_DIRS+=	share/zsh/site-functions
 
 post-build:
 	cd ${WRKDIR}/${DISTNAME}/crates && target/release/sem completions bash > sem.bash
@@ -35,6 +43,7 @@ post-build:
 post-install:
 	cd ${WRKDIR}/${DISTNAME}/crates && ${INSTALL_DATA} sem.bash ${DESTDIR}${PREFIX}/share/bash-completion/completions/sem
 	cd ${WRKDIR}/${DISTNAME}/crates && ${INSTALL_DATA} _sem ${DESTDIR}${PREFIX}/share/zsh/site-functions/_sem
+.endif
 
 .include "cargo-depends.mk"
 
