@@ -259,6 +259,7 @@ SUBDIR+=	impress
 SUBDIR+=	imv
 SUBDIR+=	inkscape
 SUBDIR+=	ipe
+SUBDIR+=	irix-egl-gles
 SUBDIR+=	irrlicht
 SUBDIR+=	ivtools
 SUBDIR+=	jasper

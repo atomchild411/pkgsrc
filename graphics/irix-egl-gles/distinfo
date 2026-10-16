@@ -1,0 +1,5 @@
+$NetBSD$
+
+BLAKE2s (irix-egl-gles-20260928.tar.gz) = 1269731c798659ebf2f1b63f67c068bc82841d7bce443ecddace43af0088c79f
+SHA512 (irix-egl-gles-20260928.tar.gz) = d39e26c7bce6169f0758dfdec8af8e9d7dfdee5bd7bf4a34789632aa616d732bbf7c0aeee988015fff07870d0e2e3110398254badd100400b6827d4bf263fad0
+Size (irix-egl-gles-20260928.tar.gz) = 135695 bytes

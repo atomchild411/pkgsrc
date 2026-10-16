@@ -1,0 +1,15 @@
+@comment $NetBSD$
+bin/egl-gles-info
+include/EGL/egl.h
+include/EGL/eglext.h
+include/EGL/eglplatform.h
+include/GLES2/gl2.h
+include/GLES2/gl2ext.h
+include/GLES2/gl2platform.h
+lib/libEGL.so
+lib/libEGL.so.1
+lib/libGLESv2.so
+lib/libGLESv2.so.2
+lib/libiegl.so.1
+lib/pkgconfig/egl.pc
+lib/pkgconfig/glesv2.pc

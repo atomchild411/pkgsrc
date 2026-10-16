@@ -1,0 +1,11 @@
+EGL 1.4 and OpenGL ES 2.0 for IRIX, on nothing but IRIX's own libGL.so
+and GLX. Accelerated boards draw in hardware, unaccelerated ones through
+SGI's software OpenGL. There is no software fallback: if the display
+cannot do what the library needs, eglInitialize fails and says why
+(egl-gles-info prints what it found).
+
+IRIX's OpenGL is 1.1 with SGI extensions, so GLES shaders are not
+compiled: each linked program is handed to a "recipe" that draws it with
+fixed-function state. Only the programs a recipe knows are drawn (the
+first: WebKit's TextureMapper compositing); programs should reach GLES
+through eglGetProcAddress or dlopen, not by linking -lGLESv2.
