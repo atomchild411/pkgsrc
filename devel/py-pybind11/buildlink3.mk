@@ -20,6 +20,13 @@ BUILDLINK_API_DEPENDS.py-pybind11+=	${PYPKGPREFIX}-pybind11>=2.5.0
 BUILDLINK_PKGSRCDIR.py-pybind11?=	../../devel/py-pybind11
 BUILDLINK_DEPMETHOD.py-pybind11?=	build
 
+.include "../../mk/bsd.fast.prefs.mk"
+# Cross-compiling, pybind11-config is the build host's, and names its
+# headers there: the same headers, the target package's, are buildlinked.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+BUILDLINK_TRANSFORM+=	I:${TOOLBASE}/${PYSITELIB}/pybind11/include:${BUILDLINK_DIR}/${PYSITELIB}/pybind11/include
+.endif
+
 .endif	# PY_PYBIND11_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-py-pybind11
