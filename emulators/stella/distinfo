@@ -4,3 +4,4 @@ BLAKE2s (stella-6.7-src.tar.xz) = d06390c01c68cca9288271d193646d8a5eaa0a9e3a1238
 SHA512 (stella-6.7-src.tar.xz) = c20a2e9d98e1330f151e5f7d0e7cf15b2279b0d5f1175269f4084bf4964337b998118800615ae62eabf9d0f8abe0bb9cd02bddd1ee827121a49131888b4946ff
 Size (stella-6.7-src.tar.xz) = 10280224 bytes
 SHA1 (patch-configure) = 7cf96666dbccb2b38dec6e80ad4887a79bf5d074
+SHA1 (patch-src_unix_FSNodePOSIX.cxx) = b64c2762e6f11d73f11bcdff922031251de72923
