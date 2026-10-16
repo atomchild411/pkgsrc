@@ -1873,6 +1873,7 @@ lib/clang/21/include/irix_wrappers/net/if.h
 lib/clang/21/include/irix_wrappers/net/if_dl.h
 lib/clang/21/include/irix_wrappers/netdb.h
 lib/clang/21/include/irix_wrappers/netinet/in.h
+lib/clang/21/include/irix_wrappers/netinet/icmp6.h
 lib/clang/21/include/irix_wrappers/netinet/ip6.h
 lib/clang/21/include/irix_wrappers/netinet/ip.h
 lib/clang/21/include/irix_wrappers/netinet/ip_icmp.h

@@ -21,10 +21,11 @@ branch iris/main):
 - strtonum
 - getentropy and arc4random
 - mkstemps and mkostemps
+- posix_openpt
 
 --- lib/Headers/irix_wrappers/stdlib.h.orig
 +++ lib/Headers/irix_wrappers/stdlib.h
-@@ -0,0 +1,185 @@
+@@ -0,0 +1,187 @@
 +/*===---- stdlib.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -102,6 +103,8 @@ branch iris/main):
 +int mkostemp(char *, int);
 +int mkstemps(char *, int);
 +int mkostemps(char *, int, int);
++/* POSIX's posix_openpt, from irix/pty.c (_getpty). */
++int posix_openpt(int);
 +#ifdef __cplusplus
 +}
 +#endif

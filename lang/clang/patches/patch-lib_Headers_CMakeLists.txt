@@ -47,10 +47,11 @@ branch iris/main):
 - Wrappers <netinet/ip_icmp.h> and <netinet/udp.h>: include guards
 - <pty.h> and <util.h>
 - <netinet/ip6.h> and <audio.h>
+- <netinet/icmp6.h>
 
 --- lib/Headers/CMakeLists.txt.orig
 +++ lib/Headers/CMakeLists.txt
-@@ -395,6 +395,101 @@
+@@ -395,6 +395,102 @@
    zos_wrappers/builtins.h
  )
  
@@ -137,6 +138,7 @@ branch iris/main):
 +  irix_wrappers/net/if_dl.h
 +)
 +set(irix_wrapper_netinet_files
++  irix_wrappers/netinet/icmp6.h
 +  irix_wrappers/netinet/in.h
 +  irix_wrappers/netinet/ip6.h
 +  irix_wrappers/netinet/ip.h
@@ -152,7 +154,7 @@ branch iris/main):
  include(GetClangResourceDir)
  get_clang_resource_dir(output_dir PREFIX ${LLVM_LIBRARY_OUTPUT_INTDIR}/.. SUBDIR include)
  set(out_files)
-@@ -443,7 +538,7 @@
+@@ -443,7 +539,7 @@
  
  # Copy header files from the source directory to the build directory
  foreach( f ${files} ${cuda_wrapper_files} ${cuda_wrapper_bits_files}
@@ -161,7 +163,7 @@ branch iris/main):
  	   ${llvm_libc_wrapper_files} ${llvm_offload_wrapper_files})
    copy_header_to_output_dir(${CMAKE_CURRENT_SOURCE_DIR} ${f})
  endforeach( f )
-@@ -557,7 +652,7 @@
+@@ -557,7 +653,7 @@
  add_header_target("hexagon-resource-headers" "${hexagon_files}")
  add_header_target("hip-resource-headers" "${hip_files}")
  add_header_target("loongarch-resource-headers" "${loongarch_files}")
@@ -170,7 +172,7 @@ branch iris/main):
  add_header_target("ppc-resource-headers" "${ppc_files};${ppc_wrapper_files}")
  add_header_target("ppc-htm-resource-headers" "${ppc_htm_files}")
  add_header_target("riscv-resource-headers" "${riscv_files};${riscv_generated_files}")
-@@ -625,6 +720,41 @@
+@@ -625,6 +721,41 @@
    DESTINATION ${header_install_dir}/zos_wrappers
    COMPONENT clang-resource-headers)
  

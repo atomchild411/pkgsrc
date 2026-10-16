@@ -16,10 +16,11 @@ branch iris/main):
 - getentropy and arc4random
 - Wrapper <unistd.h>: setgroups as IRIX declares it under _BSD_COMPAT
 - issetugid() in compiler-rt's libc stand-ins, declared in <unistd.h>
+- pipe2 and dup3
 
 --- lib/Headers/irix_wrappers/unistd.h.orig
 +++ lib/Headers/irix_wrappers/unistd.h
-@@ -0,0 +1,336 @@
+@@ -0,0 +1,339 @@
 +/*===---- unistd.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -84,6 +85,9 @@ branch iris/main):
 +int unlinkat(int, const char *, int);
 +/* glibc's and OpenBSD's, from irix/random.c (IRIX's /dev/urandom). */
 +int getentropy(void *, size_t);
++/* POSIX 2024's pipe2 and dup3, from irix/cloexec.c (O_CLOEXEC, O_NONBLOCK). */
++int pipe2(int[2], int);
++int dup3(int, int, int);
 +#ifdef __cplusplus
 +}
 +#endif

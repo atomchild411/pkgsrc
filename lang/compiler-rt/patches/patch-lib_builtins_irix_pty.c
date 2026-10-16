@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - openpty, forkpty and login_tty, on _getpty()
+- posix_openpt, on _getpty()
 
 --- lib/builtins/irix/pty.c.orig
 +++ lib/builtins/irix/pty.c
-@@ -0,0 +1,98 @@
+@@ -0,0 +1,111 @@
 +//===-- irix/pty.c - openpty, forkpty and login_tty for IRIX --------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -20,6 +21,10 @@ branch iris/main):
 +// drops -lutil from links. IRIX's own way to a pty is _getpty(), which
 +// opens a master and returns its slave's name (and, given nofork 0, has
 +// mkpts give the slave to the caller).
++//
++// posix_openpt (POSIX), which IRIX lacks too, is _getpty() for the master
++// alone: grantpt, unlockpt and ptsname, which IRIX's libc has, then work on
++// it as on any SVR4 system.
 +//
 +// login_tty: IRIX has no TIOCSCTTY. As on any SVR4 system, a session leader
 +// gets its controlling terminal by opening one without O_NOCTTY, so
@@ -63,6 +68,15 @@ branch iris/main):
 +  *amaster = master;
 +  *aslave = slave;
 +  return 0;
++}
++
++#pragma weak posix_openpt
++
++int posix_openpt(int flags) {
++  int master;
++  if (_getpty(&master, flags & (O_RDWR | O_NOCTTY), 0600, 0) == NULL)
++    return -1;
++  return master;
 +}
 +
 +int login_tty(int fd) {

@@ -5,10 +5,11 @@ branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
 - Declare the BSD functions IRIX hides outside SGI mode
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
+- struct timeval and struct itimerval in every mode
 
 --- lib/Headers/irix_wrappers/sys/time.h.orig
 +++ lib/Headers/irix_wrappers/sys/time.h
-@@ -0,0 +1,77 @@
+@@ -0,0 +1,103 @@
 +/*===---- sys/time.h - IRIX wrapper -----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -28,6 +29,32 @@ branch iris/main):
 +
 +#include_next <sys/time.h>
 +#include <sys/select.h>
++
++/* POSIX's struct timeval and (XSI) struct itimerval, which IRIX declares
++ * only in SGI, BSD and X/Open UX modes: C99 code (-std=c99: xz in lzma-sys)
++ * uses them with gettimeofday. IRIX's layout, under IRIX's own guard, which
++ * <sys/resource.h> shares. */
++#ifndef _TIMEVAL_T
++#define _TIMEVAL_T
++struct timeval {
++#if _MIPS_SZLONG == 64
++  __int32_t : 32;
++#endif
++  time_t tv_sec;
++  long tv_usec;
++};
++#endif
++#if !(_XOPEN4UX || defined(_BSD_TYPES) || defined(_BSD_COMPAT)) &&            \
++    !defined(ITIMER_REAL)
++#define ITIMER_REAL 0
++#define ITIMER_VIRTUAL 1
++#define ITIMER_PROF 2
++#define ITIMER_MAX 3
++struct itimerval {
++  struct timeval it_interval;
++  struct timeval it_value;
++};
++#endif
 +
 +#if !_SGIAPI && !_XOPEN4UX && !defined(_BSD_TYPES) &&                         \
 +    !defined(_BSD_COMPAT) &&                                                  \
