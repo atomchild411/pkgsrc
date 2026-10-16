@@ -39,6 +39,9 @@ IMAKEOPTS+=	-DManPath=${PREFIX}/man
 # CMake's FindOpenGL prefers GLVND's split libraries (libOpenGL, libGLX),
 # which IRIX does not have, and then wants them: use the one libGL.
 CMAKE_CONFIGURE_ARGS+=	-DOpenGL_GL_PREFERENCE=LEGACY
+# lld links strictly, as Solaris's ld does: programs that forget -liconv or
+# -lintl (glibc has them in libc) get them from the buildlink3.mk files.
+OPSYS_EXPLICIT_LIBDEPS=	yes
 # crypt(3) is in libc; IRIX has no libcrypt for -lcrypt to find.
 BUILDLINK_TRANSFORM+=	rm:-lcrypt
 PKGLOCALEDIR?=	share
