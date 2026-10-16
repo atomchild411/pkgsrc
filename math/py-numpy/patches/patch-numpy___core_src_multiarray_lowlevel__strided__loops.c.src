@@ -1,0 +1,27 @@
+$NetBSD$
+
+MIPS: no "#pragma clang fp exceptions": LLVM's MIPS backend has no strict FP
+(clang ignores the command-line options there, not this pragma), and every
+strict comparison after "exceptions(strict)" crashed it (LegalizeDAG
+"Don't know how to expand for strict nodes").
+
+--- numpy/_core/src/multiarray/lowlevel_strided_loops.c.src.orig
++++ numpy/_core/src/multiarray/lowlevel_strided_loops.c.src
+@@ -930,7 +930,7 @@
+ // Enable auto-vectorization for floating point casts with clang
+ #if @is_native_half1@ || @is_float1@ || @is_double1@
+     #if @is_native_half2@ || @is_float2@ || @is_double2@
+-        #if defined(__clang__) && !defined(__EMSCRIPTEN__) && !defined(__wasm__)
++        #if defined(__clang__) && !defined(__EMSCRIPTEN__) && !defined(__wasm__) && !defined(__mips__)
+             #if __clang_major__ >= 12
+                 _Pragma("clang fp exceptions(ignore)")
+             #endif
+@@ -1201,7 +1201,7 @@
+ 
+ #if @is_native_half1@ || @is_float1@ || @is_double1@
+     #if @is_native_half2@ || @is_float2@ || @is_double2@
+-        #if defined(__clang__) && !defined(__EMSCRIPTEN__) && !defined(__wasm__)
++        #if defined(__clang__) && !defined(__EMSCRIPTEN__) && !defined(__wasm__) && !defined(__mips__)
+             #if __clang_major__ >= 12
+                 _Pragma("clang fp exceptions(strict)")
+             #endif

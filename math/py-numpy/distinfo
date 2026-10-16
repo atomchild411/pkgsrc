@@ -5,5 +5,6 @@ SHA512 (numpy-2.5.3.tar.gz) = 667ba01fc13669a8150b0b4797e6c6b953d27ce37d71f8dec0
 Size (numpy-2.5.3.tar.gz) = 20791231 bytes
 SHA1 (patch-numpy___core_feature__detection__misc.h) = c0f4d318c93fcd0e36c34c549c7778350b8a6ea5
 SHA1 (patch-numpy___core_include_numpy_npy__common.h) = 175cd8f64af681949c3e8bfde064c93908433ea2
+SHA1 (patch-numpy___core_src_multiarray_lowlevel__strided__loops.c.src) = a43c1c246e944784b24366dd67d2a6ff7b36e1e3
 SHA1 (patch-numpy___core_src_npymath_npy__math.c) = b28f1a9730d98a18b2f4f97c1c356ca8ad80903d
 SHA1 (patch-numpy_linalg_lapack__litemodule.c) = e97ec871c2f33c3121b3c8471a9e5a74c3c798c8

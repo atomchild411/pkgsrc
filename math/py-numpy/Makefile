@@ -31,6 +31,17 @@ REPLACE_PYTHON+=	*.py */*.py */*/*.py */*/*/*.py */*/*/*/*.py
 
 .include "../../lang/python/pyversion.mk"
 
+# IRIX: no Fortran compiler for IRIX yet, so no BLAS or LAPACK package
+# (netlib's and OpenBLAS's LAPACK are Fortran): numpy without them, with
+# its own lapack_lite, and without Fortran.
+.if ${OPSYS} == "IRIX"
+USE_LANGUAGES:=		c c++
+NUMPY_NO_BLAS=		yes
+# meson cannot run numpy's test for it: IRIX's long double is double.
+MESON_CROSS_OPSYS_VARS+=	longdouble_format
+MESON_CROSS.IRIX.longdouble_format=	'IEEE_DOUBLE_BE'
+.endif
+
 # XXX Avoid picking up other compilers when installed
 .include "../../mk/compiler.mk"
 
@@ -51,6 +62,7 @@ LDFLAGS+=		${_COMPILER_ABI_FLAG.${ABI}}
 # wich does not work without standardized symbol suffix.
 # Will need -Csetup-args=Duse-ilp64, too.
 # TODO: accelerate.framework has no pkg-config yet (see blas.buildlink3.mk).
+.if !defined(NUMPY_NO_BLAS)
 BLAS_ACCEPTED=		${_BLAS_TYPES}
 BLAS_C_INTERFACE=	yes
 # Cblas and lapack API (not lapacke) is desired.
@@ -60,6 +72,10 @@ BLAS_C_INTERFACE=	yes
 # all APIs.
 WHEEL_ARGS+=		-Csetup-args=-Dblas=${BLAS_PC}
 WHEEL_ARGS+=		-Csetup-args=-Dlapack=${LAPACK_PC}
+.else
+WHEEL_ARGS+=		-Csetup-args=-Dallow-noblas=true
+WHEEL_ARGS+=		-Csetup-args=-Dblas=none -Csetup-args=-Dlapack=none
+.endif
 WHEEL_ARGS+=		-Ccompile-args=-j${MAKE_JOBS:U1}
 
 # disable AVX 512 on old NetBSD; support on NetBSD < 11 was incomplete, see PR 58539
@@ -89,5 +105,7 @@ do-test:
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/wheel.mk"
+.if !defined(NUMPY_NO_BLAS)
 .include "../../mk/blas.buildlink3.mk"
+.endif
 .include "../../mk/bsd.pkg.mk"
