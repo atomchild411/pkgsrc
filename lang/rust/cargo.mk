@@ -56,7 +56,7 @@ CARGO_WRKSRC?=		${WRKSRC}
 # The Cargo.lock files of a cross build: the one cargo uses for
 # CARGO_WRKSRC, which is the workspace's, above it for a member (cargo-audit,
 # sem), and those below it that a meson or make build runs cargo in
-# (powerdns-recursor); not the vendored crates', nor test fixtures.
+# (powerdns-recursor); not the vendored crates', nor tests' and fixtures'.
 _CARGO_CROSS_NAMES=	${CARGO_CROSS_PATCHES:C/[@=].*//:O:u}
 _CARGO_CROSS_LOCKS=	{ d=${CARGO_WRKSRC:Q};					\
 	while [ "$$d" != ${WRKDIR:Q} -a "$$d" != / ]; do			\
@@ -64,7 +64,8 @@ _CARGO_CROSS_LOCKS=	{ d=${CARGO_WRKSRC:Q};					\
 	  d="$${d%/*}";							\
 	done;									\
 	${FIND} ${CARGO_WRKSRC:Q} -name Cargo.lock ! -path '*/vendor/*'	\
-	  ! -path '*/tests/*' ! -path '*/target/*' -print; } | ${SORT} -u
+	  ! -path '*/tests/*' ! -path '*/fixtures/*' ! -path '*/target/*'	\
+	  -print; } | ${SORT} -u
 
 # TODO: some Cargo.lock files include git+https sources which need to be fetched from the URL (not necessarily resolving to a crate.io url)
 DISTFILES?=			${DEFAULT_DISTFILES}
