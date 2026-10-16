@@ -16,6 +16,9 @@ USE_TOOLS+=		pkg-config
 PKGCONFIG_OVERRIDE+=	libfs.pc.in
 
 CONFIGURE_ARGS.NetBSD+=	--disable-malloc0returnsnull
+# configure runs a program to find out, which a cross build cannot: the
+# answer that is safe either way (a zero-size request gets one byte).
+CONFIGURE_ARGS.IRIX+=	--enable-malloc0returnsnull
 
 X11_LIB_NAME?=		libFS
 .include "../../meta-pkgs/modular-xorg/avoid-duplicate.mk"
