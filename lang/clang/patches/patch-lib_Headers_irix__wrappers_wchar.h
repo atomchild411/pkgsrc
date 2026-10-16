@@ -10,10 +10,11 @@ branch iris/main):
 - <wchar.h>: C95's three-argument wcstok
 - Declare POSIX functions IRIX hides outside SGI mode
 - POSIX 2008 *_l functions: ctype, wctype and collation
+- swscanf, fwscanf, wscanf and their v forms
 
 --- lib/Headers/irix_wrappers/wchar.h.orig
 +++ lib/Headers/irix_wrappers/wchar.h
-@@ -0,0 +1,178 @@
+@@ -0,0 +1,194 @@
 +/*===---- wchar.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -128,6 +129,22 @@ branch iris/main):
 +}
 +#endif
 +#endif /* __IRIX_VERSION__ < 60522 */
++
++/* C95's wide scanf (and C99's v forms), which IRIX's libc lacks:
++ * compiler-rt's (irix/wscanf.c), through the multibyte C99 scanf. */
++#ifdef __cplusplus
++extern "C" {
++#endif
++int swscanf(const wchar_t *__restrict, const wchar_t *__restrict, ...);
++int vswscanf(const wchar_t *__restrict, const wchar_t *__restrict,
++             __builtin_va_list);
++int fwscanf(FILE *__restrict, const wchar_t *__restrict, ...);
++int vfwscanf(FILE *__restrict, const wchar_t *__restrict, __builtin_va_list);
++int wscanf(const wchar_t *__restrict, ...);
++int vwscanf(const wchar_t *__restrict, __builtin_va_list);
++#ifdef __cplusplus
++}
++#endif
 +
 +/* POSIX 2008's, which no IRIX has: compiler-rt's (irix/libc_compat.c). */
 +#ifdef __cplusplus

@@ -1119,6 +1119,7 @@ lib/clang/21/include/irix_wrappers/netinet/ip_icmp.h
 lib/clang/21/include/irix_wrappers/netinet/tcp.h
 lib/clang/21/include/irix_wrappers/netinet/udp.h
 lib/clang/21/include/irix_wrappers/pthread.h
+lib/clang/21/include/irix_wrappers/pty.h
 lib/clang/21/include/irix_wrappers/pwd.h
 lib/clang/21/include/irix_wrappers/search.h
 lib/clang/21/include/irix_wrappers/semaphore.h
@@ -1149,6 +1150,7 @@ lib/clang/21/include/irix_wrappers/syslog.h
 lib/clang/21/include/irix_wrappers/termios.h
 lib/clang/21/include/irix_wrappers/time.h
 lib/clang/21/include/irix_wrappers/unistd.h
+lib/clang/21/include/irix_wrappers/util.h
 lib/clang/21/include/irix_wrappers/uuid.h
 lib/clang/21/include/irix_wrappers/wchar.h
 lib/clang/21/include/iso646.h

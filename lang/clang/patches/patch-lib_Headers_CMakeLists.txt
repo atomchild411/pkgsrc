@@ -45,10 +45,11 @@ branch iris/main):
 - fts
 - Wrapper <errno.h>: oserror, setoserror and goserror in every mode
 - Wrappers <netinet/ip_icmp.h> and <netinet/udp.h>: include guards
+- <pty.h> and <util.h>
 
 --- lib/Headers/CMakeLists.txt.orig
 +++ lib/Headers/CMakeLists.txt
-@@ -395,6 +395,97 @@ set(zos_wrapper_files
+@@ -395,6 +395,99 @@
    zos_wrappers/builtins.h
  )
  
@@ -83,6 +84,7 @@ branch iris/main):
 +  irix_wrappers/math.h
 +  irix_wrappers/netdb.h
 +  irix_wrappers/pthread.h
++  irix_wrappers/pty.h
 +  irix_wrappers/spawn.h
 +  irix_wrappers/stdint.h
 +  irix_wrappers/stdio.h
@@ -90,6 +92,7 @@ branch iris/main):
 +  irix_wrappers/string.h
 +  irix_wrappers/time.h
 +  irix_wrappers/unistd.h
++  irix_wrappers/util.h
 +  irix_wrappers/uuid.h
 +  irix_wrappers/wchar.h
 +  irix_wrappers/complex.h
@@ -146,7 +149,7 @@ branch iris/main):
  include(GetClangResourceDir)
  get_clang_resource_dir(output_dir PREFIX ${LLVM_LIBRARY_OUTPUT_INTDIR}/.. SUBDIR include)
  set(out_files)
-@@ -443,7 +534,7 @@ endfunction(clang_generate_header)
+@@ -443,7 +536,7 @@
  
  # Copy header files from the source directory to the build directory
  foreach( f ${files} ${cuda_wrapper_files} ${cuda_wrapper_bits_files}
@@ -155,7 +158,7 @@ branch iris/main):
  	   ${llvm_libc_wrapper_files} ${llvm_offload_wrapper_files})
    copy_header_to_output_dir(${CMAKE_CURRENT_SOURCE_DIR} ${f})
  endforeach( f )
-@@ -557,7 +648,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
+@@ -557,7 +650,7 @@
  add_header_target("hexagon-resource-headers" "${hexagon_files}")
  add_header_target("hip-resource-headers" "${hip_files}")
  add_header_target("loongarch-resource-headers" "${loongarch_files}")
@@ -164,7 +167,7 @@ branch iris/main):
  add_header_target("ppc-resource-headers" "${ppc_files};${ppc_wrapper_files}")
  add_header_target("ppc-htm-resource-headers" "${ppc_htm_files}")
  add_header_target("riscv-resource-headers" "${riscv_files};${riscv_generated_files}")
-@@ -625,6 +716,41 @@ install(
+@@ -625,6 +718,41 @@
    DESTINATION ${header_install_dir}/zos_wrappers
    COMPONENT clang-resource-headers)
  

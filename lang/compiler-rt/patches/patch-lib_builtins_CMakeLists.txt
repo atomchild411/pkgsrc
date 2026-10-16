@@ -38,10 +38,13 @@ branch iris/main):
 - getentropy and arc4random
 - sem_timedwait
 - fts
+- openpty, forkpty, login_tty
+- fmemopen and open_memstream
+- swscanf, fwscanf, wscanf and their v forms
 
 --- lib/builtins/CMakeLists.txt.orig
 +++ lib/builtins/CMakeLists.txt
-@@ -236,6 +236,58 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
+@@ -236,6 +236,61 @@
    "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
    Off)
  
@@ -81,6 +84,9 @@ branch iris/main):
 +    irix/pselect.c
 +    irix/ifaddrs.c
 +    irix/process_bsd.c
++    irix/memstream.c
++    irix/wscanf.c
++    irix/pty.c
 +    irix/locale_l.c
 +    irix/fcntl.c
 +    irix/grouplist.c

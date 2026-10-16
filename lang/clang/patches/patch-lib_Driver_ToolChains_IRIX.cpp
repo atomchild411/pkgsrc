@@ -11,10 +11,12 @@ branch iris/main):
 - Driver: --unwindlib is no unused argument
 - Driver: no DT_RPATH to libc++ when it is linked statically
 - Driver: the builtins ahead of a link's inputs too
+- Driver: MIPSpro's options accepted and ignored
+- Driver: no -lutil (openpty and friends are in the builtins)
 
 --- lib/Driver/ToolChains/IRIX.cpp.orig
 +++ lib/Driver/ToolChains/IRIX.cpp
-@@ -0,0 +1,377 @@
+@@ -0,0 +1,395 @@
 +//===--- IRIX.cpp - IRIX ToolChain Implementations --------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -99,6 +101,9 @@ branch iris/main):
 +void IRIX::addClangTargetOptions(const ArgList &DriverArgs,
 +                                 ArgStringList &CC1Args,
 +                                 Action::OffloadKind) const {
++  // MIPSpro's options, from IRIX makefiles: accepted and ignored.
++  DriverArgs.ClaimAllArgs(options::OPT_irix_mipspro_Group);
++
 +  // rld runs DT_INIT/DT_FINI, not DT_INIT_ARRAY: constructors go in .ctors,
 +  // which compiler-rt's crtbegin walks.
 +  if (!DriverArgs.hasFlag(options::OPT_fuse_init_array,
@@ -239,6 +244,7 @@ branch iris/main):
 +  // It is still no unused argument there: LLVM's runtimes pass it to every
 +  // compiler check, with -Werror (libunwind's -funwind-tables check failed).
 +  Args.ClaimAllArgs(options::OPT_unwindlib_EQ);
++  Args.ClaimAllArgs(options::OPT_irix_mipspro_Group);
 +
 +  if (!D.SysRoot.empty())
 +    CmdArgs.push_back(Args.MakeArgString("--sysroot=" + D.SysRoot));
@@ -320,6 +326,20 @@ branch iris/main):
 +
 +  size_t InputsBegin = CmdArgs.size();
 +  AddLinkerInputs(TC, Inputs, Args, CmdArgs, JA);
++
++  // IRIX has no libutil: its pseudo-terminal functions (openpty, forkpty,
++  // login_tty) are in the builtins library (irix/pty.c). Links that ask for
++  // it -- BSD and Linux makefiles, configure checks -- get nothing for it.
++  for (size_t I = InputsBegin; I < CmdArgs.size();) {
++    StringRef A = CmdArgs[I];
++    if (A == "-lutil")
++      CmdArgs.erase(CmdArgs.begin() + I);
++    else if (A == "-l" && I + 1 < CmdArgs.size() &&
++             StringRef(CmdArgs[I + 1]) == "util")
++      CmdArgs.erase(CmdArgs.begin() + I, CmdArgs.begin() + I + 2);
++    else
++      ++I;
++  }
 +
 +  // IRIX's libGL.so has GLX and the dispatch only: the GL functions are in
 +  // libGLcore.so, which libGL.so needs. SGI's ld resolved symbols through a
