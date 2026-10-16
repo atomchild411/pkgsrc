@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.66 2024/04/30 12:06:15 cheusov Exp $
 
 DISTNAME=	flex-2.6.4
+PKGREVISION=	1
 CATEGORIES=	devel lang
 MASTER_SITES=	${MASTER_SITE_GITHUB:=westes/}
 GITHUB_RELEASE=	v${PKGVERSION_NOREV}
@@ -33,6 +34,16 @@ LDFLAGS.SCO_SV+=	-lsocket
 .endif
 
 .include "options.mk"
+
+# IRIX: libfl as a static library only, like the lex libraries of the BSDs.
+# libfl's main() calls the program's yylex, so a shared libfl leaves that
+# undefined in a DSO, and lld (which checks a DSO's undefined symbols) fails
+# configure's "library containing yywrap" test of every program that only
+# wants yywrap: autoconf then gives up on lex altogether.
+.if ${OPSYS} == "IRIX"
+# (pkgsrc's libtool builds both whatever configure is told: link it -static.)
+MAKE_FLAGS+=	libfl_la_LDFLAGS=-static
+.endif
 
 # https://github.com/westes/flex/issues/219
 CONFIGURE_ENV.NetBSD+=	ac_cv_func_reallocarray=no
