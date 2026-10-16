@@ -20,7 +20,7 @@ DISTINFO_FILE=	${.CURDIR}/../../sysutils/dtc/linux-distinfo
 GENERATE_PLIST=		cd ${DESTDIR}${PREFIX};
 GENERATE_PLIST+=	${FIND} * -type f | ${SORT};
 
-DTC=		${LOCALBASE}/bin/dtc
+DTC=		${TOOLBASE}/bin/dtc
 DTS_DIR=	${WRKSRC}/arch/${DTB_ARCH}/boot/dts
 DTS_INC=	${WRKSRC}/include
 DTS_ARCH_INC=	${DTS_DIR}/include

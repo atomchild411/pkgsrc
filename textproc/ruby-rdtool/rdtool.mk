@@ -4,7 +4,7 @@
 
 RUBY_RDTOOL_MK:=
 
-RUBY_RD=	${PREFIX}/bin/rd2${RUBY_SUFFIX}
+RUBY_RD=	${TOOLBASE}/bin/rd2${RUBY_SUFFIX}
 TOOL_DEPENDS+=	${RUBY_PKGPREFIX}-rdtool>=0.6.14:../../textproc/ruby-rdtool
 
 .endif # RUBY_RDTOOL_MK
