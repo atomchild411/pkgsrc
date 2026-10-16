@@ -43,6 +43,10 @@ PLIST.objcxx=	yes
 .include "../../devel/cmake/build.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../devel/robin-map/buildlink3.mk"
+# IRIX: clang-irix-libs, which every C++ link takes, has libunwind (and
+# conflicts with lang/libunwind).
+.if ${OPSYS} != "IRIX"
 .include "../../lang/libunwind/buildlink3.mk"
+.endif
 .include "../../mk/compiler/clang.mk"
 .include "../../mk/bsd.pkg.mk"
