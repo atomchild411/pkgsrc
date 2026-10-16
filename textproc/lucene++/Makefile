@@ -20,6 +20,7 @@ CMAKE_CONFIGURE_ARGS+=	-DENABLE_TEST=OFF
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 .include "../../devel/boost-libs/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../devel/cmake/build.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
