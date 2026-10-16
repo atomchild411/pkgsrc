@@ -5,7 +5,7 @@ header wrappers and builtins) sees it.
 
 --- libc-0.2.189/src/unix/irix/mod.rs.orig
 +++ libc-0.2.189/src/unix/irix/mod.rs
-@@ -0,0 +1,1081 @@
+@@ -0,0 +1,1091 @@
 +//! IRIX 6.5, N32 ABI.
 +//!
 +//! The types, structures and constants are IRIX 6.5.22's, as its headers declare them for the
@@ -736,6 +736,7 @@ header wrappers and builtins) sees it.
 +    pub fn dirname(path: *mut c_char) -> *mut c_char;
 +    pub fn drand48() -> c_double;
 +    pub fn duplocale(base: crate::locale_t) -> crate::locale_t;
++    pub fn dup3(src: c_int, dst: c_int, flags: c_int) -> c_int;
 +    pub fn endgrent();
 +    pub fn endmntent(streamp: *mut crate::FILE) -> c_int;
 +    pub fn endpwent();
@@ -827,6 +828,8 @@ header wrappers and builtins) sees it.
 +        dev: crate::dev_t,
 +    ) -> c_int;
 +    pub fn mkostemp(template: *mut c_char, flags: c_int) -> c_int;
++    pub fn mkostemps(template: *mut c_char, suffixlen: c_int, flags: c_int) -> c_int;
++    pub fn mkstemps(template: *mut c_char, suffixlen: c_int) -> c_int;
 +    pub fn mount(device: *const c_char, path: *const c_char, flags: c_int, ...) -> c_int;
 +    pub fn mprotect(addr: *mut c_void, len: size_t, prot: c_int) -> c_int;
 +    pub fn mrand48() -> c_long;
@@ -844,6 +847,7 @@ header wrappers and builtins) sees it.
 +    pub fn newlocale(mask: c_int, locale: *const c_char, base: crate::locale_t) -> crate::locale_t;
 +    pub fn nl_langinfo(item: crate::nl_item) -> *mut c_char;
 +    pub fn nrand48(arg1: *mut c_ushort) -> c_long;
++    pub fn pipe2(fds: *mut c_int, flags: c_int) -> c_int;
 +    pub fn popen(command: *const c_char, mode: *const c_char) -> *mut crate::FILE;
 +    pub fn posix_spawn_file_actions_addchdir(
 +        actions: *mut crate::posix_spawn_file_actions_t,
@@ -1076,6 +1080,12 @@ header wrappers and builtins) sees it.
 +    pub fn uname(buf: *mut crate::utsname) -> c_int;
 +    pub fn uselocale(loc: crate::locale_t) -> crate::locale_t;
 +    pub fn vfork() -> crate::pid_t;
++    pub fn wait4(
++        pid: crate::pid_t,
++        status: *mut c_int,
++        options: c_int,
++        rusage: *mut crate::rusage,
++    ) -> crate::pid_t;
 +    pub fn waitid(
 +        idtype: c_int,
 +        id: crate::id_t,
