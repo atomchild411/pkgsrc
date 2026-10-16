@@ -104,6 +104,21 @@ cargo-vendor-crates:
 	  > ${CARGO_VENDOR_DIR}/${crate}/.cargo-checksum.json
 .endfor
 
+.if ${RUST_TYPE} == "cross" && !empty(CARGO_CROSS_PATCHES)
+# With the patched crates dropped from Cargo.lock, cargo writes them back,
+# resolved to the patches, on its first run; builds that pass --locked
+# (maturin, librsvg's meson wrapper: cargo cbuild --locked) refuse that.
+# So resolve once here, offline, keeping every other locked version.
+pre-configure: cargo-cross-lock
+.PHONY: cargo-cross-lock
+cargo-cross-lock:
+	${RUN}if [ -f ${CARGO_WRKSRC}/Cargo.lock ]; then			\
+	  cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${CARGO} metadata		\
+	    --offline --format-version 1 > /dev/null ||				\
+	  ${ECHO} "cargo.mk: could not resolve the patched crates in Cargo.lock"; \
+	fi
+.endif
+
 # Legacy name
 .PHONY: show-cargo-depends
 show-cargo-depends: print-cargo-depends
