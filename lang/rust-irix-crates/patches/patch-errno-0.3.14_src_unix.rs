@@ -1,6 +1,6 @@
 $NetBSD$
 
-IRIX 6.5 (mips64-sgi-irix): errno is at __oserror(). Cargo.toml: only the dependencies (and features) IRIX builds use.
+IRIX 6.5 (mips64-sgi-irix): errno is at __oserror(). Cargo.toml: only the dependencies (and features) IRIX builds and the build host use.
 
 --- errno-0.3.14/src/unix.rs.orig
 +++ errno-0.3.14/src/unix.rs

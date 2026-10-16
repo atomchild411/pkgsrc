@@ -1,6 +1,6 @@
 $NetBSD$
 
-IRIX 6.5 (mips64-sgi-irix): no peer credentials for UNIX-domain sockets (an error); signed uid_t/gid_t, as on QNX. Cargo.toml: only the dependencies (and features) IRIX builds use.
+IRIX 6.5 (mips64-sgi-irix): no peer credentials for UNIX-domain sockets (an error); signed uid_t/gid_t, as on QNX. Cargo.toml: only the dependencies (and features) IRIX builds and the build host use.
 
 --- tokio-1.53.1/src/process/mod.rs.orig
 +++ tokio-1.53.1/src/process/mod.rs

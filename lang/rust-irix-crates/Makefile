@@ -1,6 +1,6 @@
 # $NetBSD$
 
-DISTNAME=	rust-irix-crates-20261004.7
+DISTNAME=	rust-irix-crates-20261004.8
 CATEGORIES=	lang
 MASTER_SITES=	# empty: every crate has its own site
 
@@ -22,6 +22,8 @@ IRIX_CRATES+=	errno-0.3.14
 IRIX_CRATES+=	tokio-1.53.1
 # unchanged, but newer than what packages vendor, and needed by the above
 IRIX_CRATES+=	tokio-macros-2.7.1
+# ... and by rustix, built for the build host as well (build scripts, proc macros)
+IRIX_CRATES+=	linux-raw-sys-0.4.15 linux-raw-sys-0.12.1
 
 DISTFILES=	# empty
 .for c in ${IRIX_CRATES}
