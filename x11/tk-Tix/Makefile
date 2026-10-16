@@ -56,4 +56,12 @@ CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 .include "../../lang/tcl/buildlink3.mk"
 .include "../../x11/tk/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
+.include "../../mk/bsd.prefs.mk"
+# TEA's tcl.m4 drops the dots from the library's version on the BSDs only.
+.if ${OPSYS} == "IRIX"
+PLIST_SUBST+=	TIX_LIBVER=8.4.3
+.else
+PLIST_SUBST+=	TIX_LIBVER=843
+.endif
+
 .include "../../mk/bsd.pkg.mk"

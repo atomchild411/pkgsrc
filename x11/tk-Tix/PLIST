@@ -337,7 +337,7 @@ lib/Tix8.4.3/docs/tix-book/preface.tex.html
 lib/Tix8.4.3/docs/tix-book/tix.book.html
 lib/Tix8.4.3/docs/tix-book/tlist.tex.html
 lib/Tix8.4.3/fs.tcl
-lib/Tix8.4.3/libTix843.so
+lib/Tix8.4.3/libTix${TIX_LIBVER}.so
 lib/Tix8.4.3/license.terms
 lib/Tix8.4.3/pkgIndex.tcl
 lib/Tix8.4.3/pref/10Point.fs
