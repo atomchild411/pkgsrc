@@ -21,7 +21,7 @@ do-install:
 	cd ${DESTDIR}${PREFIX}/lib && \
 		${LN} -s libcurl-gnutls.4.dylib libcurl-gnutls.dylib
 .else
-	cd ${WRKSRC} && ${PREFIX}/bin/patchelf \
+	cd ${WRKSRC} && ${TOOLBASE}/bin/patchelf \
 		--set-soname 'libcurl-gnutls.so.4' \
 		lib/.libs/libcurl.so.4.*
 	${INSTALL} ${WRKSRC}/lib/.libs/libcurl.so.4.8.0 \

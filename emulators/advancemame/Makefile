@@ -86,13 +86,13 @@ HTMLDOCS=	authors.html build.html carddos.html cardlinx.html \
 post-configure:
 	# Sigh... avoid a conflict with an internal header.
 	${RM} -f ${BUILDLINK_DIR}/include/png.h
-	${PREFIX}/bin/convert ${WRKSRC}/contrib/logo/megaman.ico[2] \
+	${TOOLBASE}/bin/convert ${WRKSRC}/contrib/logo/megaman.ico[2] \
 	    ${WRKDIR}/advancemame-48.png
-	${PREFIX}/bin/convert ${WRKSRC}/contrib/logo/megaman.ico[3] \
+	${TOOLBASE}/bin/convert ${WRKSRC}/contrib/logo/megaman.ico[3] \
 	    ${WRKDIR}/advancemame-32.png
-	${PREFIX}/bin/convert ${WRKSRC}/contrib/logo/megaman.ico[4] \
+	${TOOLBASE}/bin/convert ${WRKSRC}/contrib/logo/megaman.ico[4] \
 	    ${WRKDIR}/advancemame-16.png
-	${PREFIX}/bin/convert ${WRKSRC}/contrib/logo/megaman.ico[5] \
+	${TOOLBASE}/bin/convert ${WRKSRC}/contrib/logo/megaman.ico[5] \
 	    ${WRKDIR}/advancemame-256.png
 
 do-install:

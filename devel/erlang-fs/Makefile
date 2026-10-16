@@ -16,7 +16,7 @@ TOOL_DEPENDS+=	rebar3-[0-9]*:../../devel/rebar3
 # XXX: this package should be fixed to not require network access during build
 ALLOW_NETWORK_ACCESS=	1
 
-REBAR=		${PREFIX}/bin/rebar3
+REBAR=		${TOOLBASE}/bin/rebar3
 
 .include "../../mk/bsd.prefs.mk"
 

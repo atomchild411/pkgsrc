@@ -39,7 +39,7 @@ INSTALLATION_DIRS+=	bin
 ###
 TOOL_DEPENDS+=	patch-[0-9]*:../../devel/patch
 pre-patch:
-	${PREFIX}/bin/gpatch -d ${WRKSRC} -p1 -s \
+	${TOOLBASE}/bin/gpatch -d ${WRKSRC} -p1 -s \
 		< ${WRKDIR}/dvipsk-5.98-p1.7b-tl2009.diff
 
 do-install:

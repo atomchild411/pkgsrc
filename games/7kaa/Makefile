@@ -31,7 +31,7 @@ INSTALLATION_DIRS+=	share/pixmaps
 BUILDLINK_TRANSFORM+=	rm:-Werror=char-subscripts
 
 post-extract:
-	${PREFIX}/bin/icotool -x -i 1 ${WRKSRC}/src/7k.ico -o ${WRKDIR}/7kaa.png
+	${TOOLBASE}/bin/icotool -x -i 1 ${WRKSRC}/src/7k.ico -o ${WRKDIR}/7kaa.png
 
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/7kaa.desktop \

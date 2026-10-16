@@ -14,7 +14,7 @@ TOOL_DEPENDS+=	rpm2cpio>=1.3:../../converters/rpm2cpio
 
 CONFLICTS+=	ksc5601fonts-[0-9]*
 
-USE_TOOLS+=		gzip gunzip
+USE_TOOLS+=		gzip gunzip pax
 
 MAKE_ENV+=	FONTDIR=${FONTDIR:Q} GZIP_CMD=${GZIP_CMD:Q}
 
@@ -29,8 +29,8 @@ INSTALLATION_DIRS+=	${FONTDIR}
 do-extract:
 	${MKDIR} ${WRKSRC}
 	${CP} ${.CURDIR}/../../fonts/ko-x11fonts/files/Makefile ${WRKSRC}
-	(cd ${WRKSRC}; ${PREFIX}/bin/rpm2cpio.pl ${_DISTDIR}/${DISTFILES} | \
-	    cpio -id *.pcf.Z)
+	(cd ${WRKSRC}; ${TOOLBASE}/bin/rpm2cpio.pl ${_DISTDIR}/${DISTFILES} | \
+	    ${PAX} -r '*.pcf.Z')
 	(cd ${WRKSRC}; for i in ${MIZI_PCF}; do \
 		${GUNZIP_CMD} -c usr/lib/X11/fonts/misc/$$i.Z > $$i; \
 	done)

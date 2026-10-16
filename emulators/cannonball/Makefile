@@ -32,7 +32,7 @@ INSTALLATION_DIRS+=	share/icons/hicolor/${s}x${s}/apps
 
 pre-configure:
 .for s in ${ICON_SIZES}
-	cd ${WRKSRC} && ${PREFIX}/bin/icotool -w ${s} -h ${s} -x -o ${s}.png \
+	cd ${WRKSRC} && ${TOOLBASE}/bin/icotool -w ${s} -h ${s} -x -o ${s}.png \
 	   res/cannonball.ico
 .endfor
 

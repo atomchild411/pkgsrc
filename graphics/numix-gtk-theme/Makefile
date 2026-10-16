@@ -21,7 +21,7 @@ DEPENDS+=	gtk2-engines-murrine-[0-9]*:../../x11/gtk2-engines-murrine
 REPLACE_BASH+=	scripts/utils.sh
 
 MAKE_FLAGS+=	INSTALL_DIR=${DESTDIR}${PREFIX}/share/themes/Numix
-MAKE_FLAGS+=	SASS=${PREFIX}/bin/sass${RUBY_VER}
+MAKE_FLAGS+=	SASS=${TOOLBASE}/bin/sass${RUBY_VER}
 
 .include "../../lang/ruby/rubyversion.mk"
 .include "../../x11/gtk3/buildlink3.mk"

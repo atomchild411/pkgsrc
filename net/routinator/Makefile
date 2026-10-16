@@ -34,7 +34,7 @@ MAKE_JOBS_SAFE=	no
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PREFIX}/bin/cargo \
+		${TOOLBASE}/bin/cargo \
 		build --locked --frozen \
 		-j ${_MAKE_JOBS_N}
 

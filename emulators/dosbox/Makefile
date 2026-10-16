@@ -36,11 +36,11 @@ INSTALLATION_DIRS+=	share/applications
 INSTALLATION_DIRS+=	share/doc/dosbox
 
 post-extract:
-	${PREFIX}/bin/icotool -x -i 1 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/256.png
-	${PREFIX}/bin/icotool -x -i 2 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/48.png
-	${PREFIX}/bin/icotool -x -i 3 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/32.png
-	${PREFIX}/bin/icotool -x -i 4 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/24.png
-	${PREFIX}/bin/icotool -x -i 5 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/16.png
+	${TOOLBASE}/bin/icotool -x -i 1 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/256.png
+	${TOOLBASE}/bin/icotool -x -i 2 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/48.png
+	${TOOLBASE}/bin/icotool -x -i 3 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/32.png
+	${TOOLBASE}/bin/icotool -x -i 4 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/24.png
+	${TOOLBASE}/bin/icotool -x -i 5 ${WRKSRC}/src/dosbox.ico -o ${WRKDIR}/16.png
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/dosbox

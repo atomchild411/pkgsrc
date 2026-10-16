@@ -35,7 +35,7 @@ do-build:
 			print ""; \
 		}' \
 		< ${WRKSRC}/${dict} | \
-	${LOCALBASE}/bin/cdb -c -t - \
+	${TOOLBASE}/bin/cdb -c -t - \
 		${WRKSRC}/${dict}.cdb
 .endfor
 
