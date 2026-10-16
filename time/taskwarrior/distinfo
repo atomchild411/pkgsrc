@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.6 2023/02/10 11:30:12 fcambus Exp $
 BLAKE2s (task-2.6.2.tar.gz) = 84cbf2c041be6acfc11f261eb1838ffe93de7757d99d21a8d2b0146846e2a64e
 SHA512 (task-2.6.2.tar.gz) = 3c592552c1baada09ef4e06cf2266c9897ffae42a75998b70767f2cfbabd2e1de7d1a900f16f3b8eb164ce19637dabd21e246f84732a20a646f39716895cdf98
 Size (task-2.6.2.tar.gz) = 838933 bytes
+SHA1 (patch-src_libshared_src_FS.cpp) = 374dd936d0fc98d85c76d905da28cb2f38747d30
