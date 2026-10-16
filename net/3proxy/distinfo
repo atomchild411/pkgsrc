@@ -11,6 +11,7 @@ SHA1 (patch-ae) = bd409f5b7d0ddf25fa7a7c644945157c23463ba1
 SHA1 (patch-cfg_3proxy.cfg.sample) = 7b113b9494ca80d613fb53bde02df0b9e3a40584
 SHA1 (patch-man_3proxy.8) = 69a64574e4b1f543ccd4e90bead39740a638b0f4
 SHA1 (patch-man_3proxy.cfg.3) = 3b650436821b1c0cab72a94c1ca245295c5bfba6
+SHA1 (patch-src_log.c) = 045c8e1a999a12e53cfa11fafb1c3be6d1762d28
 SHA1 (patch-src_plugins_PamAuth_pamauth.c) = 97674438898ddc9ea7cce9a7da303e378d50bcdf
 SHA1 (patch-src_plugins_TransparentPlugin_transparent__plugin.c) = 1176f14c05443c5bcaaa8a36f68701d8446c6997
 SHA1 (patch-src_version.h) = 774543930f3d64240907a1b1dd798372a09e6362
