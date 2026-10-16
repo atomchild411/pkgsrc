@@ -132,6 +132,13 @@ PKG_FAIL_REASON+=	"${_PGSQL_VERSION} is not a valid package"
 
 .include "${PGPKGSRCDIR}/buildlink3.mk"
 PGSQL_PREFIX=	${BUILDLINK_PREFIX.${PGSQL_TYPE}}
+# The pg_config to run: in a cross build, the one mk/pgsql-pg_config.mk
+# puts in the buildlink directory.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+PGSQL_PG_CONFIG=	${BUILDLINK_DIR}/bin/pg_config
+.else
+PGSQL_PG_CONFIG=	${PGSQL_PREFIX}/bin/pg_config
+.endif
 
 PGSQL_VERSION=	${_PGSQL_VERSION}
 

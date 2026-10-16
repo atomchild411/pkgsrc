@@ -11,7 +11,6 @@ BUILDLINK_PKGSRCDIR.postgresql15-client?=	../../databases/postgresql15-client
 
 # This variable contains the libraries need to link most clients.
 BUILDLINK_LDADD.postgresql15-client+=	-lpq ${BUILDLINK_LDADD.gettext}
-BUILDLINK_FILES.postgresql15-client+=	bin/pg_config
 
 pkgbase := postgresql15-client
 .include "../../mk/pkg-build-options.mk"
@@ -21,6 +20,13 @@ pkgbase := postgresql15-client
 .endif
 
 .include "../../mk/bsd.fast.prefs.mk"
+# A cross build gets a pg_config that runs on the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+_PG_CONFIG_PKG=	postgresql15-client
+.  include "../../mk/pgsql-pg_config.mk"
+.else
+BUILDLINK_FILES.postgresql15-client+=	bin/pg_config
+.endif
 .if ${OPSYS} == "SunOS"
 .include "../../devel/ossp-uuid/buildlink3.mk"
 .endif

@@ -20,6 +20,8 @@ POSTGRES_INCLUDE=	${PGSQL_PREFIX}/include/postgresql
 POSTGRES_LIB=		${PGSQL_PREFIX}/lib
 MAKE_ENV+=		POSTGRES_INCLUDE=${POSTGRES_INCLUDE:Q}
 MAKE_ENV+=		POSTGRES_LIB=${POSTGRES_LIB:Q}
+# App::Info looks for pg_config in POSTGRES_HOME/bin before POSTGRES_LIB/../bin.
+MAKE_ENV+=		POSTGRES_HOME=${PGSQL_PG_CONFIG:H:H:Q}
 REPLACE_PERL+=		testme.tmp.pl
 
 .include "../../databases/p5-DBI/buildlink3.mk"

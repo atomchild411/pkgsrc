@@ -11,7 +11,6 @@ BUILDLINK_PKGSRCDIR.postgresql18-client?=	../../databases/postgresql18-client
 
 # This variable contains the libraries need to link most clients.
 BUILDLINK_LDADD.postgresql18-client+=	-lpq ${BUILDLINK_LDADD.gettext}
-BUILDLINK_FILES.postgresql18-client+=	bin/pg_config
 
 pkgbase := postgresql18-client
 .include "../../mk/pkg-build-options.mk"
@@ -21,6 +20,13 @@ pkgbase := postgresql18-client
 .endif
 
 .include "../../mk/bsd.fast.prefs.mk"
+# A cross build gets a pg_config that runs on the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+_PG_CONFIG_PKG=	postgresql18-client
+.  include "../../mk/pgsql-pg_config.mk"
+.else
+BUILDLINK_FILES.postgresql18-client+=	bin/pg_config
+.endif
 .if ${OPSYS} == "SunOS"
 .include "../../devel/ossp-uuid/buildlink3.mk"
 .endif
