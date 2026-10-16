@@ -82,6 +82,14 @@ GST_PLUGINS+=	nls
 
 LDFLAGS.SunOS+=	-lsocket -lnsl
 
+# libgstdxva is built off Windows only with introspection, which cross
+# builds leave out (devel/gobject-introspection/buildlink3.mk).
+PLIST_VARS+=	dxva
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.dxva=	yes
+.endif
+
 .include "Makefile.common"
 BUILDLINK_DEPMETHOD.gobject-introspection=	build
 .include "../../devel/gobject-introspection/buildlink3.mk"

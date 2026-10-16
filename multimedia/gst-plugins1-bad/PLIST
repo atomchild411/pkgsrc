@@ -191,9 +191,9 @@ lib/libgstcodecparsers-1.0.so.0.${SHLIBVER}.0
 lib/libgstcodecs-1.0.so
 lib/libgstcodecs-1.0.so.0
 lib/libgstcodecs-1.0.so.0.${SHLIBVER}.0
-lib/libgstdxva-1.0.so
-lib/libgstdxva-1.0.so.0
-lib/libgstdxva-1.0.so.0.${SHLIBVER}.0
+${PLIST.dxva}lib/libgstdxva-1.0.so
+${PLIST.dxva}lib/libgstdxva-1.0.so.0
+${PLIST.dxva}lib/libgstdxva-1.0.so.0.${SHLIBVER}.0
 lib/libgstinsertbin-1.0.so
 lib/libgstinsertbin-1.0.so.0
 lib/libgstinsertbin-1.0.so.0.${SHLIBVER}.0
