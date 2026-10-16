@@ -78,6 +78,19 @@ CONF_FILES_PERMS+=	${EGDIR}/certs/bootstrap ${PKG_SYSCONFDIR}/certs/bootstrap \
 OWN_DIRS_PERMS+=	${PKG_SYSCONFDIR}/${d} ${RADIUS_USER} ${RADIUS_GROUP} 0750
 .endfor
 
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# jlibtool runs at build time.
+MAKE_FLAGS+=		JLIBTOOL_CC=${NATIVE_CC:Q}
+# configure looks for last(1) on the build machine; the PLIST has radlast.
+CONFIGURE_ARGS+=	--with-radlast
+# configure only runs its __thread test natively; IRIX's clang has it
+# (emulated TLS), and threads.h has no other way.
+CONFIGURE_ENV.IRIX+=	fr_cv_cross_thread_tls=yes
+# debug.c wants BSD/Linux ptrace requests (PT_ATTACH); without the header it
+# just cannot tell whether a debugger is attached.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_sys_ptrace_h=no
+.endif
+
 INSTALL_MAKE_FLAGS+=	raddbdir=${EGDIR}
 
 TEST_TARGET=		test

@@ -1,10 +1,11 @@
 $NetBSD: patch-configure,v 1.1 2023/06/17 18:19:06 adam Exp $
 
 Portable test syntax
+Cross builds: fr_cv_cross_thread_tls answers the __thread run test.
 
---- configure.orig	2023-05-26 13:56:52.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -12066,7 +12066,49 @@ printf "%s\n" "no" >&6; }
+@@ -12140,7 +12140,49 @@
      eval "ac_cv_type_${ac_safe_type}_has_ipi_addr="
   fi
  
@@ -55,3 +56,12 @@ Portable test syntax
  
  printf "%s\n" "#define HAVE_IP_PKTINFO /**/" >>confdefs.h
  
+@@ -12625,7 +12667,7 @@
+ printf %s "checking for __thread support in compiler... " >&6; }
+   if test "$cross_compiling" = yes
+ then :
+-  have_tls=no
++  have_tls=${fr_cv_cross_thread_tls-no}
+ else $as_nop
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
