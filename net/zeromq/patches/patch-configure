@@ -1,0 +1,16 @@
+$NetBSD$
+
+IRIX: a POSIX system with none of the special cases.
+
+--- configure.orig
++++ configure
+@@ -21899,6 +21899,9 @@
+ fi
+ 
+         ;;
++    *irix*)
++        # IRIX: a POSIX system with none of the special cases above.
++        ;;
+     *)
+         as_fn_error $? "unsupported system: ${host_os}." "$LINENO" 5
+         ;;

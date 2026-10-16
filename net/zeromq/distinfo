@@ -3,5 +3,6 @@ $NetBSD: distinfo,v 1.35 2023/10/10 15:16:01 adam Exp $
 BLAKE2s (zeromq-4.3.5.tar.gz) = 9c1df948ee62417689a6f0ccc762ed61f314c4d8ac0ccc6929a9b2b646a6aabb
 SHA512 (zeromq-4.3.5.tar.gz) = a71d48aa977ad8941c1609947d8db2679fc7a951e4cd0c3a1127ae026d883c11bd4203cf315de87f95f5031aec459a731aec34e5ce5b667b8d0559b157952541
 Size (zeromq-4.3.5.tar.gz) = 2530237 bytes
+SHA1 (patch-configure) = cf6480c5441df0e3d1219edf27943a0a5649120f
 SHA1 (patch-src_ipc__listener.cpp) = 4440ed53b04b72ac732377f695716d5017121af3
 SHA1 (patch-src_tcp__listener.cpp) = e806f9776f46668f30c3a2c3baf7e52afd4a7a49
