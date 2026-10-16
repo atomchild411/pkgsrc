@@ -6,10 +6,11 @@ branch iris/main):
 - Declare the BSD functions IRIX hides outside SGI mode
 - timespec in wrapper prototypes: the tag IRIX uses in the mode
 - Wrapper headers: u_int64_t, CRTSCTS, <strings.h>, sig_t, IOV_MAX
+- NSIG and _NSIG outside SGI mode
 
 --- lib/Headers/irix_wrappers/signal.h.orig
 +++ lib/Headers/irix_wrappers/signal.h
-@@ -0,0 +1,69 @@
+@@ -0,0 +1,81 @@
 +/*===---- signal.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -76,6 +77,18 @@ branch iris/main):
 +#if !defined(__STRICT_ANSI__) && !defined(__CLANG_IRIX_SIG_T)
 +#define __CLANG_IRIX_SIG_T
 +typedef void (*sig_t)(int);
++#endif
++
++/* NSIG, one more than the highest signal number: IRIX's (65), which its
++ * header defines only in SGI and ABI modes; the BSDs and glibc (with
++ * _DEFAULT_SOURCE) give it, and glibc its other name, _NSIG. */
++#if !defined(__STRICT_ANSI__)
++#ifndef NSIG
++#define NSIG 65
++#endif
++#ifndef _NSIG
++#define _NSIG NSIG
++#endif
 +#endif
 +
 +#endif /* __CLANG_IRIX_SIGNAL_H */

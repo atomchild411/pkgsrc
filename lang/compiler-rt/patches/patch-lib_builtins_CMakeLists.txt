@@ -41,10 +41,11 @@ branch iris/main):
 - openpty, forkpty, login_tty
 - fmemopen and open_memstream
 - swscanf, fwscanf, wscanf and their v forms
+- if_nameindex and friends (irix/ifnameindex.c)
 
 --- lib/builtins/CMakeLists.txt.orig
 +++ lib/builtins/CMakeLists.txt
-@@ -236,6 +236,61 @@
+@@ -236,6 +236,62 @@
    "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
    Off)
  
@@ -83,6 +84,7 @@ branch iris/main):
 +    irix/dladdr.c
 +    irix/pselect.c
 +    irix/ifaddrs.c
++    irix/ifnameindex.c
 +    irix/process_bsd.c
 +    irix/memstream.c
 +    irix/wscanf.c

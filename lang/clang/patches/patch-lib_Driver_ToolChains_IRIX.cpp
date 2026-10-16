@@ -13,10 +13,11 @@ branch iris/main):
 - Driver: the builtins ahead of a link's inputs too
 - Driver: MIPSpro's options accepted and ignored
 - Driver: no -lutil (openpty and friends are in the builtins)
+- Driver: -lstdc++ links libc++
 
 --- lib/Driver/ToolChains/IRIX.cpp.orig
 +++ lib/Driver/ToolChains/IRIX.cpp
-@@ -0,0 +1,395 @@
+@@ -0,0 +1,403 @@
 +//===--- IRIX.cpp - IRIX ToolChain Implementations --------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -330,15 +331,23 @@ branch iris/main):
 +  // IRIX has no libutil: its pseudo-terminal functions (openpty, forkpty,
 +  // login_tty) are in the builtins library (irix/pty.c). Links that ask for
 +  // it -- BSD and Linux makefiles, configure checks -- get nothing for it.
++  // And the C++ library is libc++: -lstdc++, which libtool's IRIX case
++  // names for g++ (its C++ links are -nostdlib), is -lc++, as on FreeBSD.
 +  for (size_t I = InputsBegin; I < CmdArgs.size();) {
 +    StringRef A = CmdArgs[I];
-+    if (A == "-lutil")
++    StringRef Next = I + 1 < CmdArgs.size() ? CmdArgs[I + 1] : "";
++    if (A == "-lutil") {
 +      CmdArgs.erase(CmdArgs.begin() + I);
-+    else if (A == "-l" && I + 1 < CmdArgs.size() &&
-+             StringRef(CmdArgs[I + 1]) == "util")
++    } else if (A == "-l" && Next == "util") {
 +      CmdArgs.erase(CmdArgs.begin() + I, CmdArgs.begin() + I + 2);
-+    else
++    } else if (A == "-lstdc++") {
++      CmdArgs[I++] = "-lc++";
++    } else if (A == "-l" && Next == "stdc++") {
++      CmdArgs[I + 1] = "c++";
++      I += 2;
++    } else {
 +      ++I;
++    }
 +  }
 +
 +  // IRIX's libGL.so has GLX and the dispatch only: the GL functions are in

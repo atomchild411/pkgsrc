@@ -5,10 +5,11 @@ branch iris/main):
 - getaddrinfo, getnameinfo and RFC 3493's IPv6 types
 - Wrappers: clean against 6.5.22's headers in every mode
 - Wrapper <net/if.h>: if_nametoindex and if_indextoname unconditionally
+- if_nameindex and if_freenameindex, struct if_nameindex outside INET6
 
 --- lib/Headers/irix_wrappers/net/if.h.orig
 +++ lib/Headers/irix_wrappers/net/if.h
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,51 @@
 +/*===---- net/if.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -17,9 +18,9 @@ branch iris/main):
 + *
 + *===-----------------------------------------------------------------------===
 + *
-+ * RFC 3493's if_nametoindex and if_indextoname, and IF_NAMESIZE, which IRIX
-+ * lacks. They exist for IPv6 scope ids, which IRIX has no use for: compiler-rt
-+ * (irix/netdb.c) defines them to find no interface.
++ * RFC 3493's if_nametoindex, if_indextoname, if_nameindex and
++ * if_freenameindex, and IF_NAMESIZE, which IRIX lacks: compiler-rt
++ * (irix/ifnameindex.c) defines them over SIOCGIFCONF.
 + *
 + * IRIX's header also uses the BSD types u_char, u_short, ... which
 + * <sys/types.h> gives only outside POSIX and X/Open modes: bring them in
@@ -46,6 +47,15 @@ branch iris/main):
 +#endif
 +unsigned int if_nametoindex(const char *);
 +char *if_indextoname(unsigned int, char *);
++/* IRIX's struct for it is also INET6's only. */
++#ifndef INET6
++struct if_nameindex {
++  unsigned int if_index;
++  char *if_name;
++};
++#endif
++struct if_nameindex *if_nameindex(void);
++void if_freenameindex(struct if_nameindex *);
 +#ifdef __cplusplus
 +}
 +#endif

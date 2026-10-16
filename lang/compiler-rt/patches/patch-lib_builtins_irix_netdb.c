@@ -6,10 +6,11 @@ branch iris/main):
 - compiler-rt: the libc stand-ins are weak
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 - [IRIX] The last 22 libc stand-ins are weak too
+- if_nametoindex and if_indextoname moved to irix/ifnameindex.c
 
 --- lib/builtins/irix/netdb.c.orig
 +++ lib/builtins/irix/netdb.c
-@@ -0,0 +1,371 @@
+@@ -0,0 +1,355 @@
 +//===-- irix/netdb.c - getaddrinfo and friends for IRIX -------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -20,15 +21,14 @@ branch iris/main):
 +//
 +// RFC 3493's getaddrinfo, freeaddrinfo, getnameinfo and gai_strerror, which
 +// no IRIX release has, and the rest of that RFC's names the IRIX wrapper
-+// headers declare (<netdb.h>, <netinet/in.h>, <net/if.h>): in6addr_any,
-+// in6addr_loopback, if_nametoindex and if_indextoname.
++// headers declare (<netdb.h>, <netinet/in.h>): in6addr_any and
++// in6addr_loopback. (Its interface indexes: irix/ifnameindex.c.)
 +//
 +// Names resolve over IRIX's reentrant gethostbyname_r and gethostbyaddr_r,
 +// services over getservbyname_r and getservbyport_r: IPv4 only, as IRIX
 +// resolves. IPv6 addresses are handled as numbers only -- parsed with
 +// inet_pton and printed with inet_ntop, which IRIX's libc does for IPv6 --
-+// since IRIX has no IPv6 networking; a name never resolves to one, and there
-+// are no interfaces to name in a scope id.
++// since IRIX has no IPv6 networking; a name never resolves to one.
 +//
 +// Its own file, so a program is only given these when it asks for them.
 +//
@@ -54,8 +54,6 @@ branch iris/main):
 +#pragma weak getaddrinfo
 +#pragma weak gai_strerror
 +#pragma weak getnameinfo
-+#pragma weak if_nametoindex
-+#pragma weak if_indextoname
 +
 +
 +extern int inet_pton(int, const char *, void *);
@@ -366,18 +364,5 @@ branch iris/main):
 +  return 0;
 +}
 +
-+// IPv6 scope ids name interfaces; IRIX has no IPv6 to scope.
-+unsigned int if_nametoindex(const char *name) {
-+  (void)name;
-+  __irix_seterrno(ENXIO);
-+  return 0;
-+}
-+
-+char *if_indextoname(unsigned int index, char *name) {
-+  (void)index;
-+  (void)name;
-+  __irix_seterrno(ENXIO);
-+  return 0;
-+}
 +
 +#endif // defined(__sgi)
