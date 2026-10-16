@@ -15,4 +15,10 @@ GNU_CONFIGURE=	yes
 USE_LANGUAGES=	# none, not even C
 USE_TOOLS+=	gmake perl:run
 
+.include "../../mk/bsd.prefs.mk"
+# configure looks for XML::Simple with the build host's perl.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+TOOL_DEPENDS+=	p5-XML-Simple>=2.14:../../textproc/p5-XML-Simple
+.endif
+
 .include "../../mk/bsd.pkg.mk"
