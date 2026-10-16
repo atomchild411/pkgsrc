@@ -26,7 +26,7 @@
 .include "version.mk"
 
 PKGNAME=	llvm-${LLVM_VERSION}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	lang devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

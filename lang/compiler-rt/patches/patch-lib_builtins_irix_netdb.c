@@ -5,10 +5,11 @@ branch iris/main):
 - getaddrinfo, getnameinfo and RFC 3493's IPv6 types
 - compiler-rt: the libc stand-ins are weak
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
+- [IRIX] The last 22 libc stand-ins are weak too
 
 --- lib/builtins/irix/netdb.c.orig
 +++ lib/builtins/irix/netdb.c
-@@ -0,0 +1,369 @@
+@@ -0,0 +1,371 @@
 +//===-- irix/netdb.c - getaddrinfo and friends for IRIX -------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -60,7 +61,9 @@ branch iris/main):
 +extern int inet_pton(int, const char *, void *);
 +extern const char *inet_ntop(int, const void *, char *, size_t);
 +
++#pragma weak in6addr_any
 +const struct in6_addr in6addr_any = IN6ADDR_ANY_INIT;
++#pragma weak in6addr_loopback
 +const struct in6_addr in6addr_loopback = IN6ADDR_LOOPBACK_INIT;
 +
 +#define KNOWN_AI_FLAGS                                                         \

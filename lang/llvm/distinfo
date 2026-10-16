@@ -31,6 +31,7 @@ SHA1 (patch-lib_Target_Mips_MCTargetDesc_MipsMCTargetDesc.cpp) = 99732a9ddec418e
 SHA1 (patch-lib_Target_Mips_Mips.td) = 00f6e28875b7271f79c690df4ea5140b43a97ae8
 SHA1 (patch-lib_Target_Mips_Mips64InstrInfo.td) = 7256ae4ffae4834370c2684777f8f70106ace7d8
 SHA1 (patch-lib_Target_Mips_MipsBranchExpansion.cpp) = 8997ea9db3253aada18517eeb4c346c9c667eb4d
+SHA1 (patch-lib_Target_Mips_MipsDelaySlotFiller.cpp) = e6b94d12482d8f80a8bed041989e5dba7cadb547
 SHA1 (patch-lib_Target_Mips_MipsISelLowering.cpp) = 9b7fb4900ab4569dd47ef117c3b1de342b645074
 SHA1 (patch-lib_Target_Mips_MipsSEFrameLowering.cpp) = ece7ebfc242e01065a38444e3ef6577c2de0118a
 SHA1 (patch-lib_Target_Mips_MipsSEFrameLowering.h) = b03bbc8c3c410eaf0303c235ac97ebb99767374b

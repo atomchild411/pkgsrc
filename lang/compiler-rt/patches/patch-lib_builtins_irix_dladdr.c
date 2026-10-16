@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - dladdr() over the runtime linker's dladdr service
+- [IRIX] The last 22 libc stand-ins are weak too
 
 --- lib/builtins/irix/dladdr.c.orig
 +++ lib/builtins/irix/dladdr.c
-@@ -0,0 +1,29 @@
+@@ -0,0 +1,30 @@
 +//===-- irix/dladdr.c - dladdr for IRIX -----------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -31,6 +32,7 @@ branch iris/main):
 +#include <dlfcn.h>
 +#include <rld_interface.h>
 +
++#pragma weak dladdr
 +int dladdr(const void *addr, Dl_info *info) {
 +  return _rld_new_interface(_RLD_DLADDR, addr, info) != 0;
 +}

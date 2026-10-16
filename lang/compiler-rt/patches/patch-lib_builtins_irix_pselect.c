@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - pselect() over sigprocmask and select
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
+- [IRIX] The last 22 libc stand-ins are weak too
 
 --- lib/builtins/irix/pselect.c.orig
 +++ lib/builtins/irix/pselect.c
-@@ -0,0 +1,61 @@
+@@ -0,0 +1,62 @@
 +//===-- irix/pselect.c - pselect for IRIX ---------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -38,6 +39,7 @@ branch iris/main):
 +#include <sys/time.h>
 +#include <time.h>
 +
++#pragma weak pselect
 +int pselect(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
 +            const struct timespec *timeout, const sigset_t *sigmask) {
 +  struct timeval tv, *tvp = 0;

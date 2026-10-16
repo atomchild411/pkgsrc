@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - compiler-rt: strsignal
+- [IRIX] The last 22 libc stand-ins are weak too
 
 --- lib/builtins/irix/strsignal.c.orig
 +++ lib/builtins/irix/strsignal.c
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,33 @@
 +//===-- irix/strsignal.c - strsignal for IRIX -----------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -32,6 +33,7 @@ branch iris/main):
 +extern char *_sys_siglist[];
 +extern int _sys_nsig;
 +
++#pragma weak strsignal
 +char *strsignal(int sig) {
 +  if (sig > 0 && sig < _sys_nsig && _sys_siglist[sig])
 +    return _sys_siglist[sig];

@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - getopt_long and getopt_long_only
 - compiler-rt: the libc stand-ins are weak
+- [IRIX] The last 22 libc stand-ins are weak too
 
 --- lib/builtins/irix/getopt_long.c.orig
 +++ lib/builtins/irix/getopt_long.c
-@@ -0,0 +1,297 @@
+@@ -0,0 +1,298 @@
 +//===-- irix/getopt_long.c - getopt_long for IRIX -------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -50,6 +51,7 @@ branch iris/main):
 +#pragma weak getopt_long_only
 +
 +
++#pragma weak optreset
 +int optreset;
 +
 +static const char *nextchar; // the rest of a group of short options

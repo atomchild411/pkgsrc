@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - POSIX 2008's *at() calls and fdopendir
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
+- [IRIX] The last 22 libc stand-ins are weak too
 
 --- lib/builtins/irix/atfile.c.orig
 +++ lib/builtins/irix/atfile.c
-@@ -0,0 +1,315 @@
+@@ -0,0 +1,330 @@
 +//===-- irix/atfile.c - POSIX 2008's *at() functions on IRIX --------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -114,6 +115,7 @@ branch iris/main):
 +  if (at_p_ == 0)                                                              \
 +    return -1
 +
++#pragma weak openat
 +int openat(int fd, const char *path, int flags, ...) {
 +  mode_t mode = 0;
 +  if (flags & O_CREAT) {
@@ -126,11 +128,13 @@ branch iris/main):
 +  return open(at_p_, flags, mode);
 +}
 +
++#pragma weak fstatat
 +int fstatat(int fd, const char *path, struct stat *st, int flag) {
 +  AT(fd, path);
 +  return flag & AT_SYMLINK_NOFOLLOW ? lstat(at_p_, st) : stat(at_p_, st);
 +}
 +
++#pragma weak fchmodat
 +int fchmodat(int fd, const char *path, mode_t mode, int flag) {
 +  AT(fd, path);
 +  if (flag & AT_SYMLINK_NOFOLLOW) {
@@ -145,42 +149,50 @@ branch iris/main):
 +  return chmod(at_p_, mode);
 +}
 +
++#pragma weak fchownat
 +int fchownat(int fd, const char *path, uid_t uid, gid_t gid, int flag) {
 +  AT(fd, path);
 +  return flag & AT_SYMLINK_NOFOLLOW ? lchown(at_p_, uid, gid)
 +                                    : chown(at_p_, uid, gid);
 +}
 +
++#pragma weak mkdirat
 +int mkdirat(int fd, const char *path, mode_t mode) {
 +  AT(fd, path);
 +  return mkdir(at_p_, mode);
 +}
 +
++#pragma weak mknodat
 +int mknodat(int fd, const char *path, mode_t mode, dev_t dev) {
 +  AT(fd, path);
 +  return mknod(at_p_, mode, dev);
 +}
 +
++#pragma weak mkfifoat
 +int mkfifoat(int fd, const char *path, mode_t mode) {
 +  AT(fd, path);
 +  return mkfifo(at_p_, mode);
 +}
 +
++#pragma weak unlinkat
 +int unlinkat(int fd, const char *path, int flag) {
 +  AT(fd, path);
 +  return flag & AT_REMOVEDIR ? rmdir(at_p_) : unlink(at_p_);
 +}
 +
++#pragma weak readlinkat
 +ssize_t readlinkat(int fd, const char *path, char *buf, size_t size) {
 +  AT(fd, path);
 +  return readlink(at_p_, buf, size);
 +}
 +
++#pragma weak symlinkat
 +int symlinkat(const char *target, int fd, const char *path) {
 +  AT(fd, path);
 +  return symlink(target, at_p_);
 +}
 +
++#pragma weak renameat
 +int renameat(int fd1, const char *old, int fd2, const char *new_) {
 +  char buf2[PATH_MAX];
 +  const char *p2;
@@ -193,6 +205,7 @@ branch iris/main):
 +
 +// IRIX's link() makes the new name for the file the old one names, whatever
 +// it is, so AT_SYMLINK_FOLLOW is not looked at.
++#pragma weak linkat
 +int linkat(int fd1, const char *old, int fd2, const char *new_, int flag) {
 +  char buf2[PATH_MAX];
 +  const char *p2;
@@ -207,6 +220,7 @@ branch iris/main):
 +// With AT_EACCESS the check is against the effective ids, by the file's
 +// mode bits (IRIX has no eaccess); otherwise access(), which uses the real
 +// ones.
++#pragma weak faccessat
 +int faccessat(int fd, const char *path, int mode, int flag) {
 +  struct stat st;
 +  uid_t uid;
@@ -246,6 +260,7 @@ branch iris/main):
 +
 +// UTIME_NOW and UTIME_OMIT need the current times; utimes takes
 +// microseconds.
++#pragma weak utimensat
 +int utimensat(int fd, const char *path, const struct timespec ts[2],
 +              int flag) {
 +  struct timeval tv[2];
@@ -287,6 +302,7 @@ branch iris/main):
 +// A DIR for the directory FD, which then belongs to it (closedir closes
 +// it): the directory is opened again by path and its descriptor moved onto
 +// FD's number.
++#pragma weak fdopendir
 +DIR *fdopendir(int fd) {
 +  char buf[PATH_MAX];
 +  struct stat st;

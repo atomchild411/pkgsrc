@@ -8,7 +8,7 @@ branch iris/main):
 - long double is a double
 - Wide printf for 6.5.7; wcsnlen, wcsdup, wcscasecmp
 - btowc('\\0') is L'\\0', not WEOF
-- imaxdiv: defined in the builtins
+- imaxdiv: defined in the builtins, declared with imaxdiv_t everywhere
 
 --- lib/builtins/irix/libc_compat.c.orig
 +++ lib/builtins/irix/libc_compat.c

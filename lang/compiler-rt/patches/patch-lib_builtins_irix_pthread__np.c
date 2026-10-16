@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - pthread_cond_timedwait_relative_np
+- [IRIX] The last 22 libc stand-ins are weak too
 
 --- lib/builtins/irix/pthread_np.c.orig
 +++ lib/builtins/irix/pthread_np.c
-@@ -0,0 +1,44 @@
+@@ -0,0 +1,45 @@
 +//===-- irix/pthread_np.c - pthread_cond_timedwait_relative_np for IRIX ---===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -32,6 +33,7 @@ branch iris/main):
 +#include <pthread.h>
 +#include <time.h>
 +
++#pragma weak pthread_cond_timedwait_relative_np
 +int pthread_cond_timedwait_relative_np(pthread_cond_t *cond,
 +                                       pthread_mutex_t *mutex,
 +                                       const struct timespec *rel) {

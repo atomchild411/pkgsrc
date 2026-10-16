@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - getaddrinfo, getnameinfo and RFC 3493's IPv6 types
 - Wrappers: clean against 6.5.22's headers in every mode
+- Wrapper <net/if.h>: if_nametoindex and if_indextoname unconditionally
 
 --- lib/Headers/irix_wrappers/net/if.h.orig
 +++ lib/Headers/irix_wrappers/net/if.h
-@@ -0,0 +1,37 @@
+@@ -0,0 +1,42 @@
 +/*===---- net/if.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -32,8 +33,14 @@ branch iris/main):
 +#include <sys/bsd_types.h>
 +#include_next <net/if.h>
 +
++/* The functions unconditionally: IRIX declares them only in its INET6
++ * (IPv6 kit) builds, and IF_NAMESIZE is no sign of them -- 6.5.22 defines
++ * it without them, and c-ares defines its own before including this
++ * header, which left if_indextoname undeclared there. The same prototype
++ * again is harmless where IRIX does declare them. */
 +#ifndef IF_NAMESIZE
 +#define IF_NAMESIZE IFNAMSIZ
++#endif
 +#ifdef __cplusplus
 +extern "C" {
 +#endif
@@ -41,7 +48,6 @@ branch iris/main):
 +char *if_indextoname(unsigned int, char *);
 +#ifdef __cplusplus
 +}
-+#endif
 +#endif
 +
 +#endif /* __CLANG_IRIX_NET_IF_H */
