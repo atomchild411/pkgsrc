@@ -75,4 +75,18 @@ SUBST_SED.djberrno=	-e 's|^extern\ int\ errno\;|\#include \<errno.h\>|'
 SUBST_MESSAGE.djberrno=	Correcting definition of errno.
 .endif
 
+# A cross build cannot run the programs it compiles: chkshsgr, which only
+# makes sure getgroups() and setgroups() take gid_t arrays rather than short
+# ones, is skipped; auto-str's strings come from a script instead.
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		djbshsgr
+SUBST_STAGE.djbshsgr=	pre-build
+SUBST_FILES.djbshsgr=	Makefile src/Makefile
+SUBST_SED.djbshsgr=	-e 's,\./chkshsgr ||,true ||,'
+SUBST_SED.djbshsgr+=	-e 's,\./auto-str ,${SH} ${PKGSRCDIR}/mk/djbware-auto-str.sh ,'
+SUBST_NOOP_OK.djbshsgr=	yes
+SUBST_MESSAGE.djbshsgr=	Skipping chkshsgr; making auto-str's strings with a script.
+.endif
+
 .endif	# DJBWARE_MK
