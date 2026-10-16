@@ -1,10 +1,12 @@
 $NetBSD: patch-configure,v 1.1 2024/12/05 08:25:31 markd Exp $
 
 build with gcc14
+Cross builds: the run-only tests (SO_RCVTIMEO, SO_SNDTIMEO, SOCK_CLOEXEC,
+IPv6, sockaddr_storage, atomic builtins) answer no instead of stopping.
 
---- configure.orig	2024-12-03 03:37:19.702732038 +0000
+--- configure.orig
 +++ configure
-@@ -13048,6 +13048,8 @@ else
+@@ -13048,6 +13048,8 @@
  /* end confdefs.h.  */
  #include <stdio.h>
  #include <sys/types.h>
@@ -13,7 +15,7 @@ build with gcc14
  main()
  {
    FILE *f=fopen("conftestval","w");
-@@ -13099,6 +13101,8 @@ else
+@@ -13099,6 +13101,8 @@
  /* end confdefs.h.  */
  #include <stdio.h>
  #include <pthread.h>
@@ -22,7 +24,20 @@ build with gcc14
  main()
  {
    FILE *f=fopen("conftestval","w");
-@@ -13258,6 +13262,7 @@ else
+@@ -13247,10 +13251,8 @@
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to use SO_RCVTIMEO with setsockopt()" >&5
+ $as_echo_n "checking whether to use SO_RCVTIMEO with setsockopt()... " >&6; }
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no (cross compiling)" >&5
++$as_echo "no (cross compiling)" >&6; }
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+@@ -13258,6 +13260,7 @@
  #include <sys/types.h>
  #include <sys/socket.h>
  #include <sys/time.h>
@@ -30,7 +45,20 @@ build with gcc14
  
  int main(void)
  {
-@@ -13314,6 +13319,7 @@ else
+@@ -13303,10 +13306,8 @@
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to use SO_SNDTIMEO with setsockopt()" >&5
+ $as_echo_n "checking whether to use SO_SNDTIMEO with setsockopt()... " >&6; }
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no (cross compiling)" >&5
++$as_echo "no (cross compiling)" >&6; }
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+@@ -13314,6 +13315,7 @@
  #include <sys/types.h>
  #include <sys/socket.h>
  #include <sys/time.h>
@@ -38,7 +66,20 @@ build with gcc14
  
  int main(void)
  {
-@@ -13377,6 +13383,7 @@ else
+@@ -13366,10 +13368,8 @@
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to use SOCK_CLOEXEC with socket()" >&5
+ $as_echo_n "checking whether to use SOCK_CLOEXEC with socket()... " >&6; }
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no (cross compiling)" >&5
++$as_echo "no (cross compiling)" >&6; }
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+@@ -13377,6 +13377,7 @@
  #include <sys/types.h>
  #include <sys/socket.h>
  #include <sys/time.h>
@@ -46,7 +87,20 @@ build with gcc14
  
  int main(void)
  {
-@@ -13430,6 +13437,7 @@ else
+@@ -13419,10 +13420,8 @@
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to use SOCK_CLOEXEC with socket()" >&5
+ $as_echo_n "checking whether to use SOCK_CLOEXEC with socket()... " >&6; }
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no (cross compiling)" >&5
++$as_echo "no (cross compiling)" >&6; }
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+@@ -13430,6 +13429,7 @@
  #include <sys/types.h>
  #include <sys/socket.h>
  #include <sys/time.h>
@@ -54,7 +108,20 @@ build with gcc14
  
  int main(void)
  {
-@@ -13528,6 +13536,7 @@ else
+@@ -13517,10 +13517,8 @@
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for IPv6 with socket()" >&5
+ $as_echo_n "checking for IPv6 with socket()... " >&6; }
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no (cross compiling)" >&5
++$as_echo "no (cross compiling)" >&6; }
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+@@ -13528,6 +13526,7 @@
  #include <sys/types.h>
  #include <sys/socket.h>
  #include <sys/time.h>
@@ -62,7 +129,20 @@ build with gcc14
  
  int main(void)
  {
-@@ -13571,6 +13580,7 @@ else
+@@ -13560,10 +13559,8 @@
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for struct sockaddr_storage" >&5
+ $as_echo_n "checking for struct sockaddr_storage... " >&6; }
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no (cross compiling)" >&5
++$as_echo "no (cross compiling)" >&6; }
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+@@ -13571,6 +13568,7 @@
  #include <sys/types.h>
  #include <sys/socket.h>
  #include <netinet/in.h>
@@ -70,3 +150,16 @@ build with gcc14
  
  int main(void)
  {
+@@ -13616,10 +13614,8 @@
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether the compiler provides atomic builtins" >&5
+ $as_echo_n "checking whether the compiler provides atomic builtins... " >&6; }
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no (cross compiling)" >&5
++$as_echo "no (cross compiling)" >&6; }
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
