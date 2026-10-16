@@ -21,6 +21,14 @@ TEST_TARGET=		check
 
 .include "../../mk/bsd.prefs.mk"
 
+# Cross-compiling, the schemas are compiled with the build host's capnp.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+TOOL_DEPENDS+=		capnproto-[0-9]*:../../devel/capnproto
+CONFIGURE_ARGS+=	--with-external-capnp
+CONFIGURE_ENV+=		CAPNP=${TOOLBASE}/bin/capnp
+CONFIGURE_ENV+=		CAPNPC_CXX=${TOOLBASE}/bin/capnpc-c++
+.endif
+
 # When kqueue is enabled (default yes on *BSD), this requires
 # EVFILT_USER, which in NetBSD was only introduced in 10.0.  So
 # explicitly disable kqueue for NetBSD<10.
