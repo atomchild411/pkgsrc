@@ -32,7 +32,12 @@ USE_TOOLS+=		perl:run
 # this is actually the default
 # but who knows what may happen in future versions
 MESON_ARGS+=		-Dwith-perl=yes
+.  if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# vendor is the build host's perl's: name the target's.
+MESON_ARGS+=		-Dwith-perl-lib=${PREFIX}/${PERL5_SUB_INSTALLVENDORARCH}
+.  else
 MESON_ARGS+=		-Dwith-perl-lib=vendor
+.  endif
 .else
 MESON_ARGS+=		-Dwith-perl=no
 .endif
