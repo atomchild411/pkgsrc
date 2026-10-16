@@ -27,4 +27,10 @@ post-extract:
 	${MV} taia/taia_now.3 taia/taia_now_libowfat.3; \
 	${MV} taia/taia_pack.3 taia/taia_pack_libowfat.3
 
+.include "../../mk/bsd.prefs.mk"
+# ent runs during the build.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_FLAGS+=	HOSTCC=${NATIVE_CC:Q}
+.endif
+
 .include "../../mk/bsd.pkg.mk"

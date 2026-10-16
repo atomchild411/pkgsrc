@@ -1,8 +1,11 @@
 $NetBSD: patch-GNUmakefile,v 1.2 2025/06/27 17:13:31 schmonz Exp $
 
 Respect CFLAGS, follow hier(7), support PKGMANDIR.
+Build ent, which runs during the build, with HOSTCC (cross-compiling), and
+not compile_commands.json, a developer's file (made by ./json, which runs
+during the build too).
 
---- GNUmakefile.orig	2024-10-31 13:42:37.000000000 +0000
+--- GNUmakefile.orig
 +++ GNUmakefile
 @@ -4,10 +4,10 @@
  # in /opt/diet, where they are in the default search path for my diet libc
@@ -17,7 +20,7 @@ Respect CFLAGS, follow hier(7), support PKGMANDIR.
  
  LIBS=byte.a fmt.a scan.a str.a uint.a open.a stralloc.a unix.a socket.a \
  buffer.a mmap.a taia.a tai.a dns.a case.a mult.a array.a io.a \
-@@ -41,8 +41,8 @@ OPT_PLUS=-O3 $(NATIVE)
+@@ -41,13 +41,15 @@ OPT_PLUS=-O3 $(NATIVE)
  
  DEFINE=-D_REENTRANT
  
@@ -28,3 +31,21 @@ Respect CFLAGS, follow hier(7), support PKGMANDIR.
  
  #CFLAGS=-pipe -Os -march=pentiumpro -mcpu=pentiumpro -fomit-frame-pointer -fschedule-insns2 -Wall
  
++# ent runs here, while building: HOSTCC when cross-compiling
++HOSTCC?=$(CC)
+ ent: ent.c haveuint128.h headers
+-	$(CC) -g -o ent ent.c -I.
++	$(HOSTCC) -g -o ent ent.c -I.
+ 
+ # CFLAGS += -fstrict-aliasing -Wstrict-aliasing=2
+ 
+@@ -1396,7 +1398,8 @@ compile_commands.json.tmpl: json
+ compile_commands.json: compile_commands.json.tmpl
+ 	sed -e 's#"@"#"$(PWD)"#' < $< > $@
+ 
+-all: compile_commands.json
++# compile_commands.json is for developers (and ./json runs on the build host)
++#all: compile_commands.json
+ #cutend
+ 
+ windoze:
