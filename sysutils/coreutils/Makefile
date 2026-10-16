@@ -29,6 +29,9 @@ TEST_DEPENDS+=		p5-Expect>=1.11:../../devel/p5-Expect
 PLIST_VARS+=		hostid stdbuf
 PLIST.hostid=		yes
 
+# IRIX has a prctl(2), but not Linux's, with PR_SET_PDEATHSIG (timeout).
+CONFIGURE_ENV.IRIX+=	ac_cv_func_prctl=no
+
 # This should really only be defined if building stdbuf, however we cannot
 # set this variable after including compiler.mk, so we take the hit of
 # setting it unconditionally for now.
