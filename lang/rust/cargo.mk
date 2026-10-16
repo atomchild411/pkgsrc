@@ -117,6 +117,22 @@ cargo-cross-lock:
 	    --offline --format-version 1 > /dev/null ||				\
 	  ${ECHO} "cargo.mk: could not resolve the patched crates in Cargo.lock"; \
 	fi
+
+# Packages install what cargo built from target/release ("do-install: ...
+# target/release/foo"); built for RUST_CROSS_TARGET it is under
+# target/${RUST_CROSS_TARGET}/release, and target/release holds only the
+# build host's build scripts: link the products there.
+post-build: cargo-cross-products
+.PHONY: cargo-cross-products
+cargo-cross-products:
+	${RUN}d=${CARGO_WRKSRC}/target/${RUST_CROSS_TARGET}/release;		\
+	[ -d "$$d" ] || exit 0;							\
+	${MKDIR} ${CARGO_WRKSRC}/target/release;				\
+	for f in "$$d"/*; do							\
+	  [ -f "$$f" ] || continue;						\
+	  t=${CARGO_WRKSRC}/target/release/`basename "$$f"`;			\
+	  [ -e "$$t" ] || ${LN} "$$f" "$$t" 2>/dev/null || ${CP} -p "$$f" "$$t"; \
+	done
 .endif
 
 # Legacy name
