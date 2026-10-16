@@ -16,6 +16,8 @@ LICENSE=	gnu-lgpl-v2.1 AND gnu-gpl-v3 AND 2-clause-bsd
 PKGCONFIG_OVERRIDE=	cmake/libnfs.pc.cmake
 
 LDFLAGS.SunOS+=		-lsocket
+# libnfs's threads: CMake links no -lpthread on IRIX (pthread_join undefined).
+LDFLAGS.IRIX+=		-lpthread
 
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Release \
 			-DCMAKE_INSTALL_PREFIX='${PREFIX}' \
