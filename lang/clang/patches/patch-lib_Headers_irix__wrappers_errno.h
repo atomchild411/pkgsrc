@@ -2,7 +2,7 @@ $NetBSD$
 
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
-- headers: <errno.h> declares oserror, setoserror and goserror in every mode
+- Wrapper <errno.h>: oserror, setoserror and goserror in every mode
 
 --- lib/Headers/irix_wrappers/errno.h.orig
 +++ lib/Headers/irix_wrappers/errno.h

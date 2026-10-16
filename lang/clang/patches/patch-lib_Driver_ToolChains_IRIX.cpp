@@ -10,10 +10,11 @@ branch iris/main):
 - Driver: a link with -lGL gets -lGLcore
 - Driver: --unwindlib is no unused argument
 - Driver: no DT_RPATH to libc++ when it is linked statically
+- Driver: the builtins ahead of a link's inputs too
 
 --- lib/Driver/ToolChains/IRIX.cpp.orig
 +++ lib/Driver/ToolChains/IRIX.cpp
-@@ -0,0 +1,363 @@
+@@ -0,0 +1,377 @@
 +//===--- IRIX.cpp - IRIX ToolChain Implementations --------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -302,6 +303,20 @@ branch iris/main):
 +    addLTOOptions(TC, Args, CmdArgs, Output, Inputs,
 +                  D.getLTOMode() == LTOK_Thin);
 +  }
++
++  // The builtins once more, ahead of the inputs. Their libc stand-ins
++  // (__irix_c99_printf, ...) have default visibility, so every shared library
++  // that uses one exports it, and lld binds a program's reference to the
++  // first definition it meets: given a library first (libc++abi.so,
++  // libz.so), the program took the stand-in from it, and stopped at startup
++  // (rld: unresolvable symbol, exit 1, nothing printed) wherever the
++  // installed copy of that library had a different set. Seen first, the
++  // archive's members are pulled in by the program's own references, so it
++  // carries the stand-ins it calls; rld still binds every object to that one
++  // copy, as it would libc's.
++  if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs) &&
++      !IsStatic)
++    addBuiltinsAsLibrary(TC, Args, CmdArgs);
 +
 +  size_t InputsBegin = CmdArgs.size();
 +  AddLinkerInputs(TC, Inputs, Args, CmdArgs, JA);

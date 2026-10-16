@@ -11,7 +11,7 @@ branch iris/main):
 - Wrapper <inttypes.h>: include <stdint.h> in every mode
 - Wrapper <inttypes.h>: keep programs' macros out of IRIX's own names
 - Wrapper <inttypes.h>: set aside all six of 6.5.22's C99 functions
-- imaxdiv: declared with imaxdiv_t everywhere
+- imaxdiv: defined in the builtins, declared with imaxdiv_t everywhere
 
 --- lib/Headers/irix_wrappers/inttypes.h.orig
 +++ lib/Headers/irix_wrappers/inttypes.h

@@ -43,6 +43,7 @@ branch iris/main):
 - Wrapper <sys/kabi.h>: the kernel's psignal under another name
 - sem_timedwait
 - fts
+- Wrapper <errno.h>: oserror, setoserror and goserror in every mode
 
 --- lib/Headers/CMakeLists.txt.orig
 +++ lib/Headers/CMakeLists.txt
