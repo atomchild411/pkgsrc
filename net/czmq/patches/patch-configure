@@ -1,10 +1,11 @@
 $NetBSD: patch-configure,v 1.1 2023/08/14 07:38:37 nros Exp $
 
 * Fix compatibility problems
+* IRIX: accept irix* hosts (czmq_prelude.h detects IRIX itself).
 
---- configure.orig	2023-08-13 19:55:20.890973372 +0000
+--- configure.orig
 +++ configure
-@@ -13094,7 +13094,7 @@ if test "${with_gcov+set}" = set; then :
+@@ -13094,7 +13094,7 @@
  fi
  
  
@@ -13,7 +14,7 @@ $NetBSD: patch-configure,v 1.1 2023/08/14 07:38:37 nros Exp $
      CFLAGS="-O0 -g -fprofile-arcs -ftest-coverage"
  
      if test "x${CZMQ_ORIG_CFLAGS}" != "xnone"; then
-@@ -13132,7 +13132,7 @@ if test "${enable_address_sanitizer+set}
+@@ -13132,7 +13132,7 @@
  fi
  
  
@@ -22,7 +23,7 @@ $NetBSD: patch-configure,v 1.1 2023/08/14 07:38:37 nros Exp $
      CFLAGS="${CFLAGS} -fsanitize=address"
      CXXFLAGS="${CXXFLAGS} -fsanitize=address"
  
-@@ -13171,7 +13171,7 @@ else
+@@ -13171,7 +13171,7 @@
  fi
  
  
@@ -31,3 +32,12 @@ $NetBSD: patch-configure,v 1.1 2023/08/14 07:38:37 nros Exp $
       if true; then
    ENABLE_BINDINGS_PYTHON_TRUE=
    ENABLE_BINDINGS_PYTHON_FALSE='#'
+@@ -15589,6 +15589,8 @@
+ $as_echo "#define CZMQ_HAVE_AIX 1" >>confdefs.h
+ 
+         ;;
++    *irix*)
++        ;;
+     *hpux*)
+         # Define on HP-UX to enable all library features
+         CPPFLAGS="-D_POSIX_C_SOURCE=200112L"
