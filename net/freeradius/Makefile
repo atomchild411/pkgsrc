@@ -10,6 +10,12 @@ CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
 CONFIGURE_ARGS+=	--with-logdir=${VARBASE}/log/radiusd
 CONFIGURE_ARGS+=	--without-rlm_eap_ikev2
+# Compiler checks configure runs, which a cross build cannot: clang's answers
+# (__bounded__ is OpenBSD's gcc's).
+CONFIGURE_ENV+=		ax_cv_cc_builtin_choose_expr=yes
+CONFIGURE_ENV+=		ax_cv_cc_builtin_types_compatible_p=yes
+CONFIGURE_ENV+=		ax_cv_cc_builtin_bswap64=yes
+CONFIGURE_ENV+=		ax_cv_cc_bounded_attribute=no
 CONFIGURE_ARGS+=	--without-rlm_eap_tnc
 CONFIGURE_ARGS+=	--without-rlm_sql_freetds
 CONFIGURE_ARGS+=	--without-rlm_sql_sqlite
