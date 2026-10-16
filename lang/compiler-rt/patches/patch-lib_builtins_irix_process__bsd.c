@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - [IRIX] Keep _exit out of the string compat object
+- issetugid() in compiler-rt's libc stand-ins, declared in <unistd.h>
 
 --- lib/builtins/irix/process_bsd.c.orig
 +++ lib/builtins/irix/process_bsd.c
-@@ -0,0 +1,64 @@
+@@ -0,0 +1,74 @@
 +//===-- irix/process_bsd.c - BSD and C99 process calls IRIX lacks ---------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -15,9 +16,10 @@ branch iris/main):
 +//
 +//===----------------------------------------------------------------------===//
 +//
-+// daemon (<unistd.h>), _Exit (<stdlib.h>) and vfork (<unistd.h>), declared
-+// by clang's IRIX wrappers; packages in the IRIX pkgsrc bulk build failed to
-+// link without them. Weak, so a program that brings its own copy keeps it.
++// daemon (<unistd.h>), _Exit (<stdlib.h>), vfork and issetugid (<unistd.h>),
++// declared by clang's IRIX wrappers; packages in the IRIX pkgsrc bulk build
++// failed to link without them. Weak, so a program that brings its own copy
++// keeps it.
 +//
 +// daemon() is glibc's and the BSDs': fork, setsid, chdir("/") unless
 +// nochdir, stdin/stdout/stderr to /dev/null unless noclose, and no other
@@ -38,6 +40,7 @@ branch iris/main):
 +#pragma weak daemon
 +#pragma weak _Exit
 +#pragma weak vfork
++#pragma weak issetugid
 +
 +int daemon(int nochdir, int noclose) {
 +  switch (fork()) {
@@ -69,5 +72,13 @@ branch iris/main):
 +
 +extern pid_t _vfork(void);
 +pid_t vfork(void) { return _vfork(); }
++
++// The BSDs' issetugid(): whether the process runs with privileges it was
++// not started with. IRIX keeps no such flag; a real and effective user or
++// group that differ is what set-id programs show (pcsc-lite needs it, or
++// glibc's secure_getenv, which IRIX lacks too).
++int issetugid(void) {
++  return getuid() != geteuid() || getgid() != getegid();
++}
 +
 +#endif // __sgi

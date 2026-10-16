@@ -15,10 +15,11 @@ branch iris/main):
 - Wrapper <unistd.h>: SGI's atfork_* hooks under other names
 - getentropy and arc4random
 - Wrapper <unistd.h>: setgroups as IRIX declares it under _BSD_COMPAT
+- issetugid() in compiler-rt's libc stand-ins, declared in <unistd.h>
 
 --- lib/Headers/irix_wrappers/unistd.h.orig
 +++ lib/Headers/irix_wrappers/unistd.h
-@@ -0,0 +1,335 @@
+@@ -0,0 +1,336 @@
 +/*===---- unistd.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -325,12 +326,13 @@ branch iris/main):
 +#endif
 +#endif
 +
-+/* daemon, and vfork outside XPG4-UX mode (where IRIX's header defines it):
-+ * in clang's IRIX runtime (compiler-rt). */
++/* daemon, issetugid, and vfork outside XPG4-UX mode (where IRIX's header
++ * defines it): in clang's IRIX runtime (compiler-rt). */
 +#ifdef __cplusplus
 +extern "C" {
 +#endif
 +int daemon(int, int);
++int issetugid(void);
 +#if _SGIAPI
 +pid_t vfork(void);
 +#endif
