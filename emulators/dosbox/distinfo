@@ -3,4 +3,5 @@ $NetBSD: distinfo,v 1.28 2021/10/26 10:23:48 nia Exp $
 BLAKE2s (dosbox-0.74-3.tar.gz) = 38a5ee36990033d9643dce15026b83142646b897d3be0267ca6909f8a7e23291
 SHA512 (dosbox-0.74-3.tar.gz) = 3770f1578e71730168fba01809585f2a05cf8c4d420524687ba28791d242faad294401bb9cd268bba725798e1db853551f274dc00a4024331f5dcef9f87f8f5f
 Size (dosbox-0.74-3.tar.gz) = 1326339 bytes
+SHA1 (patch-include_shell.h) = 16ad5380f5b9a6fe0d7f3f924ff9166581e51169
 SHA1 (patch-src_Makefile.in) = 64e5f4fa66d4784961afc375fbe2d8d91008d8d0
