@@ -1,6 +1,6 @@
 # $NetBSD$
 
-DISTNAME=	rust-irix-crates-20261004.11
+DISTNAME=	rust-irix-crates-20261004.14
 CATEGORIES=	lang
 MASTER_SITES=	# empty: every crate has its own site
 
@@ -12,7 +12,7 @@ LICENSE=	mit OR apache-2.0
 # The crates, as name-version; each comes from crates.io and is patched in
 # patches/ under its own directory.
 IRIX_CRATES=	libc-0.2.189
-IRIX_CRATES+=	getrandom-0.2.17 getrandom-0.3.4 getrandom-0.4.3
+IRIX_CRATES+=	getrandom-0.1.16 getrandom-0.2.17 getrandom-0.3.4 getrandom-0.4.3
 IRIX_CRATES+=	mio-0.8.11 mio-1.2.3
 IRIX_CRATES+=	parking_lot_core-0.9.12
 IRIX_CRATES+=	socket2-0.4.10 socket2-0.5.10 socket2-0.6.5
@@ -25,9 +25,15 @@ IRIX_CRATES+=	target-lexicon-0.12.16 target-lexicon-0.13.5
 IRIX_CRATES+=	target-lexicon-0.13.3
 # filetime: utimensat (IRIX has no futimes or lutimes)
 IRIX_CRATES+=	filetime-0.2.29
+# ring: system randomness through getrandom (rustls)
+IRIX_CRATES+=	ring-0.17.14
+# gix-sec: signed uid_t (gitoxide: bacon, ...)
+IRIX_CRATES+=	gix-sec-0.14.2
 IRIX_CRATES+=	tokio-1.53.1
 # unchanged, but newer than what packages vendor, and needed by the above
 IRIX_CRATES+=	tokio-macros-2.7.1
+# ... and signal-hook-mio: 0.2.4 wants mio ~1.0, which keeps tokio's mio ^1.2 out
+IRIX_CRATES+=	signal-hook-mio-0.2.5
 # ... and by rustix, built for the build host as well (build scripts, proc macros)
 IRIX_CRATES+=	linux-raw-sys-0.4.15 linux-raw-sys-0.12.1
 

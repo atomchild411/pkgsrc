@@ -1,0 +1,20 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): system randomness through the getrandom crate (rust-irix-crates' getrandom: getentropy), as on the BSDs. Cargo.toml: no windows-sys (Windows on aarch64 only), so that packages vendoring an older ring resolve offline.
+
+--- ring-0.17.14/Cargo.toml.orig
++++ ring-0.17.14/Cargo.toml
+@@ -253,13 +253,6 @@
+ version = "1.2.8"
+ default-features = false
+ 
+-[target.'cfg(all(all(target_arch = "aarch64", target_endian = "little"), target_os = "windows"))'.dependencies.windows-sys]
+-version = "0.52"
+-features = [
+-    "Win32_Foundation",
+-    "Win32_System_Threading",
+-]
+-
+ [target.'cfg(all(all(target_arch = "aarch64", target_endian = "little"), target_vendor = "apple", any(target_os = "ios", target_os = "macos", target_os = "tvos", target_os = "visionos", target_os = "watchos")))'.dependencies.libc]
+ version = "0.2.155"
+ default-features = false
