@@ -20,7 +20,8 @@ CMAKE_CONFIGURE_ARGS+=	-DENABLE_PYTHON=OFF
 .endif
 
 .if !empty(PKG_OPTIONS:Mlua)
-#LUA_VERSIONS_ACCEPTED=	53 52 51
+# The Lua plugin uses LUA_VERSION_MAJOR, which Lua 5.1 lacks.
+LUA_VERSIONS_INCOMPATIBLE=	51
 .include "../../lang/lua/buildlink3.mk"
 CMAKE_CONFIGURE_ARGS+=	-DENABLE_LUA=ON
 PLIST.lua=	yes

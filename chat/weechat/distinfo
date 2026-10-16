@@ -5,6 +5,7 @@ SHA512 (weechat-4.10.0.tar.xz) = bba7597bbc83ffe6a4bf59dfbdb03d622a1f0c023bc27f1
 Size (weechat-4.10.0.tar.xz) = 2847188 bytes
 SHA1 (patch-cmake_FindNcurses.cmake) = 73d4bc9551c79ee967abe06eba09cfe1b10129d4
 SHA1 (patch-po_CMakeLists.txt) = 153955aa69882aaae9992ed027252037d64e2c9f
+SHA1 (patch-src_core_core-crypto.c) = 07b9e89339070340dee1fac1fdbe2538aa93bba5
 SHA1 (patch-src_core_core-debug.c) = 8380926d327b46a7bca495806af7c1868e9113e4
 SHA1 (patch-src_core_core-utf8.c) = ec5e8e741fd1b5ef61d0ce28fcb01be9a61ff546
 SHA1 (patch-src_plugins_lua_CMakeLists.txt) = 0b2322bb599411d3ce97d0638444005eb99b740c
