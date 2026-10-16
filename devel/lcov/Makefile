@@ -20,7 +20,9 @@ BUILD_TARGET=	doc
 
 MAKE_FLAGS+=	PREFIX=${PREFIX}
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
-MAKE_FLAGS+=	SPHINXBUILD=${PREFIX}/bin/sphinx-build-${PYVERSSUFFIX}
+# The html and man builds share sphinx's doctree cache.
+MAKE_JOBS_SAFE=	no
+MAKE_FLAGS+=	SPHINXBUILD=${TOOLBASE}/bin/sphinx-build-${PYVERSSUFFIX}
 MAKE_FLAGS+=	MAN_DIR=${PREFIX}/${PKGMANDIR}
 MAKE_FLAGS+=	CFG_INST_DIR=${DESTDIR}${PREFIX}/share/examples/lcov
 
@@ -54,6 +56,11 @@ REPLACE_PYTHON+=	bin/py2lcov
 REPLACE_PYTHON+=	bin/xml2lcov
 REPLACE_PYTHON+=	bin/xml2lcovutil.py
 REPLACE_PYTHON+=	scripts/*.py
+
+# The install target copies example/ and tests/ with install -D, which NetBSD's
+# install(1) lacks; they are not in the PLIST.
+post-install:
+	${RM} -rf ${DESTDIR}${PREFIX}/share/lcov/example ${DESTDIR}${PREFIX}/share/lcov/tests
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/pyversion.mk"
