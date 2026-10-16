@@ -15,7 +15,8 @@
 
 TOOL_DEPENDS+=	deforaos-configure-[0-9]*:../../devel/deforaos-configure
 
-DEFORAOS_CONFIGURE?=		${PREFIX}/bin/configure
+# A tool (TOOL_DEPENDS): the build host's, in a cross build.
+DEFORAOS_CONFIGURE?=		${TOOLBASE}/bin/configure
 DEFORAOS_CONFIGURE_ARGS?=	-v
 DEFORAOS_CONFIGURE_DIRS?=	.
 DEFORAOS_CONFIGURE_MODE?=
