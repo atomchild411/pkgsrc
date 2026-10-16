@@ -41,6 +41,13 @@ LDFLAGS.SunOS+=		-lkvm
 
 .if (${OPSYS} == "NetBSD") || !exists(/usr/bin/lpstat)
 CONFIGURE_ENV+=		ac_cv_path_LPSTAT_PATH=no
+# IRIX's <netinet/in_pcb.h> needs <net/route.h> first, which the test of it
+# leaves out; the sources include it.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_netinet_in_pcb_h=yes
+# The uname net-snmp runs on the target (it found the build's tool wrapper).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CONFIGURE_ENV.IRIX+=	ac_cv_path_UNAMEPROG=/sbin/uname
+.endif
 .endif
 
 NET_SNMP_SYS_CONTACT?=		default_user@contact.domain

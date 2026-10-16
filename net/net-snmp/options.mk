@@ -12,6 +12,12 @@ PKG_SUPPORTED_OPTIONS+=		inet6
 PKG_SUGGESTED_OPTIONS+=		inet6
 .endif
 
+# Embedding perl in a cross build takes the build host's ExtUtils::Embed flags
+# (its CORE directory, its libraries): the agent then fails to link -lperl.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+PKG_SUGGESTED_OPTIONS:=	${PKG_SUGGESTED_OPTIONS:Nperl}
+.endif
+
 .include "../../mk/bsd.options.mk"
 
 PLIST_VARS+=		inet6 perl
