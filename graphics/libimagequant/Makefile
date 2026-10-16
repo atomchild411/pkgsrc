@@ -19,8 +19,12 @@ PKGCONFIG_OVERRIDE_STAGE=	post-install
 
 .include "cargo-depends.mk"
 
+# cargo-c with cargo.mk's environment and arguments (in a cross build they
+# name the target, and the build host's linker for build scripts).
 do-install:
-	cd ${WRKSRC} && ${RUN} cargo cinstall --destdir=${DESTDIR} --prefix=${PREFIX} --libdir=${PREFIX}/lib
+	${RUN} cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${CARGO} cinstall --release \
+		${DEFAULT_CARGO_ARGS} --destdir=${DESTDIR} --prefix=${PREFIX} \
+		--libdir=${PREFIX}/lib
 
 .include "../../lang/rust/cargo.mk"
 .include "../../mk/bsd.pkg.mk"
