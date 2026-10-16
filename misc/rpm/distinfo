@@ -8,5 +8,5 @@ SHA1 (patch-build_rpmfc.c) = 3c02113a7ad206bf0cf033b3f9350c642289ef3d
 SHA1 (patch-installplatform) = f53dfc2c0d3e1e534bc20fece6a40f1c22b4ff95
 SHA1 (patch-lib_backend_ndb_rpmxdb.c) = 2742f64345ed2bf8bb942b7d7dffa7e759e07335
 SHA1 (patch-lib_rpmrc.c) = 5a215ea23465dd8105584d65f779bd6f56e68620
-SHA1 (patch-misc_fts.c) = b572d7d5f9e8382c6d5e3b91d1ae908c7dcbea78
+SHA1 (patch-misc_fts.c) = 389839fdef0c6bdf90a1e6c926df3f03a4ff5d0e
 SHA1 (patch-tools_rpmuncompress.c) = 31bc6b7dc0a0a0eee070796d4e37bd18a83acc97
