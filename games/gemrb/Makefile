@@ -46,5 +46,9 @@ pre-configure:
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../lang/python/application.mk"
+# Cross-compiling, FindPythonLibs finds the build host's libpython.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=	-DPYTHON_LIBRARY:FILEPATH=${BUILDLINK_DIR}/lib/libpython${PYVERSSUFFIX}.so
+.endif
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"
