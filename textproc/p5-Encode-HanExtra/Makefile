@@ -19,4 +19,9 @@ TOOL_DEPENDS+=		p5-Module-Build-[0-9]*:../../devel/p5-Module-Build
 PERL5_PACKLIST=		auto/Encode/HanExtra/.packlist
 
 .include "../../lang/perl5/module.mk"
+# Makefile.PL finds Encode's encode.h in the build host's perl, which a cross
+# build's compiler is not given: the target perl's.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_FLAGS+=	INC=-I${_PERL5_CROSS_ARCHLIB:H}/Encode
+.endif
 .include "../../mk/bsd.pkg.mk"
