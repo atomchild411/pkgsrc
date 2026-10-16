@@ -58,6 +58,20 @@ TEST_TARGET=		test
 
 .include "options.mk"
 
+# IRIX's libc has pread64 and pwrite64, which the bundled sqlite's configure
+# finds, but declares them only in SGI mode, which sqlite does not compile
+# in: plain pread and pwrite (configured during the build, from MAKE_ENV).
+MAKE_ENV.IRIX+=		ac_cv_func_pread64=no ac_cv_func_pwrite64=no
+
+# zipfs and the bundled packages' configure scripts run a Tcl 9 tclsh
+# during the build: cross-compiling, the build host's.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+TOOL_DEPENDS+=		tcl90-[0-9]*:../../lang/tcl90
+TCLSH_NATIVE=		${TOOLBASE}/${TCL_SUBDIR}/bin/tclsh${TCL_BASEVER}
+CONFIGURE_ENV+=		TCLSH_NATIVE=${TCLSH_NATIVE}
+MAKE_ENV+=		TCLSH_NATIVE=${TCLSH_NATIVE}
+.endif
+
 SUBST_CLASSES+=		tcl-config
 SUBST_STAGE.tcl-config=	post-build
 SUBST_FILES.tcl-config=	unix/tclConfig.sh
@@ -148,4 +162,13 @@ BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=${SQLITE3_VERSION}
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+# IRIX: the configure scripts link shared libraries with SGI's ld and its
+# flags; link them with the compiler instead, as everywhere else.
+SUBST_CLASSES.IRIX+=		irix-shlib
+SUBST_STAGE.irix-shlib=		pre-configure
+SUBST_MESSAGE.irix-shlib=	Linking shared libraries with the compiler.
+SUBST_FILES.irix-shlib=		unix/configure pkgs/*/configure
+SUBST_SED.irix-shlib=		-e "s|SHLIB_LD=\"ld -n32 -shared -rdata_shared\"|SHLIB_LD='\$${CC} -shared'|"
+SUBST_SED.irix-shlib+=		-e "s|LD_SEARCH_FLAGS='-rpath \$${LIB_RUNTIME_DIR}'|LD_SEARCH_FLAGS='-Wl,-rpath,\$${LIB_RUNTIME_DIR}'|"
+
 .include "../../mk/bsd.pkg.mk"
