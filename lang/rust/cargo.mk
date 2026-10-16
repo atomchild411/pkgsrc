@@ -39,6 +39,9 @@
 # tool dependencies that provide them. CARGO_CROSS_VENDOR_PATCHES lists
 # patches for vendored crates, as name=patchfile: each is applied (-p0, in the
 # crate's directory) to every vendored version of the crate that it fits.
+# CARGO_CROSS_VENDOR_SED lists sed scripts, as name=scriptfile, run over the
+# .rs files of every vendored version of the crate (a target added to the
+# crate's lists of target_os, say).
 
 MASTER_SITES?=	${MASTER_SITE_CRATESIO}${PKGBASE}/
 
@@ -145,6 +148,16 @@ cargo-vendor-crates:
 	    ${STEP_MSG} "Applying ${p:C/^[^=]*=//:T} to $${d##*/}";		\
 	    ${PATCH} -d "$$d" -p0 -s -f < ${p:C/^[^=]*=//};			\
 	  fi;									\
+	done
+.  endfor
+.  for s in ${CARGO_CROSS_VENDOR_SED}
+	${RUN}for d in ${CARGO_VENDOR_DIR}/${s:C/=.*//}-[0-9]*; do		\
+	  [ -d "$$d" ] || continue;						\
+	  ${STEP_MSG} "Applying ${s:C/^[^=]*=//:T} to $${d##*/}";		\
+	  ${FIND} "$$d" -name '*.rs' -print | while read f; do			\
+	    ${SED} -f ${s:C/^[^=]*=//} "$$f" > "$$f.cross" &&			\
+	    ${MV} "$$f.cross" "$$f";						\
+	  done;									\
 	done
 .  endfor
 .endif
