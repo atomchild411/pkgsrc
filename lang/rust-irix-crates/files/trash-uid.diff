@@ -1,0 +1,16 @@
+--- src/freedesktop.rs.orig
++++ src/freedesktop.rs
+@@ -39,5 +39,5 @@
+         let home_trash_topdir = get_first_topdir_containing_path(&home_trash, &sorted_mount_points);
+         debug!("The 'home trash' topdir is {:?}", home_trash_topdir);
+-        let uid = unsafe { libc::getuid() };
++        let uid = unsafe { libc::getuid() } as u32;
+         for path in full_paths {
+             debug!("Deleting {:?}", path);
+@@ -267,5 +267,5 @@
+     // Get all mount-points and attempt to find a trash folder in each adding them to the SET of
+     // trash folders when found one.
+-    let uid = unsafe { libc::getuid() };
++    let uid = unsafe { libc::getuid() } as u32;
+     let sorted_mount_points = get_sorted_mount_points()?;
+     for mount in &sorted_mount_points {

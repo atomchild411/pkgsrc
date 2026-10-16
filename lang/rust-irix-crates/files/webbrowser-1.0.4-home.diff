@@ -1,0 +1,7 @@
+--- Cargo.toml.orig
++++ Cargo.toml
+@@ -102,3 +102,3 @@
+ 
+-[target.'cfg(any(target_os = "aix", target_os = "linux", target_os = "freebsd", target_os = "netbsd", target_os = "openbsd", target_os = "haiku", target_os = "illumos", target_os = "solaris"))'.dependencies.home]
++[target.'cfg(any(target_os = "aix", target_os = "linux", target_os = "freebsd", target_os = "netbsd", target_os = "openbsd", target_os = "haiku", target_os = "irix", target_os = "illumos", target_os = "solaris"))'.dependencies.home]
+ version = "0.5"
