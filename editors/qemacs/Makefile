@@ -18,4 +18,10 @@ USE_TOOLS+=		gmake
 
 .include "options.mk"
 
+.include "../../mk/bsd.prefs.mk"
+# Its build tools (csstoqe, ...) run while building.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_FLAGS+=	HOST_CC=${NATIVE_CC:Q} HOST_CFLAGS=
+.endif
+
 .include "../../mk/bsd.pkg.mk"
