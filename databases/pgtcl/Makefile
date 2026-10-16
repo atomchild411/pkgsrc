@@ -17,6 +17,14 @@ CONFIGURE_ARGS+=	SHLIB_LD_FLAGS=${LDFLAGS:Q}
 
 CPPFLAGS+=	-DUSE_INTERP_ERRORLINE
 
+.include "../../mk/bsd.prefs.mk"
+# TEA's tcl.m4 drops the dots from the library's version on the BSDs only.
+.if ${OPSYS} == "IRIX"
+PLIST_SUBST+=	PGTCL_LIBVER=${PKGVERSION_NOREV}
+.else
+PLIST_SUBST+=	PGTCL_LIBVER=${PKGVERSION_NOREV:S/.//g}
+.endif
+
 .include "../../lang/tcl/buildlink3.mk"
 .include "../../mk/pgsql.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

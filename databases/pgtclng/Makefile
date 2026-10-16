@@ -19,7 +19,14 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-postgres-include=${PREFIX}/include
 CONFIGURE_ARGS+=	--with-postgres-lib=${PREFIX}/lib
 CPPFLAGS+=		-DUSE_INTERP_ERRORLINE
+.include "../../mk/bsd.prefs.mk"
+# TEA's tcl.m4 drops the dots from the library's version on the BSDs only.
+.if ${OPSYS} == "IRIX"
+PGTCLLIBNAME=		libpgtcl${VER}.so
+.else
 PGTCLLIBNAME=		libpgtcl${VER:C/\.//g}.so
+.endif
+PLIST_SUBST+=		PGTCLLIBNAME=${PGTCLLIBNAME}
 
 post-install:
 	cd ${DESTDIR}${PREFIX}/lib && ln -s pgtcl${VER}/${PGTCLLIBNAME} libpgtcl.so
