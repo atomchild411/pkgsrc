@@ -5,3 +5,4 @@ SHA512 (libetpan-1.9.4.tar.gz) = 7b7047d084fb4ce0c91821c2ad78e921d6d009106851afb
 Size (libetpan-1.9.4.tar.gz) = 5000025 bytes
 SHA1 (patch-configure.ac) = 9d1562b4dd016fb26372bb437e3f4a0749ab2592
 SHA1 (patch-src_low-level_feed_newsfeed.c) = 962f2059bb13a8f9c40cb6845276ee52e3bcd937
+SHA1 (patch-src_low-level_smtp_mailsmtp.c) = 0af2ce04a2454471850e6ef8cc47dc12fd76aff2
