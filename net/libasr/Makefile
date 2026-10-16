@@ -14,6 +14,8 @@ GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 
 CFLAGS.NetBSD+=		-D_OPENBSD_SOURCE	# strtonum()
+# IRIX's <resolv.h> is BIND 4's; libasr keeps these bits for itself (glibc's values).
+CPPFLAGS.IRIX+=		-DRES_USE_EDNS0=0x40000000 -DRES_USE_DNSSEC=0x00200000
 LDFLAGS.SunOS+=		-lresolv -lsocket -lnsl	# libresolv(3LIB)
 
 .include "../../security/openssl/buildlink3.mk"
