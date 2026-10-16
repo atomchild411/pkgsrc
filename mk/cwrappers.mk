@@ -72,8 +72,13 @@ CWRAPPERS_TRANSFORM.imake+=	I:${PREFIX}/lib/X11/config:${PREFIX}/lib/X11/config
 # A cross build runs the build host's imake, with its own config files.
 .  if ${USE_CROSS_COMPILE:U:tl} == "yes"
 CWRAPPERS_TRANSFORM.imake+=	I:${TOOLBASE}/lib/X11/config:${TOOLBASE}/lib/X11/config
-.  endif
+# ... through the tools wrapper, which gives it the build host's CC for its
+# test programs and IMAKEOPTS (mk/tools/imake.mk): not twice, which overflows
+# imake's argument storage.
+CWRAPPERS_WRAPPEE.imake=	${TOOLS_CMD.imake}
+.  else
 CWRAPPERS_APPEND.imake+=	${IMAKEOPTS}
+.  endif
 .endif
 
 .PHONY: generate-cwrappers

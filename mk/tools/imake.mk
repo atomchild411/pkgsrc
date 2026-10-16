@@ -80,6 +80,12 @@ USE_TOOLS+=	${IMAKE_TOOLS:Nimake}
 
 TOOLS_ARGS.imake+=	${IMAKEOPTS}
 TOOLS_ARGS.xmkmf+=	${XMKMF_FLAGS}
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# imake compiles and runs test programs with ${CC} (see do-configure-imake):
+# the build host's, also when a package's own Makefiles run xmkmf or imake
+# again while building (sunclock, tightvnc, kdrill).
+TOOLS_SCRIPT.imake=	CC=${NATIVE_CC:Q}; export CC; ${TOOLS_SCRIPT_DFLT.imake}
+.endif
 
 TOOLS_XMKMF=		${${_TOOLS_VARNAME.xmkmf}} -a
 XMKMF=			${${_TOOLS_VARNAME.xmkmf}} -a
