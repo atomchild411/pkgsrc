@@ -360,6 +360,15 @@ generic_transform_cc(struct arglist *args)
 			ruleset = &include_rules;
 			opt_arg = NULL;
 		}
+		else if (strncmp(arg->val, "-isystem", 8) == 0 &&
+		    arg->val[8] != '\0') {
+			/* -isystemDIR, as meson writes it */
+			len -= 8;
+			prefix = "-isystem";
+			path = arg->val + 8;
+			ruleset = &include_rules;
+			opt_arg = NULL;
+		}
 		else if (strcmp(arg->val, "-isystem") == 0) {
 			opt_arg = arg;
 			arg = arg2;

@@ -37,9 +37,34 @@ include_pkgsubdir_body() {
 	|| atf_fail 'XXX no reason'
 }
 
+atf_test_case include_isystem
+include_isystem_head() {
+    atf_set 'descr' 'Checks that -isystem DIR is transformed like -IDIR'
+}
+include_isystem_body() {
+    wrapper_test_setup cc
+    echo "-isystem ${BUILDLINK_DIR}/include/krb5" > expout
+    atf-check -s eq:0 -o file:expout -e ignore ${WRAPPER} \
+	-isystem ${LOCALBASE}/include/krb5 || atf_fail 'XXX no reason'
+}
+
+atf_test_case include_isystem_joined
+include_isystem_joined_head() {
+    atf_set 'descr' 'Checks that -isystemDIR (meson) is transformed too'
+}
+include_isystem_joined_body() {
+    wrapper_test_setup cc
+    input="-isystem${LOCALBASE}/include/krb5"
+    echo "-isystem${BUILDLINK_DIR}/include/krb5" > expout
+    atf-check -s eq:0 -o file:expout -e ignore ${WRAPPER} ${input} \
+	|| atf_fail 'XXX no reason'
+}
+
 atf_init_test_cases() {
     . $(atf_get_srcdir)/setup_common.sh
     atf_add_test_case include_pkgdir
     atf_add_test_case include_pkgdir_slashdot
     atf_add_test_case include_pkgsubdir
+    atf_add_test_case include_isystem
+    atf_add_test_case include_isystem_joined
 }
