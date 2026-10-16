@@ -21,6 +21,8 @@ MAKE_JOBS_SAFE=	no
 INSTALLATION_DIRS=	bin share/doc/mbrola
 
 CFLAGS+=	-D_XOPEN_SOURCE=500	# swab(3)
+# Misc/common.h detects the byte order on glibc, NetBSD and x86 only.
+CFLAGS.IRIX+=	-DBIG_ENDIAN
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/Bin/mbrola ${DESTDIR}${PREFIX}/bin
