@@ -26,6 +26,10 @@ PLIST_VARS+=		python
 .if !empty(PKG_OPTIONS:Mpython)
 CONFIGURE_ARGS+=	--with-python3=${PYTHONBIN}
 PLIST.python=		yes
+.  if ${USE_CROSS_COMPILE:U:tl} == yes
+# Otherwise configure asks the (host) interpreter for its site-packages.
+CONFIGURE_ARGS+=	--with-python3-modules-dir=${PREFIX}/${PYSITELIB}
+.  endif
 # While this could be moved to a split package, so far nobody has said
 # they would like that.
 .else
