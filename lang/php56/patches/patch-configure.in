@@ -3,10 +3,11 @@ $NetBSD: patch-configure.in,v 1.1 2025/02/08 02:57:59 taca Exp $
 * Adjust PHP directories.
 * Adjust PHP library name.
 * Do not create extra "include" sub directory.
+* Cross builds cannot run the new php to make the phar command (as PHP 8).
 
---- configure.in.orig	2019-01-09 09:54:13.000000000 +0000
+--- configure.in.orig
 +++ configure.in
-@@ -381,9 +381,9 @@ dnl SAPI configuration.
+@@ -381,9 +381,9 @@
  dnl -------------------------------------------------------------------------
  
  dnl paths to the targets are relative to the build directory
@@ -19,7 +20,7 @@ $NetBSD: patch-configure.in,v 1.1 2025/02/08 02:57:59 taca Exp $
  
  PHP_CONFIGURE_PART(Configuring SAPI modules)
  
-@@ -1115,7 +1115,7 @@ dnl
+@@ -1115,7 +1115,7 @@
    if test "$PHP_PEAR" = "DEFAULT" || test "$PHP_PEAR" = "yes"; then
      case $PHP_LAYOUT in
        GNU) PEAR_INSTALLDIR=$datadir/pear;;
@@ -28,7 +29,7 @@ $NetBSD: patch-configure.in,v 1.1 2025/02/08 02:57:59 taca Exp $
      esac
    fi
  
-@@ -1170,12 +1170,12 @@ test "$program_suffix" = "NONE" && progr
+@@ -1170,12 +1170,12 @@
  
  case $libdir in
    '${exec_prefix}/lib')
@@ -43,7 +44,7 @@ $NetBSD: patch-configure.in,v 1.1 2025/02/08 02:57:59 taca Exp $
      ;;
  esac
  
-@@ -1226,7 +1226,7 @@ case $PHP_LAYOUT in
+@@ -1226,7 +1226,7 @@
      datarootdir=$prefix/share
      ;;
    *)
@@ -52,7 +53,16 @@ $NetBSD: patch-configure.in,v 1.1 2025/02/08 02:57:59 taca Exp $
      ;;
  esac
  
-@@ -1452,7 +1452,7 @@ PHP_SUBST(all_targets)
+@@ -1437,7 +1437,7 @@
+ INLINE_CFLAGS="$INLINE_CFLAGS $standard_libtool_flag"
+ CXXFLAGS="$CXXFLAGS $standard_libtool_flag"
+ 
+-if test "$PHP_PHAR" != "no" && test "$PHP_CLI" != "no"; then
++if test "$PHP_PHAR" != "no" && test "$PHP_CLI" != "no" && test "$cross_compiling" != "yes"; then
+   pharcmd=pharcmd
+   pharcmd_install=install-pharcmd
+ else
+@@ -1452,7 +1452,7 @@
  PHP_SUBST(install_targets)
  PHP_SUBST(install_binary_targets)
  

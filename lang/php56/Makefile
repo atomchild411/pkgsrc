@@ -38,6 +38,13 @@ REPLACE_PHP+=		ext/phar/phar/phar.php run-tests.php
 INSTALLATION_DIRS+=	${CGIDIR} ${PHP_EXTENSION_DIR} ${PHP_EGDIR} \
 			${PHP_SHAREDIR}
 
+# The phar command is made by running the new php, which a cross build
+# cannot do.
+PLIST_VARS+=	pharcmd
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.pharcmd=	yes
+.endif
+
 # Darwin < 9 (Mac OS X < 10.5 "Leopard") doesn't have gethostuuid(2)
 # and lacks the zone memory allocator
 .if !empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
