@@ -24,6 +24,12 @@ PKG_SUGGESTED_OPTIONS.SunOS+=	collectd-disk collectd-nfs collectd-swap collectd-
 
 PKG_SUPPORTED_OPTIONS+=		collectd-debug
 
+# collectd's cpu, interface, load, memory and uptime plugins know no IRIX
+# source (sysmp(2) and getifaddrs-less SIOCGIFCONF would be the ways).
+.if ${OPSYS} == "IRIX"
+PKG_SUGGESTED_OPTIONS:=	${PKG_SUGGESTED_OPTIONS:Ncollectd-cpu:Ncollectd-interface:Ncollectd-load:Ncollectd-memory:Ncollectd-uptime}
+.endif
+
 .include "../../mk/bsd.options.mk"
 
 PLIST_VARS+=		collectd-apple-sensors collectd-battery collectd-contextswitch collectd-cpu collectd-entropy \
