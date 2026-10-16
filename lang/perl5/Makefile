@@ -3,7 +3,7 @@
 .include "license.mk"
 .include "Makefile.common"
 
-PKGREVISION=	4
+PKGREVISION=	5
 
 COMMENT=	Practical Extraction and Report Language
 
@@ -84,6 +84,13 @@ CONFIGURE_ARGS+=	-Doptimize=${CFLAGS:Q}\ -fwrapv\ -fno-strict-aliasing
 CONFIGURE_ARGS+=	-Dldflags=${LDFLAGS:Q}
 CONFIGURE_ARGS+=	-Dlibswanted=${LIBSWANTED:Q}
 CONFIGURE_ARGS+=	-Dinstallstyle=lib/perl5 -Dinstallusrbinperl=undef
+# No HTML documentation, as with Configure and Policy.sh: perl-cross
+# defaults its html directories to share/doc/perl/html, so every module
+# built with Module::Build installed HTML pages (and one with a fixed
+# PLIST failed on them). Empty, Module::Build installs none.
+.  for _d_ in html1dir html3dir sitehtml1dir sitehtml3dir vendorhtml1dir vendorhtml3dir
+CONFIGURE_ARGS+=	-D${_d_}= -Dinstall${_d_}=
+.  endfor
 CONFIGURE_ARGS+=	-Di_malloc=undef
 CONFIGURE_ARGS+=	-Dsiteprefix=${PERL5_SITEPREFIX}
 CONFIGURE_ARGS+=	-Dvendorprefix=${PERL5_VENDORPREFIX}
