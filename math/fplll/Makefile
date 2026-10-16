@@ -21,6 +21,13 @@ TEST_TARGET=	check
 pre-configure:
 	cd ${WRKSRC} && ./autogen.sh
 
+# IRIX's <ctype.h> defines _A (and _U, _L, ...): rename the member.
+SUBST_CLASSES+=		ctype
+SUBST_STAGE.ctype=	pre-configure
+SUBST_MESSAGE.ctype=	Renaming _A, a <ctype.h> macro on some systems.
+SUBST_FILES.ctype=	fplll/enum-parallel/enumeration.h
+SUBST_SED.ctype=	-e 's/\<_A\>/_bound_A/g'
+
 .include "../../mk/atomic64.mk"
 .include "../../devel/gmp/buildlink3.mk"
 BUILDLINK_API_DEPENDS.mpfr+=	mpfr>=2.0.3
