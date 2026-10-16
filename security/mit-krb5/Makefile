@@ -3,6 +3,7 @@
 BRANCHNAME=	1.22
 DISTNAME=	krb5-${BRANCHNAME}.2
 PKGNAME=	mit-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	security
 # It is not clear how stable this URL scheme is.
 MASTER_SITES=	http://web.mit.edu/kerberos/dist/krb5/${BRANCHNAME}/
