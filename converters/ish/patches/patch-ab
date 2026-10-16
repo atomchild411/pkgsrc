@@ -1,6 +1,10 @@
 $NetBSD: patch-ab,v 1.2 2005/12/19 00:06:47 joerg Exp $
 
---- decode.c.orig	1990-08-05 11:04:08.000000000 +0000
+Use <strings.h>'s index() instead of a K&R declaration with another return
+type, which conflicts wherever <string.h> brings <strings.h> in (glibc, and
+clang's IRIX wrapper headers).
+
+--- decode.c.orig
 +++ decode.c
 @@ -16,6 +16,9 @@
  #include <time.h>
@@ -12,11 +16,13 @@ $NetBSD: patch-ab,v 1.2 2005/12/19 00:06:47 joerg Exp $
  #ifdef __TURBOC__
  #include <time.h>
  #include <io.h>
-@@ -38,7 +41,6 @@ int  type,dline;
+@@ -37,8 +40,7 @@
+ int  type,dline;
  unsigned char decbuf[LBUFLEN][LBUFLEN];
  
- extern unsigned char *index();
+-extern unsigned char *index();
 -extern int errno;
++#include <strings.h>	/* index(); was a K&R declaration */
  
  decode()
  {
