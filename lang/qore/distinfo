@@ -4,4 +4,6 @@ BLAKE2s (qore-1.19.2.tar.bz2) = 1a31e08213226deaf11a5c0100737740890674dee3394762
 SHA512 (qore-1.19.2.tar.bz2) = b66a3cab3fe6b9c5fb2e623207894a0079c02e6ab6f30416845547656ed17cd34f1517ab8c0d0941d6be1fcb2af0ea4a660731d026ace46142e45590261f3b2d
 Size (qore-1.19.2.tar.bz2) = 50739655 bytes
 SHA1 (patch-cmake_QoreMacros.cmake) = 7d76b551dee8d978f28a0b25897836f1f9346295
+SHA1 (patch-include_qore_common.h) = 2b1e188854c5ad93a49c779dc6b6194f5a7c6693
+SHA1 (patch-include_qore_macros.h) = e74d28843142c37439c0e1676bd6489d9afae2c2
 SHA1 (patch-lib_ql__lib.qpp) = a94737d5ed7c930ddc667c5e8be45cd1095d5a4a

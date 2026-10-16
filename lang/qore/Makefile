@@ -40,6 +40,20 @@ post-install:
 .include "application.mk"
 .include "options.mk"
 
+# The build runs qpp, qore's preprocessor, on its .qpp sources: a cross
+# build makes one for the build host first (as upstream does for MinGW,
+# qpp_native) and runs that.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+_QORE_QPP_NATIVE=	${WRKDIR}/qpp-native
+MAKE_FLAGS+=		QPP=${_QORE_QPP_NATIVE} MODULE_QPP=${_QORE_QPP_NATIVE}
+MAKE_FLAGS+=		ASTPARSER_QPP=${_QORE_QPP_NATIVE} REFLECTION_QPP=${_QORE_QPP_NATIVE}
+pre-build: qore-qpp-native
+.PHONY: qore-qpp-native
+qore-qpp-native:
+	${RUN}${NATIVE_CXX} -O2 -DHAVE_UNIX_CONFIG_H -I${WRKSRC}/include	\
+		-I${WRKSRC}/lib -o ${_QORE_QPP_NATIVE} ${WRKSRC}/lib/qpp.cpp
+.endif
+
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
