@@ -35,4 +35,23 @@ CONFIGURE_ARGS+=	--with-readline=gnu
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/curses.buildlink3.mk"
+
+# The help file is made by doc2gih, and the demos' binary data (which is
+# not installed) by bf_test, which run while building: cross-compiling,
+# copies built with the build host's compiler run instead.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		doc2gih
+SUBST_STAGE.doc2gih=	post-configure
+SUBST_MESSAGE.doc2gih=	Using the build host's doc2gih.
+SUBST_FILES.doc2gih=	docs/Makefile demo/Makefile
+SUBST_SED.doc2gih=	-e 's,)\./doc2gih$$(EXEEXT) ,)${WRKDIR}/doc2gih-native ,'
+SUBST_SED.doc2gih+=	-e 's,@\.\./src/bf_test$$,@${WRKDIR}/bf_test-native,'
+pre-build: gnuplot-native-doc2gih
+.PHONY: gnuplot-native-doc2gih
+gnuplot-native-doc2gih:
+	cd ${WRKSRC}/docs && ${NATIVE_CC} -DHAVE_CONFIG_H -I.. -I../src -I. \
+	    -I../term -o ${WRKDIR}/doc2gih-native doc2gih.c termdoc.c
+	cd ${WRKSRC}/src && ${NATIVE_CC} -DHAVE_CONFIG_H -I.. -I. \
+	    -o ${WRKDIR}/bf_test-native bf_test.c -lm
+.endif
 .include "../../mk/bsd.pkg.mk"
