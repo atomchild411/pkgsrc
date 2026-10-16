@@ -1115,7 +1115,9 @@ lib/clang/21/include/irix_wrappers/net/if_dl.h
 lib/clang/21/include/irix_wrappers/netdb.h
 lib/clang/21/include/irix_wrappers/netinet/in.h
 lib/clang/21/include/irix_wrappers/netinet/ip.h
+lib/clang/21/include/irix_wrappers/netinet/ip_icmp.h
 lib/clang/21/include/irix_wrappers/netinet/tcp.h
+lib/clang/21/include/irix_wrappers/netinet/udp.h
 lib/clang/21/include/irix_wrappers/pthread.h
 lib/clang/21/include/irix_wrappers/pwd.h
 lib/clang/21/include/irix_wrappers/search.h
