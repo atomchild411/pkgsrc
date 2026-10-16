@@ -1079,4 +1079,4 @@ SHA1 (patch-.._vendor_wide-0.7.33_src_u8x16__.rs) = 72729f072dcf8bbf1524606cf066
 SHA1 (patch-.._vendor_zune-jpeg-0.5.13_src_idct.rs) = de42940dcbfd5fee44eb42c0315070b34726f05f
 SHA1 (patch-.._vendor_zune-jpeg-0.5.13_src_unsafe__utils.rs) = 0f6b93067186b4daf8f1fc32135d551f7fd72a84
 SHA1 (patch-.._vendor_zune-jpeg-0.5.13_src_unsafe__utils__neon.rs) = 201deb50af81144505a8316ddb5f9a3bcc2cc3e1
-SHA1 (patch-meson.build) = 7d82c36408180a5261a3d2a9b6920c0260fa7681
+SHA1 (patch-meson.build) = 5d538809236f321a751b6ba575829078b8f2c7db

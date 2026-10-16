@@ -41,6 +41,14 @@ SUBST_SED.rst2man=	-e 's,rst2man.py,rst2man-${PYVERSSUFFIX},g'
 
 .include "../../mk/bsd.prefs.mk"
 
+# Cross-compiling: meson/cargo_wrapper.py passes the triplet to cargo
+# cbuild as --target, where cargo-c then looks for what it built (without
+# it, under the build host's triplet: "failed to write
+# target/x86_64-unknown-linux-gnu/release/librsvg_c.pc").
+.if ${USE_CROSS_COMPILE:tl} == "yes" && !empty(RUST_CROSS_TARGET)
+MESON_ARGS+=	-Dtriplet=${RUST_CROSS_TARGET}
+.endif
+
 .if ${OPSYS} == "Darwin"
 post-install:
 	install_name_tool			\

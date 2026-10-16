@@ -4,9 +4,13 @@ Disable libsocket handling on SunOS.  meson cannot handle the fact that this
 library is not provided by pkg-config and refuses to build gdk-pixbuf-loader.
 We already just link against it directly anyway.
 
---- meson.build.orig	2025-10-31 12:18:21.436321061 +0000
+IRIX: ask rustc for the native libraries the Rust code needs, as on Linux
+(-lunwind -lpthread -lm -lc): the C link of librsvg-2.so otherwise misses the
+unwinder (undefined _Unwind_Resume), which IRIX's C driver does not add.
+
+--- meson.build.orig
 +++ meson.build
-@@ -177,7 +177,7 @@ m_dep = cc.find_library('m', required: f
+@@ -180,7 +180,7 @@
  # into '-lsocket' and '-lnsl'.  Anything that calls socketpair(), getifaddr(),
  # etc. probably needs to include network_deps
  #
@@ -15,3 +19,12 @@ We already just link against it directly anyway.
    network_deps = [
      cc.find_library('socket', required: false),
    ]
+@@ -340,7 +340,7 @@
+ endif
+ 
+ default_overrides = []
+-if host_system in ['windows', 'linux']
++if host_system in ['windows', 'linux', 'irix']
+   rustc_query_native_static_libs_args = rustc_query_args
+   if target_arg != []
+     rustc_query_native_static_libs_args += target_arg
