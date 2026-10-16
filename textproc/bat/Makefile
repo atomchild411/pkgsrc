@@ -21,7 +21,7 @@ INSTALLATION_DIRS=	${PKGMANDIR}/man1
 
 post-install:
 	cd ${WRKSRC}/target/release && \
-		${FIND} . -name bat.1 \
+		${FIND} -L . -name bat.1 \
 			-type f \
 			-exec ${INSTALL_MAN} '{}' ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1 \;
 

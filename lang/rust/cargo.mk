@@ -184,7 +184,9 @@ cargo-cross-lock:
 # Packages install what cargo built from target/release ("do-install: ...
 # target/release/foo"); built for RUST_CROSS_TARGET it is under
 # target/${RUST_CROSS_TARGET}/release, and target/release holds only the
-# build host's build scripts: link the products there.
+# build host's build scripts: link the products there, and the build
+# scripts' output directories (build/<crate>-<hash>/out: man pages,
+# completions) too.
 post-build: cargo-cross-products
 .PHONY: cargo-cross-products
 cargo-cross-products:
@@ -195,6 +197,12 @@ cargo-cross-products:
 	  [ -f "$$f" ] || continue;						\
 	  t=${CARGO_WRKSRC}/target/release/`basename "$$f"`;			\
 	  [ -e "$$t" ] || ${LN} "$$f" "$$t" 2>/dev/null || ${CP} -p "$$f" "$$t"; \
+	done;								\
+	for b in "$$d"/build/*; do						\
+	  [ -d "$$b/out" ] || continue;						\
+	  ${MKDIR} ${CARGO_WRKSRC}/target/release/build;			\
+	  t=${CARGO_WRKSRC}/target/release/build/`basename "$$b"`;		\
+	  [ -e "$$t" ] || ${LN} -s "$$b" "$$t";				\
 	done
 .endif
 
