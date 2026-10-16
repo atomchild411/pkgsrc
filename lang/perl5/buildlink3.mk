@@ -42,6 +42,17 @@ INSTALL_TEMPLATES+=	${.CURDIR}/../../lang/perl5/files/install_threads.tmpl
 .include "../../lang/perl5/vars.mk"
 BUILDLINK_FILES.perl=	${PERL5_SUB_INSTALLARCHLIB}/CORE/*
 BUILDLINK_RPATHDIRS.perl+=	${PERL5_SUB_INSTALLARCHLIB}/CORE
+# Cross-compiling, programs that embed perl take its flags from the build
+# host's perl (ExtUtils::Embed), which name its own CORE: the target's
+# headers and libperl are the buildlinked ones.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+_PERL5_HOST_CORE!=	${TOOLBASE}/bin/perl -MConfig -e 'print "$$Config{archlibexp}/CORE"' 2>/dev/null || true
+.  if !empty(_PERL5_HOST_CORE) && !empty(PERL5_SUB_INSTALLARCHLIB)
+BUILDLINK_TRANSFORM+=	I:${_PERL5_HOST_CORE}:${BUILDLINK_DIR}/${PERL5_SUB_INSTALLARCHLIB}/CORE
+BUILDLINK_TRANSFORM+=	L:${_PERL5_HOST_CORE}:${BUILDLINK_DIR}/${PERL5_SUB_INSTALLARCHLIB}/CORE
+BUILDLINK_TRANSFORM+=	R:${_PERL5_HOST_CORE}:${PREFIX}/${PERL5_SUB_INSTALLARCHLIB}/CORE
+.  endif
+.endif
 .endif # PERL_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-perl
