@@ -19,6 +19,11 @@ USE_DB185=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	awk groff pkg-config yacc
 USE_TOOLS+=	automake aclocal autoheader autoconf pkg-config
+# Nothing defines HAVE_WAITPID, so openbsd-compat/waitpid.h always declares
+# waitpid(int, ...): a conflict where pid_t is long (IRIX n32).
+CPPFLAGS.IRIX+=	-DHAVE_WAITPID
+# IRIX's <paths.h> has no _PATH_DEFPATH (the PATH mda_mbox runs with).
+CPPFLAGS.IRIX+=	-D_PATH_DEFPATH=\"/usr/bin:/bin:/usr/sbin:/sbin:${PREFIX}/bin:${PREFIX}/sbin\"
 
 CHECK_BUILTIN.openssl:= yes
 .include "../../security/openssl/buildlink3.mk"
@@ -105,7 +110,7 @@ post-extract:
 .endfor
 
 pre-configure:
-	cd ${WRKSRC} && ${PREFIX}/bin/libtoolize --copy --force
+	cd ${WRKSRC} && ${TOOLBASE}/bin/libtoolize --copy --force
 	cd ${WRKSRC} && ${TOOLS_CMD.aclocal}
 	cd ${WRKSRC} && ${TOOLS_CMD.autoconf}
 	cd ${WRKSRC} && ${TOOLS_CMD.autoheader}

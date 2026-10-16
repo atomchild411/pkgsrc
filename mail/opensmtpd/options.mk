@@ -38,6 +38,11 @@ PLIST.pam=		yes
 pam-install:
 	${INSTALL_DATA} ${FILESDIR}/smtp.conf	\
 		${DESTDIR}${PREFIX}/${PAMDIR}/smtp
+.else
+# post-install needs it either way.
+.PHONY:	pam-install
+pam-install:
+	@${DO_NADA}
 .endif
 
 #
