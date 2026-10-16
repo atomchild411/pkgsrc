@@ -3,3 +3,5 @@ $NetBSD: distinfo,v 1.3 2024/11/17 09:55:14 nia Exp $
 BLAKE2s (advancemame-4.0.tar.gz) = b26e593beebc9dd01b28b76ab64680981784420bfec178be67cb16810ef5f146
 SHA512 (advancemame-4.0.tar.gz) = e2fb61fbbad537fa47499afbeb436895653879061b00cf87599fd29ab030eb036476cb02b3a1292f562c5e098939ad96301e8ea40c76f816bae32675741e58e9
 Size (advancemame-4.0.tar.gz) = 27428769 bytes
+SHA1 (patch-advance_menu_menu.cc) = bc07d6aef6a65f73c4889765b08eedb1a69fdedd
+SHA1 (patch-advance_menu_text.cc) = fb011d79ebc93390e3f2dde06b5fc784b90af7f9
