@@ -11,7 +11,7 @@ Disable circuitous readline detection which tries to outsmart pkgsrc's
 static choice of libreadline and (fake-)ncurses and trips over its elven
 shoelaces when cross-compiling.
 
---- setup.py.orig	2023-08-24 12:46:25.000000000 +0000
+--- setup.py.orig
 +++ setup.py
 @@ -1,5 +1,11 @@
  # Autodetecting setup.py script for building the Python extensions
@@ -187,7 +187,7 @@ shoelaces when cross-compiling.
              self.add(Extension('_curses_panel', ['_curses_panel.c'],
                             include_dirs=curses_includes,
                             define_macros=curses_defines,
-@@ -1459,6 +1420,31 @@ class PyBuildExt(build_ext):
+@@ -1459,6 +1420,36 @@ class PyBuildExt(build_ext):
          dbm_order = ['gdbm']
          # The standard Unix dbm module:
          if not CYGWIN:
@@ -200,6 +200,11 @@ shoelaces when cross-compiling.
 +                    f = os.path.join(dir, 'ndbm.h')
 +                    if MACOS and is_macosx_sdk_path(dir):
 +                        f = os.path.join(sysroot, dir[1:], 'ndbm.h')
++                    # cross-compiling: the target's headers
++                    if (not os.path.exists(f) and
++                            os.environ.get('PKGSRC_CROSS_SYSROOT')):
++                        f = os.path.join(os.environ['PKGSRC_CROSS_SYSROOT'],
++                                         dir[1:], 'ndbm.h')
 +                    if not os.path.exists(f):
 +                        continue
 +
@@ -219,7 +224,7 @@ shoelaces when cross-compiling.
              config_args = [arg.strip("'")
                             for arg in sysconfig.get_config_var("CONFIG_ARGS").split()]
              dbm_args = [arg for arg in config_args
-@@ -1470,7 +1456,7 @@ class PyBuildExt(build_ext):
+@@ -1470,7 +1461,7 @@ class PyBuildExt(build_ext):
              dbmext = None
              for cand in dbm_order:
                  if cand == "ndbm":
@@ -228,7 +233,7 @@ shoelaces when cross-compiling.
                          # Some systems have -lndbm, others have -lgdbm_compat,
                          # others don't have either
                          if self.compiler.find_library_file(self.lib_dirs,
-@@ -2333,10 +2319,7 @@ class PyBuildExt(build_ext):
+@@ -2333,10 +2324,7 @@ class PyBuildExt(build_ext):
              sources = ['_decimal/_decimal.c']
              depends = ['_decimal/docstrings.h']
          else:
@@ -240,7 +245,7 @@ shoelaces when cross-compiling.
              libraries = ['m']
              sources = [
                '_decimal/_decimal.c',
-@@ -2752,7 +2735,7 @@ def main():
+@@ -2752,7 +2740,7 @@ def main():
            # If you change the scripts installed here, you also need to
            # check the PyBuildScripts command above, and change the links
            # created by the bininstall target in Makefile.pre.in

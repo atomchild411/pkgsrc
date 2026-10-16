@@ -1,0 +1,2 @@
+@comment $NetBSD$
+lib/python${PY_VER_SUFFIX}/lib-dynload/spwd.so

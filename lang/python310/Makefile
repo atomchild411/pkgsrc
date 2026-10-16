@@ -71,6 +71,8 @@ CONFIGURE_ARGS+=	\
 	PYTHON_FOR_BUILD=${TOOLBASE:Q}/bin/python${PY_VER_SUFFIX}
 CONFIGURE_ARGS+=	MACHDEP=${PY_PLATNAME}
 CONFIGURE_ARGS+=	ac_sys_system=${OPSYS}
+# setup.py looks for <ndbm.h> (_dbm) in the target's headers there.
+MAKE_ENV+=		PKGSRC_CROSS_SYSROOT=${_CROSS_DESTDIR:Q}
 .  if ${OPSYS} == "OSF1"
 CONFIGURE_ARGS+=	ac_cv_buggy_getaddrinfo=true
 .  else
