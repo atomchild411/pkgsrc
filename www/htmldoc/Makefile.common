@@ -30,6 +30,14 @@ WRKSRC=			${WRKDIR}/${PKGNAME_BASE}-${PKGVERSION_NOREV}
 GNU_CONFIGURE=		yes
 USE_LANGUAGES=		c c++
 
+.include "../../mk/bsd.prefs.mk"
+# The documentation is made with htmldoc: cross-compiling, the build host's.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=		htmldoc>=${VERSION}:../../www/htmldoc
+_HTMLDOC_FOR_BUILD=	${TOOLBASE}/bin/htmldoc --datadir .. --strict
+MAKE_FLAGS+=		HTMLDOC=${_HTMLDOC_FOR_BUILD:Q}
+.endif
+
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
