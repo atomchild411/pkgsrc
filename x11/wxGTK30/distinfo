@@ -3,6 +3,7 @@ $NetBSD: distinfo,v 1.26 2022/07/31 12:07:23 wiz Exp $
 BLAKE2s (wxWidgets-3.0.5.1.tar.bz2) = 739cad22bf2306c7f30bf3256eaa124c32e240a0c75723267c86fc78f7621264
 SHA512 (wxWidgets-3.0.5.1.tar.bz2) = 0a789fc5e71d414e43f75b5c16076fe8b1bcd7671be0770e4269dcef66d830c1bc74e183f49db270b928862f13472666c283fe2aa98b9006681722e06100725d
 Size (wxWidgets-3.0.5.1.tar.bz2) = 19739206 bytes
-SHA1 (patch-configure) = f2bda7d0bc3a9222dbb73ee6a20ffa5ed146fd78
+SHA1 (patch-configure) = 9231bef2e13b6c4bb46a8ddeaeac4c3625e7db50
+SHA1 (patch-include_wx_wxcrtbase.h) = c186b614fb12487df6dfbd1319ac509aed6d276b
 SHA1 (patch-misc_scripts_makeosxtags.sh) = a18e1c44f1cbc0e81cb75ae9df1eedd3643446c4
 SHA1 (patch-src_unix_fswatcher__kqueue.cpp) = fe34102b241f84f8add08ed69d8c9c1c9c2df771

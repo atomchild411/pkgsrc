@@ -5,10 +5,22 @@ Tweak SEARCH_LIB.
 Don't call install_name_tool on symlinks
 Avoid -Werror.
 Fix png library name.
+IRIX: versioned shared libraries with -soname, as on Linux and the BSDs.
+No host prefix or suffix on library and tool names without --host
+(USE_GNU_CONFIGURE_HOST=no): a cross build otherwise links -lwx_baseu-3.0-.
 
---- configure.orig	2020-05-02 14:03:18.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -19327,15 +19327,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+@@ -3894,7 +3894,7 @@
+ 
+ 
+ 
+-if test "$cross_compiling" != "no"; then
++if test "$cross_compiling" != "no" && test -n "$host_alias"; then
+     HOST_PREFIX="${host_alias}-"
+     HOST_SUFFIX="-$host_alias"
+ else
+@@ -19327,15 +19327,6 @@
  fi
  
  fi
@@ -24,7 +36,7 @@ Fix png library name.
  
  
  if test "$USE_LINUX" = 1 -o "$USE_GNU" = 1; then
-@@ -21778,7 +21769,7 @@ fi
+@@ -21778,7 +21769,7 @@
  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $wx_cv_std_libfullpath" >&5
  $as_echo "$wx_cv_std_libfullpath" >&6; }
  
@@ -33,7 +45,7 @@ Fix png library name.
  
  if test "$build" != "$host" -a "$GCC" = yes; then
                      if cross_root=`$CC -print-prog-name=ld 2>/dev/null`; then
-@@ -22454,13 +22445,13 @@ fi
+@@ -22454,13 +22445,13 @@
  
  
          if test "$ac_cv_header_png_h" = "yes"; then
@@ -50,7 +62,7 @@ Fix png library name.
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -22491,7 +22482,7 @@ fi
+@@ -22491,7 +22482,7 @@
  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_png_png_sig_cmp" >&5
  $as_echo "$ac_cv_lib_png_png_sig_cmp" >&6; }
  if test "x$ac_cv_lib_png_png_sig_cmp" = xyes; then :
@@ -59,7 +71,7 @@ Fix png library name.
  fi
  
          fi
-@@ -28844,7 +28835,7 @@ for dep in \${libnames} ; do
+@@ -28844,7 +28835,7 @@
      changes="\${changes} -change \${4}/\${dep} \${3}/\${dep}"
  done
  for i in \${libnames} ; do
@@ -68,7 +80,7 @@ Fix png library name.
  done
  EOF
              chmod +x change-install-names
-@@ -35158,9 +35149,6 @@ if ac_fn_cxx_try_compile "$LINENO"; then
+@@ -35158,9 +35149,6 @@
  else
  
                                                                                                                                                                          CFLAGS_OLD="$CFLAGS"
@@ -78,7 +90,16 @@ Fix png library name.
  
                          cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
-@@ -39056,7 +39044,8 @@ fi
+@@ -39042,7 +39030,7 @@
+ 
+     case "${BAKEFILE_HOST}" in
+       *-*-linux* | *-*-freebsd* | *-*-openbsd* | *-*-netbsd* | \
+-      *-*-k*bsd*-gnu | *-*-mirbsd* | *-*-gnu* )
++      *-*-k*bsd*-gnu | *-*-mirbsd* | *-*-gnu* | *-*-irix* )
+         if test "x$SUNCXX" = "xyes"; then
+             SONAME_FLAG="-h "
+         else
+@@ -39056,7 +39044,8 @@
        *-*-solaris2* )
          SONAME_FLAG="-h "
          USE_SOVERSION=1
