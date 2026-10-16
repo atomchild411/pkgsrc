@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.4 2025/07/26 05:08:24 charlotte Exp $
 BLAKE2s (ironwail-0.8.0.tar.gz) = 35c8425cf5bd9899285f8d8e1742f5763b2688f8466ff62e180ec541d5569ce9
 SHA512 (ironwail-0.8.0.tar.gz) = 5f42d24682ddae5c0413d86c69f0e34fa8926d226319455511fa13bbf9bb322d9343fd9fa4a6f6c5c781677e3f83eadbf0520f2fcdff8289229d6d69c987eb35
 Size (ironwail-0.8.0.tar.gz) = 9683934 bytes
+SHA1 (patch-Quake_sys__sdl__unix.c) = b1e7732b0e6087fcf6fa596ee1736316727a0aa5
