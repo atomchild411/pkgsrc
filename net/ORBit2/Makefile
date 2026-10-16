@@ -19,6 +19,14 @@ MAKE_JOBS_SAFE=		no
 USE_TOOLS+=		gmake pkg-config
 USE_LIBTOOL=		YES
 GNU_CONFIGURE=		YES
+# The alignments configure measures by running programs, which a cross
+# build cannot: IRIX n32's (clang's _Alignof).
+CONFIGURE_ENV.IRIX+=	ac_cv_alignof_CORBA_octet=1 ac_cv_alignof_CORBA_boolean=1
+CONFIGURE_ENV.IRIX+=	ac_cv_alignof_CORBA_char=1 ac_cv_alignof_CORBA_wchar=2
+CONFIGURE_ENV.IRIX+=	ac_cv_alignof_CORBA_short=2 ac_cv_alignof_CORBA_long=4
+CONFIGURE_ENV.IRIX+=	ac_cv_alignof_CORBA_long_long=8 ac_cv_alignof_CORBA_float=4
+CONFIGURE_ENV.IRIX+=	ac_cv_alignof_CORBA_double=8 ac_cv_alignof_CORBA_long_double=8
+CONFIGURE_ENV.IRIX+=	ac_cv_alignof_CORBA_struct=1 ac_cv_alignof_CORBA_pointer=4
 # needs interaction
 #TEST_TARGET=		check
 
