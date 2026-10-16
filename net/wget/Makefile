@@ -19,7 +19,6 @@ USE_TOOLS+=		msgfmt
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 
-REPLACE_PERL+=		doc/texi2pod.pl
 
 EGDIR=			${PREFIX}/share/examples/wget
 CONF_FILES=		${EGDIR}/wgetrc ${PKG_SYSCONFDIR}/wgetrc
@@ -28,6 +27,11 @@ INFO_FILES=		YES
 INSTALL_MAKE_FLAGS=	${MAKE_FLAGS} sysconfdir=${EGDIR}
 
 .include "options.mk"
+
+# Run during the build only: a cross build keeps the build host's perl.
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+REPLACE_PERL+=		doc/texi2pod.pl
+.endif
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
