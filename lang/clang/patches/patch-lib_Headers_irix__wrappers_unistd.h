@@ -14,10 +14,11 @@ branch iris/main):
 - getgrouplist
 - Wrapper <unistd.h>: SGI's atfork_* hooks under other names
 - getentropy and arc4random
+- Wrapper <unistd.h>: setgroups as IRIX declares it under _BSD_COMPAT
 
 --- lib/Headers/irix_wrappers/unistd.h.orig
 +++ lib/Headers/irix_wrappers/unistd.h
-@@ -0,0 +1,329 @@
+@@ -0,0 +1,335 @@
 +/*===---- unistd.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -294,7 +295,13 @@ branch iris/main):
 +extern "C" {
 +#endif
 +int initgroups(const char *, gid_t);
++/* As IRIX's <unistd.h> has it in each mode: the BSD prototype under
++ * _BSD_COMPAT, which otherwise conflicted with this one. */
++#ifdef _BSD_COMPAT
++int setgroups(int, int *);
++#else
 +int setgroups(int, const gid_t *);
++#endif
 +#ifdef __cplusplus
 +}
 +#endif
