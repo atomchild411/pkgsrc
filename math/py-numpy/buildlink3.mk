@@ -44,6 +44,10 @@ ${WRKDIR}/.pysite/numpy/__init__.py:
 	  ${ECHO} "def get_include():";					\
 	  ${ECHO} "    return os.path.join(_d, '_core', 'include')";	\
 	) > ${.TARGET}
+# and its declarations for Cython (cimport numpy: pandas)
+	${RUN} for f in ${_CROSS_DESTDIR}${PREFIX}/${PYSITELIB}/numpy/*.pxd; do	\
+	  [ -f "$$f" ] && ${LN} -sf "$$f" ${.TARGET:H}/;		\
+	done; ${TRUE}
 .endif
 
 .endif # PY_NUMPY_BUILDLINK3_MK
