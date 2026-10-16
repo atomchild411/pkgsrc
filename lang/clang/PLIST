@@ -1096,6 +1096,7 @@ lib/clang/21/include/irix_wrappers/dlfcn.h
 lib/clang/21/include/irix_wrappers/elf.h
 lib/clang/21/include/irix_wrappers/endian.h
 lib/clang/21/include/irix_wrappers/err.h
+lib/clang/21/include/irix_wrappers/errno.h
 lib/clang/21/include/irix_wrappers/fcntl.h
 lib/clang/21/include/irix_wrappers/fenv.h
 lib/clang/21/include/irix_wrappers/fts.h
