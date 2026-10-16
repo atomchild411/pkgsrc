@@ -28,6 +28,9 @@ PLIST_SUBST+=		SO_SUFFIX=${SO_SUFFIX:Q}
 # These are close enough to Solaris for the build to work.
 MAKE_FLAGS.SCO_SV+=	KERNEL_NAME=SunOS
 MAKE_FLAGS.UnixWare+=	KERNEL_NAME=SunOS
+# IRIX: the BSDs' shared library flags (the Makefile knows no IRIX, and
+# links libargon2.so as a program).
+MAKE_FLAGS.IRIX+=	KERNEL_NAME=NetBSD
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/argon2 ${DESTDIR}${PREFIX}/bin
