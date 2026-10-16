@@ -40,6 +40,8 @@ LDFLAGS.NetBSD+=	-Wl,--copy-dt-needed-entries
 
 BUILDLINK_TRANSFORM+=	rm:-Werror-implicit-function-declaration
 
+# Before options.mk: lang/python gives cmake its hints for cmake builds.
+.include "../../devel/cmake/build.mk"
 .include "options.mk"
 
 pre-configure:
@@ -55,6 +57,5 @@ pre-configure:
 .include "../../security/gnutls/buildlink3.mk"
 .include "../../security/libgcrypt/buildlink3.mk"
 .include "../../textproc/cJSON/buildlink3.mk"
-.include "../../devel/cmake/build.mk"
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
