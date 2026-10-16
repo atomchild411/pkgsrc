@@ -1,11 +1,13 @@
 # $NetBSD$
 
 PKGNAME=	clang-irix-libs-${CLANG_IRIX_VERSION}
-# nb1: the runtimes of the current toolchain (llvm iris/main 2edcdfb): the
+# nb2: the runtimes of llvm iris/main 68d432f448 (weak libc stand-ins,
+# select/pselect, net/if.h, setgroups wrappers, MIPS fake_use).
+# nb1: the runtimes of the toolchain from llvm iris/main 2edcdfb: the
 # 2026-10-02 build this package still had lacked symbols that programs
 # linked since bound to it, and rld refused to start them (exit 1).  Bump
 # this whenever the cross toolchain's runtimes are rebuilt.
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	lang
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://libcxx.llvm.org/
