@@ -1239,3 +1239,6 @@ SHA1 (patch-.._vendor_memchr-2.8.3_src_memchr.rs) = 94579c47e85024f78c0991cc3fd6
 SHA1 (patch-.._vendor_memchr-2.8.3_src_memmem_searcher.rs) = bee5863e430c7e8da55aa8bd94522a160755c074
 SHA1 (patch-.._vendor_memchr-2.8.3_src_vector.rs) = aee992e9dac5db463a503012c3cc091a72b89adc
 SHA1 (patch-.._vendor_zeroize-1.9.0_src_lib.rs) = e6555aa9de95bf7c19ec2f1374ebfb412983ac25
+SHA1 (patch-src_target.rs) = b7a5a3bbf0ca5fd012c3a2ee81c640cdf56b974f
+SHA1 (patch-src_install.rs) = 1c9542c5af6ef2717246ad96bcd4148e487dc48b
+SHA1 (patch-src_build__targets.rs) = 24e6a2ce6f7c28aa97b8fc1b172f95f870e1e02a
