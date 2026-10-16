@@ -36,7 +36,9 @@
 # local sources instead of crates.io, as name=directory or, for one of several
 # versions of a crate, name@version=directory (crates ported to the target
 # that crates.io's releases do not cover yet), and CARGO_CROSS_DEPENDS the
-# tool dependencies that provide them.
+# tool dependencies that provide them. CARGO_CROSS_VENDOR_PATCHES lists
+# patches for vendored crates, as name=patchfile: each is applied (-p0, in the
+# crate's directory) to every vendored version of the crate that it fits.
 
 MASTER_SITES?=	${MASTER_SITE_CRATESIO}${PKGBASE}/
 
@@ -45,8 +47,24 @@ CHECK_SSP_SUPPORTED=	no
 .include "../../lang/rust/rust.mk"
 
 USE_TOOLS+=		bsdtar digest
+.if ${RUST_TYPE} == "cross" && !empty(CARGO_CROSS_VENDOR_PATCHES)
+USE_TOOLS+=		patch
+.endif
 CARGO_VENDOR_DIR=	${WRKDIR}/vendor
 CARGO_WRKSRC?=		${WRKSRC}
+
+# The Cargo.lock files of a cross build: the one cargo uses for
+# CARGO_WRKSRC, which is the workspace's, above it for a member (cargo-audit,
+# sem), and those below it that a meson or make build runs cargo in
+# (powerdns-recursor); not the vendored crates', nor test fixtures.
+_CARGO_CROSS_NAMES=	${CARGO_CROSS_PATCHES:C/[@=].*//:O:u}
+_CARGO_CROSS_LOCKS=	{ d=${CARGO_WRKSRC:Q};					\
+	while [ "$$d" != ${WRKDIR:Q} -a "$$d" != / ]; do			\
+	  [ -f "$$d/Cargo.lock" ] && { ${ECHO} "$$d/Cargo.lock"; break; };	\
+	  d="$${d%/*}";							\
+	done;									\
+	${FIND} ${CARGO_WRKSRC:Q} -name Cargo.lock ! -path '*/vendor/*'	\
+	  ! -path '*/tests/*' ! -path '*/target/*' -print; } | ${SORT} -u
 
 # TODO: some Cargo.lock files include git+https sources which need to be fetched from the URL (not necessarily resolving to a crate.io url)
 DISTFILES?=			${DEFAULT_DISTFILES}
@@ -89,13 +107,42 @@ cargo-vendor-crates:
 	${RUN}${PRINTF} '%s = { path = "%s", package = "%s" }\n'		\
 	  ${p:C/=.*//:S/@/-/:S/./_/g} ${p:C/^[^=]*=//} ${p:C/[@=].*//}	\
 	  >> ${WRKDIR}/.cargo/config.toml
-# cargo keeps a locked version over a patch: drop the crate from Cargo.lock
-	${RUN}if [ -f ${CARGO_WRKSRC}/Cargo.lock ]; then			\
-	  ${AWK} -v n=${p:C/[@=].*//} 'BEGIN { RS = ""; ORS = "\n\n" }		\
-	    index($$0, "\nname = \"" n "\"\n") == 0'				\
-	    ${CARGO_WRKSRC}/Cargo.lock > ${CARGO_WRKSRC}/Cargo.lock.cross &&	\
-	  ${MV} ${CARGO_WRKSRC}/Cargo.lock.cross ${CARGO_WRKSRC}/Cargo.lock;	\
-	fi
+.  endfor
+# cargo keeps a locked version over a patch: drop the patched crates from
+# the Cargo.lock files.
+	${RUN}for l in `${_CARGO_CROSS_LOCKS}`; do				\
+	  ${AWK} -v names="${_CARGO_CROSS_NAMES}" '				\
+	    BEGIN { RS = ""; ORS = "\n\n"; n = split(names, a, " ") }		\
+	    { for (i = 1; i <= n; i++)						\
+		if (index($$0, "\nname = \"" a[i] "\"\n")) next; print }'	\
+	    "$$l" > "$$l.cross" && ${MV} "$$l.cross" "$$l";			\
+	done
+# A crate that pins a patched crate exactly (nix 0.31: libc "=0.2.180",
+# decmpfs: libc "=0.2.186") holds every user of it on the vendored,
+# unpatched version, and cargo leaves the patch unused: relax such pins.
+	${RUN}cd ${CARGO_VENDOR_DIR} && for f in */Cargo.toml; do		\
+	  ${AWK} -v names=" ${_CARGO_CROSS_NAMES} " '				\
+	    /^\[/ { dep = "" }							\
+	    /^\[.*dependencies\.[^]]*\]$$/ { dep = $$0;			\
+	      sub(/.*dependencies\./, "", dep); sub(/\]$$/, "", dep);		\
+	      gsub(/"/, "", dep) }						\
+	    dep != "" && index(names, " " dep " ") && /^version = "=/ {	\
+	      sub(/"=/, "\""); c = 1 }						\
+	    { print } END { exit !c }' "$$f" > "$$f.cross" &&			\
+	  ${MV} "$$f.cross" "$$f" || ${RM} -f "$$f.cross";			\
+	done
+.endif
+.if ${RUST_TYPE} == "cross"
+.  for p in ${CARGO_CROSS_VENDOR_PATCHES}
+	${RUN}for d in ${CARGO_VENDOR_DIR}/${p:C/=.*//}-[0-9]*; do		\
+	  [ -d "$$d" ] || continue;						\
+	  if { ${PATCH} -d "$$d" -p0 -s -f --dry-run < ${p:C/^[^=]*=//} ||	\
+	       ${PATCH} -d "$$d" -p0 -s -f -C < ${p:C/^[^=]*=//}; }		\
+	      > /dev/null 2>&1; then						\
+	    ${STEP_MSG} "Applying ${p:C/^[^=]*=//:T} to $${d##*/}";		\
+	    ${PATCH} -d "$$d" -p0 -s -f < ${p:C/^[^=]*=//};			\
+	  fi;									\
+	done
 .  endfor
 .endif
 .for crate in ${CARGO_CRATE_DEPENDS}
@@ -112,11 +159,11 @@ cargo-vendor-crates:
 pre-configure: cargo-cross-lock
 .PHONY: cargo-cross-lock
 cargo-cross-lock:
-	${RUN}if [ -f ${CARGO_WRKSRC}/Cargo.lock ]; then			\
-	  cd ${CARGO_WRKSRC} && ${SETENV} ${MAKE_ENV} ${CARGO} metadata		\
-	    --offline --format-version 1 > /dev/null ||				\
-	  ${ECHO} "cargo.mk: could not resolve the patched crates in Cargo.lock"; \
-	fi
+	${RUN}for l in `${_CARGO_CROSS_LOCKS}`; do				\
+	  (cd "$${l%/*}" && ${SETENV} ${MAKE_ENV} ${CARGO} metadata	\
+	    --offline --format-version 1 > /dev/null) ||			\
+	  ${ECHO} "cargo.mk: could not resolve the patched crates in $$l";	\
+	done
 
 # Packages install what cargo built from target/release ("do-install: ...
 # target/release/foo"); built for RUST_CROSS_TARGET it is under
@@ -163,6 +210,9 @@ DEFAULT_CARGO_ARGS=	--offline -j${_MAKE_JOBS_N}	\
 # rust.mk sets the toolchains up for the target
 DEFAULT_CARGO_ARGS+=	--target ${RUST_CROSS_TARGET}
 TOOL_DEPENDS+=		${CARGO_CROSS_DEPENDS}
+# openssl-sys's vendored feature (termscp) builds OpenSSL from source, which
+# openssl-src cannot configure for every target: use pkgsrc's.
+MAKE_ENV+=		OPENSSL_NO_VENDOR=1
 .endif
 
 CARGO_ARGS?=		build --release ${DEFAULT_CARGO_ARGS}

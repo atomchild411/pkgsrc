@@ -1,0 +1,21 @@
+--- aws-lc/crypto/rand_extra/urandom.c.orig
++++ aws-lc/crypto/rand_extra/urandom.c
+@@ -351,4 +351,11 @@
+ }
+ 
++#if !defined(RNDGETENTCNT)
++// No entropy count to wait for (IRIX): as on the platforms that use
++// getentropy, /dev/urandom is taken as ready from the start.
++static void ensure_dev_urandom_is_initialized(void) {
++  random_flavor_state = STATE_READY;
++}
++#else
+ static void ensure_dev_urandom_is_initialized(void) {
+ 
+@@ -381,4 +388,6 @@
+ }
+ 
++#endif  // !defined(RNDGETENTCNT)
++
+ // wait_for_entropy ensures the entropy pool has been initialized. If
+ // initialization haven't happened yet, it will block the process.
