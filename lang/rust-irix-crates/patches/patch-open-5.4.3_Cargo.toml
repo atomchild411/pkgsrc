@@ -1,0 +1,29 @@
+$NetBSD$
+
+IRIX 6.5 (mips64-sgi-irix): a Unix with xdg-open (open: "not supported on this platform"). Cargo.toml: no Windows-only dunce (shellexecute-on-windows becomes empty), so that packages vendoring an older open 5 resolve offline.
+
+--- open-5.4.3/Cargo.toml.orig
++++ open-5.4.3/Cargo.toml
+@@ -40,7 +40,7 @@
+ 
+ [features]
+ insecure = []
+-shellexecute-on-windows = ["dep:dunce"]
++shellexecute-on-windows = []
+ 
+ [lib]
+ name = "open"
+@@ -52,12 +52,9 @@
+ test = false
+ doc = false
+ 
+-[target.'cfg(any(target_os = "linux", target_os = "android", target_os = "freebsd", target_os = "dragonfly", target_os = "netbsd", target_os = "openbsd", target_os = "illumos", target_os = "solaris", target_os = "aix", target_os = "hurd"))'.dependencies.is-wsl]
++[target.'cfg(any(target_os = "linux", target_os = "android", target_os = "freebsd", target_os = "dragonfly", target_os = "netbsd", target_os = "openbsd", target_os = "illumos", target_os = "solaris", target_os = "aix", target_os = "hurd", target_os = "irix"))'.dependencies.is-wsl]
+ version = "0.4.0"
+ 
+ [target."cfg(unix)".dependencies.libc]
+ version = "0.2"
+ 
+-[target."cfg(windows)".dependencies.dunce]
+-version = "1"
+-optional = true

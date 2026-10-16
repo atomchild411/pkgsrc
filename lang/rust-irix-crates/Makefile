@@ -1,6 +1,6 @@
 # $NetBSD$
 
-DISTNAME=	rust-irix-crates-20261004.14
+DISTNAME=	rust-irix-crates-20261004.15
 CATEGORIES=	lang
 MASTER_SITES=	# empty: every crate has its own site
 
@@ -29,6 +29,8 @@ IRIX_CRATES+=	filetime-0.2.29
 IRIX_CRATES+=	ring-0.17.14
 # gix-sec: signed uid_t (gitoxide: bacon, ...)
 IRIX_CRATES+=	gix-sec-0.14.2
+# open: xdg-open on IRIX too (typst, librespot, spotify-player, ...)
+IRIX_CRATES+=	open-5.4.3
 IRIX_CRATES+=	tokio-1.53.1
 # unchanged, but newer than what packages vendor, and needed by the above
 IRIX_CRATES+=	tokio-macros-2.7.1
