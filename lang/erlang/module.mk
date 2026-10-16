@@ -7,7 +7,7 @@ PKGNAME?=	erlang-${DISTNAME}
 
 .if defined(REBAR3_BUILD)
 TOOL_DEPENDS+=	rebar3-[0-9]*:../../devel/rebar3
-REBAR=		${PREFIX}/bin/rebar3
+REBAR=		${TOOLBASE}/bin/rebar3
 .else
 TOOL_DEPENDS+=	rebar-[0-9]*:../../devel/rebar
 .endif
@@ -15,7 +15,7 @@ TOOL_DEPENDS+=	rebar-[0-9]*:../../devel/rebar
 USE_TOOLS+=	gmake pax
 
 .include "../../mk/bsd.prefs.mk"
-REBAR?=		${PREFIX}/bin/rebar
+REBAR?=		${TOOLBASE}/bin/rebar
 MAKE_FLAGS+=	REBAR=${REBAR}
 
 # Used by some Erlang packages to use system deps
