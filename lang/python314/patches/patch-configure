@@ -7,10 +7,11 @@ Chunk 3: should probably be handled in the Makefile instead
 Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
          For upstream, detection of uuig_create and uuid_enc_be should be
          improved.
+IRIX: build libpython as a shared library, as on the BSDs.
 
---- configure.orig	2026-08-05 10:29:49.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -3766,7 +3766,7 @@ fi
+@@ -3766,7 +3766,7 @@
      fi
          ac_cv_prog_PYTHON_FOR_REGEN=$with_build_python
      PYTHON_FOR_FREEZE="$with_build_python"
@@ -19,7 +20,7 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $with_build_python" >&5
  printf "%s\n" "$with_build_python" >&6; }
  
-@@ -4580,7 +4580,7 @@ fi
+@@ -4580,7 +4580,7 @@
  
  
  
@@ -28,7 +29,16 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
  	case "$host" in
  	*-*-linux*)
  		case "$host_cpu" in
-@@ -10228,7 +10228,7 @@ fi
+@@ -7735,7 +7735,7 @@
+         PY3LIBRARY=libpython3.so
+       fi
+       ;;
+-    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*)
++    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*|IRIX*)
+       LDLIBRARY='libpython$(LDVERSION).so'
+       BLDLIBRARY='-L. -lpython$(LDVERSION)'
+       RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+@@ -10228,7 +10228,7 @@
  if test "x$ac_cv_gcc_compat" = xyes
  then :
  
@@ -37,7 +47,7 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
  
  
  
-@@ -14668,14 +14668,6 @@ then :
+@@ -14668,14 +14668,6 @@
  
  fi
  
@@ -52,7 +62,7 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
  
  if test "x$have_uuid" = xmissing
  then :
-@@ -26966,7 +26958,7 @@ printf "%s\n" "#define ALT_SOABI \"${ALT
+@@ -26966,7 +26958,7 @@
  fi
  
  
@@ -61,7 +71,7 @@ Chunk 4: Do not set duplicated HAVE_UUID_H. This is a hack only for pkgsrc.
  
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking LDVERSION" >&5
  printf %s "checking LDVERSION... " >&6; }
-@@ -27036,11 +27028,7 @@ fi
+@@ -27036,11 +27028,7 @@
  
  
  
