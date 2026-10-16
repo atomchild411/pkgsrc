@@ -21,6 +21,16 @@ USE_TOOLS+=	msgfmt msgmerge xgettext
 
 MESON_ARGS+=	-Dbash_completion=disabled
 
+# Cross builds make no introspection data (devel/gobject-introspection/
+# buildlink3.mk), and the gi-docgen reference is built from it.
+PLIST_VARS+=	docs
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MESON_ARGS+=	-Dgtk_doc=false
+.else
+PLIST.docs=	yes
+.endif
+
 PKGCONFIG_OVERRIDE+=	libsecret/libsecret-unstable.pc.in
 PKGCONFIG_OVERRIDE+=	libsecret/libsecret.pc.in
 
