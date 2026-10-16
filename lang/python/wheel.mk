@@ -62,6 +62,11 @@ PY_RENAME_BINARIES?=	# empty
 
 # meson-python runs meson, which in a cross build needs meson's cross file.
 .if ${USE_CROSS_COMPILE:tl} == "yes" && !empty(TOOL_DEPENDS:M*-meson_python[->]*)
+# Its python module looks for the target's python as the cross file's
+# python3: the build's own, not whichever python3 pkg_alternatives picks
+# (Python 3.10, which then read the target's 3.13 standard library).
+MESON_BINARIES+=	python3
+MESON_BINARY.python3=	${TOOL_PYTHONBIN}
 .  include "../../devel/meson/cross.mk"
 WHEEL_ARGS+=	-Csetup-args=--cross-file=${MESON_CROSS_FILE}
 _WHEEL_MESON_CROSS=	yes

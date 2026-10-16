@@ -14,5 +14,8 @@ USE_TOOLS+=	pkg-config
 BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.13.1
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../graphics/py-cairo-shared/buildlink3.mk"
+# The python meson inspects (meson_options.txt: "python3", found on PATH,
+# where pkg_alternatives may pick another version): the build's.
+WHEEL_ARGS+=	-Csetup-args=-Dpython=${TOOL_PYTHONBIN}
 .include "../../lang/python/wheel.mk"
 .include "../../mk/bsd.pkg.mk"
