@@ -12,6 +12,8 @@ COMMENT=	Micro-framework for developing web services
 LICENSE=	mit
 
 TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
+# setup.py takes the version from incremental (use_incremental).
+TOOL_DEPENDS+=	${PYPKGPREFIX}-incremental-[0-9]*:../../devel/py-incremental
 DEPENDS+=	${PYPKGPREFIX}-attrs>=20.1.0:../../devel/py-attrs
 DEPENDS+=	${PYPKGPREFIX}-hyperlink-[0-9]*:../../www/py-hyperlink
 DEPENDS+=	${PYPKGPREFIX}-incremental-[0-9]*:../../devel/py-incremental
