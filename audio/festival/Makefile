@@ -68,6 +68,26 @@ MAKE_ENV+=	PKG_EST_HOME=${SPEECHTOOLS:Q}				\
 
 INSTALLATION_DIRS=	bin libexec ${PKGMANDIR}/man1
 
+# IRIX's <omp.h> is MIPSpro's (libmp), not LLVM's OpenMP runtime: speech_tools
+# takes the header for -fopenmp support, and the links then lack __kmpc_*.
+# On make's command line, it overrides each copy of config/config.
+.if ${OPSYS} == "IRIX"
+MAKE_FLAGS+=		OMP_OPTS= OMP_DEFS=
+# speech_tools's IRIX audio module needs libaudio; festival's own links do
+# not get its MODULE_LIBS.
+LDFLAGS+=		-laudio
+.endif
+
+# The man pages' option lists come from running the new festival
+# (-man_options): a cross build installs them without one.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		manopts
+SUBST_STAGE.manopts=	pre-build
+SUBST_MESSAGE.manopts=	Man pages without option lists (cross build).
+SUBST_FILES.manopts=	festival/doc/Makefile
+SUBST_SED.manopts=	-e 's,^\(.\).*-man_options >,\1: >,'
+.endif
+
 post-patch:
 	${CP} ${FILESDIR}/top-Makefile ${WRKSRC}/Makefile
 .if exists(${FILESDIR}/unknown_${OPSYS}.mak)
@@ -75,8 +95,10 @@ post-patch:
 	${CP} ${FILESDIR}/unknown_${OPSYS}.mak ${FESTIVAL}/config/systems
 .endif
 
-# from festival/config/system.sh
-.if exists(/etc/redhat-release)
+# from festival/config/system.sh (in a cross build, the target's: uname)
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+FESTOS=		${OPSYS}
+.elif exists(/etc/redhat-release)
 FESTOS=		RedHatLinux
 .elif exists(/etc/debian_version)
 FESTOS=		DebianGNULinux

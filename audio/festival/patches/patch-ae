@@ -2,12 +2,16 @@ $NetBSD: patch-ae,v 1.6 2011/11/21 01:35:29 marino Exp $
 
 --- speech_tools/include/EST_math.h.orig	2011-11-20 22:34:00.490181000 +0000
 +++ speech_tools/include/EST_math.h
-@@ -111,6 +111,15 @@ extern "C" {
+@@ -111,6 +111,19 @@ extern "C" {
  
  #endif
  
 +#if defined(__DragonFly__)
 +#define isnanf(X) __isnanf(X)
++#endif
++
++#if defined(__sgi)
++#define isnanf(X) isnan((double)(X))
 +#endif
 +
 +/* The g++-3.3.6 <cmath> header undefines the macro isnan, but shouldn't. */
