@@ -18,7 +18,7 @@ IRIX_CRATES+=	parking_lot_core-0.9.12
 IRIX_CRATES+=	socket2-0.4.10 socket2-0.5.10 socket2-0.6.5
 IRIX_CRATES+=	libloading-0.7.4 libloading-0.8.9
 IRIX_CRATES+=	rustix-0.38.44 rustix-1.1.5
-IRIX_CRATES+=	errno-0.3.14
+IRIX_CRATES+=	errno-0.2.8 errno-0.3.14
 # IRIX as an OS, for what parses the target (system-deps, maturin, pyo3-build-config)
 IRIX_CRATES+=	target-lexicon-0.12.16 target-lexicon-0.13.5
 # cfg-expr 0.20.4-0.20.7 (system-deps: librsvg) require target-lexicon =0.13.3

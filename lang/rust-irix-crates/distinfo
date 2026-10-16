@@ -1,5 +1,8 @@
 $NetBSD$
 
+BLAKE2s (errno-0.2.8.crate) = 7a95f703aa898902b7ae91170e7ee422e103822d88320454f17893e5fd2e7d82
+SHA512 (errno-0.2.8.crate) = 1f513743224cd9a9b7e4caaf33dab075a4a79efa90c9f46c9edfb0c8600daccd3ad2677ba2116621e19fcf8be456954da5d611cbcea4b6f1410f7731828b50d1
+Size (errno-0.2.8.crate) = 9276 bytes
 BLAKE2s (errno-0.3.14.crate) = cafef097c25f2739c920a6502c9ef74021cd51742faa7b3ce7910fa561ec7d5a
 SHA512 (errno-0.3.14.crate) = 1de95c9806323d63e7cc95111e67b3ba1ee4b9d47b70cec33485194574d6b584d22ff877dfbc244317822721291d537d9509ae5e46f1b45169cb478a78322366
 Size (errno-0.3.14.crate) = 12002 bytes
@@ -87,6 +90,7 @@ Size (tokio-1.53.1.crate) = 920101 bytes
 BLAKE2s (tokio-macros-2.7.1.crate) = 055d87ce6e4a65b95da7e871933dbb2168df85633221372fdbb5a22a27efdaeb
 SHA512 (tokio-macros-2.7.1.crate) = b8399043b6196751f0b799aa1c03a9635d2f54d69629d38379766d96f9a1db7afa1c64e055cff7a25fd88a0bcdca11d53a6dfb7b897e0a509160d3cff8f94325
 Size (tokio-macros-2.7.1.crate) = 15982 bytes
+SHA1 (patch-errno-0.2.8_src_unix.rs) = f565f04762b38f26d90819227b3118184edebf9b
 SHA1 (patch-errno-0.3.14_Cargo.toml) = ba57570699393cb777a30fbe0b7a711e23d15cdf
 SHA1 (patch-errno-0.3.14_src_unix.rs) = b32fd078d6868c9e17af50c3cad91b84438ea729
 SHA1 (patch-filetime-0.2.29_src_unix_mod.rs) = 09390a74f9b51fd27dce0d5305a87e97aca5d0c5
