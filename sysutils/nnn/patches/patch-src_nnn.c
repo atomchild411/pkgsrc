@@ -4,8 +4,9 @@ $NetBSD: patch-src_nnn.c,v 1.7 2024/07/15 22:44:54 sjmulder Exp $
    https://github.com/jarun/nnn/pull/1911
  - Disable large file support on old glibc where unsupported in fts.h.
    https://github.com/jarun/nnn/pull/1910
+ - No d_type in struct dirent on IRIX: use the Solaris/Haiku fstatat() path.
 
---- src/nnn.c.orig	2023-08-27 04:25:13.000000000 +0000
+--- src/nnn.c.orig
 +++ src/nnn.c
 @@ -28,13 +28,16 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
@@ -26,7 +27,7 @@ $NetBSD: patch-src_nnn.c,v 1.7 2024/07/15 22:44:54 sjmulder Exp $
  #if defined(__linux__)
  #include <sys/inotify.h>
  #define LINUX_INOTIFY
-@@ -121,6 +124,10 @@
+@@ -122,6 +125,10 @@
  #define alloca(size) __builtin_alloca(size)
  #endif
  
@@ -37,7 +38,7 @@ $NetBSD: patch-src_nnn.c,v 1.7 2024/07/15 22:44:54 sjmulder Exp $
  #include "nnn.h"
  #include "dbg.h"
  
-@@ -854,6 +861,27 @@ static void notify_fifo(bool force);
+@@ -869,6 +876,27 @@ static void notify_fifo(bool force);
  
  /* Functions */
  
@@ -65,3 +66,30 @@ $NetBSD: patch-src_nnn.c,v 1.7 2024/07/15 22:44:54 sjmulder Exp $
  static void sigint_handler(int sig)
  {
  	(void) sig;
+@@ -5908,7 +5936,7 @@ static int dentfill(char *path, struct e
+ 	if (!dp)
+ 		goto exit;
+ 
+-#if defined(__sun) || defined(__HAIKU__)
++#if defined(__sun) || defined(__HAIKU__) || !defined(DT_UNKNOWN)
+ 	flags = AT_SYMLINK_NOFOLLOW; /* no d_type */
+ #else
+ 	if (cfg.blkorder || dp->d_type == DT_UNKNOWN) {
+@@ -6041,7 +6069,7 @@ static int dentfill(char *path, struct e
+ 		if ((gtimesecs - sb.st_mtime <= 300) || (gtimesecs - sb.st_ctime <= 300))
+ 			entflags |= FILE_YOUNG;
+ 
+-#if !(defined(__sun) || defined(__HAIKU__))
++#if !(defined(__sun) || defined(__HAIKU__) || !defined(DT_UNKNOWN))
+ 		if (!flags && dp->d_type == DT_LNK) {
+ 			 /* Do not add sizes for links */
+ 			dentp->mode = (sb.st_mode & ~S_IFMT) | S_IFLNK;
+@@ -6093,7 +6121,7 @@ static int dentfill(char *path, struct e
+ 
+ 			if (S_ISDIR(sb.st_mode))
+ 				dentp->flags |= DIR_OR_DIRLNK;
+-#if !(defined(__sun) || defined(__HAIKU__)) /* no d_type */
++#if !(defined(__sun) || defined(__HAIKU__) || !defined(DT_UNKNOWN)) /* no d_type */
+ 		} else if (dp->d_type == DT_DIR || ((dp->d_type == DT_LNK
+ 			   || dp->d_type == DT_UNKNOWN) && S_ISDIR(sb.st_mode))) {
+ 			dentp->flags |= DIR_OR_DIRLNK;
