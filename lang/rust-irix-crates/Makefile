@@ -31,8 +31,8 @@ IRIX_CRATES+=	ring-0.17.14
 IRIX_CRATES+=	gix-sec-0.14.2
 # open: xdg-open on IRIX too (typst, librespot, spotify-player, ...)
 IRIX_CRATES+=	open-5.4.3
-# nix: lefthk, nushell, broot, vaultwarden, ruff, mise, ...
-IRIX_CRATES+=	nix-0.31.3
+# nix: lefthk, nushell, broot, vaultwarden, ruff, zola, mise, twitch-tui, ...
+IRIX_CRATES+=	nix-0.29.0 nix-0.30.1 nix-0.31.3
 IRIX_CRATES+=	tokio-1.53.1
 # unchanged, but newer than what packages vendor, and needed by the above
 IRIX_CRATES+=	tokio-macros-2.7.1
