@@ -21,6 +21,7 @@ buildlink-apache-cookie: buildlink-apache-apxs
 buildlink-apache-apxs: buildlink-directories
 	${MKDIR} ${BUILDLINK_DIR}/bin
 	{ ${ECHO} '#!/bin/sh'; \
+	  ${ECHO} '# Apache 2 apxs (STANDARD20): configures grep apxs for that.'; \
 	  ${ECHO} 'exec ${TOOLS_PATH.perl} ${BUILDLINK_PREFIX.apache}/bin/apxs "$$@"'; \
 	} > ${BUILDLINK_DIR}/bin/apxs
 	${CHMOD} +x ${BUILDLINK_DIR}/bin/apxs
