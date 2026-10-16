@@ -4,3 +4,6 @@ BLAKE2s (fruit_21_linux.zip) = 59c1823b6e1a91a598606a985dcdbbc3071425629e14bcb86
 SHA512 (fruit_21_linux.zip) = 80d80141ca3c2a4521b241a750bd237e0971b531bc4e8e89ae3bdcdbb1436b99b35e64f505b9a61413726744646b6b4ce126bcdb53b90adc727f88a50adee889
 Size (fruit_21_linux.zip) = 716762 bytes
 SHA1 (patch-aa) = b25d8bfa33c5bbb57a6016a255a089acb80f30bc
+SHA1 (patch-src_pawn.h) = b23cd251d561344d0bc4174bdb1f9a62d3282685
+SHA1 (patch-src_pawn.cpp) = fdec9cd95aa6cc016032909238d55dbd5315570e
+SHA1 (patch-src_eval.cpp) = 25548a044dd75317a74c39914e7a15b78f240ea3
