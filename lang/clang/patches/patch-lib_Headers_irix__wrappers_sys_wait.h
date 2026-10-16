@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
+- wait4
 
 --- lib/Headers/irix_wrappers/sys/wait.h.orig
 +++ lib/Headers/irix_wrappers/sys/wait.h
-@@ -0,0 +1,31 @@
+@@ -0,0 +1,41 @@
 +/*===---- sys/wait.h - IRIX wrapper -----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -35,6 +36,16 @@ branch iris/main):
 +#ifdef __cplusplus
 +}
 +#endif
++#endif
++
++/* The BSDs' and glibc's wait4, which IRIX lacks: compiler-rt's irix/misc.c. */
++struct rusage;
++#ifdef __cplusplus
++extern "C" {
++#endif
++pid_t wait4(pid_t, int *, int, struct rusage *);
++#ifdef __cplusplus
++}
 +#endif
 +
 +#endif /* __CLANG_IRIX_SYS_WAIT_H */

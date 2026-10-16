@@ -20,10 +20,11 @@ branch iris/main):
 - Wrapper <stdlib.h>: alloca outside strict ISO C, as glibc
 - strtonum
 - getentropy and arc4random
+- mkstemps and mkostemps
 
 --- lib/Headers/irix_wrappers/stdlib.h.orig
 +++ lib/Headers/irix_wrappers/stdlib.h
-@@ -0,0 +1,182 @@
+@@ -0,0 +1,185 @@
 +/*===---- stdlib.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -93,11 +94,14 @@ branch iris/main):
 +/* POSIX 2008's, from irix/misc.c. */
 +char *mkdtemp(char *);
 +/* POSIX 2001's posix_memalign, C11's aligned_alloc and POSIX 2024's
-+ * reallocarray and mkostemp, from irix/posix2008.c. */
++ * reallocarray and mkostemp, and the BSDs' and glibc's mkstemps and
++ * mkostemps, from irix/posix2008.c. */
 +int posix_memalign(void **, size_t, size_t);
 +void *aligned_alloc(size_t, size_t);
 +void *reallocarray(void *, size_t, size_t);
 +int mkostemp(char *, int);
++int mkstemps(char *, int);
++int mkostemps(char *, int, int);
 +#ifdef __cplusplus
 +}
 +#endif

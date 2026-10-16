@@ -1846,6 +1846,7 @@ lib/clang/21/include/irix_wrappers/__irix_int_c.h
 lib/clang/21/include/irix_wrappers/__irix_locale_t.h
 lib/clang/21/include/irix_wrappers/arpa/inet.h
 lib/clang/21/include/irix_wrappers/assert.h
+lib/clang/21/include/irix_wrappers/audio.h
 lib/clang/21/include/irix_wrappers/byteswap.h
 lib/clang/21/include/irix_wrappers/complex.h
 lib/clang/21/include/irix_wrappers/ctype.h
@@ -1872,6 +1873,7 @@ lib/clang/21/include/irix_wrappers/net/if.h
 lib/clang/21/include/irix_wrappers/net/if_dl.h
 lib/clang/21/include/irix_wrappers/netdb.h
 lib/clang/21/include/irix_wrappers/netinet/in.h
+lib/clang/21/include/irix_wrappers/netinet/ip6.h
 lib/clang/21/include/irix_wrappers/netinet/ip.h
 lib/clang/21/include/irix_wrappers/netinet/ip_icmp.h
 lib/clang/21/include/irix_wrappers/netinet/tcp.h

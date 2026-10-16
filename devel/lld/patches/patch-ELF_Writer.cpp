@@ -4,10 +4,23 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - lld: output IRIX's runtime linker, rld, accepts
 - lld: R_MIPS_LITERAL, R_MIPS_PJUMP, and .sbss before .bss
+- lld: _ftext, _fdata and _fbss, as IRIX's ld defines them
 
 --- ELF/Writer.cpp.orig
 +++ ELF/Writer.cpp
-@@ -777,6 +777,12 @@ unsigned elf::getSectionRank(Ctx &ctx, OutputSection &osec) {
+@@ -258,6 +258,11 @@
+   ctx.sym.etext2 = add("_etext", -1);
+   ctx.sym.edata1 = add("edata", -1);
+   ctx.sym.edata2 = add("_edata", -1);
++  if (ctx.arg.osabi == ELFOSABI_IRIX) {
++    ctx.sym.ftext = add("_ftext", -1);
++    ctx.sym.fdata = add("_fdata", -1);
++    ctx.sym.fbss = add("_fbss", -1);
++  }
+ }
+ 
+ static void demoteDefined(Defined &sym, DenseMap<SectionBase *, size_t> &map) {
+@@ -777,6 +782,12 @@
      // because data in these sections is addressable with a gp relative address.
      if (osec.flags & SHF_MIPS_GPREL)
        rank |= 2;
@@ -20,7 +33,37 @@ branch iris/main):
    }
  
    if (ctx.arg.emachine == EM_RISCV) {
-@@ -1936,6 +1942,17 @@ template <class ELFT> void Writer<ELFT>::finalizeSections() {
+@@ -907,6 +918,29 @@
+       ctx.sym.end2->section = last->lastSec;
+   }
+ 
++  // IRIX: _ftext is the start of the first executable section, _fdata of the
++  // first writable one with contents, _fbss of the first uninitialized one.
++  if (ctx.sym.ftext || ctx.sym.fdata || ctx.sym.fbss) {
++    OutputSection *ftext = nullptr, *fdata = nullptr, *fbss = nullptr;
++    for (OutputSection *os : ctx.outputSections) {
++      if (!(os->flags & SHF_ALLOC) || (os->flags & SHF_TLS))
++        continue;
++      if (!ftext && (os->flags & SHF_EXECINSTR))
++        ftext = os;
++      if (!fdata && (os->flags & SHF_WRITE) && os->type != SHT_NOBITS)
++        fdata = os;
++      if (!fbss && os->type == SHT_NOBITS)
++        fbss = os;
++    }
++    for (auto [sym, os] : {std::pair(ctx.sym.ftext, ftext),
++                           std::pair(ctx.sym.fdata, fdata),
++                           std::pair(ctx.sym.fbss, fbss)})
++      if (sym && os) {
++        sym->section = os;
++        sym->value = 0;
++      }
++  }
++
+   if (ctx.sym.bss) {
+     // On RISC-V, set __bss_start to the start of .sbss if present.
+     OutputSection *sbss =
+@@ -1936,6 +1970,17 @@
          for (Symbol *sym : file->requiredSymbols) {
            if (sym->dsoDefined)
              continue;
@@ -38,7 +81,7 @@ branch iris/main):
            if (sym->isUndefined() && !sym->isWeak()) {
              ELFSyncStream(ctx, diag)
                  << "undefined reference: " << sym << "\n>>> referenced by "
-@@ -2010,6 +2027,18 @@ template <class ELFT> void Writer<ELFT>::finalizeSections() {
+@@ -2010,6 +2055,18 @@
          osec->shName = ctx.in.shStrTab->addString(osec->name);
      }
  
@@ -57,7 +100,7 @@ branch iris/main):
    // Prefer command line supplied address over other constraints.
    for (OutputSection *sec : ctx.outputSections) {
      auto i = ctx.arg.sectionStartMap.find(sec->name);
-@@ -2047,9 +2076,17 @@ template <class ELFT> void Writer<ELFT>::finalizeSections() {
+@@ -2047,9 +2104,17 @@
        }
        if (ctx.arg.emachine == EM_MIPS) {
          // Add separate segments for MIPS-specific sections.
@@ -78,7 +121,7 @@ branch iris/main):
        }
        if (ctx.arg.emachine == EM_RISCV)
          addPhdrForSection(part, SHT_RISCV_ATTRIBUTES, PT_RISCV_ATTRIBUTES,
-@@ -2316,8 +2353,10 @@ Writer<ELFT>::createPhdrs(Partition &part) {
+@@ -2316,8 +2381,10 @@
    unsigned partNo = part.getNumber(ctx);
    bool isMain = partNo == 1;
  
@@ -91,7 +134,7 @@ branch iris/main):
    PhdrEntry *load = nullptr;
  
    // nmagic or omagic output does not have PT_PHDR, PT_INTERP, or the readonly
-@@ -2439,8 +2478,18 @@ Writer<ELFT>::createPhdrs(Partition &part) {
+@@ -2439,8 +2506,18 @@
      ret.push_back(std::move(tlsHdr));
  
    // Add an entry for .dynamic.
@@ -112,7 +155,7 @@ branch iris/main):
  
    if (relRo->firstSec)
      ret.push_back(std::move(relRo));
-@@ -2523,7 +2572,11 @@ void Writer<ELFT>::addPhdrForSection(Partition &part, unsigned shType,
+@@ -2523,7 +2600,11 @@
  
    auto entry = std::make_unique<PhdrEntry>(ctx, pType, pFlags);
    entry->add(*i);
@@ -125,7 +168,7 @@ branch iris/main):
  }
  
  // Place the first section of each PT_LOAD to a different page (of maxPageSize).
-@@ -3011,6 +3064,14 @@ template <class ELFT> void Writer<ELFT>::writeSections() {
+@@ -3011,6 +3092,14 @@
          sec->writeTo<ELFT>(ctx, ctx.bufferStart + sec->offset, tg);
    }
  

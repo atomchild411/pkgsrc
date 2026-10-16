@@ -8,10 +8,11 @@ branch iris/main):
 - Wrappers: <sys/queue.h>, <machine/endian.h>, SUN_LEN, I, IPPROTO_SCTP
 - Wrapper <netinet/in.h>: s6_addr16 and s6_addr32
 - Wrapper <netinet/in.h>: struct ip_mreq in every mode
+- in6_pktinfo, IPV6_PKTINFO and IPV6_RECVPKTINFO outside INET6
 
 --- lib/Headers/irix_wrappers/netinet/in.h.orig
 +++ lib/Headers/irix_wrappers/netinet/in.h
-@@ -0,0 +1,149 @@
+@@ -0,0 +1,160 @@
 +/*===---- netinet/in.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -158,6 +159,17 @@ branch iris/main):
 +#define IPV6_V6ONLY 27
 +#define IPV6_TCLASS 61
 +#endif
++
++/* RFC 3542's packet information, with IRIX's own option numbers and layout
++ * (which IRIX declares only under INET6): PowerDNS names them. */
++#ifndef IPV6_PKTINFO
++#define IPV6_RECVPKTINFO 43
++#define IPV6_PKTINFO 44
++#endif
++struct in6_pktinfo {
++  struct in6_addr ipi6_addr;
++  int ipi6_ifindex;
++};
 +#endif /* !INET6 */
 +
 +#endif /* __CLANG_IRIX_NETINET_IN_H */
