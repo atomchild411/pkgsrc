@@ -1,8 +1,21 @@
 $NetBSD: patch-aa,v 1.1 2006/01/02 22:18:22 joerg Exp $
 
---- src/utils.c.orig	2006-01-02 22:14:51.000000000 +0000
+IRIX struct tm has no tm_gmtoff/tm_zone; mktime() does not need them.
+
+--- src/utils.c.orig
 +++ src/utils.c
-@@ -93,9 +93,8 @@ caltime_t *calc_caltime(int day, int mon
+@@ -72,8 +72,10 @@ caltime_t *calc_caltime(int day, int mon
+     ret->sday.tm_mon = month;
+     ret->sday.tm_year = year-1900;
+     ret->sday.tm_isdst = now.tm_isdst;
++#ifndef __sgi	/* IRIX struct tm has no tm_gmtoff/tm_zone */
+     ret->sday.tm_gmtoff = now.tm_gmtoff;
+     ret->sday.tm_zone = now.tm_zone;
++#endif
+     mid = mktime(&(ret->sday));
+     /* extract this day's weekday */
+     (void)localtime_r(&mid, &now);
+@@ -93,9 +95,8 @@ caltime_t *calc_caltime(int day, int mon
  void _bailout(char *file, int line)
  {
      char *pname;
