@@ -17,5 +17,14 @@ INSTALL_TARGET=		--destdir=${DESTDIR}
 do-test:
 	${RUN} cd ${WRKSRC}; ${SETENV} ${TEST_ENV} ${RUBY} -I. test-all.rb
 
+# install.rb looks for vendor_ruby on the running ruby's load path, which
+# cross-compiling is the build host's: take RbConfig's vendorlibdir, the
+# target's then (lang/ruby/modules.mk) and the same directory otherwise.
+SUBST_CLASSES+=		vendordir
+SUBST_STAGE.vendordir=	pre-install
+SUBST_MESSAGE.vendordir=	Taking the install directory from RbConfig.
+SUBST_FILES.vendordir=	install.rb
+SUBST_SED.vendordir=	-e 's|^def target_directory$$|def target_directory; require "rbconfig"; return RbConfig::CONFIG["vendorlibdir"]|'
+
 .include "../../lang/ruby/modules.mk"
 .include "../../mk/bsd.pkg.mk"
