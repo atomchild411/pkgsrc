@@ -23,4 +23,11 @@ SUBST_MESSAGE.man=	Fixing man page installation path
 SUBST_FILES.man+=	Makefile
 SUBST_SED.man+=		-e "s,share/man,${PKGMANDIR},g"
 
+.include "../../mk/bsd.prefs.mk"
+# scdoc makes its own manual pages: cross-compiling, the build host's does.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=	${PKGNAME}:../../${PKGPATH}
+MAKE_FLAGS+=	HOST_SCDOC=${TOOLBASE}/bin/scdoc
+.endif
+
 .include "../../mk/bsd.pkg.mk"
