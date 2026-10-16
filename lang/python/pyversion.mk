@@ -267,6 +267,9 @@ BUILDLINK_DEPMETHOD.python?=	full
 .    if ${USE_CROSS_COMPILE:tl} == "yes"
 TOOL_DEPENDS+=			${PYDEPENDENCY}
 MAKE_ENV+=			PYTHONPATH=${WRKDIR}/.pysite:${_CROSS_DESTDIR:Q}${LOCALBASE}/${PYLIB:Q}
+# pyo3 (through maturin or setuptools-rust) takes the target Python's
+# configuration from its _sysconfigdata there.
+MAKE_ENV+=			PYO3_CROSS_LIB_DIR=${_CROSS_DESTDIR:Q}${LOCALBASE}/${PYLIB:Q}
 pre-configure: ${WRKDIR}/.pysite/sitecustomize.py
 .include "${PYPKGSRCDIR}/platname.mk"
 ${WRKDIR}/.pysite/sitecustomize.py:
