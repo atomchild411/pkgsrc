@@ -3498,6 +3498,7 @@ share/cmake-${CMAKE_API}/Modules/Platform/HP-UX-Initialize.cmake
 share/cmake-${CMAKE_API}/Modules/Platform/HP-UX.cmake
 share/cmake-${CMAKE_API}/Modules/Platform/Haiku-Initialize.cmake
 share/cmake-${CMAKE_API}/Modules/Platform/Haiku.cmake
+share/cmake-${CMAKE_API}/Modules/Platform/IRIX.cmake
 share/cmake-${CMAKE_API}/Modules/Platform/Linker/AIX-AIX-ASM.cmake
 share/cmake-${CMAKE_API}/Modules/Platform/Linker/AIX-AIX-C.cmake
 share/cmake-${CMAKE_API}/Modules/Platform/Linker/AIX-AIX-CXX.cmake
