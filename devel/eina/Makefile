@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	eina-1.7.10
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://download.enlightenment.org/att/releases/
 EXTRACT_SUFX=	.tar.bz2
