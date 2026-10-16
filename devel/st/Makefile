@@ -19,6 +19,14 @@ MAKE_ENV+=	CONFIG_GUESS_PATH=.
 BUILD_TARGET=	default
 AUTO_MKDIRS=	yes
 
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "IRIX"
+# As patch-aa does for the other systems: build libst.la (shared too)
+# through libtool's library rule rather than the Makefile's IRIX one, which
+# links a bare libst.so with SGI's ld.
+MAKE_FLAGS+=	STATIC_ONLY=yes
+.endif
+
 post-extract:
 	${CP} ${PKGSRCDIR}/mk/gnu-config/config.guess ${WRKSRC}/
 
