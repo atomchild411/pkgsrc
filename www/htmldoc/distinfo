@@ -6,3 +6,4 @@ Size (htmldoc/v1.9.16.tar.gz) = 3416333 bytes
 SHA1 (patch-configure) = 2b404a840f1519b21b3b29210ed4ff462f598386
 SHA1 (patch-desktop_Makefile) = 687b416d6b4189aa4b0242b23858daabd54a76ed
 SHA1 (patch-htmldoc_http-addrlist.c) = 5c36f78655838e633f805b6529a2a3183e10288a
+SHA1 (patch-htmldoc_ps-pdf.cxx) = f6cbb34a5011c18f92a74f86c72ddbba3a4984e4
