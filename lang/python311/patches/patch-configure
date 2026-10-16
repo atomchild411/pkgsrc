@@ -4,19 +4,20 @@ Fix linking on Darwin; don't use -stack_size.
 Changes for consistency across pkgsrc platforms.
 Simplify _sysconfigdata to include only platform name.
 Disable barrier to cross-compilation.
+IRIX: build libpython as a shared library, as on the BSDs.
 
---- configure.orig	2023-08-24 12:09:18.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -3262,7 +3262,7 @@ fi
+@@ -3262,7 +3262,7 @@
      fi
          ac_cv_prog_PYTHON_FOR_REGEN=$with_build_python
      PYTHON_FOR_FREEZE="$with_build_python"
 -    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$with_build_python
-+    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(MACHDEP) '$with_build_python
++    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(abs_builddir)/.sysconfigdata:$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(MACHDEP) '$with_build_python
      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $with_build_python" >&5
  $as_echo "$with_build_python" >&6; }
  
-@@ -3865,7 +3865,7 @@ fi
+@@ -3876,7 +3876,7 @@
  $as_echo "\"$MACHDEP\"" >&6; }
  
  
@@ -25,7 +26,16 @@ Disable barrier to cross-compilation.
  	case "$host" in
  	*-*-linux*)
  		case "$host_cpu" in
-@@ -8259,7 +8259,7 @@ UNIVERSAL_ARCH_FLAGS=
+@@ -6754,7 +6754,7 @@
+ 	      PY3LIBRARY=libpython3.so
+ 	  fi
+           ;;
+-    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*)
++    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*|IRIX*)
+ 	  LDLIBRARY='libpython$(LDVERSION).so'
+ 	  BLDLIBRARY='-L. -lpython$(LDVERSION)'
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+@@ -8270,7 +8270,7 @@
  # tweak BASECFLAGS based on compiler and platform
  case $GCC in
  yes)
@@ -34,7 +44,7 @@ Disable barrier to cross-compilation.
  
  
  
-@@ -19916,10 +19916,10 @@ _ACEOF
+@@ -19928,10 +19928,10 @@
  if ac_fn_c_try_compile "$LINENO"; then :
  
  
@@ -47,7 +57,7 @@ Disable barrier to cross-compilation.
    if test "$ax_cv_c_float_words_bigendian" = unknown; then
      ax_cv_c_float_words_bigendian=no
    else
-@@ -20767,7 +20767,7 @@ _ACEOF
+@@ -20779,7 +20779,7 @@
  fi
  
  
@@ -56,7 +66,7 @@ Disable barrier to cross-compilation.
  
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking LDVERSION" >&5
  $as_echo_n "checking LDVERSION... " >&6; }
-@@ -20820,11 +20820,7 @@ fi
+@@ -20832,11 +20832,7 @@
  
  
  

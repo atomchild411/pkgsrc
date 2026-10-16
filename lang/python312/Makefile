@@ -38,9 +38,11 @@ USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 GNU_CONFIGURE_ICONV=	no
 CONFIGURE_ARGS+=	--enable-shared
-CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
 CONFIGURE_ARGS+=	--with-system-expat
 CONFIGURE_ARGS+=	--without-ensurepip
+# configure has no IRIX case for shared modules and falls back to a bare
+# "ld": link them with the compiler driver, as on the BSDs.
+CONFIGURE_ENV.IRIX+=	LDSHARED='$$(CC) -shared' CCSHARED=-fPIC
 CONFIGURE_ENV+=		OPT=${CFLAGS:M*:Q}
 CONFIGURE_ENV+=		ac_cv_path_mkdir=${TOOLS_PATH.mkdir}
 CONFIGURE_ENV+=		py_cv_module__gdbm="n/a"
@@ -59,6 +61,14 @@ PTHREAD_OPTS+=	require
 .include "../../mk/pthread.buildlink3.mk"
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# configure tests for ${prefix}/include/openssl/ssl.h on the build host;
+# the buildlink tree has it there, the target prefix does not.
+CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_DIR}
+.else
+CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
+.endif
 
 # NetBSD-8 curses has enough support for py-curses
 USE_CURSES=		getsyx update_panels wide
@@ -116,16 +126,17 @@ CFLAGS+=	-I${OSX_SDK_PATH:Q}/usr/include
 LDFLAGS.SunOS+=	-lresolv
 
 PLIST_VARS+=	nis tkinter
+# The target's headers: in a cross build, under the cross destdir.
 .for incdir in ${_OPSYS_INCLUDE_DIRS}
-.  if exists(${incdir}/rpc/rpc.h)
+.  if exists(${_CROSS_DESTDIR:U}${incdir}/rpc/rpc.h)
 HAVE_RPC_H=	yes
-.  elif exists(${incdir}/tirpc/rpc/rpc.h)
+.  elif exists(${_CROSS_DESTDIR:U}${incdir}/tirpc/rpc/rpc.h)
 CPPFLAGS+=	-I${incdir}/tirpc
 HAVE_RPC_H=	yes
 .  endif
-.  if exists(${incdir}/rpcsvc/yp_prot.h)
+.  if exists(${_CROSS_DESTDIR:U}${incdir}/rpcsvc/yp_prot.h)
 HAVE_YP_PROT_H=	yes
-.  elif exists(${incdir}/nsl/rpcsvc/yp_prot.h)
+.  elif exists(${_CROSS_DESTDIR:U}${incdir}/nsl/rpcsvc/yp_prot.h)
 CPPFLAGS+=	-I${incdir}/nsl
 HAVE_YP_PROT_H=	yes
 .  endif
@@ -219,6 +230,13 @@ CHECK_WRKREF_SKIP+=	lib/python${PY_VER_SUFFIX}/config-${PY_VER_SUFFIX}/Makefile
 # Avoid error: Cannot generate ./Include/opcode.h, python not found !
 post-configure:
 	touch ${WRKSRC}/Include/opcode.h
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build host's python takes the new _sysconfigdata from a directory of
+# its own (PYTHON_FOR_BUILD, patch-configure), where the build will make it.
+	${MKDIR} ${WRKSRC}/.sysconfigdata
+	${LN} -sf ../build/lib.${LOWER_OPSYS}-${MACHINE_GNU_ARCH}-${PY_VER_SUFFIX}/_sysconfigdata_${PY_PLATNAME}.py \
+		${WRKSRC}/.sysconfigdata/
+.endif
 
 .if ${OPSYS} == "HPUX"
 post-install: hpux-postinstall

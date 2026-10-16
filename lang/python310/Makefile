@@ -36,10 +36,12 @@ USE_LANGUAGES=		c c++
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared
-CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
 CONFIGURE_ARGS+=	--with-readline=readline # XXX editline?
 CONFIGURE_ARGS+=	--with-system-ffi
 CONFIGURE_ARGS+=	--without-ensurepip
+# configure has no IRIX case for shared modules and falls back to a bare
+# "ld": link them with the compiler driver, as on the BSDs.
+CONFIGURE_ENV.IRIX+=	LDSHARED='$$(CC) -shared' CCSHARED=-fPIC
 CONFIGURE_ARGS+=	--with-system-expat
 CONFIGURE_ENV+=		OPT=${CFLAGS:M*:Q}
 CONFIGURE_ENV+=		ac_cv_path_mkdir=${TOOLS_PATH.mkdir}
@@ -54,6 +56,14 @@ PTHREAD_OPTS+=	require
 .include "../../mk/pthread.buildlink3.mk"
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# configure tests for ${prefix}/include/openssl/ssl.h on the build host;
+# the buildlink tree has it there, the target prefix does not.
+CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_DIR}
+.else
+CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
+.endif
 
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 TOOL_DEPENDS+=		${PKGNAME}:../../${PKGPATH}

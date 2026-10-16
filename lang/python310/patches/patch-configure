@@ -6,10 +6,11 @@ Changes for consistency across pkgsrc platforms.
 Simplify _sysconfigdata to include only platform name.
 detect netcan/can.h on NetBSD
 Disable barrier to cross-compilation.
+IRIX: build libpython as a shared library, as on the BSDs.
 
---- configure.orig	2022-03-23 20:12:04.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -3380,7 +3380,7 @@ fi
+@@ -3380,7 +3380,7 @@
  $as_echo "\"$MACHDEP\"" >&6; }
  
  
@@ -18,7 +19,16 @@ Disable barrier to cross-compilation.
  	case "$host" in
  	*-*-linux*)
  		case "$host_cpu" in
-@@ -7051,7 +7051,7 @@ UNIVERSAL_ARCH_FLAGS=
+@@ -5989,7 +5989,7 @@
+ 	      PY3LIBRARY=libpython3.so
+ 	  fi
+           ;;
+-    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*)
++    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*|IRIX*)
+ 	  LDLIBRARY='libpython$(LDVERSION).so'
+ 	  BLDLIBRARY='-L. -lpython$(LDVERSION)'
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+@@ -7051,7 +7051,7 @@
  # tweak BASECFLAGS based on compiler and platform
  case $GCC in
  yes)
@@ -27,7 +37,7 @@ Disable barrier to cross-compilation.
  
      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for -Wextra" >&5
  $as_echo_n "checking for -Wextra... " >&6; }
-@@ -8675,6 +8675,17 @@ if test "x$ac_cv_type___uint128_t" = xye
+@@ -8675,6 +8675,17 @@
  $as_echo "#define HAVE_GCC_UINT128_T 1" >>confdefs.h
  
  fi
@@ -45,7 +55,7 @@ Disable barrier to cross-compilation.
  
  
  # Sizes and alignments of various common basic types
-@@ -14729,10 +14740,10 @@ _ACEOF
+@@ -14730,10 +14741,10 @@
  if ac_fn_c_try_compile "$LINENO"; then :
  
  
@@ -58,7 +68,7 @@ Disable barrier to cross-compilation.
    if test "$ax_cv_c_float_words_bigendian" = unknown; then
      ax_cv_c_float_words_bigendian=no
    else
-@@ -15633,7 +15644,7 @@ _ACEOF
+@@ -15634,7 +15645,7 @@
  fi
  
  
@@ -67,7 +77,7 @@ Disable barrier to cross-compilation.
  
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking LDVERSION" >&5
  $as_echo_n "checking LDVERSION... " >&6; }
-@@ -15686,11 +15697,7 @@ fi
+@@ -15687,11 +15698,7 @@
  
  
  

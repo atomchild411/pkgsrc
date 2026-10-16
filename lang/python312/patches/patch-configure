@@ -1,23 +1,26 @@
 $NetBSD: patch-configure,v 1.4 2024/12/24 10:13:40 wiz Exp $
 
 Chunks 1, 4, 5: Changes for consistency across pkgsrc platforms.
-Chunk 1: Simplify _sysconfigdata to include only platform name.
+Chunk 1: Simplify _sysconfigdata to include only platform name; and give the
+         build host's python only it from the build directory (.sysconfigdata,
+         see the Makefile): with all of it, it took the new modules for its own.
 Chunk 2: Disable barrier to cross-compilation.
 Chunk 3: should be handled in the Makefile?
 Chunk 6: ?
+IRIX: build libpython as a shared library, as on the BSDs.
 
---- configure.orig	2024-12-03 18:42:41.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -3689,7 +3689,7 @@ fi
+@@ -3693,7 +3693,7 @@
      fi
          ac_cv_prog_PYTHON_FOR_REGEN=$with_build_python
      PYTHON_FOR_FREEZE="$with_build_python"
 -    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$with_build_python
-+    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(MACHDEP) '$with_build_python
++    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(abs_builddir)/.sysconfigdata:$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(MACHDEP) '$with_build_python
      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $with_build_python" >&5
  printf "%s\n" "$with_build_python" >&6; }
  
-@@ -4321,7 +4321,7 @@ fi
+@@ -4325,7 +4325,7 @@
  printf "%s\n" "\"$MACHDEP\"" >&6; }
  
  
@@ -26,7 +29,16 @@ Chunk 6: ?
  	case "$host" in
  	*-*-linux*)
  		case "$host_cpu" in
-@@ -9500,7 +9500,7 @@ fi
+@@ -7507,7 +7507,7 @@
+ 	      PY3LIBRARY=libpython3.so
+ 	  fi
+           ;;
+-    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*)
++    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*|IRIX*)
+ 	  LDLIBRARY='libpython$(LDVERSION).so'
+ 	  BLDLIBRARY='-L. -lpython$(LDVERSION)'
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+@@ -9514,7 +9514,7 @@
  
  case $GCC in
  yes)
@@ -35,7 +47,7 @@ Chunk 6: ?
  
  
  
-@@ -24399,7 +24399,7 @@ printf "%s\n" "#define ALT_SOABI \"${ALT
+@@ -24419,7 +24419,7 @@
  fi
  
  
@@ -44,7 +56,7 @@ Chunk 6: ?
  
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking LDVERSION" >&5
  printf %s "checking LDVERSION... " >&6; }
-@@ -24453,11 +24453,7 @@ fi
+@@ -24473,11 +24473,7 @@
  
  
  
@@ -57,7 +69,7 @@ Chunk 6: ?
  
  
  # Check for --with-wheel-pkg-dir=PATH
-@@ -26112,7 +26108,7 @@ fi
+@@ -26132,7 +26128,7 @@
  fi
  CURSES_CFLAGS=$(echo $CURSES_CFLAGS | sed 's/-D_XOPEN_SOURCE=600//g')
  
