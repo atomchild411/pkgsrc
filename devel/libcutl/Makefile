@@ -22,6 +22,18 @@ CONFIGURE_ARGS+=	--with-external-expat
 
 PKGCONFIG_OVERRIDE+=	libcutl.pc.in
 
+# The top-level version file, found through -I.., shadows <version>,
+# which libc++'s headers include.
+post-extract:
+	${MV} ${WRKSRC}/version ${WRKSRC}/version.txt
+	${SED} -e 's,^dist_doc_DATA = \(.*\) version$$,dist_doc_DATA = \1 version.txt,' \
+	    ${WRKSRC}/Makefile.in > ${WRKSRC}/Makefile.in.new
+	${MV} ${WRKSRC}/Makefile.in.new ${WRKSRC}/Makefile.in
+
+post-install:
+	${MV} ${DESTDIR}${PREFIX}/share/doc/libcutl/version.txt \
+	    ${DESTDIR}${PREFIX}/share/doc/libcutl/version
+
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
