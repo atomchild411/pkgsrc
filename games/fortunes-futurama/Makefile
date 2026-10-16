@@ -13,7 +13,7 @@ COMMENT=	Fortunes from the Futurama animated TV series
 TOOL_DEPENDS+=	fortune-strfile-[0-9]*:../../games/fortune-strfile
 
 DIST_SUBDIR=	${PKGNAME_NOREV}nb1
-STRFILE=	${LOCALBASE}/bin/strfile
+STRFILE=	${TOOLBASE}/bin/strfile
 WRKSRC=		${WRKDIR}
 
 do-build:

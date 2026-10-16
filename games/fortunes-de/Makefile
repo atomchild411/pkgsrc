@@ -14,7 +14,7 @@ WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
 TOOL_DEPENDS+=	fortune-strfile-[0-9]*:../../games/fortune-strfile
 
-STRFILE=		${LOCALBASE}/bin/strfile
+STRFILE=		${TOOLBASE}/bin/strfile
 INSTALLATION_DIRS=	share/games/fortune/de
 CHECK_PORTABILITY_SKIP=	install.sh
 

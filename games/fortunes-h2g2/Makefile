@@ -12,7 +12,7 @@ COMMENT=	Fortunes from Douglas Adams' "Hitchhiker's Guide to the Galaxy"
 
 TOOL_DEPENDS+=	fortune-strfile-[0-9]*:../../games/fortune-strfile
 
-STRFILE=	${LOCALBASE}/bin/strfile
+STRFILE=	${TOOLBASE}/bin/strfile
 WRKSRC=		${WRKDIR}
 
 do-build:

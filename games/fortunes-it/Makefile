@@ -12,7 +12,7 @@ LICENSE=	public-domain
 
 TOOL_DEPENDS+=	fortune-strfile-[0-9]*:../../games/fortune-strfile
 
-STRFILE=	${LOCALBASE}/bin/strfile
+STRFILE=	${TOOLBASE}/bin/strfile
 
 do-build:
 	find ${WRKSRC}/testi/ -type f ! -name "*.dat" -exec ${STRFILE} {} \;
