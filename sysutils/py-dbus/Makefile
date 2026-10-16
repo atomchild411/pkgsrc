@@ -14,6 +14,9 @@ LICENSE=	mit
 USE_TOOLS+=		pkg-config gmake
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	PYTHON=${PYTHONBIN}
+# Not installed; and the build imports the new module, which a cross build
+# cannot load.
+CONFIGURE_ARGS+=	--disable-documentation
 
 PY_PATCHPLIST=			yes
 PYTHON_VERSIONS_INCOMPATIBLE=	27
