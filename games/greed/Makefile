@@ -16,7 +16,7 @@ USE_TOOLS+=		gmake
 INSTALLATION_DIRS=	${PKGMANDIR}/man6
 
 pre-configure:
-	${LN} -s ${PREFIX}/bin/asciidoctor${RUBY_SUFFIX} ${TOOLS_DIR}/bin/asciidoctor
+	${LN} -s ${TOOLBASE}/bin/asciidoctor${RUBY_SUFFIX} ${TOOLS_DIR}/bin/asciidoctor
 
 post-build:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} make greed.6

@@ -23,7 +23,7 @@ INSTALL_TARGET=	install install-doc
 
 post-extract:
 	${MKDIR} ${BUILDLINK_DIR}/bin && \
-		${LN} -fs ${PREFIX}/bin/asciidoctor${RUBY_SUFFIX} ${BUILDLINK_DIR}/bin/asciidoctor
+		${LN} -fs ${TOOLBASE}/bin/asciidoctor${RUBY_SUFFIX} ${BUILDLINK_DIR}/bin/asciidoctor
 
 .include "../../lang/python/application.mk"
 .include "../../lang/ruby/rubyversion.mk"

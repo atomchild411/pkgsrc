@@ -48,7 +48,7 @@ RCD_SCRIPTS=	gpsd
 REPLACE_PYTHON+=	tests/test_misc.py
 
 pre-configure:
-	${LN} -s ${PREFIX}/bin/asciidoctor${RUBY_SUFFIX} ${BUILDLINK_DIR}/bin/asciidoctor
+	${LN} -s ${TOOLBASE}/bin/asciidoctor${RUBY_SUFFIX} ${BUILDLINK_DIR}/bin/asciidoctor
 
 # \todo Separate upstream's build into configure and build.
 do-configure:
