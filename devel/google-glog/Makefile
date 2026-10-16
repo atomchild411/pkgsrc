@@ -25,6 +25,14 @@ BUILDLINK_TRANSFORM.SunOS+=	rm:-pie
 LDFLAGS+=	-lexecinfo
 .endif
 
+# IRIX has <sys/syscall.h> but no syscall(): raw logging write()s instead.
+# It has <elf.h> but not the <link.h> glog's ELF symbolizer needs: no
+# symbol names in stack traces there.
+.if ${OPSYS} == "IRIX"
+CMAKE_CONFIGURE_ARGS+=	-DHAVE_SYS_SYSCALL_H:INTERNAL=
+CMAKE_CONFIGURE_ARGS+=	-DHAVE_ELF_H:INTERNAL=
+.endif
+
 .include "options.mk"
 .include "../../devel/cmake/build.mk"
 .include "../../devel/gflags/buildlink3.mk"

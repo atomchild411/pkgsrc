@@ -3,4 +3,4 @@ $NetBSD: distinfo,v 1.11 2025/02/18 09:03:18 adam Exp $
 BLAKE2s (glog-0.7.1.tar.gz) = 0e1cc258231a29a1edfaf83b98937345644d1e363e384916b6dc5ea8b537fafb
 SHA512 (glog-0.7.1.tar.gz) = 2dabac87d44e4fe58beceb31b22be732b47df84c22f1af8c0e7d0f262de939889de1f16025c1256539f2833ef3393bc92034e983aa2886752bb8705801a68630
 Size (glog-0.7.1.tar.gz) = 182681 bytes
-SHA1 (patch-src_glog_platform.h) = 27f3140be87262bf03c3ecbbfec9b258df6df77a
+SHA1 (patch-src_glog_platform.h) = 10b89a3a2cd7fc0e9292e809989c07fbf4d4b76a
