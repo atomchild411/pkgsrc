@@ -6,3 +6,4 @@ Size (mgba-0.10.5.tar.gz) = 14358730 bytes
 SHA1 (patch-CMakeLists.txt) = 57f593eda62e4d50839b2895180db088c869f0e2
 SHA1 (patch-src_platform_qt_CMakeLists.txt) = 052c533d8df271eb623efec1ec6639da4bea1983
 SHA1 (patch-src_platform_qt_ConfigController.cpp) = 45b5a0aac879905a1471c172c5f23bef9ab33723
+SHA1 (patch-src_util_vfs_vfs-dirent.c) = f9e614b9d2e6718914a4a11b4938e0d318f42626
