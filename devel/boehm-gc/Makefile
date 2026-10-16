@@ -2,6 +2,7 @@
 
 DISTNAME=	gc-8.2.12
 PKGNAME=	${DISTNAME:S/gc/boehm-gc/}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=bdwgc/}
 GITHUB_PROJECT=	bdwgc
@@ -17,6 +18,9 @@ USE_LIBTOOL=		YES
 GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	--enable-cplusplus
 CONFIGURE_ARGS+=	--datadir=${PREFIX}/share/doc
+# IRIX has no pthread_setname_np: make configure's compile-only probes see
+# that (mk.conf turns implicit declarations into warnings).
+CONFIGURE_ENV.IRIX+=	CFLAGS_EXTRA=-Werror=implicit-function-declaration
 PKGCONFIG_OVERRIDE=	bdw-gc.pc.in
 INSTALLATION_DIRS=	${PKGMANDIR}/man3
 
