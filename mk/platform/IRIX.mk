@@ -19,6 +19,10 @@ IMAKEOPTS+=	-U__NetBSD__ -U__APPLE__ -U__MACH__
 IMAKEOPTS+=	-U__amd64__ -U__x86_64__ -U__i386__ -U__aarch64__ -U__arm64__
 IMAKEOPTS+=	-Dsgi -D__sgi -Dmips -D__mips
 IMAKEOPTS+=	-DOSMajorVersion=${OS_VERSION:R} -DOSMinorVersion=${OS_VERSION:E}
+# The Makefiles run imake again in each subdirectory, with the target's
+# config directory (${X11BASE}/lib/X11/config), which the build host does
+# not have: the build host's, the same files, after it.
+IMAKEOPTS+=	-I${TOOLBASE}/lib/X11/config
 .endif
 # sgi.cf is written for MIPSpro. With clang: the compiler by its usual
 # name, none of MIPSpro's options, pkgsrc's install, and no -cckr for the
