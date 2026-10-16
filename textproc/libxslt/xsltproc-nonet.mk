@@ -10,7 +10,7 @@ pre-configure: create-xsltproc-wrapper
 .PHONY: create-xsltproc-wrapper
 create-xsltproc-wrapper:
 	${PRINTF} "#! ${SH}\\n\
-	${PREFIX}/bin/xsltproc --nonet \
+	${TOOLBASE}/bin/xsltproc --nonet \
 	--path ${XSLTPROC_PATH:U.:O:u:ts::Q} \$$*\\n\
 	" > ${BUILDLINK_DIR}/bin/xsltproc
 	${CHMOD} +x ${BUILDLINK_DIR}/bin/xsltproc

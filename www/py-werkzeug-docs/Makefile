@@ -32,7 +32,7 @@ do-install:
 
 PYTHON_FOR_BUILD_ONLY=	yes
 
-MAKE_FLAGS+=	SPHINXBUILD=${PREFIX}/bin/sphinx-build-${PYVERSSUFFIX}
+MAKE_FLAGS+=	SPHINXBUILD=${TOOLBASE}/bin/sphinx-build-${PYVERSSUFFIX}
 
 .include "../../lang/python/pyversion.mk"
 .include "../../mk/bsd.pkg.mk"
