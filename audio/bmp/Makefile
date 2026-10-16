@@ -39,7 +39,8 @@ PKGCONFIG_OVERRIDE+=	bmp.pc
 .include "../../mk/bsd.prefs.mk"
 
 PLIST_VARS+=		cdaudio
-.if ${OPSYS} != "Darwin"
+# No CD audio input on Darwin and IRIX (configure leaves the plugin out).
+.if ${OPSYS} != "Darwin" && ${OPSYS} != "IRIX"
 PLIST.cdaudio=		yes
 .endif
 PRINT_PLIST_AWK+=	/cdaudio/ { print "$${PLIST.cdaudio}" $$0; next }

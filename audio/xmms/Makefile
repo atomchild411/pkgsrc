@@ -10,7 +10,8 @@ CONFIGURE_ARGS+=	--disable-esd
 
 PLIST_VARS+=		cdaudio
 
-.if ${OPSYS} != "Darwin"
+# No CD audio input on Darwin and IRIX (configure leaves the plugin out).
+.if ${OPSYS} != "Darwin" && ${OPSYS} != "IRIX"
 PLIST.cdaudio=		yes
 .endif
 
