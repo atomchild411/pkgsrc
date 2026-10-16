@@ -21,6 +21,9 @@ WRKSRC=			${WRKDIR}/${DISTNAME:S/-source//}
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake nroff pkg-config
+# configure has IRIX's formatted man pages compressed with SGI's pack, which
+# the build host does not have (and which are not installed): plain ones.
+MAKE_FLAGS.IRIX+=	CAT1EXT=1 CAT3EXT=3 CAT6EXT=6
 TEST_TARGET=		test
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.fltk13
