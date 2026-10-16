@@ -1452,3 +1452,4 @@ Size (zerovec-derive-0.11.2.crate) = 21421 bytes
 BLAKE2s (zmij-1.0.14.crate) = 8b59a4969e1dd6c3216d6766de210816bab01a45da4b37e3101b2873f88ea690
 SHA512 (zmij-1.0.14.crate) = 4b692bfd003d5e998e0a95bfe077788a5870ff9a00200619cf6320199c60e6087c7bacd84bccd22acffb8482df952233cee323b95126a9b37f45dae41373d6c2
 Size (zmij-1.0.14.crate) = 23701 bytes
+SHA1 (patch-crates_tui_src_view_util.rs) = 9bc092d4c294e9f80d5012aaae71b00c3720be13
