@@ -29,6 +29,11 @@ USE_TOOLS+=	pkg-config
 
 .include "options.mk"
 
+# configure tells pthread_setname_np's arguments by compiling only, and
+# the IRIX wrappers make an undeclared call a warning: it found two and
+# three arguments in a libc that has neither (undefined at the link).
+CFLAGS.IRIX+=	-Werror=implicit-function-declaration
+
 # unbound uses some OpenBSD libc functions such as reallocarray(3).
 # The existing tests just look for the symbol in libc regardless
 # of anything in stdlib.h
