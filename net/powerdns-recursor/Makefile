@@ -42,6 +42,10 @@ do-build:
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/rust/cargo.mk"
+# Cross-compiling, cargo builds the Rust library under target/<target>/.
+.if !empty(RUST_CROSS_TARGET)
+MAKE_FLAGS+=		RUSTC_TARGET_ARCH=${RUST_CROSS_TARGET}
+.endif
 .include "../../lang/lua/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../security/libsodium/buildlink3.mk"
