@@ -1,0 +1,17 @@
+$NetBSD$
+
+Run src/configure as ./configure: with a bare name autoconf looks for it in
+PATH to find its srcdir, and finds any other "configure" there first
+(deforaos-configure installs one).
+
+--- configure.orig
++++ configure
+@@ -637,7 +637,7 @@
+   fi
+   cd "${ABS_DIRNAME}";
+   echo "executing `pwd`/configure $*"
+-  ${CONFIG_SHELL} configure $subdir_srcdir_args \
++  ${CONFIG_SHELL} ./configure $subdir_srcdir_args \
+     $subdir_configure_args --cache-file=config.cache
+ fi
+ 

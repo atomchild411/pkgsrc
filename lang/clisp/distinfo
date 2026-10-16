@@ -6,6 +6,7 @@ Size (clisp-2.49.tar.gz) = 9823111 bytes
 SHA1 (patch-aa) = e0c2e68da15f2ff11a73d7ee724c99a3999b7728
 SHA1 (patch-ab) = 93aef2c423ce9e5eabebc20cdc144c83845b19cb
 SHA1 (patch-ac) = c31fcd65d7d37aeaf69c0eee9499bff596b6619b
+SHA1 (patch-configure) = dd2cab4013c5be13632ed4338c901de2ab01da3a
 SHA1 (patch-modules-syscalls-calls.c) = 06ed5d9a0245a2be9acccf6cfcbd76788f832938
 SHA1 (patch-modules_readline_readline.lisp) = 1463cb15f6a21374dffc0e585670ac89bb758ff3
 SHA1 (patch-src-malloc-gmalloc.c) = 1321c6aeca31083282f1b56614df64dd2229b1b0
