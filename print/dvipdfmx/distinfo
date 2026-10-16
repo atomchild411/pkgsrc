@@ -6,3 +6,4 @@ Size (texlive-20260301-source.tar.xz) = 99377088 bytes
 SHA1 (patch-Makefile.in) = 526a2eab50395bcc9c0f2aa11a0d20034f93a02b
 SHA1 (patch-ac) = 2bbaa28a6cf16c8a14b0f190387d6443c6b260d9
 SHA1 (patch-ad) = acb8bb03d5592dd6935efcc82105e100ed7f9a4f
+SHA1 (patch-mem.h) = a02c52a7467b52e4b96ef3186b18b60aeb9fd638
