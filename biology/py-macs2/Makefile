@@ -16,18 +16,20 @@ LICENSE=	modified-bsd
 TOOL_DEPENDS+=	${PYPKGPREFIX}-cython-[0-9]*:../../devel/py-cython
 TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
 
-CYTHONIZE=	${PREFIX}/bin/cythonize-${PYVERSSUFFIX}
+CYTHONIZE=	${TOOLBASE}/bin/cythonize-${PYVERSSUFFIX}
 
 WHEEL_NAME=	${DISTNAME:tl}
 
 PYTHON_VERSIONS_INCOMPATIBLE=	310 311
 
 # Distributed .c files do not support python > 3.9
-pre-configure:
+# (After configure, with MAKE_ENV: cross-compiling, numpy's stand-in for
+# cimport numpy is created before configure and found through PYTHONPATH.)
+post-configure:
 	${MV} ${WRKSRC}/MACS2/cPosValCalculation.c ${WRKSRC}
 	${RM} -f ${WRKSRC}/MACS2/*.c ${WRKSRC}/MACS2/*/*.c
-	cd ${WRKSRC} && ${CYTHONIZE} ${WRKSRC}/MACS2/*.pyx
-	cd ${WRKSRC} && ${CYTHONIZE} ${WRKSRC}/MACS2/*/*.pyx
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${CYTHONIZE} ${WRKSRC}/MACS2/*.pyx
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${CYTHONIZE} ${WRKSRC}/MACS2/*/*.pyx
 	${MV} ${WRKSRC}/cPosValCalculation.c ${WRKSRC}/MACS2
 
 .include "../../lang/python/wheel.mk"
