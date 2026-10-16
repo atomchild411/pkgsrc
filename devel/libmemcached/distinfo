@@ -11,3 +11,4 @@ SHA1 (patch-libtest_lite.h) = d99717f8c6f4a8001ac767d9cc5034581293efe4
 SHA1 (patch-libtest_test.hpp) = 889d1a3823b309a3a2f04d8eef36515b1dff6130
 SHA1 (patch-tests_libmemcached-1.0_ketama.cc) = 4da74a41c0a1de28ac318723622c09ad03158c20
 SHA1 (patch-tests_libmemcached-1.0_pool.cc) = 4e0bac95e71fdd023e222f4acf96322f4b80f5eb
+SHA1 (patch-libtest_cmdline.cc) = de4dd052123bc4543f9ff6d8eca5d378743d55db
