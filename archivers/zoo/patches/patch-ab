@@ -7,8 +7,9 @@ $NetBSD: patch-ab,v 1.8 2015/02/27 09:31:47 wiz Exp $
 - supply missing return value
 - on sunos ignore unsupported tm_gmtoff
 - include nixtime.i early enough, before the first call to time()
+- on IRIX use timezone/altzone instead of tm_gmtoff
 
---- bsd.c.orig	1993-05-01 04:21:53.000000000 +0000
+--- bsd.c.orig
 +++ bsd.c
 @@ -26,7 +26,7 @@ to be on the safe side.  It is needed fo
  long lseek PARMS ((int, long, int));
@@ -37,7 +38,7 @@ $NetBSD: patch-ab,v 1.8 2015/02/27 09:31:47 wiz Exp $
  /* Function isadir() returns 1 if the supplied handle is a directory, 
  else it returns 0.  
  */
-@@ -74,46 +85,27 @@ long gettz()
+@@ -74,46 +85,30 @@ long gettz()
  #define SEC_IN_DAY	(24L * 60L * 60L)
  #define INV_VALUE		(SEC_IN_DAY + 1L)
  	static long retval = INV_VALUE;	     /* cache, init to impossible value */
@@ -61,6 +62,9 @@ $NetBSD: patch-ab,v 1.8 2015/02/27 09:31:47 wiz Exp $
  	tm = localtime(&lt);
 +#if defined(__sun)
 +	retval = 0;
++#elif defined(__sgi)
++	/* IRIX has no tm_gmtoff; timezone/altzone are seconds west of UTC */
++	retval = tm->tm_isdst > 0 ? altzone : timezone;
 +#else
  	retval = -tm->tm_gmtoff;
  #endif
