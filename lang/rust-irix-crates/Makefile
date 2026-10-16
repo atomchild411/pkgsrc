@@ -1,6 +1,6 @@
 # $NetBSD$
 
-DISTNAME=	rust-irix-crates-20261004.10
+DISTNAME=	rust-irix-crates-20261004.11
 CATEGORIES=	lang
 MASTER_SITES=	# empty: every crate has its own site
 
@@ -23,6 +23,8 @@ IRIX_CRATES+=	errno-0.3.14
 IRIX_CRATES+=	target-lexicon-0.12.16 target-lexicon-0.13.5
 # cfg-expr 0.20.4-0.20.7 (system-deps: librsvg) require target-lexicon =0.13.3
 IRIX_CRATES+=	target-lexicon-0.13.3
+# filetime: utimensat (IRIX has no futimes or lutimes)
+IRIX_CRATES+=	filetime-0.2.29
 IRIX_CRATES+=	tokio-1.53.1
 # unchanged, but newer than what packages vendor, and needed by the above
 IRIX_CRATES+=	tokio-macros-2.7.1
