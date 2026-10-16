@@ -6,10 +6,11 @@ branch iris/main):
 - [IRIX] Keep _exit out of the string compat object
 - strtonum
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
+- strchrnul
 
 --- lib/builtins/irix/compat_bsd2.c.orig
 +++ lib/builtins/irix/compat_bsd2.c
-@@ -0,0 +1,92 @@
+@@ -0,0 +1,100 @@
 +//===-- irix/compat_bsd2.c - more BSD and glibc calls IRIX lacks ----------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -18,10 +19,10 @@ branch iris/main):
 +//
 +//===----------------------------------------------------------------------===//
 +//
-+// strlcpy, strlcat and memrchr (<string.h>) and strtonum (<stdlib.h>),
-+// declared by clang's IRIX wrappers; packages in the IRIX pkgsrc bulk build
-+// failed to link without them. Weak, so a program that brings its own copy
-+// keeps it.
++// strlcpy, strlcat, memrchr and strchrnul (<string.h>) and strtonum
++// (<stdlib.h>), declared by clang's IRIX wrappers; packages in the IRIX
++// pkgsrc bulk build failed to link (or configure left features out) without
++// them. Weak, so a program that brings its own copy keeps it.
 +//
 +// daemon, _Exit and vfork are in process_bsd.c, so that a library which
 +// only copies strings does not pick up a reference to _exit (libpq checks).
@@ -39,6 +40,7 @@ branch iris/main):
 +#pragma weak strlcpy
 +#pragma weak strlcat
 +#pragma weak memrchr
++#pragma weak strchrnul
 +#pragma weak strtonum
 +
 +size_t strlcpy(char *dst, const char *src, size_t size) {
@@ -64,6 +66,13 @@ branch iris/main):
 +    if (*--p == (unsigned char)c)
 +      return (void *)p;
 +  return NULL;
++}
++
++// glibc's (and the BSDs'): strchr, but a miss returns the terminating NUL.
++char *strchrnul(const char *s, int c) {
++  while (*s && *s != (char)c)
++    s++;
++  return (char *)s;
 +}
 +
 +// OpenBSD's: a decimal number in [lo, hi], or 0 with *errstr saying why

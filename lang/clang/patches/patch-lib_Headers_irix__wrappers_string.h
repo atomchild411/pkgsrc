@@ -10,10 +10,11 @@ branch iris/main):
 - Wrapper headers: u_int64_t, CRTSCTS, <strings.h>, sig_t, IOV_MAX
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
 - POSIX 2008 *_l functions: ctype, wctype and collation
+- strchrnul
 
 --- lib/Headers/irix_wrappers/string.h.orig
 +++ lib/Headers/irix_wrappers/string.h
-@@ -0,0 +1,84 @@
+@@ -0,0 +1,86 @@
 +/*===---- string.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -74,13 +75,15 @@ branch iris/main):
 +#include <strings.h>
 +#endif
 +
-+/* strlcpy, strlcat and memrchr: in clang's IRIX runtime (compiler-rt). */
++/* strlcpy, strlcat, memrchr and strchrnul: in clang's IRIX runtime
++ * (compiler-rt). */
 +#ifdef __cplusplus
 +extern "C" {
 +#endif
 +size_t strlcpy(char *__restrict, const char *__restrict, size_t);
 +size_t strlcat(char *__restrict, const char *__restrict, size_t);
 +void *memrchr(const void *, int, size_t);
++char *strchrnul(const char *, int);
 +#ifdef __cplusplus
 +}
 +#endif
