@@ -2,7 +2,7 @@
 
 DISTNAME=	Net-SSLeay-1.96
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	security perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/C/CH/CHRISN/}
 
@@ -21,6 +21,15 @@ PERL5_PACKLIST=		auto/Net/SSLeay/.packlist
 # prefix, which the build host has under the buildlink directory only.
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
 MAKE_ENV+=		OPENSSL_PREFIX=${BUILDLINK_DIR}
+# Makefile.PL runs ${OPENSSL_PREFIX}/bin/openssl to read OpenSSL's version:
+# the build host's (the same pkgsrc OpenSSL, as a tool), not the target's,
+# which the build host cannot run.
+TOOL_DEPENDS+=		openssl-[0-9]*:../../security/openssl
+pre-configure: net-ssleay-host-openssl
+.PHONY: net-ssleay-host-openssl
+net-ssleay-host-openssl:
+	${MKDIR} ${BUILDLINK_DIR}/bin
+	${LN} -sf ${TOOLBASE}/bin/openssl ${BUILDLINK_DIR}/bin/openssl
 .else
 MAKE_ENV+=		OPENSSL_PREFIX=${SSLBASE}
 .endif
