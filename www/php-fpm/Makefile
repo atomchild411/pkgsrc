@@ -11,6 +11,9 @@ USE_TOOLS+=	pkg-config
 
 LIBTOOL_OVERRIDE=	# empty
 
+# IRIX has no BSD/Linux ptrace(2); cross-compiling, configure assumes it does.
+CONFIGURE_ENV.IRIX+=	php_cv_func_ptrace=no
+
 .include "../../mk/bsd.prefs.mk"
 
 FPM_USER?=		fpm

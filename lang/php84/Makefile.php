@@ -58,6 +58,9 @@ CONFIGURE_ARGS+=	--enable-xml
 CONFIGURE_ENV+=		PHP_VER=${PHP_VER}
 CONFIGURE_ENV+=		PHP_VAR_SUBST=PHP_VER
 CONFIGURE_ENV+=		EXTENSION_DIR="${PREFIX}/${PHP_EXTENSION_DIR}"
+# IRIX has SVR4's memcntl(2), but not Solaris' MHA_MAPSIZE_VA advice that
+# Zend's allocator uses it for.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_memcntl=no
 
 #
 # Workaround for NetBSD: php 8.4 require zlib>=1.2.11.
