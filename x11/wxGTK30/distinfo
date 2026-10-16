@@ -7,3 +7,4 @@ SHA1 (patch-configure) = 9231bef2e13b6c4bb46a8ddeaeac4c3625e7db50
 SHA1 (patch-include_wx_wxcrtbase.h) = c186b614fb12487df6dfbd1319ac509aed6d276b
 SHA1 (patch-misc_scripts_makeosxtags.sh) = a18e1c44f1cbc0e81cb75ae9df1eedd3643446c4
 SHA1 (patch-src_unix_fswatcher__kqueue.cpp) = fe34102b241f84f8add08ed69d8c9c1c9c2df771
+SHA1 (patch-wx-config.in) = 9f83e53d3ccb7b647118f8a77fe298d9598f0ef8

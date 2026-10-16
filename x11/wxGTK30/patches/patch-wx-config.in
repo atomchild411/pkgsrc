@@ -1,0 +1,30 @@
+$NetBSD$
+
+Without --host (USE_GNU_CONFIGURE_HOST=no) wx-config is not a cross one:
+no -$host_alias on library names (else -lwx_gtk3u_xrc-3.0-), and it
+answers a cross configure that passes --host (wxwin.m4).
+
+--- wx-config.in.orig
++++ wx-config.in
+@@ -396,7 +396,7 @@
+ }
+ 
+ # Returns true if this script is for a cross compiled config.
+-is_cross()  { [ "x@cross_compiling@" = "xyes" ]; }
++is_cross()  { [ "x@cross_compiling@" = "xyes" ] && [ -n "@host_alias@" ]; }
+ 
+ 
+ # Determine the base directories we require.
+@@ -420,6 +420,12 @@
+ this_linkage=`[ "x@SHARED@" = "x1" ] || echo 'static'`
+ 
+ 
++# Cross built without --host: this config serves whatever --host a cross
++# configure (wxwin.m4) asks for.
++if [ "x@cross_compiling@" = "xyes" ] && [ -z "$this_host" ]; then
++    input_option_host=
++fi
++
+ # Extract the user specification from the options parsed.
+ m_host=${input_option_host:+"${input_option_host}-?"}
+ m_host=${m_host:-$this_host}
