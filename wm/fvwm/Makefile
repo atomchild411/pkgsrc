@@ -15,6 +15,9 @@ CONFLICTS=	fvwm1-[0-9]* fvwm2-[0-9]* fvwm3-[0-9]* metisse-[0-9]* xpmroot-[0-9]*
 FVWM_VER=	2.7.0
 
 GNU_CONFIGURE=		YES
+# configure runs a program to see whether mkstemp is safe, unless told there is
+# none, which a cross build cannot: fvwm's own replacement, then.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_mkstemp=no
 USE_TOOLS+=		perl:run tar pkg-config
 
 PLIST_SUBST+=		FVWM_VER=${FVWM_VER:Q}
