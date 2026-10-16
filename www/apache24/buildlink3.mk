@@ -10,10 +10,25 @@ BUILDLINK_ABI_DEPENDS.apache+=	apache>=2.4.58nb1
 BUILDLINK_PKGSRCDIR.apache?=	../../www/apache24
 
 BUILDLINK_FILES.apache+=	sbin/apxs
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# apxs is a Perl script for the target's perl: run it with the build
+# machine's (the target paths it reads are there in a cross build).
+# (BUILDLINK_DIR is not set yet here: only the commands may use it.)
+APXS?=			${BUILDLINK_DIR}/bin/apxs
+buildlink-apache-cookie: buildlink-apache-apxs
+.PHONY: buildlink-apache-apxs
+buildlink-apache-apxs: buildlink-directories
+	${MKDIR} ${BUILDLINK_DIR}/bin
+	{ ${ECHO} '#!/bin/sh'; \
+	  ${ECHO} 'exec ${TOOLS_PATH.perl} ${BUILDLINK_PREFIX.apache}/bin/apxs "$$@"'; \
+	} > ${BUILDLINK_DIR}/bin/apxs
+	${CHMOD} +x ${BUILDLINK_DIR}/bin/apxs
+.else
 ${BUILDLINK_DIR}/bin/apxs: buildlink-directories
 	${MKDIR} ${BUILDLINK_DIR}/bin && ${LN} -fs ../sbin/apxs ${BUILDLINK_DIR}/bin/apxs
-
 buildlink-apache-cookie: ${BUILDLINK_DIR}/bin/apxs
+.endif
 
 USE_TOOLS+=		perl			# for "apxs"
 CONFIGURE_ENV+=		APR_LIBTOOL=${LIBTOOL:Q}	# make apxs use the libtool we specify
