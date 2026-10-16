@@ -6,6 +6,7 @@ include/nspr/md/_aix32.cfg
 include/nspr/md/_aix64.cfg
 include/nspr/md/_darwin.cfg
 include/nspr/md/_freebsd.cfg
+${PLIST.irix}include/nspr/md/_irix.cfg
 include/nspr/md/_linux.cfg
 include/nspr/md/_netbsd.cfg
 include/nspr/md/_nto.cfg

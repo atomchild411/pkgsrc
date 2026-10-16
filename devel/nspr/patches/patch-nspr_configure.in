@@ -1,0 +1,37 @@
+$NetBSD$
+
+IRIX port (pthreads, IPv4); NSPR dropped its old one.
+
+--- nspr/configure.in.orig
++++ nspr/configure.in
+@@ -815,6 +815,7 @@
+         cygwin*)      OS_ARCH=WINNT ;;
+         darwin*)      OS_ARCH=Darwin ;;
+         riscos*)      OS_ARCH=RISCOS ;;
++        irix*)        OS_ARCH=IRIX OS_RELEASE=6.5 ;;
+     esac
+ else
+     OS_ARCH=`uname -s | sed -e 's|/|_|g'`
+@@ -1695,6 +1696,22 @@
+     esac
+     ;;
+ 
++*-irix*)
++    AC_DEFINE(XP_UNIX)
++    AC_DEFINE(IRIX)
++    AC_DEFINE(HAVE_SOCKLEN_T)
++    AC_DEFINE(HAVE_POINTER_LOCALTIME_R)
++    USE_PTHREADS=1
++    MDCPUCFG_H=_irix.cfg
++    PR_MD_CSRCS=irix.c
++    DSO_CFLAGS='-fPIC -DPIC'
++    MKSHLIB='$(CC) -o $@ $(DSO_LDOPTS)'
++    DSO_LDOPTS='-shared -Wl,-soname,$(notdir $@)'
++    if test "$LIBRUNPATH"; then
++        DSO_LDOPTS="$DSO_LDOPTS -Wl,-R$LIBRUNPATH"
++    fi
++    ;;
++
+ *-netbsd*)
+     AC_DEFINE(XP_UNIX)
+     AC_DEFINE(NETBSD)

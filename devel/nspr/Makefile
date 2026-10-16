@@ -91,6 +91,15 @@ BUILDLINK_PASSTHRU_DIRS+=	Developer/Headers/FlatCarbon
 
 INSTALLATION_DIRS+=	lib/pkgconfig
 
+# NSPR dropped its IRIX port; files/ carries a new pthreads one.
+PLIST_VARS+=		irix
+.if ${OPSYS} == "IRIX"
+PLIST.irix=		yes
+post-extract:
+	${CP} ${FILESDIR}/_irix.cfg ${FILESDIR}/_irix.h ${WRKSRC}/nspr/pr/include/md/
+	${CP} ${FILESDIR}/irix.c ${WRKSRC}/nspr/pr/src/md/unix/
+.endif
+
 pre-configure:
 	cd ${WRKSRC}/nspr && autoconf
 
