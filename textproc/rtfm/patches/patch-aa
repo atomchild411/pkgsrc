@@ -1,8 +1,19 @@
 $NetBSD: patch-aa,v 1.2 2001/03/14 14:57:34 zuntum Exp $
 
---- rtfm.c.orig	Tue Jan 18 06:16:45 2000
+IRIX: struct dirent has no d_type, so lstat() the entry; use strlen()
+instead of the BSD-only d_namlen, and don't index before short names.
+
+--- rtfm.c.orig
 +++ rtfm.c
-@@ -51,25 +51,24 @@
+@@ -29,6 +29,7 @@
+ 
+ #include <sys/types.h>
+ #include <sys/param.h>
++#include <sys/stat.h>
+ 
+ #include <ctype.h>
+ #include <dirent.h>
+@@ -51,25 +52,24 @@ extern char *__progname;
  
  static int cflag, dflag, iflag, mflag, tflag, wflag;
  
@@ -38,3 +49,32 @@ $NetBSD: patch-aa,v 1.2 2001/03/14 14:57:34 zuntum Exp $
  	".",
  	NULL
  };
+@@ -253,17 +253,26 @@ search_texinfo()
+ 		chdir(info_paths[i]);
+ 
+ 		while ((ent = readdir(dir)) != NULL) {
++#ifdef DT_REG
+ 			if (ent->d_type == DT_REG) {
++#else
++			/* No d_type (e.g. IRIX): lstat() it; we are in its dir. */
++			struct stat sb;
++
++			if (lstat(ent->d_name, &sb) == 0 && S_ISREG(sb.st_mode)) {
++#endif
+ 				char *command, c;
+ 				int matches = 0;
+ 				FILE *p;
++				/* d_namlen is not portable (Linux, IRIX). */
++				size_t namlen = strlen(ent->d_name);
+ 
+ 				/*
+ 				 * Anything that does not end in '.info.gz'
+ 				 * is not a Texinfo page.
+ 				 */
+-				if (strcasecmp(".info.gz", &ent->d_name[ent->d_namlen - 8])
+-				    && strcasecmp(".info", &ent->d_name[ent->d_namlen - 5]))
++				if ((namlen < 8 || strcasecmp(".info.gz", &ent->d_name[namlen - 8]))
++				    && (namlen < 5 || strcasecmp(".info", &ent->d_name[namlen - 5])))
+ 					continue;
+ 
+ 				/*
