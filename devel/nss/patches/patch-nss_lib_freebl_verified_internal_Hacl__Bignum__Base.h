@@ -2,13 +2,15 @@ $NetBSD: patch-nss_lib_freebl_verified_internal_Hacl__Bignum__Base.h,v 1.1 2023/
 
 SunOS needs alloca.h.
 
---- nss/lib/freebl/verified/internal/Hacl_Bignum_Base.h.orig	2023-10-02 12:17:27.000000000 +0000
+IRIX port (n32, pthreads); NSS dropped its old one.
+
+--- nss/lib/freebl/verified/internal/Hacl_Bignum_Base.h.orig
 +++ nss/lib/freebl/verified/internal/Hacl_Bignum_Base.h
-@@ -29,6 +29,9 @@
+@@ -30,6 +30,9 @@
  extern "C" {
  #endif
  
-+#ifdef __sun
++#if defined(__sun) || defined(__sgi)
 +#include <alloca.h>
 +#endif
  #include <string.h>

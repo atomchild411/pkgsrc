@@ -82,6 +82,19 @@ SUBST_MESSAGE.zlib=		Use ZLIB_LIBS from environment
 SUBST_FILES.zlib=		nss/coreconf/*.mk
 SUBST_SED.zlib=			-e 's,^ZLIB_LIBS,\#ZLIB_LIBS,g'
 
+# NSS dropped its IRIX port; files/IRIX.mk is a new pthreads one.
+.if ${OPSYS} == "IRIX"
+post-extract: post-extract-irix
+.PHONY: post-extract-irix
+post-extract-irix:
+	${CP} ${FILESDIR}/IRIX.mk ${WRKSRC}/nss/coreconf/
+.  if ${USE_CROSS_COMPILE:U:tl} == yes
+# Werror.mk adds clang's -Qunused-arguments to the host tools' (nsinstall)
+# flags too, and the host compiler is gcc.
+MAKE_ENV+=		WARNING_CFLAGS=-Wall
+.  endif
+.endif
+
 BUILDLINK_TRANSFORM+=	rm:-Werror
 BUILDLINK_TRANSFORM+=	rm:-ansi
 LDFLAGS.NetBSD+=	-lrt # sem_wait(3)
