@@ -15,6 +15,15 @@ BUILDLINK_API_DEPENDS.SDL2_mixer+=	SDL2_mixer>=2.0.0
 BUILDLINK_ABI_DEPENDS.SDL2_mixer+=	SDL2_mixer>=2.8.2nb2
 BUILDLINK_PKGSRCDIR.SDL2_mixer?=	../../audio/SDL2_mixer
 
+# SDL2_mixer.pc requires these (Requires.private), which pkg-config resolves
+# for --cflags too (crossfire-client, sais, lightspark).
+.include "../../audio/flac/buildlink3.mk"
+.include "../../audio/game-music-emu/buildlink3.mk"
+.include "../../audio/libvorbis/buildlink3.mk"
+.include "../../audio/libxmp/buildlink3.mk"
+.include "../../audio/mpg123/buildlink3.mk"
+.include "../../audio/opusfile/buildlink3.mk"
+.include "../../audio/wavpack/buildlink3.mk"
 .include "../../devel/SDL2/buildlink3.mk"
 .endif	# SDL2_MIXER_BUILDLINK3_MK
 
