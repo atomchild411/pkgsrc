@@ -722,6 +722,11 @@ RUBY_GEM_BASE?=		${RUBY_LIB_BASE}/gems
 GEM_HOME?=		${RUBY_GEM_BASE}/${RUBY_VER_DIR}
 GEM_EXTSBASE=		${GEM_HOME}/extensions/${RUBY_EXTARCH}/${RUBY_VER_DIR}
 GEM_PLUGINSDIR=		${GEM_HOME}/plugins
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build host's gem runs, and loads plugins (ruby-manpages, a tool
+# dependency) from its own gem directory.
+GEM_PATH?=		${TOOLBASE}/${GEM_HOME}:${PREFIX}/${GEM_HOME}
+.endif
 GEM_PATH?=		${PREFIX}/${GEM_HOME}
 RUBYGEM=		${LOCALBASE}/bin/${RUBYGEM_NAME}
 
