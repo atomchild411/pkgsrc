@@ -18,6 +18,16 @@ TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
 
 MAKE_ENV=	HDF5_DIR=${PREFIX}
 
+.include "../../mk/bsd.prefs.mk"
+# Cross-compiling, h5py cannot load the target's libhdf5 to learn its
+# version and features: name them (pkgsrc's hdf5 has neither ROS3 nor the
+# direct VFD).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+_H5PY_HDF5_DISTNAME!=	${AWK} '/^DISTNAME=/ { print $$2 }' ${.CURDIR}/../../devel/hdf5/Makefile.common
+MAKE_ENV+=	HDF5_VERSION=${_H5PY_HDF5_DISTNAME:S/^hdf5-//}
+MAKE_ENV+=	H5PY_ROS3=0 H5PY_DIRECT_VFD=0
+.endif
+
 PYTHON_VERSIONS_INCOMPATIBLE=	310 311
 
 BUILDLINK_API_DEPENDS.hdf5+=	hdf5>=1.10.4
