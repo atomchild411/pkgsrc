@@ -25,4 +25,10 @@ ALL_ENV+=	GI_SCANNER_DISABLE_CACHE=yes
 .endif	# GOBJECT_INTROSPECTION_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-gobject-introspection
+.else
+# Packages that turn introspection on in configure themselves (cogl,
+# clutter, ibus, mate-panel, ...): off again, configure takes the last.
+.  if !empty(CONFIGURE_ARGS:M--enable-introspection*)
+CONFIGURE_ARGS+=	--enable-introspection=no
+.  endif
 .endif
