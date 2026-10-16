@@ -7,7 +7,8 @@ COMMENT=		PHP extension for PostgreSQL databases
 
 CONFLICTS=	php-pgsql-[0-9]*
 
-CONFIGURE_ARGS+=	--with-${MODNAME}=shared,${PGSQL_PREFIX}
+# The directory pg_config is in (in a cross build, the buildlink one).
+CONFIGURE_ARGS+=	--with-${MODNAME}=shared,${PGSQL_PG_CONFIG:H:H}
 
 .include "../../lang/php/ext.mk"
 .include "../../mk/pgsql.buildlink3.mk"

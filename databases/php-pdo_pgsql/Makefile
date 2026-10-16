@@ -12,7 +12,8 @@ USE_PHP_EXT_PATCHES=	yes
 .include "../../lang/php/ext.mk"
 
 CONFIGURE_ARGS+=	--with-${MODNAME}
-CONFIGURE_ARGS+=	--with-${PKGMODNAME}=shared,${PGSQL_PREFIX}
+# The directory pg_config is in (in a cross build, the buildlink one).
+CONFIGURE_ARGS+=	--with-${PKGMODNAME}=shared,${PGSQL_PG_CONFIG:H:H}
 
 .include "../../mk/pgsql.buildlink3.mk"
 .include "../../databases/php-pdo/buildlink3.mk"
