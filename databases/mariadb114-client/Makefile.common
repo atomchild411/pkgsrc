@@ -99,6 +99,34 @@ CMAKE_CONFIGURE_ARGS+=		-DDTRACE_FLAGS="-${ABI}"
 # the parent repository.
 CMAKE_CONFIGURE_ARGS+=		-DCMAKE_DISABLE_FIND_PACKAGE_Git=ON
 
+# The build runs programs of its own (comp_err, comp_sql, factorial,
+# uca-dump, gen_lex_hash, gen_lex_token). A cross build makes them for the
+# build host first, from the same source (MariaDB's import_executables
+# target, with the build host's compilers and nothing of the target's; the
+# package's WITHOUT_SERVER, which decides which ones), and imports them.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+_MARIADB_NATIVE=	${WRKDIR}/native-build
+CMAKE_CONFIGURE_ARGS+=	-DIMPORT_EXECUTABLES=${_MARIADB_NATIVE}/import_executables.cmake
+_MARIADB_NATIVE_ENV=	${SETENV} -i PATH=${TOOLBASE}/bin:/usr/bin:/bin HOME=${_MARIADB_NATIVE}
+pre-configure: mariadb-native-executables
+.PHONY: mariadb-native-executables
+mariadb-native-executables:
+	@${STEP_MSG} "Building MariaDB's build tools for the build host"
+	${RUN}${MKDIR} ${_MARIADB_NATIVE}
+	${RUN}cd ${_MARIADB_NATIVE} && ${_MARIADB_NATIVE_ENV}			\
+		${TOOLBASE}/bin/cmake ${WRKSRC}					\
+		-DCMAKE_C_COMPILER=${NATIVE_CC} -DCMAKE_CXX_COMPILER=${NATIVE_CXX} \
+		-DCMAKE_BUILD_TYPE=Release -DWITH_SSL=bundled -DWITH_ZLIB=bundled \
+		${CMAKE_CONFIGURE_ARGS:M-DWITHOUT_SERVER=*}				\
+		-DWITH_UNIT_TESTS=OFF -DPLUGIN_ROCKSDB=NO -DPLUGIN_MROONGA=NO	\
+		-DPLUGIN_SPIDER=NO -DPLUGIN_CONNECT=NO -DPLUGIN_COLUMNSTORE=NO	\
+		> ${_MARIADB_NATIVE}/cmake.log 2>&1 ||				\
+		{ ${TAIL} -40 ${_MARIADB_NATIVE}/cmake.log; exit 1; }
+	${RUN}cd ${_MARIADB_NATIVE} && ${_MARIADB_NATIVE_ENV}			\
+		${TOOLBASE}/bin/cmake --build . --target import_executables	\
+		--parallel ${MAKE_JOBS:U1}
+.endif
+
 # https://github.com/MariaDB/server/pull/2326
 # https://github.com/MariaDB/server/pull/2321
 CFLAGS.SunOS+=		-fPIC -DHAVE_ALLOCA_H=1
