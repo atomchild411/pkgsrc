@@ -15,6 +15,10 @@ LICENSE=	gnu-gpl-v2
 USE_TOOLS+=		autoconf269
 USE_TOOLS+=		makeinfo
 GNU_CONFIGURE=		yes
+# Run tests configure cannot do in a cross build: IRIX's printf has %p.
+CONFIGURE_ENV.IRIX+=	cvs_cv_func_printf_ptr=yes
+# configure looks on the build host for a default editor (none there): IRIX's.
+CONFIGURE_ARGS.IRIX+=	--with-editor=/usr/bin/vi
 CONFIGURE_ARGS+=	--with-external-zlib
 CONFIGURE_ARGS+=	--with-rsh=ssh
 CONFIGURE_ENV+=		PERL=${TOOLS_PERL5}

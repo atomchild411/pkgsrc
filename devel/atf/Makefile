@@ -16,6 +16,11 @@ USE_CXX_FEATURES=	c++20
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
+# Run tests configure cannot do in a cross build: IRIX's getopt takes no GNU '+' prefix.
+CONFIGURE_ENV.IRIX+=	kyua_cv_getopt_plus=no
+# ... clang has __noreturn__; getcwd(NULL, 0) is not counted on (atf then
+# passes its own buffer).
+CONFIGURE_ENV.IRIX+=	kyua_cv_attribute_noreturn=yes kyua_cv_getcwd_works=no
 CONFIGURE_ARGS+=	ATF_SHELL=${SH:Q}
 
 PKGCONFIG_OVERRIDE=	atf-c/atf-c.pc.in

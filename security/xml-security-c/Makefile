@@ -14,6 +14,8 @@ USE_LANGUAGES=	c c++11
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake pkg-config
 GNU_CONFIGURE=	yes
+# Run tests configure cannot do in a cross build: the safe answer: the program then passes its own buffer.
+CONFIGURE_ENV.IRIX+=	xml_cv_func_getcwd_null=no
 CONFIGURE_ENV+=	XERCESCROOT="${BUILDLINK_PREFIX.xerces-c}"
 
 do-test:
