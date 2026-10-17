@@ -4,3 +4,4 @@ BLAKE2s (augustus-4.0.0.tar.gz) = d216644badf193716feccf534462cf977cd35771da2e7f
 SHA512 (augustus-4.0.0.tar.gz) = a7a2dfdbd4aeaf6e14131df0cdc34855e0c557cd6737fbb27e101e97d31508d66ee50ed75ee8182522b46b686c0d1180addaa5a8d5ba83b1fbab27742342b094
 Size (augustus-4.0.0.tar.gz) = 107933184 bytes
 SHA1 (patch-CMakeLists.txt) = 2d88c8fbca34f5bf8ad1e26bfe79ac7ba3e76b65
+SHA1 (patch-src_platform_crash__handler.c) = 385f5e66acec4d0487fbb69bc588fb88a74a0d40
