@@ -44,6 +44,9 @@ CMAKE_CONFIGURE_ARGS+=	-DOpenGL_GL_PREFERENCE=LEGACY
 OPSYS_EXPLICIT_LIBDEPS=	yes
 # crypt(3) is in libc; IRIX has no libcrypt for -lcrypt to find.
 BUILDLINK_TRANSFORM+=	rm:-lcrypt
+# IRIX ships 4.4BSD's <db.h> but no dbopen in any library, which is all
+# mk/db1.builtin.mk looks at (the header): db1 is not built in.
+IS_BUILTIN.db1=	no
 PKGLOCALEDIR?=	share
 PS?=		/sbin/ps
 SU?=		/sbin/su
