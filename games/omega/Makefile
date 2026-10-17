@@ -40,5 +40,15 @@ do-install:
 		${INSTALL_DATA} $${f} ${DESTDIR}${PREFIX}/share/doc/omega; \
 	done
 
+# genclr makes clrgen.[ch] while building: cross-compiling, a copy built
+# with the build host's compiler (genclr.o too, so make keeps it).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+pre-build: omega-native-genclr
+.PHONY: omega-native-genclr
+omega-native-genclr:
+	cd ${WRKSRC} && ${NATIVE_CC} -c genclr.c -o genclr.o && \
+	    ${NATIVE_CC} genclr.o -o genclr
+.endif
+
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
