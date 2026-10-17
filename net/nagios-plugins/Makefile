@@ -16,6 +16,9 @@ USE_TOOLS+=	msgfmt msgmerge intltool perl:run xgettext
 PKG_GROUPS+=	${NAGIOS_GROUP}
 
 CONFIGURE_ARGS+=	--without-apt-get-command
+# configure looks for apt-get whatever --without says (and finds a Debian
+# build machine's): check_apt is not in the PLIST.
+CONFIGURE_ENV+=		ac_cv_path_PATH_TO_APTGET=
 CONFIGURE_ARGS+=	--without-fping-command
 CONFIGURE_ARGS+=	--without-mysql
 CONFIGURE_ARGS+=	--without-pgsql

@@ -7,6 +7,7 @@ SHA1 (patch-configure) = 94e7095cb6039e06c263c3fd6f962cbdf736b2a7
 SHA1 (patch-gl_gettext.h) = c6e4917c30a1c4cceb46d1236fe9d2ff24359586
 SHA1 (patch-lib_Makefile.in) = bdc62254e08503436b032a4d54f26836ef3f2e12
 SHA1 (patch-plugins-root_Makefile.in) = 11a249107265a26b453bba9e3ea951595d3a01fc
+SHA1 (patch-plugins-root_check__icmp.c) = 8a7699515d60491c9557c1c9302b273cd068bd4b
 SHA1 (patch-plugins-scripts_Makefile.in) = 6618ab351fc1990268ffde5b94c6e491168f2b9a
 SHA1 (patch-plugins-scripts_check_breeze.pl) = 80c7f889a0cf3c1f5da4f5b6564f993c25e421b6
 SHA1 (patch-plugins-scripts_check_ntp.pl) = 8101604b3227fc9977d992c1e73885b8e3dab86a
