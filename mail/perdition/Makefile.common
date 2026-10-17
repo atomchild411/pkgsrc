@@ -52,4 +52,13 @@ PATCHDIR=		${PKGDIR}/../perdition/patches
 .include "../../devel/vanessa_logger/buildlink3.mk"
 .include "../../devel/vanessa_socket/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
+# configure looks for OpenSSL in a fixed list of directories (/usr/local
+# among them) and checks the one it settles on with AC_CHECK_FILE, which a
+# cross build cannot run: name pkgsrc's, and answer the check.
+CONFIGURE_ARGS+=	--with-ssl-includes=${SSLBASE}/include
+CONFIGURE_ARGS+=	--with-ssl-libraries=${SSLBASE}/lib
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+CONFIGURE_ENV+=		ac_cv_file_${SSLBASE:C/[^a-zA-Z0-9_]/_/g}_include_openssl_ssl_h=yes
+.endif
 .include "../../mk/bsd.pkg.mk"
