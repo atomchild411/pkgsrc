@@ -31,4 +31,11 @@ post-install:
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
+
+# The sound server is built where OSS is.
+PLIST_VARS+=		sndsrv
+.if ${OSS_TYPE} != "none"
+PLIST.sndsrv=		yes
+.endif
+
 .include "../../mk/bsd.pkg.mk"

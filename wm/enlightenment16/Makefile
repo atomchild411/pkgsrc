@@ -48,7 +48,7 @@ BUILDLINK_TRANSFORM+=	rm:-Wcast-align=strict
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "DragonFly" || ${OPSYS} == "SunOS" || ${OPSYS} == "Linux" || \
-    ${OPSYS} == "Darwin"
+    ${OPSYS} == "Darwin" || ${OPSYS} == "IRIX"
 PLIST.libhack=	yes
 .endif
 
