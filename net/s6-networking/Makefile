@@ -22,7 +22,7 @@ TOOL_DEPENDS+=		coreutils-[0-9]*:../../sysutils/coreutils
 WRKMANSRC=		${WRKDIR}/${PKGBASE}-man-pages-v${MANPAGES_VERSION}
 
 USE_TOOLS+=		gmake
-TOOLS_PLATFORM.install=	${PREFIX}/bin/ginstall
+TOOLS_PLATFORM.install=	${TOOLBASE}/bin/ginstall
 HAS_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
 CONFIGURE_ARGS+=	--enable-pkgconfig

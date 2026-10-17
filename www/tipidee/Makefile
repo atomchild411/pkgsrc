@@ -23,7 +23,7 @@ DEPENDS+=		s6-networking>=2.7.1.0nb1:../../net/s6-networking
 WRKMANSRC=		${WRKDIR}/${PKGBASE}-man-pages-v${MANPAGES_VERSION}
 
 USE_TOOLS+=		gmake
-TOOLS_PLATFORM.install=	${PREFIX}/bin/ginstall
+TOOLS_PLATFORM.install=	${TOOLBASE}/bin/ginstall
 HAS_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
