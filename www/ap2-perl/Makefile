@@ -26,4 +26,11 @@ post-install:
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/apache.mk"
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "IRIX"
+# The build runs ranlib on mod_perl.so (except on Darwin and OpenBSD);
+# llvm-ranlib refuses a shared object, which never needs it anyway.
+MAKE_FLAGS+=		MODPERL_RANLIB=:
+.endif
+
 .include "../../mk/bsd.pkg.mk"
