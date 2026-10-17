@@ -40,11 +40,11 @@ DEPENDS+=		{samba>=2.0,ja-samba>=2.0}:../../net/samba
 CONFIGURE_ARGS+=	--with-dump-use-snapshot --with-rundump
 .endif
 
-PLIST_VARS+=		amanda-bsdtar
+# ambsdtar is built and installed either way; the option installs its
+# manual page and makes it set-uid.
 .if !empty(PKG_OPTIONS:Mamanda-bsdtar)
 MANPAGES+=		ambsdtar.8
 SPECIAL_PERMS+=		libexec/amanda/application/ambsdtar ${AM_PROG_PERMS}
-PLIST.amanda-bsdtar=	yes
 .endif
 
 SPECIAL_PERMS+=		libexec/amanda/application/amgtar ${AM_PROG_PERMS}
