@@ -21,6 +21,10 @@ GNU_CONFIGURE=		yes
 
 BUILDLINK_TRANSFORM+=		rm:-Werror
 
+# pango_fc_font_map_set_config is libpangoft2's, which it does not link;
+# lld wants it named (--no-allow-shlib-undefined).
+LIBS.IRIX+=	-lpangoft2-1.0
+
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
