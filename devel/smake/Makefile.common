@@ -28,6 +28,38 @@ MAKE_FLAGS+=	CCOM=cc
 
 MAKE_FLAGS+=	LINKMODE=static
 
+# configure runs from the makefiles (each package's do-configure), not
+# pkgsrc's configure stage, so it is handed the site file here: when cross
+# compiling, its answers to configure's run tests.
+.if !empty(PKGSRC_CONFIG_SITE)
+MAKE_FLAGS+=	CONFIG_SITE=${PKGSRC_CONFIG_SITE:Q}
+.endif
+
+.if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} == "IRIX"
+# Cross compiling for IRIX with clang: the build looks for its rules as
+# ip<NN>-irix-clang.rul (uname -m), and RULES has IRIX's only for cc and
+# gcc. ip22-irix-gcc.rul (the others link to it), which takes its compiler
+# settings from cc-$(C_ARCH).rul, serves for clang too. The inc/ probes,
+# which cannot run here, are answered through CONFIG_RMTCALL with their
+# output from IRIX: set in the makefiles' DEFAULTS, not the environment,
+# where configure would take it to mean remote execution of its tests.
+SCHILY_IRIX_FILES=	${.CURDIR}/../../devel/smake/files
+# The packages built with smake: GNU make instead, which, like the build of
+# smake itself, takes the platform from uname (IRIX's, as pkgsrc gives it
+# when cross compiling), where smake has the build machine's built in.
+USE_TOOLS+=	gmake
+SMAKE=		MAKEFLAGS= ${GMAKE} GMAKE_NOWARN=true
+pre-configure: schily-irix-rules
+.PHONY: schily-irix-rules
+schily-irix-rules:
+	${RUN} cd ${WRKSRC}/RULES &&					\
+	for ip in 17 19 20 21 22 25 26 27 28 30 32 35; do			\
+		${LN} -sf ip22-irix-gcc.rul ip$${ip}-irix-clang.rul;		\
+	done
+	${RUN} ${ECHO} 'CONFIG_RMTCALL=	${SCHILY_IRIX_FILES}/irix-rmtcall.sh' \
+	    >> ${WRKSRC}/DEFAULTS/Defaults.irix
+.endif
+
 # Man pages with documentation of file formats should go to section 4 on
 # SysV based systems. All supported systems that are treated by schilytools
 # with "MANSTYLE= sysv" in the RULES/os-${OPSYS}.def" files must be caught
