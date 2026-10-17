@@ -30,6 +30,14 @@ pkgbase := gtk2
 .include "../../x11/libXinerama/buildlink3.mk"
 .include "../../x11/libXi/buildlink3.mk"
 .include "../../x11/libXcomposite/buildlink3.mk"
+# IRIX: GDK's X libraries are in its .pc's Requires.private, and lld takes
+# no symbols from a library's own dependencies, so programs that call Xlib
+# themselves (devilspie, bubblemon, gqmpeg, ftmenu, ...) get them named.
+.  if ${OPSYS} == "IRIX"
+.include "../../x11/libX11/buildlink3.mk"
+.include "../../x11/libXext/buildlink3.mk"
+LDFLAGS+=	-lX11 -lXext
+.  endif
 .endif
 .endif # GTK2_BUILDLINK3_MK
 
