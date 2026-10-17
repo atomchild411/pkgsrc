@@ -4,4 +4,4 @@ BLAKE2s (guile-3.0.11.tar.gz) = 8837d53b5579213579d71ff8a1234be513c94373314ef5bb
 SHA512 (guile-3.0.11.tar.gz) = bf81eca9554d22dcfcff4797739dee18758c257bd2c848fdf508e3fd6e58ffd9754b08a57d8ba31c80a69b0444fff3b045e22ec88fc34ef787cd71f5466fafe8
 Size (guile-3.0.11.tar.gz) = 9962275 bytes
 SHA1 (patch-libguile_loader.c) = 32b012d095c343995f93d0c8160411c4b0cfbee1
-SHA1 (patch-libguile_posix.c) = 8813a81ee8317eec0ef4a601f2bfca729c1c7751
+SHA1 (patch-libguile_posix.c) = f2cde52ab02d795dfd5436b8abc889de92bf10a7

@@ -76,6 +76,8 @@ SUBST_MESSAGE.tools=	Fixing path to pkg-config in installed file.
 
 OPSYSVARS+=		GUILE_LIBNAME
 GUILE_LIBNAME.Darwin=	a
+# IRIX: libtool's irix versioning (major = current - age + 1).
+GUILE_LIBNAME.IRIX=	so.2.1
 GUILE_LIBNAME.*=	so.1.7.1
 PLIST_SUBST+=		GUILE_LIBNAME=${GUILE_LIBNAME}
 PRINT_PLIST_AWK+=	{gsub(/${GUILE_LIBNAME}/, "$${GUILE_LIBNAME}");}
