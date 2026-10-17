@@ -44,6 +44,9 @@ CONFIGURE_ARGS+=		--mandir=${PREFIX}/${PKGMANDIR}
 .endif
 
 .include "../../mk/bsd.fast.prefs.mk"
+# configure finds no hstrerror declaration (IRIX gives it in SGI mode
+# only) and net_db.c then declares one of another type.
+CONFIGURE_ENV.IRIX+=	ac_cv_have_decl_hstrerror=yes
 .if ${USE_CROSS_COMPILE:U:tl} == yes
 # Building Guile runs Guile (it compiles its own Scheme): the build
 # machine's, of this version.
