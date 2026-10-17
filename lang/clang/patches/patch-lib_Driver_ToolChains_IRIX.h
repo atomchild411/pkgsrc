@@ -7,10 +7,11 @@ branch iris/main):
 - clang driver: find libc++ in a pkgsrc tree, and RPATH it natively
 - Asynchronous unwind tables by default
 - Driver: DT_RPATH to libc++ for links that name it themselves
+- Driver: PIC is forced; -fno-pic and -fno-PIE are ignored
 
 --- lib/Driver/ToolChains/IRIX.h.orig
 +++ lib/Driver/ToolChains/IRIX.h
-@@ -0,0 +1,118 @@
+@@ -0,0 +1,122 @@
 +//===--- IRIX.h - IRIX ToolChain Implementations ----------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -64,7 +65,11 @@ branch iris/main):
 +  bool isPIEDefault(const llvm::opt::ArgList &Args) const override {
 +    return false;
 +  }
-+  bool isPICDefaultForced() const override { return false; }
++  // IRIX programs and libraries are all PIC (abicalls): rld has no copy
++  // relocations or PLT for non-PIC calls, so -fno-pic or -fno-PIE code (GCC's
++  // build machinery adds -fno-PIE when it works) cannot be linked into one.
++  // The PIC options are ignored, as on AIX.
++  bool isPICDefaultForced() const override { return true; }
 +  // IRIX's dbx reads DWARF 2; tuning for dbx would drop the pubnames it
 +  // wants, so tune for gdb.
 +  llvm::DebuggerKind getDefaultDebuggerTuning() const override {
