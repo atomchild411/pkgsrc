@@ -4,4 +4,5 @@ BLAKE2s (OpenIPMI-2.0.32.tar.gz) = 9d67d8854104dcb91d61f262d343c4aa2f28a0bd0d26e
 SHA512 (OpenIPMI-2.0.32.tar.gz) = e409f32e6bbf26756338ada386fa394d48d734b4d6ba4beca700ce60bc3af3d0f41e972a328c4e076ae014f4fbd8598d05d3f879f9c6d76198e6ae1a2ba03e95
 Size (OpenIPMI-2.0.32.tar.gz) = 3140147 bytes
 SHA1 (patch-configure) = 644287934ea58b18aebad100cfe3f37c39eca3ff
+SHA1 (patch-unix_posix__thread__os__hnd.c) = 902eec885a28bca3e2338102cc7bc24afc8d2bca
 SHA1 (patch-unix_selector.c) = 45730697f0c4c110f4e34b4ff07a8dd9c4cc0a8b
