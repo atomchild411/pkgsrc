@@ -23,6 +23,15 @@ CONFIGURE_ARGS+=	--enable-jobserver=no
 CONFIGURE_ARGS+=	--disable-libdrizzle
 CONFIGURE_ARGS+=	--with-boost=${BUILDLINK_PREFIX.boost-libs}
 
+# Cross-building: the libevent checks run a test program.
+CONFIGURE_ENV.IRIX+=	ax_cv_libevent=yes ax_cv_libevent2=yes
+CONFIGURE_ENV.IRIX+=	ax_cv_libevent2_pthreads=yes
+# The working-fnmatch check too; the replacement's header is not shipped.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_fnmatch_works=yes
+# And the libuuid ones: IRIX's libc has no uuid_generate, pkgsrc's libuuid
+# has it and uuid_generate_time_safe.
+CONFIGURE_ENV.IRIX+=	ax_cv_libuuid_is_required=yes ax_cv_libuuid_works=yes
+CONFIGURE_ENV.IRIX+=	ax_cv_uuid_generate_time_safe=yes
 CONFIGURE_ENV.SunOS+=	ax_cv_check_cflags__Werror__pie=no
 CONFIGURE_ENV.SunOS+=	ax_cv_check_cxxflags__Werror__pie=no
 

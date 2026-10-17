@@ -14,4 +14,5 @@ SHA1 (patch-libgearman_backtrace.cc) = f8b643a91fb7d3656c10616fcd37a9dc0749904e
 SHA1 (patch-libtest__exception.hpp) = 193ee0e3711272f99ee3594f8629e27d572ca116
 SHA1 (patch-libtest__lite.h) = 90ca2fa29aaa2c17e05f64ddba14f1a9a5901f52
 SHA1 (patch-libtest_alarm.cc) = b964f39134d882dc568a21d2d4150ddebdf622a4
+SHA1 (patch-libtest_cmdline.cc) = ae921c0de9a7903aaa2f1d3d4f6b0adf7b4d4a06
 SHA1 (patch-libtest_main.cc) = bbde756232acf00b3f1562e1e4c4de67e5cfdf24
