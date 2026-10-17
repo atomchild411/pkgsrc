@@ -1865,6 +1865,7 @@ lib/clang/21/include/irix_wrappers/grp.h
 lib/clang/21/include/irix_wrappers/ifaddrs.h
 lib/clang/21/include/irix_wrappers/internal/sgimacros.h
 lib/clang/21/include/irix_wrappers/inttypes.h
+lib/clang/21/include/irix_wrappers/langinfo.h
 lib/clang/21/include/irix_wrappers/limits.h
 lib/clang/21/include/irix_wrappers/locale.h
 lib/clang/21/include/irix_wrappers/machine/endian.h
