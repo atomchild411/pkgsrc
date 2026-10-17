@@ -23,7 +23,7 @@ MAKE_JOBS_SAFE=		no
 WRKSRC=			${WRKDIR}/${DISTNAME}
 BUILD_DIRS=		GUI/xephem
 
-USE_TOOLS+=		gmake pax perl:run
+USE_TOOLS+=		gmake nroff pax perl:run
 
 X11_LDFLAGS+=		${LIBS}
 MAKE_ENV+=		X11_LDFLAGS=${X11_LDFLAGS:Q}

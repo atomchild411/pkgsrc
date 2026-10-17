@@ -26,7 +26,7 @@ PLIST_SRC=	${WRKDIR}/PLIST ${PKGDIR}/PLIST
 # if you change SCORE_PATH, don't forget to change patch-aa, too
 SCORE_PATH=	${VARBASE}/games/rocksndiamonds
 
-CPIO?=		cpio
+USE_TOOLS+=	pax
 
 post-extract:
 	${CHMOD} -R o-w ${WRKSRC}
@@ -81,7 +81,7 @@ OWN_DIRS_PERMS+=	${SCORE_PATH}/scores/${directory} \
 
 do-install:
 	cd ${WRKSRC} && ${FIND} DX_Boulderdash Emerald_Mine_Club Supaplex | \
-		${CPIO} -pd ${DESTDIR}${PREFIX}/share/rocksndiamonds/levels
+		${PAX} -rw ${DESTDIR}${PREFIX}/share/rocksndiamonds/levels
 	${RM} -f ${WRKDIR}/PLIST
 .for levdir in DX_Boulderdash Emerald_Mine_Club Supaplex
 	cd ${DESTDIR}${PREFIX} && \
