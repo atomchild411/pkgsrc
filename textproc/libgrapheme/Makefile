@@ -27,4 +27,13 @@ MAKE_FLAGS+=	PREFIX=${PREFIX} \
 		SOFLAGS="-shared -nostdlib" \
 		LDCONFIG=
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# The gen/ programs write the lookup tables during the build: compile
+# them for the build machine.
+MAKE_FLAGS+=	BUILD_CC=${NATIVE_CC:Q} BUILD_CPPFLAGS=-D_DEFAULT_SOURCE \
+		BUILD_CFLAGS=-O2 BUILD_LDFLAGS=
+.endif
+
 .include "../../mk/bsd.pkg.mk"
