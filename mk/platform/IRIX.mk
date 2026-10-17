@@ -44,6 +44,8 @@ CMAKE_CONFIGURE_ARGS+=	-DOpenGL_GL_PREFERENCE=LEGACY
 OPSYS_EXPLICIT_LIBDEPS=	yes
 # crypt(3) is in libc; IRIX has no libcrypt for -lcrypt to find.
 BUILDLINK_TRANSFORM+=	rm:-lcrypt
+# So is the resolver (res_query, dn_expand, _res): there is no libresolv.
+BUILDLINK_TRANSFORM+=	rm:-lresolv
 # LDFLAGS are written for the compiler driver; imake's SGI rules link
 # shared libraries with ld itself (nas). The ld wrapper strips -Wl, but
 # does not split -Wl,--as-needed,-lm,--no-as-needed, which lld then rejects:
