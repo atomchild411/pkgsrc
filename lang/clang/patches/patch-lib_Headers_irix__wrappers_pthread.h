@@ -6,10 +6,11 @@ branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
 - [IRIX] pthread_mutex_timedlock and POSIX spin locks
 - pthread_setname_np and pthread_getname_np
+- <pthread.h>: pthread_exit is noreturn
 
 --- lib/Headers/irix_wrappers/pthread.h.orig
 +++ lib/Headers/irix_wrappers/pthread.h
-@@ -0,0 +1,65 @@
+@@ -0,0 +1,73 @@
 +/*===---- pthread.h - IRIX wrapper ------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -63,6 +64,14 @@ branch iris/main):
 +#ifdef __cplusplus
 +}
 +#endif
++
++/* pthread_exit does not return (POSIX), which IRIX's declaration does not
++ * say: a thread function that ends with it then "does not return a value"
++ * (libssh, where that is an error). */
++#ifdef __cplusplus
++extern "C"
++#endif
++void pthread_exit(void *) __attribute__((__noreturn__));
 +
 +/* In IRIX's libc, and declared by no IRIX header a program would look in
 + * for it: declared here, with IRIX's own prototypes. */
