@@ -16,6 +16,10 @@ GNU_CONFIGURE=	yes
 
 CFLAGS+=	-Wno-implicit-function-declaration
 
+# The sysroot has IRIX's <X11/extensions/readdisplay.h>, but the X libraries
+# are pkgsrc's, without SGI's ReadDisplay extension.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_X11_extensions_readdisplay_h=no
+
 .include "options.mk"
 
 pre-configure:
