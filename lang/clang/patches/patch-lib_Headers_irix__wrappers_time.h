@@ -6,10 +6,11 @@ branch iris/main):
 - CLOCK_PROCESS_CPUTIME_ID from times()
 - POSIX 2008 string, stdio, memory and time functions
 - Declare POSIX functions IRIX hides outside SGI mode
+- compiler-rt: strftime_l
 
 --- lib/Headers/irix_wrappers/time.h.orig
 +++ lib/Headers/irix_wrappers/time.h
-@@ -0,0 +1,74 @@
+@@ -0,0 +1,88 @@
 +/*===---- time.h - IRIX wrapper ---------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -81,6 +82,20 @@ branch iris/main):
 +#ifdef __cplusplus
 +}
 +#endif
++#endif
++
++/* POSIX 2008's strftime_l (irix/locale_l.c): a locale_t is
++ * LC_GLOBAL_LOCALE, IRIX's strftime, or the C locale (the only one newlocale
++ * makes). */
++#include <__irix_locale_t.h>
++struct tm;
++#ifdef __cplusplus
++extern "C" {
++#endif
++size_t strftime_l(char *__restrict, size_t, const char *__restrict,
++                  const struct tm *__restrict, locale_t);
++#ifdef __cplusplus
++}
 +#endif
 +
 +#endif /* __CLANG_IRIX_TIME_H */
