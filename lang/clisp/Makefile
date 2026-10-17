@@ -45,6 +45,12 @@ TEST_TARGET=		check mod-check
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# CLISP builds its memory image by running the lisp it has just built, and
+# its configure loops computing floatparam.h for a target it cannot run.
+PKG_FAIL_REASON+=	"[clisp] cannot be cross-built: it runs itself to build"
+.endif
+
 .if ${MACHINE_ARCH} == alpha || ${MACHINE_ARCH} == amd64 || ${MACHINE_ARCH} == x86_64 || ${OPSYS} == DragonFly
 CONFIGURE_ARGS+=	--disable-mmap
 .endif
