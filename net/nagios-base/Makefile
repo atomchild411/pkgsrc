@@ -34,7 +34,11 @@ CONFIGURE_ARGS+=	--with-lockfile=/var/run/nagios/nagios.lock
 CONFIGURE_ARGS+=	--with-httpd-conf=${PREFIX}/etc/httpd/conf.d
 
 USE_TOOLS+=		mail:run perl unzip
-.if !empty(TOOLS_PLATFORM.mail)
+.if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} == "IRIX"
+# The tools are the build machine's: name IRIX's mailx (tools.IRIX.mk's
+# choice), not the build's own mail tool.
+CONFIGURE_ARGS+=	--with-mail=/usr/sbin/mailx
+.elif !empty(TOOLS_PLATFORM.mail)
 CONFIGURE_ARGS+=	--with-mail=${TOOLS_PLATFORM.mail:Q}
 .endif
 
