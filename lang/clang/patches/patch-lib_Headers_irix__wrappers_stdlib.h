@@ -20,12 +20,13 @@ branch iris/main):
 - Wrapper <stdlib.h>: alloca outside strict ISO C, as glibc
 - strtonum
 - getentropy and arc4random
-- mkstemps and mkostemps
-- posix_openpt
+- [IRIX] mkstemps, mkostemps and wait4
+- [IRIX] posix_openpt
+- getloadavg; fnmatch with FNM_CASEFOLD and FNM_LEADING_DIR
 
 --- lib/Headers/irix_wrappers/stdlib.h.orig
 +++ lib/Headers/irix_wrappers/stdlib.h
-@@ -0,0 +1,187 @@
+@@ -0,0 +1,196 @@
 +/*===---- stdlib.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -199,6 +200,15 @@ branch iris/main):
 +extern "C" {
 +#endif
 +int putenv(char *);
++#ifdef __cplusplus
++}
++#endif
++
++/* getloadavg (the BSDs', glibc's): in compiler-rt (irix/loadavg.c). */
++#ifdef __cplusplus
++extern "C" {
++#endif
++int getloadavg(double[], int);
 +#ifdef __cplusplus
 +}
 +#endif

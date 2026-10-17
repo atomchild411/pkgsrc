@@ -44,10 +44,11 @@ branch iris/main):
 - if_nameindex and friends over SIOCGIFCONF
 - [IRIX] pthread_mutex_timedlock and POSIX spin locks
 - compiler-rt: posix_fallocate
+- getloadavg; fnmatch with FNM_CASEFOLD and FNM_LEADING_DIR
 
 --- lib/builtins/CMakeLists.txt.orig
 +++ lib/builtins/CMakeLists.txt
-@@ -236,6 +236,65 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
+@@ -236,6 +236,67 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
    "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
    Off)
  
@@ -70,6 +71,8 @@ branch iris/main):
 +    irix/clock.c
 +    irix/cloexec.c
 +    irix/pthread_np.c
++    irix/loadavg.c
++    irix/fnmatch.c
 +    irix/pthread_timedlock.c
 +    irix/pthread_spin.c
 +    irix/netdb.c
