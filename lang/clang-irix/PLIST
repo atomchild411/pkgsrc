@@ -1897,6 +1897,7 @@ lib/clang/21/include/irix_wrappers/sys/kabi.h
 lib/clang/21/include/irix_wrappers/sys/ipc.h
 lib/clang/21/include/irix_wrappers/sys/mman.h
 lib/clang/21/include/irix_wrappers/sys/queue.h
+lib/clang/21/include/irix_wrappers/sys/random.h
 lib/clang/21/include/irix_wrappers/sys/select.h
 lib/clang/21/include/irix_wrappers/sys/socket.h
 lib/clang/21/include/irix_wrappers/sys/stat.h

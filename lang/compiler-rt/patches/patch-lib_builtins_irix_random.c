@@ -4,11 +4,12 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - getentropy and arc4random
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
+- getrandom (<sys/random.h>)
 
 --- lib/builtins/irix/random.c.orig
 +++ lib/builtins/irix/random.c
-@@ -0,0 +1,94 @@
-+//===-- irix/random.c - getentropy and arc4random for IRIX ----------------===//
+@@ -0,0 +1,111 @@
++//===-- irix/random.c - getentropy, getrandom and arc4random for IRIX -----===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 +// See https://llvm.org/LICENSE.txt for license information.
@@ -16,8 +17,9 @@ branch iris/main):
 +//
 +//===----------------------------------------------------------------------===//
 +//
-+// getentropy (<unistd.h>) and arc4random, arc4random_buf and
-+// arc4random_uniform (<stdlib.h>), as glibc and the BSDs have them; IRIX's
++// getentropy (<unistd.h>), getrandom (<sys/random.h>) and arc4random,
++// arc4random_buf and arc4random_uniform (<stdlib.h>), as glibc and the BSDs
++// have them; IRIX's
 +// libc has none, and portable code then compiles its own arc4random with a
 +// per-system entropy source it has none of for IRIX (LibreSSL, OpenNTPD:
 +// _getentropy_fail). Every byte comes from IRIX's /dev/urandom, read anew
@@ -39,16 +41,17 @@ branch iris/main):
 +#include <unistd.h>
 +
 +#pragma weak getentropy
++#pragma weak getrandom
 +#pragma weak arc4random
 +#pragma weak arc4random_buf
 +#pragma weak arc4random_uniform
 +
-+// Fill buf with n bytes from /dev/urandom: 0, or -1 with errno set.
-+static int urandom(void *buf, size_t n) {
++// Fill buf with n bytes from dev: 0, or -1 with errno set.
++static int read_device(const char *dev, void *buf, size_t n) {
 +  unsigned char *p = (unsigned char *)buf;
 +  int fd, saved;
 +  do
-+    fd = open("/dev/urandom", O_RDONLY);
++    fd = open(dev, O_RDONLY);
 +  while (fd < 0 && errno == EINTR);
 +  if (fd < 0)
 +    return -1;
@@ -67,6 +70,21 @@ branch iris/main):
 +  }
 +  close(fd);
 +  return 0;
++}
++
++static int urandom(void *buf, size_t n) {
++  return read_device("/dev/urandom", buf, n);
++}
++
++#define GRND_RANDOM 0x02
++
++// glibc's getrandom: all n bytes or -1 (GRND_NONBLOCK and GRND_INSECURE
++// are ignored).
++ssize_t getrandom(void *buf, size_t n, unsigned int flags) {
++  if (read_device(flags & GRND_RANDOM ? "/dev/random" : "/dev/urandom", buf,
++                  n) != 0)
++    return -1;
++  return (ssize_t)n;
 +}
 +
 +int getentropy(void *buf, size_t n) {
