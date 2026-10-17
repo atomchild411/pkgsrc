@@ -18,4 +18,10 @@ PERL5_PACKLIST=	auto/XML/LibXSLT/.packlist
 
 .include "../../textproc/libxslt/buildlink3.mk"
 .include "../../lang/perl5/module.mk"
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# Makefile.PL's link tests load a test module into perl.
+MAKE_ENV+=		PERL5_CROSS_SKIP_LINK_TESTS=1
+.endif
+
 .include "../../mk/bsd.pkg.mk"
