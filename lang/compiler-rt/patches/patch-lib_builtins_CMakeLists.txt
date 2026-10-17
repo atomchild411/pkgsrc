@@ -45,10 +45,11 @@ branch iris/main):
 - [IRIX] pthread_mutex_timedlock and POSIX spin locks
 - compiler-rt: posix_fallocate
 - getloadavg; fnmatch with FNM_CASEFOLD and FNM_LEADING_DIR
+- <arpa/nameser.h>: BIND 8's names and message parser
 
 --- lib/builtins/CMakeLists.txt.orig
 +++ lib/builtins/CMakeLists.txt
-@@ -236,6 +236,67 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
+@@ -236,6 +236,68 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
    "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
    Off)
  
@@ -73,6 +74,7 @@ branch iris/main):
 +    irix/pthread_np.c
 +    irix/loadavg.c
 +    irix/fnmatch.c
++    irix/nameser.c
 +    irix/pthread_timedlock.c
 +    irix/pthread_spin.c
 +    irix/netdb.c
