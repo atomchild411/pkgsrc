@@ -16,6 +16,14 @@ USE_LANGUAGES=	c c++
 
 CONFIGURE_ARGS+=	--program-suffix=2
 
+# smpeg2-config runs sdl2-config: the installed one, not the one configure
+# found on the build PATH (pkgsrc's tools directory).
+SUBST_CLASSES+=		sdlconfig
+SUBST_STAGE.sdlconfig=	pre-configure
+SUBST_MESSAGE.sdlconfig=	Naming the installed sdl2-config.
+SUBST_FILES.sdlconfig=	smpeg2-config.in
+SUBST_SED.sdlconfig=	-e 's,@SDL_CONFIG@,${PREFIX}/bin/sdl2-config,g'
+
 .include "../../mk/bsd.fast.prefs.mk"
 
 LDFLAGS.SunOS+=	-lsocket -lnsl
