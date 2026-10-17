@@ -1,0 +1,32 @@
+$NetBSD$
+
+Cross builds: libnet_cv_endianess_result answers the byte-order program,
+libnet_cv_ll_int_type the packet interface (looked up in /usr/include).
+
+--- configure.orig
++++ configure
+@@ -1284,7 +1284,10 @@
+ echo $ac_n "checking low-level packet interface type""... $ac_c" 1>&6
+ echo "configure:1286: checking low-level packet interface type" >&5
+ 
+-if test -r /usr/include/sys/dlpi.h ; then
++if test -n "$libnet_cv_ll_int_type" ; then
++    LL_INT_TYPE=$libnet_cv_ll_int_type
++    echo "$ac_t""$LL_INT_TYPE (given)" 1>&6
++elif test -r /usr/include/sys/dlpi.h ; then
+     LL_INT_TYPE=dlpi
+     echo "$ac_t""found dlpi" 1>&6
+     cat >> confdefs.h <<\EOF
+@@ -1948,8 +1951,12 @@
+         if test ! -x conftest ; then
+             ac_cv_libnet_endianess=unknown
+         else
++            if test -n "$libnet_cv_endianess_result"; then
++                result=$libnet_cv_endianess_result
++            else
+             ./conftest > conftest.out
+             result=`cat conftest.out`
++            fi
+             if test $result = "B"; then
+                 ac_cv_libnet_endianess=big
+             elif test $result = "L"; then

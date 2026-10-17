@@ -40,4 +40,19 @@ _WRAP_EXTRA_ARGS.CXX+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cc+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# configure runs a program for the byte order; answer it.
+.  include "../../mk/endian.mk"
+.  if ${MACHINE_ENDIAN} == "big"
+CONFIGURE_ENV+=		libnet_cv_endianess_result=B
+.  else
+CONFIGURE_ENV+=		libnet_cv_endianess_result=L
+.  endif
+# The packet interface is looked up in the build machine's /usr/include.
+CONFIGURE_ENV.IRIX+=	libnet_cv_ll_int_type=snoop
+# MIPS faults on unaligned access.
+CONFIGURE_ENV.IRIX+=	ac_cv_lbl_unaligned_fail=yes
+.endif
+
 .include "../../mk/bsd.pkg.mk"
