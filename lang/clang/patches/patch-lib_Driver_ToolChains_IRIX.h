@@ -6,10 +6,11 @@ branch iris/main):
 - clang: math functions may set errno, as IRIX's do
 - clang driver: find libc++ in a pkgsrc tree, and RPATH it natively
 - Asynchronous unwind tables by default
+- Driver: DT_RPATH to libc++ for links that name it themselves
 
 --- lib/Driver/ToolChains/IRIX.h.orig
 +++ lib/Driver/ToolChains/IRIX.h
-@@ -0,0 +1,115 @@
+@@ -0,0 +1,118 @@
 +//===--- IRIX.h - IRIX ToolChain Implementations ----------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -83,6 +84,9 @@ branch iris/main):
 +      llvm::opt::ArgStringList &CC1Args) const override;
 +  void AddCXXStdlibLibArgs(const llvm::opt::ArgList &Args,
 +                           llvm::opt::ArgStringList &CmdArgs) const override;
++  // The DT_RPATH to the libc++ beside the driver, for a link that takes it.
++  void addLibcxxRPath(const llvm::opt::ArgList &Args,
++                      llvm::opt::ArgStringList &CmdArgs) const;
 +
 +  const char *getDefaultLinker() const override { return "ld.lld"; }
 +

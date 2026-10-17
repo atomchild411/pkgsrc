@@ -14,10 +14,11 @@ branch iris/main):
 - Driver: MIPSpro's options accepted and ignored
 - Driver: no -lutil (openpty and friends are in the builtins)
 - Driver: -lstdc++ links libc++
+- Driver: DT_RPATH to libc++ for links that name it themselves
 
 --- lib/Driver/ToolChains/IRIX.cpp.orig
 +++ lib/Driver/ToolChains/IRIX.cpp
-@@ -0,0 +1,403 @@
+@@ -0,0 +1,417 @@
 +//===--- IRIX.cpp - IRIX ToolChain Implementations --------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -178,22 +179,26 @@ branch iris/main):
 +  }
 +}
 +
++// rld has no $ORIGIN and ignores DT_RUNPATH, so a program built by a clang
++// running on IRIX finds the libc++ it was linked with through DT_RPATH.
++// (Cross-compiled, where the driver's tree is not the program's, it is left
++// to the -rpath of the machine it will run on.) A program with libc++ linked
++// in statically has no use for it.
++void IRIX::addLibcxxRPath(const ArgList &Args, ArgStringList &CmdArgs) const {
++  if (!RuntimeLibDir.empty() &&
++      !Args.hasArg(options::OPT_static_libstdcxx, options::OPT_static) &&
++      llvm::Triple(llvm::sys::getProcessTriple()).isOSIRIX()) {
++    CmdArgs.push_back("-rpath");
++    CmdArgs.push_back(Args.MakeArgString(RuntimeLibDir));
++  }
++}
++
 +void IRIX::AddCXXStdlibLibArgs(const ArgList &Args,
 +                               ArgStringList &CmdArgs) const {
 +  switch (GetCXXStdlibType(Args)) {
 +  case ToolChain::CST_Libcxx:
 +    CmdArgs.push_back("-lc++");
-+    // rld has no $ORIGIN and ignores DT_RUNPATH, so a program built by a
-+    // clang running on IRIX finds the libc++ it was linked with through
-+    // DT_RPATH. (Cross-compiled, where the driver's tree is not the
-+    // program's, it is left to the -rpath of the machine it will run on.)
-+    // A program with libc++ linked in statically has no use for it.
-+    if (!RuntimeLibDir.empty() &&
-+        !Args.hasArg(options::OPT_static_libstdcxx, options::OPT_static) &&
-+        llvm::Triple(llvm::sys::getProcessTriple()).isOSIRIX()) {
-+      CmdArgs.push_back("-rpath");
-+      CmdArgs.push_back(Args.MakeArgString(RuntimeLibDir));
-+    }
++    addLibcxxRPath(Args, CmdArgs);
 +    break;
 +  case ToolChain::CST_Libstdcxx:
 +    getDriver().Diag(diag::err_drv_unsupported_opt_for_target)
@@ -333,6 +338,7 @@ branch iris/main):
 +  // it -- BSD and Linux makefiles, configure checks -- get nothing for it.
 +  // And the C++ library is libc++: -lstdc++, which libtool's IRIX case
 +  // names for g++ (its C++ links are -nostdlib), is -lc++, as on FreeBSD.
++  bool NamesLibcxx = false;
 +  for (size_t I = InputsBegin; I < CmdArgs.size();) {
 +    StringRef A = CmdArgs[I];
 +    StringRef Next = I + 1 < CmdArgs.size() ? CmdArgs[I + 1] : "";
@@ -340,11 +346,13 @@ branch iris/main):
 +      CmdArgs.erase(CmdArgs.begin() + I);
 +    } else if (A == "-l" && Next == "util") {
 +      CmdArgs.erase(CmdArgs.begin() + I, CmdArgs.begin() + I + 2);
-+    } else if (A == "-lstdc++") {
++    } else if (A == "-lstdc++" || A == "-lc++") {
 +      CmdArgs[I++] = "-lc++";
-+    } else if (A == "-l" && Next == "stdc++") {
++      NamesLibcxx = true;
++    } else if (A == "-l" && (Next == "stdc++" || Next == "c++")) {
 +      CmdArgs[I + 1] = "c++";
 +      I += 2;
++      NamesLibcxx = true;
 +    } else {
 +      ++I;
 +    }
@@ -402,6 +410,13 @@ branch iris/main):
 +    if (!Args.hasArg(options::OPT_nolibc))
 +      CmdArgs.push_back("-lc");
 +  }
++
++  // A link that names libc++ itself (-nostdlib, -nostdlib++, or a C
++  // driver: libtool's C++ links, makefiles that add -lc++ or -lstdc++) gets
++  // the DT_RPATH the C++ driver would have given it, or the program stops
++  // at startup on IRIX, rld finding no libc++.so.1.
++  if (NamesLibcxx && !LinkedRuntime)
++    TC.addLibcxxRPath(Args, CmdArgs);
 +
 +  // C links take only the builtins: AddRunTimeLibs would add the unwinder.
 +  if (!LinkedRuntime && !Args.hasArg(options::OPT_nostdlib))
