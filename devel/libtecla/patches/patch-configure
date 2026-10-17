@@ -3,10 +3,11 @@ $NetBSD: patch-configure,v 1.2 2023/12/17 13:59:38 nros Exp $
 Always link shared. Honour LDFLAGS.
 Install manpages on solaris just like on 
 the other systems.
+IRIX (mipseb-sgi-irix6.5, which the mips-sgi-irix* case misses) links shared as Linux and NetBSD do.
 
---- configure.orig	2014-11-09 22:15:29.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -4161,9 +4161,9 @@ case $target in
+@@ -4161,9 +4161,9 @@
  *solaris*)
    $as_echo "#define __EXTENSIONS__ 1" >>confdefs.h
  
@@ -19,7 +20,7 @@ the other systems.
    SHARED_CFLAGS="-Kpic"
    case $CC in
    */cc|cc) SHARED_CFLAGS="$SHARED_CFLAGS -xstrconst" ;;
-@@ -4171,19 +4171,8 @@ case $target in
+@@ -4171,19 +4171,8 @@
    case $target_cpu in
    sparc) SHARED_CFLAGS="$SHARED_CFLAGS -xregs=no%appl"
    esac
@@ -36,11 +37,11 @@ the other systems.
 -  FILE_MANEXT="4"
    ;;
 -*linux*)
-+*linux*|*netbsd*)
++*linux*|*netbsd*|*-irix*)
    SHARED_EXT=".so.${MAJOR_VER}.${MINOR_VER}.${MICRO_VER}"
    SHARED_ALT=".so .so.${MAJOR_VER}"
  
-@@ -4211,7 +4200,7 @@ $as_echo "$tecla_cv_gnu_ld_script" >&6;
+@@ -4211,7 +4200,7 @@
      VERSION_OPT=''
    fi
  
@@ -49,7 +50,7 @@ the other systems.
    SHARED_CFLAGS="-fpic"
  
  
-@@ -4230,7 +4219,7 @@ $as_echo "$tecla_cv_gnu_ld_script" >&6;
+@@ -4230,7 +4219,7 @@
  *darwin*)
    SHARED_EXT=".${MAJOR_VER}.${MINOR_VER}.${MICRO_VER}.dylib"
    SHARED_ALT=".dylib .${MAJOR_VER}.dylib"
@@ -58,7 +59,7 @@ the other systems.
    SHARED_CFLAGS=""
    ;;
  *dec-osf*)
-@@ -4241,7 +4230,7 @@ $as_echo "$tecla_cv_gnu_ld_script" >&6;
+@@ -4241,7 +4230,7 @@
    SHARED_EXT=".so.${MAJOR_VER}"
    SHARED_ALT=".so"
    VERSION_OPT='--version-script=$$(srcdir)/libtecla.map'
