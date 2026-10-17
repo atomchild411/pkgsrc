@@ -39,7 +39,7 @@ include/libgtop-2.0/glibtop/sysinfo.h
 include/libgtop-2.0/glibtop/union.h
 include/libgtop-2.0/glibtop/uptime.h
 include/libgtop-2.0/glibtop/version.h
-include/libgtop-2.0/glibtop_machine.h
+${PLIST.machine.h}include/libgtop-2.0/glibtop_machine.h
 ${PLIST.glibtop_private.h}include/libgtop-2.0/glibtop_private.h
 include/libgtop-2.0/glibtop_server.h
 ${PLIST.suid.h}include/libgtop-2.0/glibtop_suid.h

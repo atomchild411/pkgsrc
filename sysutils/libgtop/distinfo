@@ -49,3 +49,5 @@ SHA1 (patch-sysdeps_solaris_glibtop__server.h) = ed3a657ecc024d0d5edc3d436e593b8
 SHA1 (patch-sysdeps_solaris_netlist.c) = f26cfcee588fc40ad550bcd219d9538d20095e62
 SHA1 (patch-sysdeps_solaris_netload.c) = e4ba72bf3855621eab0c05918da2094165f158cb
 SHA1 (patch-sysdeps_solaris_procopenfiles.c) = efd621e3e9e45ba65e7f2b1f7c94ffdb79b6d199
+SHA1 (patch-sysdeps_stub_glibtop__server.h) = dcb4d791cf5fae233fb41be7eaafa3bcc191820f
+SHA1 (patch-sysdeps_stub_proclist.c) = 88edd78aa80a0dda276792bcfaaa47f6ac6a5dba

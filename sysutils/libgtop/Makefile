@@ -48,8 +48,12 @@ CPPFLAGS.NetBSD+=	-D_KMEMUSER
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${OPSYS} != "IRIX"
+PLIST.machine.h=	yes
+.endif
+
 INSTALL_MAKE_FLAGS+=	libgtop_postinstall=true
-PLIST_VARS+=		server suid.h
+PLIST_VARS+=		server suid.h machine.h
 .if ${OPSYS} == "AIX"
 PLIST.server=		yes
 PLIST.suid.h=		yes
@@ -68,6 +72,9 @@ PLIST.server=		yes
 SPECIAL_PERMS=		bin/libgtop_server2 ${REAL_ROOT_USER} sys 2755
 .elif ${OPSYS} == "Darwin"
 PLIST.server=		yes
+.elif ${OPSYS} == "IRIX"
+# libgtop has no IRIX sysdeps: the stub ones, without a server or
+# glibtop_machine.h.
 .else
 PLIST.server=		yes
 PLIST.suid.h=		yes
