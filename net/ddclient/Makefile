@@ -25,6 +25,8 @@ CONF_FILES+=		${EGDIR}/ddclient.conf \
 			${PKG_SYSCONFDIR}/ddclient.conf
 
 DEPENDS+=		curl-[0-9]*:../../www/curl
+# The installed curl, not whatever configure finds on the build PATH.
+CONFIGURE_ARGS+=	--with-curl=${PREFIX}/bin/curl
 DEPENDS+=		p5-JSON-Any>=0.0:../../converters/p5-JSON-Any
 
 REPLACE_INTERPRETER+=	sh
