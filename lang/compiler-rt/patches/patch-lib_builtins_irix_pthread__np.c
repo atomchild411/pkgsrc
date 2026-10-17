@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - pthread_cond_timedwait_relative_np
 - [IRIX] The last 22 libc stand-ins are weak too
+- pthread_setname_np and pthread_getname_np
 
 --- lib/builtins/irix/pthread_np.c.orig
 +++ lib/builtins/irix/pthread_np.c
-@@ -0,0 +1,45 @@
+@@ -0,0 +1,64 @@
 +//===-- irix/pthread_np.c - pthread_cond_timedwait_relative_np for IRIX ---===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -23,6 +24,11 @@ branch iris/main):
 +// pthread_cond_timedwait, so only a date change during the wait itself
 +// lengthens or shortens it. clang's IRIX <pthread.h> declares it.
 +//
++// pthread_setname_np and pthread_getname_np, Linux's, for code that names
++// its threads for debuggers (spice-server, dps8m): IRIX's pthreads keep no
++// names. Setting checks the length as Linux does (ERANGE past 15 characters)
++// and keeps nothing; getting gives an empty name.
++//
 +// Its own file, so a program is only given it when it asks for it.
 +//
 +//===----------------------------------------------------------------------===//
@@ -31,6 +37,7 @@ branch iris/main):
 +
 +#include <errno.h>
 +#include <pthread.h>
++#include <string.h>
 +#include <time.h>
 +
 +#pragma weak pthread_cond_timedwait_relative_np
@@ -50,6 +57,19 @@ branch iris/main):
 +    abs.tv_nsec -= 1000000000L;
 +  }
 +  return pthread_cond_timedwait(cond, mutex, &abs);
++}
++
++int pthread_setname_np(pthread_t thread, const char *name) {
++  (void)thread;
++  return strlen(name) > 15 ? ERANGE : 0;
++}
++
++int pthread_getname_np(pthread_t thread, char *name, size_t len) {
++  (void)thread;
++  if (len < 1)
++    return ERANGE;
++  name[0] = '\0';
++  return 0;
 +}
 +
 +#endif // defined(__sgi)

@@ -4,11 +4,12 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - pthread_cond_timedwait_relative_np
 - Declare POSIX functions IRIX hides outside SGI mode
-- pthread_mutex_timedlock and POSIX spin locks
+- [IRIX] pthread_mutex_timedlock and POSIX spin locks
+- pthread_setname_np and pthread_getname_np
 
 --- lib/Headers/irix_wrappers/pthread.h.orig
 +++ lib/Headers/irix_wrappers/pthread.h
-@@ -0,0 +1,52 @@
+@@ -0,0 +1,65 @@
 +/*===---- pthread.h - IRIX wrapper ------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -46,6 +47,19 @@ branch iris/main):
 +int pthread_spin_lock(pthread_spinlock_t *);
 +int pthread_spin_trylock(pthread_spinlock_t *);
 +int pthread_spin_unlock(pthread_spinlock_t *);
++#ifdef __cplusplus
++}
++#endif
++
++/* Thread names, in Linux's (and glibc's) form, which IRIX's pthreads do not
++ * have: compiler-rt's irix/pthread_np.c checks the length (15 characters and
++ * the NUL, ERANGE beyond) and keeps no name, so pthread_getname_np gives an
++ * empty one. */
++#ifdef __cplusplus
++extern "C" {
++#endif
++int pthread_setname_np(pthread_t, const char *);
++int pthread_getname_np(pthread_t, char *, size_t);
 +#ifdef __cplusplus
 +}
 +#endif
