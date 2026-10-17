@@ -7,10 +7,11 @@ branch iris/main):
 - POSIX 2008 string, stdio, memory and time functions
 - Declare POSIX functions IRIX hides outside SGI mode
 - compiler-rt: strftime_l
+- compiler-rt: CLOCK_THREAD_CPUTIME_ID
 
 --- lib/Headers/irix_wrappers/time.h.orig
 +++ lib/Headers/irix_wrappers/time.h
-@@ -0,0 +1,88 @@
+@@ -0,0 +1,95 @@
 +/*===---- time.h - IRIX wrapper ---------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -46,8 +47,15 @@ branch iris/main):
 +#define CLOCK_PROCESS_CPUTIME_ID 0x7f02
 +#define __IRIX_CLOCK_PROCESS_CPUTIME_ID CLOCK_PROCESS_CPUTIME_ID
 +#endif
++/* IRIX has no per-thread CPU clock: this one is the process's (exact for a
++ * single-threaded program, more than the thread's otherwise). */
++#ifndef CLOCK_THREAD_CPUTIME_ID
++#define CLOCK_THREAD_CPUTIME_ID 0x7f03
++#define __IRIX_CLOCK_THREAD_CPUTIME_ID CLOCK_THREAD_CPUTIME_ID
++#endif
 +
-+#if defined(__IRIX_CLOCK_MONOTONIC) || defined(__IRIX_CLOCK_PROCESS_CPUTIME_ID)
++#if defined(__IRIX_CLOCK_MONOTONIC) || defined(__IRIX_CLOCK_PROCESS_CPUTIME_ID) || \
++    defined(__IRIX_CLOCK_THREAD_CPUTIME_ID)
 +struct timespec;
 +#ifdef __cplusplus
 +extern "C" {
