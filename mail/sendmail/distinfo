@@ -37,3 +37,5 @@ SHA1 (patch-bq) = 408ce77d1f463a5cac0065fac135e76893661835
 SHA1 (patch-br) = 85e8c965db385341be5416233ae8f26a8b5c5341
 SHA1 (patch-bs) = 2af257532fd837d9817b0b5572027947881b0396
 SHA1 (patch-bt) = 44a297b44071c5c84680af137ed00962f9ea35d4
+SHA1 (patch-include_sm_conf.h) = f9af0f532d09c211865f83081b27e382a3de2119
+SHA1 (patch-sendmail_sm__resolve.h) = db9030bfcd1c98095a00742853b993bcd0db31a6
