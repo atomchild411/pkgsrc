@@ -260,6 +260,7 @@ SUBDIR+=	imv
 SUBDIR+=	inkscape
 SUBDIR+=	ipe
 SUBDIR+=	irix-egl-gles
+SUBDIR+=	irix-gl-compat
 SUBDIR+=	irrlicht
 SUBDIR+=	ivtools
 SUBDIR+=	jasper

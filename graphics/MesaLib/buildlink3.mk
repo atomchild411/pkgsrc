@@ -57,4 +57,16 @@ BUILDLINK_TREE+=	-MesaLib
 # for it uses it without including <GL/glext.h>; IRIX's does not.
 CWRAPPERS_PREPEND.cc+=		-DAPIENTRY=
 CWRAPPERS_PREPEND.cxx+=		-DAPIENTRY=
+# IRIX 6.5's libGL exports none of the OpenGL 1.3/1.4 functions its
+# <GL/gl.h> declares (glActiveTexture, glMultiTexCoord*, ...):
+# libGLcompat, which calls the driver's own where it has one: after every
+# -lGL, and in LDFLAGS as needed, since cmake links libGL by its path. A
+# dependency of its own, as this file is often reached through another
+# package's buildlink3.mk (an indirect dependency is not installed).
+.  include "../../graphics/irix-gl-compat/buildlink3.mk"
+.  if empty(DEPENDS:Mirix-gl-compat*)
+DEPENDS+=	irix-gl-compat>=20261017:../../graphics/irix-gl-compat
+BUILDLINK_TRANSFORM+=	l:GL:GL:GLcompat
+LDFLAGS+=	-Wl,--as-needed -lGLcompat -Wl,--no-as-needed
+.  endif
 .endif

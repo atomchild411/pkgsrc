@@ -1,0 +1,11 @@
+libGLcompat provides the OpenGL entry points that IRIX's <GL/gl.h>
+declares but IRIX 6.5's libGL.so and libGLcore.so do not export:
+OpenGL 1.3 and 1.4 (glActiveTexture, glMultiTexCoord*,
+glCompressedTexImage*, glWindowPos*, ...) and the ARB, EXT, ATI and NV
+extensions of SGI's later systems. Programs that call them then link.
+
+Each function calls the driver's own implementation when
+glXGetProcAddressARB finds one, under its name or its core or ARB/EXT
+twin, and otherwise does nothing (programs check the extension string
+or version first). pkgsrc links it after libGL on IRIX, so a libGL that
+exports a function itself still provides it.
