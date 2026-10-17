@@ -27,6 +27,10 @@ USE_TOOLS+=	bsdtar
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 CONFIGURE_ENV+=	PREFIX=${PREFIX:Q}
+# Strict alignment of longs, which configure runs a program for unless the
+# host is mips-* (mipseb-* is not): the pointer size, as for those.
+CONFIGURE_ENV.IRIX+=	gp_cv_c_long_align=4
+MAKE_ENV.IRIX+=		gp_cv_c_long_align=4	# cnf/configure.out runs at build time
 BUILD_TARGET=	default
 
 GAP_DIRECTORY=	${PREFIX}/lib/gap4.3
