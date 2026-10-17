@@ -15,6 +15,10 @@ PERL5_PACKLIST=		auto/Compress/Bzip2/.packlist
 
 MAKE_ENV+=	BZLIB_INCLUDE=${BUILDLINK_PREFIX.bzip2}/include
 MAKE_ENV+=	BZLIB_LIB=${BUILDLINK_PREFIX.bzip2}/lib
+# pkgsrc's bzip2, without Makefile.PL's test, which runs a program (it
+# cannot when cross-compiling, and then built its own copy).
+CONFIGURE_ENV+=	BUILD_BZLIB=0
+MAKE_ENV+=	BUILD_BZLIB=0
 
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../lang/perl5/module.mk"
