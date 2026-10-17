@@ -2,10 +2,11 @@ $NetBSD: patch-configure,v 1.1 2025/01/31 12:22:44 micha Exp $
 
 Add libtool support.
 Upstream will not merge this (libtool is listed as not acceptable).
+IRIX: plain manual pages, not pack(1)ed formatted ones.
 
---- configure.orig	2024-12-12 22:49:01.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -1489,6 +1489,7 @@ Optional Features:
+@@ -1489,6 +1489,7 @@
    --enable-use_std        allow FLTK to use std::string etc.
    --disable-print         turn off print support (X11)
    --enable-shared         turn on shared libraries
@@ -13,7 +14,7 @@ Upstream will not merge this (libtool is listed as not acceptable).
    --disable-svg           disable SVG support
    --disable-threads       turn off multi-threading support
    --enable-x11            use X11 with Cygwin or macOS (default=no)
-@@ -5174,6 +5175,18 @@ fi
+@@ -5174,6 +5175,18 @@
  
  
  
@@ -32,7 +33,7 @@ Upstream will not merge this (libtool is listed as not acceptable).
  if test "x$enable_shared" = xyes
  then :
  
-@@ -5484,7 +5497,25 @@ fi
+@@ -5484,7 +5497,25 @@
  
  
  
@@ -58,4 +59,20 @@ Upstream will not merge this (libtool is listed as not acceptable).
 +fi
  
  
+ 
+@@ -10409,10 +10440,11 @@
+  ;; #(
+   irix*) :
+ 
+-    # SGI IRIX
+-    CAT1EXT=z
+-    CAT3EXT=z
+-    CAT6EXT=z
++    # SGI IRIX: plain manual pages, as pkgsrc installs them (packed
++    # formatted pages need pack(1), which a cross build does not have)
++    CAT1EXT=1
++    CAT3EXT=3
++    CAT6EXT=6
+  ;; #(
+   *) :
  
