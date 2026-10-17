@@ -5,4 +5,6 @@ SHA512 (redis-8.10.1.tar.gz) = 9212dabeb4b47a7e5ef06019a980e89013316446504d3bc97
 Size (redis-8.10.1.tar.gz) = 21568866 bytes
 SHA1 (patch-redis.conf) = a16fd0c559c9fbe0237b719d92a59259ae19c41a
 SHA1 (patch-src_Makefile) = a2817ec27efc11b11e77b4ed310a7dec7e1d39d4
+SHA1 (patch-src_fmacros.h) = 9cc9a9f4a496b018d3137327c28e775d78c5862f
 SHA1 (patch-src_hyperloglog.c) = 86d138b76271cc035b9fa28b0b5c3462430cd950
+SHA1 (patch-src_util.c) = d67a72df41e379bb86b7629b0882819c290d6db7
