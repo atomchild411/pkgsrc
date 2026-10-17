@@ -45,6 +45,20 @@ PHP_PKGCONFIG_PATH=	${PKGCONFIG_PATHS:ts:}
 
 REPLACE_PHP=		ext/phar/phar/phar.php run-tests.php
 
+# The phar command is made by running the new php, which a cross build
+# cannot do (PHP 8 skips it then; 7.4 needs it out of the targets).
+PLIST_VARS+=	pharcmd
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.pharcmd=	yes
+.else
+SUBST_CLASSES+=		pharcmd
+SUBST_STAGE.pharcmd=	post-configure
+SUBST_MESSAGE.pharcmd=	Not building the phar command.
+SUBST_FILES.pharcmd=	Makefile
+SUBST_SED.pharcmd=	-e 's/^\(all_targets = .*\) pharcmd$$/\1/'
+SUBST_SED.pharcmd+=	-e 's/^\(install_targets = .*\) install-pharcmd$$/\1/'
+.endif
+
 INSTALLATION_DIRS+=	${CGIDIR} ${PHP_EXTENSION_DIR} ${PHP_EGDIR} \
 			${PHP_SHAREDIR}
 
