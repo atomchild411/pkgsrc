@@ -19,6 +19,14 @@ USE_LANGUAGES=		c
 #CONFIGURE_ARGS+=	--enable-debug-log
 CONFIGURE_ARGS+=	--enable-examples-build
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# fprint-list-udev-rules writes the rules by running on the build machine:
+# use the copy the distfile ships instead.
+CONFIGURE_ARGS+=	--disable-udev-rules
+.endif
+
 INSTALLATION_DIRS+=	lib bin
 
 post-install:
