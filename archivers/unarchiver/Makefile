@@ -41,5 +41,8 @@ do-install:
 	${INSTALL_DATA} ${WRKDIR}/Extra/lsar.bash_completion ${DESTDIR}${PREFIX}/share/bash-completion/completions/lsar
 	${INSTALL_DATA} ${WRKDIR}/Extra/unar.bash_completion ${DESTDIR}${PREFIX}/share/bash-completion/completions/unar
 
+.include "../../archivers/bzip2/buildlink3.mk"
 .include "../../devel/gnustep-base/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
+.include "../../textproc/icu/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
