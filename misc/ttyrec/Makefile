@@ -18,6 +18,8 @@ CFLAGS.SunOS+=	-DSVR4
 CFLAGS+=	-DHAVE_openpty
 LDFLAGS+=	-lutil
 .endif
+# IRIX: openpty is in compiler-rt.
+CFLAGS.IRIX+=	-DHAVE_openpty
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 

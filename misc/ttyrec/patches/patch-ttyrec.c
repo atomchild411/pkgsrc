@@ -3,8 +3,9 @@ $NetBSD: patch-ttyrec.c,v 1.2 2016/05/31 08:13:45 leot Exp $
 - add <signal.h> (needed by kill(2))
 - use <util.h> on NetBSD, OpenBSD and Mac OS X
 - remove union wait
+- IRIX: openpty from <pty.h> (compiler-rt); without TIOCSCTTY the child reopens its terminal to make it the controlling one
 
---- ttyrec.c.orig	2006-06-11 15:52:50.000000000 +0000
+--- ttyrec.c.orig
 +++ ttyrec.c
 @@ -49,6 +49,7 @@
  #include <sys/time.h>
@@ -14,12 +15,14 @@ $NetBSD: patch-ttyrec.c,v 1.2 2016/05/31 08:13:45 leot Exp $
  #include <stdio.h>
  #include <time.h>
  #include <unistd.h>
-@@ -71,8 +72,12 @@
+@@ -71,8 +72,14 @@
  #define _(FOO) FOO
  
  #ifdef HAVE_openpty
 +#if defined(__NetBSD__) || defined(__OpenBSD__) || defined(__APPLE__)
 +#include <util.h>
++#elif defined(__sgi)
++#include <pty.h>
 +#else
  #include <libutil.h>
  #endif
@@ -27,7 +30,7 @@ $NetBSD: patch-ttyrec.c,v 1.2 2016/05/31 08:13:45 leot Exp $
  
  #if defined(SVR4) && !defined(CDEL)
  #if defined(_POSIX_VDISABLE)
-@@ -203,15 +208,11 @@ doinput()
+@@ -203,15 +210,11 @@
  void
  finish()
  {
@@ -44,3 +47,16 @@ $NetBSD: patch-ttyrec.c,v 1.2 2016/05/31 08:13:45 leot Exp $
  		if (pid == child)
  			die = 1;
  
+@@ -478,6 +481,12 @@
+ 	(void) ioctl(slave, TIOCSWINSZ, (char *)&win);
+ #endif
+ 	(void) setsid();
++#ifdef TIOCSCTTY
+ 	(void) ioctl(slave, TIOCSCTTY, 0);
++#else
++	/* No TIOCSCTTY (IRIX): opening the terminal again makes it the
++	   session's controlling terminal. */
++	(void) close(open(ttyname(slave), O_RDWR));
++#endif
+ #endif /* SVR4 */
+ }

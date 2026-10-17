@@ -5,4 +5,4 @@ SHA512 (ttyrec-1.0.8.tar.gz) = b7f6f4c78c5148dacc7058534d89f13fcf333ee9e099d4475
 Size (ttyrec-1.0.8.tar.gz) = 8528 bytes
 SHA1 (patch-aa) = 319272a146906f9a65848e002532b70f5cf60440
 SHA1 (patch-io.h) = 65abb06b152acc9cfcf2dd9761986dfe84eecc68
-SHA1 (patch-ttyrec.c) = fb50614e09a6e456ab6c07adeb6449b1f59e0c04
+SHA1 (patch-ttyrec.c) = 3ea944158a24af61356594e04fbbf9ad99b31f33
