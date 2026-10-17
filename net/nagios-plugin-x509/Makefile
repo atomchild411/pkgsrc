@@ -19,5 +19,8 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/check_x509 \
 	    ${DESTDIR}${PREFIX}/libexec/nagios/
 
+# The Makefile links -lssl alone; libcrypto has the X509 functions.
+BUILDLINK_TRANSFORM+=	l:ssl:ssl:crypto
+
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

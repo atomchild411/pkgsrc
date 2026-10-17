@@ -15,4 +15,5 @@ SPECIAL_PERMS+=	bin/hanterm ${SETUID_ROOT_PERMS}
 
 .include "../../x11/libXaw/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

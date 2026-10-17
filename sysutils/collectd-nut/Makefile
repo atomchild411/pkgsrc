@@ -8,6 +8,7 @@ PKGREVISION=		2
 .include "../../sysutils/ups-nut/buildlink3.mk"
 COLLECTD_LIB.upsclient=	${BUILDLINK_PREFIX.ups-nut}
 
+.include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../sysutils/collectd/Makefile.common"
 
 .include "../../mk/bsd.pkg.mk"

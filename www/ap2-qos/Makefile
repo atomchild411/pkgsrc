@@ -29,6 +29,7 @@ post-install:
 		${DESTDIR}${PREFIX}/lib/httpd
 
 .include "../../devel/pcre2/buildlink3.mk"
+.include "../../graphics/png/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/apache.mk"
 .include "../../mk/bsd.pkg.mk"

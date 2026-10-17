@@ -35,6 +35,7 @@ SUBST_SED.fix-paths+=		-e 's,/var,${VARBASE},g'
 .include "../../devel/meson/build.mk"
 .include "../../devel/confuse/buildlink3.mk"
 .include "../../devel/yajl/buildlink3.mk"
+.include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/bsd.prefs.mk"
 .if ${OPSYS} == "Linux"
 .  include "../../audio/alsa-lib/buildlink3.mk"
