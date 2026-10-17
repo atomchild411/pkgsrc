@@ -35,5 +35,8 @@ CONFIGURE_ARGS+=	--without-check
 
 CONFIGURE_ENV.NetBSD+=	ac_cv_header_netinet_ip_fil_h=no
 CONFIGURE_ENV.SunOS+=	ac_cv_dnet_linux_pf_packet=no
+# configure looks at the build machine's /proc and /usr/include for these:
+# IRIX has neither (its Ethernet access is snoop, net/raw.h).
+CONFIGURE_ENV.IRIX+=	ac_cv_dnet_linux_pf_packet=no ac_cv_dnet_linux_procfs=no
 
 .include "../../mk/bsd.pkg.mk"
