@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - pthread_cond_timedwait_relative_np
 - Declare POSIX functions IRIX hides outside SGI mode
+- pthread_mutex_timedlock and POSIX spin locks
 
 --- lib/Headers/irix_wrappers/pthread.h.orig
 +++ lib/Headers/irix_wrappers/pthread.h
-@@ -0,0 +1,41 @@
+@@ -0,0 +1,52 @@
 +/*===---- pthread.h - IRIX wrapper ------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -21,6 +22,10 @@ branch iris/main):
 + * that needs timeouts that do not depend on the date (GLib's GCond) can use
 + * the relative form macOS offers instead, pthread_cond_timedwait_relative_np,
 + * which compiler-rt's IRIX builtins define (irix/pthread_np.c).
++ *
++ * IRIX's pthreads also lack pthread_mutex_timedlock and the spin locks;
++ * compiler-rt defines them (irix/pthread_timedlock.c, irix/pthread_spin.c),
++ * a spin lock being a mutex.
 + */
 +
 +#ifndef __CLANG_IRIX_PTHREAD_H
@@ -34,6 +39,13 @@ branch iris/main):
 +#endif
 +int pthread_cond_timedwait_relative_np(pthread_cond_t *, pthread_mutex_t *,
 +                                       const struct timespec *);
++int pthread_mutex_timedlock(pthread_mutex_t *, const struct timespec *);
++typedef pthread_mutex_t pthread_spinlock_t;
++int pthread_spin_init(pthread_spinlock_t *, int);
++int pthread_spin_destroy(pthread_spinlock_t *);
++int pthread_spin_lock(pthread_spinlock_t *);
++int pthread_spin_trylock(pthread_spinlock_t *);
++int pthread_spin_unlock(pthread_spinlock_t *);
 +#ifdef __cplusplus
 +}
 +#endif
