@@ -20,6 +20,9 @@ USE_TOOLS+=	gmake
 MAKE_FLAGS+=	OPT=${CFLAGS:Q}
 MAKE_FLAGS+=	prefix=${PREFIX}
 MAKE_FLAGS+=	mandir=${PREFIX}/${PKGMANDIR}
+# The makefile looks for a termcap library in the build host's /usr/lib:
+# name it; buildlink turns -ltermcap into the one pkgsrc picked.
+MAKE_FLAGS+=	SLIB=-ltermcap
 
 post-extract:
 .for f in UCD.zip Unihan.zip BIG5.TXT
