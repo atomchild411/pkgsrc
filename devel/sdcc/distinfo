@@ -6,4 +6,6 @@ Size (sdcc-src-4.5.0.tar.bz2) = 20298103 bytes
 SHA1 (patch-aa) = a8bb460dccae4a36dd401f78fdb8e42abb0f5567
 SHA1 (patch-configure) = c5251ccbdd0cc1f3f7b2ee3ad143b731bed2dee3
 SHA1 (patch-sim_ucsim_configure) = 981e142db52723575fd440a7fe6147aa3165d0a5
+SHA1 (patch-src_common.h) = 93210c9a276f71dcd9d7ef5c3c9df90f69c4d23a
+SHA1 (patch-support_cpp_configure) = 9db330d8efa70b943c9e12c05d4352ea6d7a932c
 SHA1 (patch-support_cpp_gcc_configure) = 6e77670242b9c4d6878e97a622a664710d84500e

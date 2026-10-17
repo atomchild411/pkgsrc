@@ -1,0 +1,18 @@
+$NetBSD$
+
+Cross-compiling: configure the build-machine headers with the build compiler's flags and no site file (not the target's).
+
+--- support/cpp/configure.orig
++++ support/cpp/configure
+@@ -8991,7 +8991,10 @@
+         /* | A-Za-z:\\/* ) realsrcdir=${srcdir};;
+         *) realsrcdir=../${srcdir};;
+         esac
+-        CC=${CC_FOR_BUILD} ${realsrcdir}/configure \
++        CC=${CC_FOR_BUILD} CFLAGS=${CFLAGS_FOR_BUILD} \
++        CXX=${CXX_FOR_BUILD} CXXFLAGS=${CXXFLAGS_FOR_BUILD} \
++        CPPFLAGS=${CPPFLAGS_FOR_BUILD} LDFLAGS=${LDFLAGS_FOR_BUILD} LIBS= \
++        CONFIG_SITE=/dev/null ${realsrcdir}/configure \
+                 --target=$target --host=$build --build=$build
+ 
+         # We just finished tests for the build machine, so rename
