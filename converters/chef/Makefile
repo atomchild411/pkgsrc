@@ -28,4 +28,12 @@ do-build:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/chef ${DESTDIR}${PREFIX}/bin
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "IRIX"
+# IRIX has no lex library: flex's libfl has the same yywrap and main.
+BUILDLINK_TRANSFORM+=	l:l:fl
+.  include "../../devel/flex/buildlink3.mk"
+.endif
+
 .include "../../mk/bsd.pkg.mk"

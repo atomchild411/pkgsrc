@@ -29,4 +29,12 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/README \
 		${DESTDIR}${PREFIX}/share/doc/ether2dns/
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "IRIX"
+# IRIX has no lex library: flex's libfl has the same yywrap and main.
+BUILDLINK_TRANSFORM+=	l:l:fl
+.  include "../../devel/flex/buildlink3.mk"
+.endif
+
 .include "../../mk/bsd.pkg.mk"
