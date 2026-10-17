@@ -44,6 +44,11 @@ CMAKE_CONFIGURE_ARGS+=	-DOpenGL_GL_PREFERENCE=LEGACY
 OPSYS_EXPLICIT_LIBDEPS=	yes
 # crypt(3) is in libc; IRIX has no libcrypt for -lcrypt to find.
 BUILDLINK_TRANSFORM+=	rm:-lcrypt
+# LDFLAGS are written for the compiler driver; imake's SGI rules link
+# shared libraries with ld itself (nas). The ld wrapper strips -Wl, but
+# does not split -Wl,--as-needed,-lm,--no-as-needed, which lld then rejects:
+# drop it (a shared library has no use for it).
+CWRAPPERS_TRANSFORM.ld+=	rm:--as-needed,-lm,--no-as-needed
 # IRIX ships 4.4BSD's <db.h> but no dbopen in any library, which is all
 # mk/db1.builtin.mk looks at (the header): db1 is not built in.
 IS_BUILTIN.db1=	no
