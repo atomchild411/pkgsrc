@@ -8,11 +8,12 @@ branch iris/main):
 - Wrappers: <sys/queue.h>, <machine/endian.h>, SUN_LEN, I, IPPROTO_SCTP
 - Wrapper <netinet/in.h>: s6_addr16 and s6_addr32
 - Wrapper <netinet/in.h>: struct ip_mreq in every mode
-- in6_pktinfo, IPV6_PKTINFO and IPV6_RECVPKTINFO outside INET6
+- [Headers][IRIX] in6_pktinfo and IPV6_PKTINFO outside INET6
+- <netinet/in.h>: IPV6_HOPLIMIT without INET6
 
 --- lib/Headers/irix_wrappers/netinet/in.h.orig
 +++ lib/Headers/irix_wrappers/netinet/in.h
-@@ -0,0 +1,160 @@
+@@ -0,0 +1,164 @@
 +/*===---- netinet/in.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -165,6 +166,10 @@ branch iris/main):
 +#ifndef IPV6_PKTINFO
 +#define IPV6_RECVPKTINFO 43
 +#define IPV6_PKTINFO 44
++#endif
++/* And the hop limit's (RFC 3542; avahi). */
++#ifndef IPV6_HOPLIMIT
++#define IPV6_HOPLIMIT 48
 +#endif
 +struct in6_pktinfo {
 +  struct in6_addr ipi6_addr;
