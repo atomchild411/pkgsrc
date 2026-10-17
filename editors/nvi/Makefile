@@ -20,6 +20,11 @@ GNU_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	../dist/configure
 CONFIGURE_ARGS+=	--program-transform-name='s,^,n,'
 CONFIGURE_ENV+=		vi_cv_path_shell=${TOOLS_SH}
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# Run tests: sprintf returns an int count; no perl setenv workaround.
+CONFIGURE_ENV+=		vi_cv_sprintf_count=yes
+CONFIGURE_ENV+=		vi_cv_perl_setenv=no
+.endif
 
 .if ${OBJECT_FMT} == "Mach-O"
 CONFIGURE_ARGS+=	--disable-runpath
