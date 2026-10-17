@@ -4,6 +4,7 @@ BLAKE2s (binutils-2.41.tar.bz2) = bd20a803c6f86632b62e27fce2cb07eb0ee4aa06fb374d
 SHA512 (binutils-2.41.tar.bz2) = 8c4303145262e84598d828e1a6465ddbf5a8ff757efe3fd981948854f32b311afe5b154be3966e50d85cf5d25217564c1f519d197165aac8e82efcadc9e1e47c
 Size (binutils-2.41.tar.bz2) = 37132937 bytes
 SHA1 (patch-bfd_cache.c) = e2d96bad350552eacdffa83532f9dc9e15ee9be9
+SHA1 (patch-binutils_readelf.c) = a02075dd1463d4d1d891370a03cbb9b2cca9da61
 SHA1 (patch-gold_Makefile.in) = e01d973f9625a1653851f796c123efec37102fbd
 SHA1 (patch-gold_options.h) = 03816bbf157d781820d96a4d3af0885dc2bbbaa9
 SHA1 (patch-gold_system.h) = 9b4130b5315763daa66e0a91a8be6d1df0d10344

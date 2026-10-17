@@ -4,4 +4,5 @@ BLAKE2s (binutils-2.45.1.tar.xz) = 7fe96d2c024eb442de382b51f3b8f4a410fdd3e33dba4
 SHA512 (binutils-2.45.1.tar.xz) = ea030419eba387579ab717be7e3223fc99e93b586860b06003c12489f93441640d4082736f76aa5e98233db4f46e232f536a45e471486de1f5b64e1b827c167e
 Size (binutils-2.45.1.tar.xz) = 27962312 bytes
 SHA1 (patch-bfd_sysdep.h) = 6dacf9e17529fd74c90a07b4531429fa3e33feb3
+SHA1 (patch-binutils_readelf.c) = ecc8f2c7017752724912fb8e28401a7a6cd68ab9
 SHA1 (patch-zlib_zutil.c) = 00db854685510b1f52bdc62f996fb792bd46bd63
