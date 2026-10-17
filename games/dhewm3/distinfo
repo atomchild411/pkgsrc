@@ -4,3 +4,4 @@ BLAKE2s (dhewm3-1.5.4.tar.gz) = 1fde9b0d26a790170a015450b7c03f52bc115dd23cfc9ecc
 SHA512 (dhewm3-1.5.4.tar.gz) = 1ed970ee2c61b11050694823c8526036dbf1034579d31ea4fd5b21afc095a4e54a2829f6838666da0deee82007890356a10a5b38277b10658c1f90bfb57aa0a7
 Size (dhewm3-1.5.4.tar.gz) = 7685654 bytes
 SHA1 (patch-neo_sound_snd__local.h) = 878df5a70ff84165809e3531f75383ec73db99b7
+SHA1 (patch-neo_sys_posix_posix__net.cpp) = 166f7c631ae7c978cd4949f96a20d1555f110724
