@@ -38,6 +38,11 @@ CPPFLAGS.SunOS+=	-D_POSIX_PTHREAD_SEMANTICS
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# liblock picks its locking method with a run test.
+CONFIGURE_ARGS+=	--with-locking-method=fcntl
+.endif
+
 AUTHDAEMONVAR?=		${VARBASE}/authdaemon
 CONFIGURE_ARGS+=	--with-authdaemonvar=${AUTHDAEMONVAR:Q}
 OWN_DIRS_PERMS=		${AUTHDAEMONVAR} ${COURIER_USER} ${COURIER_GROUP} 0750
