@@ -48,4 +48,13 @@ BUILDLINK_API_DEPENDS.poppler+=	poppler>=23.12.0
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../x11/gtksourceview4/buildlink3.mk"
+
+# help2man makes the manual pages by running the programs just built:
+# cross-compiling, none.
+PLIST_VARS+=		man
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=	-DWITH_MAN=OFF
+.else
+PLIST.man=		yes
+.endif
 .include "../../mk/bsd.pkg.mk"

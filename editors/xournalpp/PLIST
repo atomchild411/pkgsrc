@@ -2,8 +2,8 @@
 bin/xournalpp
 bin/xournalpp-thumbnailer
 bin/xournalpp-wrapper
-man/man1/xournalpp-thumbnailer.1
-man/man1/xournalpp.1
+${PLIST.man}man/man1/xournalpp-thumbnailer.1
+${PLIST.man}man/man1/xournalpp.1
 share/applications/com.github.xournalpp.xournalpp.desktop
 share/icons/hicolor/scalable/apps/com.github.xournalpp.xournalpp.svg
 share/icons/hicolor/scalable/mimetypes/application-x-xojpp.svg
