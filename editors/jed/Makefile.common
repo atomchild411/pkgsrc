@@ -24,6 +24,18 @@ INSTALL_DIRS=		src
 
 LIBS.SunOS+=		-lnsl -lresolv
 
+.include "../../mk/bsd.prefs.mk"
+
+# chkslang checks the S-Lang version by running it; a cross build cannot
+# (buildlink3.mk's version requirement holds anyway).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		chkslang
+SUBST_STAGE.chkslang=	pre-build
+SUBST_MESSAGE.chkslang=	Not running chkslang in a cross build.
+SUBST_FILES.chkslang=	src/Makefile
+SUBST_SED.chkslang=	-e 's,if $$(OBJDIR)/chkslang jed ,if true || $$(OBJDIR)/chkslang jed ,'
+.endif
+
 EGDIR=			${PREFIX}/share/examples/jed
 CONF_FILES=		${EGDIR}/jed.conf ${PREFIX}/etc/jed.conf
 

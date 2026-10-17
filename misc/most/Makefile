@@ -16,5 +16,17 @@ CONFIGURE_ARGS+=	--with-slang=${BUILDLINK_PREFIX.libslang}
 # prevent duplicate definition of zopen
 CFLAGS.Darwin+=	-D_POSIX_C_SOURCE
 
+.include "../../mk/bsd.prefs.mk"
+
+# chkslang checks the S-Lang version by running it; a cross build cannot
+# (buildlink3.mk's version requirement holds anyway).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		chkslang
+SUBST_STAGE.chkslang=	pre-build
+SUBST_MESSAGE.chkslang=	Not running chkslang in a cross build.
+SUBST_FILES.chkslang=	src/Makefile
+SUBST_SED.chkslang=	-e 's|^\t$$(OBJDIR)/chkslang $$(EXEC) |\ttrue $$(OBJDIR)/chkslang $$(EXEC) |'
+.endif
+
 .include "../../devel/libslang/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
