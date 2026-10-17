@@ -11,10 +11,11 @@ branch iris/main):
 - Wrapper <math.h>: float_t and double_t
 - Wrappers: constant HUGE_VAL; programs' own snprintf macros left alone
 - Wrapper <math.h>: C89's struct cabs and cabsl under other names
+- Headers: math.h hides SVID's enum version from C++
 
 --- lib/Headers/irix_wrappers/math.h.orig
 +++ lib/Headers/irix_wrappers/math.h
-@@ -0,0 +1,247 @@
+@@ -0,0 +1,259 @@
 +/*===---- math.h - IRIX wrapper ---------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -59,7 +60,19 @@ branch iris/main):
 + * cabs and cabsl are C99's. */
 +#define cabs __irix_struct_cabs
 +#define cabsl __irix_struct_cabsl
++/* In SGI mode it also declares SVID's "enum version" (for _lib_version):
++ * in C++ a tag is a type name too, and a program's own "version" (a
++ * namespace in snapcast and gpick) clashed with it. C++ reads it under
++ * another tag. */
++#ifdef __cplusplus
++#pragma push_macro("version")
++#undef version
++#define version __irix_lib_version
++#endif
 +#include_next <math.h>
++#ifdef __cplusplus
++#pragma pop_macro("version")
++#endif
 +#undef cabs
 +#undef cabsl
 +
