@@ -24,6 +24,9 @@ USE_LIBTOOL=		yes
 USE_TOOLS+=		autoconf automake bash gmake pax pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ENV+=		LIBLEPT_HEADERSDIR=${BUILDLINK_PREFIX.leptonica}/include
+# The PLIST has no manual pages: do not build them where an asciidoctor
+# happens to be on the PATH (a cross-build host's).
+CONFIGURE_ARGS+=	--disable-doc
 INSTALL_TARGET=		install training-install
 TEST_TARGET=		check
 REPLACE_BASH+=		src/training/*.sh
