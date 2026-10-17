@@ -11,10 +11,11 @@ branch iris/main):
 - [Headers][IRIX] struct sockaddr without the sa_family macros
 - MSG_NOSIGNAL for send, sendto and sendmsg
 - SOCK_NONBLOCK, SOCK_CLOEXEC and accept4
+- MSG_CMSG_CLOEXEC for recvmsg
 
 --- lib/Headers/irix_wrappers/sys/socket.h.orig
 +++ lib/Headers/irix_wrappers/sys/socket.h
-@@ -0,0 +1,209 @@
+@@ -0,0 +1,215 @@
 +/*===---- sys/socket.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -153,6 +154,12 @@ branch iris/main):
 + * is delivered. Without the flag they are IRIX's own. */
 +#ifndef MSG_NOSIGNAL
 +#define MSG_NOSIGNAL 0x20000
++#endif
++/* And Linux's MSG_CMSG_CLOEXEC for recvmsg: the descriptors received with
++ * SCM_RIGHTS come back close-on-exec (set with fcntl after the call, so not
++ * atomic against a fork in another thread). */
++#ifndef MSG_CMSG_CLOEXEC
++#define MSG_CMSG_CLOEXEC 0x40000
 +#endif
 +#ifdef __cplusplus
 +extern "C" {
