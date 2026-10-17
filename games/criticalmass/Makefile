@@ -29,6 +29,7 @@ post-extract:
 .include "../../audio/SDL_mixer/buildlink3.mk"
 .include "../../devel/SDL/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../graphics/SDL_image/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
