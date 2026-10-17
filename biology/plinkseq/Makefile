@@ -37,5 +37,9 @@ pre-build:
 	cd ${WRKSRC}/lib && protoc --cpp_out=. pp.proto && mv pp.pb.cc pp.pb.cpp
 	cd ${WRKSRC}/lib && protoc --cpp_out=. variant.proto && mv variant.pb.cc variant.pb.cpp
 
+# libplinkseq calls abseil (protobuf's inline code) but links only
+# libprotobuf; lld wants abseil named (--no-allow-shlib-undefined).
+LIBS.IRIX+=	-labsl_log_internal_check_op -labsl_log_internal_message
+.include "../../devel/abseil/buildlink3.mk"
 .include "../../devel/protobuf/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
