@@ -19,8 +19,21 @@ USE_TOOLS+=		makeinfo perl:test
 
 CONFIGURE_ARGS+=	--infodir=${PREFIX}/${PKGINFODIR}
 CONFIGURE_ARGS+=	--disable-bindings
+# No gperf: the distribution has its output, and configure's version parse
+# (${GPERF_VERSION:2:1}) needs bash, so with a gperf on the PATH /bin/sh
+# leaves "3.3", which "#if GPERF_VERSION < 301" rejects.
+CONFIGURE_ENV+=		ac_cv_prog_GPERF=
 
 INFO_FILES=		yes
+
+# IRIX has no sanitizers: "all" builds the standalone fuzzer example, which
+# asks for AddressSanitizer; build it without.
+SUBST_CLASSES.IRIX+=	noasan
+SUBST_STAGE.noasan=	pre-configure
+SUBST_MESSAGE.noasan=	No sanitizers for the fuzzer example.
+SUBST_FILES.noasan=	examples/Makefile.in
+SUBST_SED.noasan=	-e 's/-DSTANDALONE -DHAVE_ASAN /-DSTANDALONE /'
+SUBST_SED.noasan+=	-e 's/-fsanitize=address,undefined //'
 
 TEST_TARGET=		check
 
