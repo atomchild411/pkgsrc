@@ -4,3 +4,5 @@ BLAKE2s (bcollect-0.6.0.tar.gz) = f28fdacd8befe32497b44abf9e322121e2fde1562f557d
 SHA512 (bcollect-0.6.0.tar.gz) = 5e5a0cb213dcf08a2f1d71d42053f7611c8959517438fcc96a880386bb4d5346d69781d0d487c2602359221d15ec38bac9a62a446a27b75b101882a1f3c6d16a
 Size (bcollect-0.6.0.tar.gz) = 204248 bytes
 SHA1 (patch-aa) = 94d56d05594b529c56833e7879ef2dc4a5bfb945
+SHA1 (patch-backup.c) = 4fef56e77148040610687c2741dbeb3eb455c2ad
+SHA1 (patch-confparser_conflexer.l) = ec463b6d347bb7ef4aff50174beb3f0ef5e0e134
