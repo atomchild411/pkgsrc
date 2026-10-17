@@ -17,11 +17,20 @@ USE_TOOLS+=	gmake
 
 CPPFLAGS+=	-I${BUILDLINK_PREFIX.libusb1}/include/libusb-1.0
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "IRIX"
+# IRIX has off64_t and lseek64, which include/utils/Compat.h otherwise
+# defines itself.
+CPPFLAGS+=	-DHAVE_OFF64_T
+.endif
+
 INSTALLATION_DIRS+=	bin
 
 post-extract:
 	${CP} ${FILESDIR}/Makefile ${WRKSRC}
 
 .include "../../devel/libusb1/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
