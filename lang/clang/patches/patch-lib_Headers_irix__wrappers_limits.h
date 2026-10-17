@@ -6,10 +6,11 @@ branch iris/main):
 - Wrapper headers: u_int64_t, CRTSCTS, <strings.h>, sig_t, IOV_MAX
 - Wrappers: constant HUGE_VAL; programs' own snprintf macros left alone
 - Wrappers: O_ASYNC and LOGIN_NAME_MAX
+- <limits.h>: IOV_MAX in plain XPG4 mode too
 
 --- lib/Headers/irix_wrappers/limits.h.orig
 +++ lib/Headers/irix_wrappers/limits.h
-@@ -0,0 +1,67 @@
+@@ -0,0 +1,73 @@
 +/*===---- limits.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -65,9 +66,15 @@ branch iris/main):
 +#endif
 +
 +/* IOV_MAX: IRIX answers it only through sysconf(_SC_IOV_MAX). Code that
-+ * wants a constant gets the guaranteed minimum, _XOPEN_IOV_MAX. */
-+#if !defined(IOV_MAX) && defined(_XOPEN_IOV_MAX)
++ * wants a constant gets the guaranteed minimum, _XOPEN_IOV_MAX -- which IRIX
++ * gives only in X/Open UX and XPG5 modes, not plain XPG4 (_XOPEN_SOURCE
++ * without a value: redis), where glibc has IOV_MAX too: its value there. */
++#if !defined(IOV_MAX)
++#if defined(_XOPEN_IOV_MAX)
 +#define IOV_MAX _XOPEN_IOV_MAX
++#elif defined(_XOPEN_SOURCE)
++#define IOV_MAX 16
++#endif
 +#endif
 +
 +/* POSIX's: a login name's length with its null, which IRIX gives without
