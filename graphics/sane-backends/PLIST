@@ -259,10 +259,10 @@ share/doc/sane-backends/plustek/Plustek-PARPORT.txt
 share/doc/sane-backends/plustek/Plustek-USB-TODO.txt
 share/doc/sane-backends/plustek/Plustek-USB.changes
 share/doc/sane-backends/plustek/Plustek-USB.txt
-share/doc/sane-backends/sane-backends-external.html
-share/doc/sane-backends/sane-backends.html
-share/doc/sane-backends/sane-mfgs-external.html
-share/doc/sane-backends/sane-mfgs.html
+${PLIST.html}share/doc/sane-backends/sane-backends-external.html
+${PLIST.html}share/doc/sane-backends/sane-backends.html
+${PLIST.html}share/doc/sane-backends/sane-mfgs-external.html
+${PLIST.html}share/doc/sane-backends/sane-mfgs.html
 share/doc/sane-backends/saned/saned.install.md
 share/doc/sane-backends/sceptre/s1200.txt
 share/doc/sane-backends/teco/teco1.txt

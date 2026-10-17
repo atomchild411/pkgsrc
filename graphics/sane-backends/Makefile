@@ -27,10 +27,16 @@ CONFIGURE_ENV.SunOS+=	ac_cv_func_inet_pton=yes
 
 .include "../../mk/bsd.prefs.mk"
 
-PLIST_VARS+=		pint
+PLIST_VARS+=		pint html
 
 .if ${OPSYS} == "NetBSD"
 PLIST.pint=		yes
+.endif
+
+# The backend lists are written by tools/sane-desc, which a cross build
+# does not run (configure's CROSS_COMPILING leaves them out).
+.if ${USE_CROSS_COMPILE:tl} != "yes"
+PLIST.html=		yes
 .endif
 
 LIBS.SunOS+=	-lresolv -lnsl -lsocket
