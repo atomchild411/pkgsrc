@@ -91,5 +91,5 @@ SHA1 (patch-lib_Headers_irix__wrappers_time.h) = d02836e2d7c2b6622826337bc18e171
 SHA1 (patch-lib_Headers_irix__wrappers_unistd.h) = d2cb33bb3f48231686f108b24e06986845dda88a
 SHA1 (patch-lib_Headers_irix__wrappers_util.h) = 8a39a4bbd2757499223c115194e13d1980ef56bd
 SHA1 (patch-lib_Headers_irix__wrappers_uuid.h) = 75115b004e9165de9222e85851ad26c93c35a5c2
-SHA1 (patch-lib_Headers_irix__wrappers_wchar.h) = decf6c9238bcb9d5daf73d58fcc4512b8fac32ba
+SHA1 (patch-lib_Headers_irix__wrappers_wchar.h) = bfec2ab29fed4f831611228ed723f5844c94bfca
 SHA1 (patch-lib_Parse_ParsePragma.cpp) = eaf9204c839156d8246c2edeb7eca09c49dd85aa
