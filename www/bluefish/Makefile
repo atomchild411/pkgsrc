@@ -21,6 +21,8 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-icon-path=${PREFIX:Q}/share/pixmaps
 CONFIGURE_ARGS+=	--with-freedesktop_org-menu=${PREFIX:Q}/share/applications
 CONFIGURE_ARGS+=	--with-freedesktop_org-mime=${PREFIX:Q}/share/mime
+# The databases are updated at installation (desktopdb.mk), not into DESTDIR.
+CONFIGURE_ARGS+=	--disable-update-databases
 CONFIGURE_ENV+=		EXTERNAL_GREP=${TOOLS_GREP:Q}
 CONFIGURE_ENV+=		EXTERNAL_FIND=${TOOLS_FIND:Q}
 
