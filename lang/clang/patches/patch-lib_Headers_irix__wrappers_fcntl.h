@@ -9,10 +9,11 @@ branch iris/main):
 - F_DUPFD_CLOEXEC
 - Wrappers: O_ASYNC and LOGIN_NAME_MAX
 - compiler-rt: posix_fallocate
+- openat64 and fstatat64; open64 takes O_CLOEXEC
 
 --- lib/Headers/irix_wrappers/fcntl.h.orig
 +++ lib/Headers/irix_wrappers/fcntl.h
-@@ -0,0 +1,102 @@
+@@ -0,0 +1,111 @@
 +/*===---- fcntl.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -31,7 +32,8 @@ branch iris/main):
 + * that is a symbolic link (ELOOP, as POSIX says), checking it with lstat
 + * just before opening -- not atomic against the link changing in between.
 + * And O_DIRECTORY: what was opened must be a directory, or the open fails
-+ * with ENOTDIR (checked with fstat on the descriptor, so exactly).
++ * with ENOTDIR (checked with fstat on the descriptor, so exactly). IRIX's
++ * open64 (large files, where IRIX declares it) is routed the same way.
 + *
 + * And the AT_ constants and openat (below), and posix_fallocate, which
 + * IRIX lacks too (irix/fallocate.c).
@@ -58,6 +60,9 @@ branch iris/main):
 +extern "C" {
 +#endif
 +int open(const char *, int, ...) __asm__("__irix_open");
++#if _LFAPI
++int open64(const char *, int, ...) __asm__("__irix_open64");
++#endif
 +#ifdef __cplusplus
 +}
 +#endif
@@ -96,6 +101,11 @@ branch iris/main):
 +extern "C" {
 +#endif
 +int openat(int, const char *, int, ...);
++/* And its large-file form, beside IRIX's open64 (glibc has it; Guile
++ * uses it where there is a stat64). */
++#if _LFAPI
++int openat64(int, const char *, int, ...);
++#endif
 +#ifdef __cplusplus
 +}
 +#endif

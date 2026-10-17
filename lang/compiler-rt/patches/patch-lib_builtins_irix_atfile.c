@@ -5,10 +5,11 @@ branch iris/main):
 - POSIX 2008's *at() calls and fdopendir
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 - [IRIX] The last 22 libc stand-ins are weak too
+- openat64 and fstatat64; open64 takes O_CLOEXEC
 
 --- lib/builtins/irix/atfile.c.orig
 +++ lib/builtins/irix/atfile.c
-@@ -0,0 +1,330 @@
+@@ -0,0 +1,350 @@
 +//===-- irix/atfile.c - POSIX 2008's *at() functions on IRIX --------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -132,6 +133,26 @@ branch iris/main):
 +int fstatat(int fd, const char *path, struct stat *st, int flag) {
 +  AT(fd, path);
 +  return flag & AT_SYMLINK_NOFOLLOW ? lstat(at_p_, st) : stat(at_p_, st);
++}
++
++// The large-file forms, glibc's, on IRIX's open64 and stat64.
++#pragma weak openat64
++int openat64(int fd, const char *path, int flags, ...) {
++  mode_t mode = 0;
++  if (flags & O_CREAT) {
++    va_list ap;
++    va_start(ap, flags);
++    mode = (mode_t)va_arg(ap, int);
++    va_end(ap);
++  }
++  AT(fd, path);
++  return open64(at_p_, flags, mode);
++}
++
++#pragma weak fstatat64
++int fstatat64(int fd, const char *path, struct stat64 *st, int flag) {
++  AT(fd, path);
++  return flag & AT_SYMLINK_NOFOLLOW ? lstat64(at_p_, st) : stat64(at_p_, st);
 +}
 +
 +#pragma weak fchmodat

@@ -6,11 +6,12 @@ branch iris/main):
 - O_NOFOLLOW for open()
 - O_DIRECTORY in the open() compatibility shim
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
-- pipe2 and dup3
+- [IRIX] pipe2 and dup3
+- openat64 and fstatat64; open64 takes O_CLOEXEC
 
 --- lib/builtins/irix/cloexec.c.orig
 +++ lib/builtins/irix/cloexec.c
-@@ -0,0 +1,128 @@
+@@ -0,0 +1,146 @@
 +//===-- irix/cloexec.c - O_CLOEXEC for IRIX -------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -30,6 +31,8 @@ branch iris/main):
 +// before the open -- not atomic against the link changing in between. And
 +// O_DIRECTORY: the descriptor opened must be a directory (fstat), or it is
 +// closed and the open fails with ENOTDIR.
++//
++// open64 (IRIX's, for large files) the same way, as __irix_open64.
 +//
 +// pipe2 and dup3 (POSIX 2024; Linux and the BSDs), which IRIX lacks, the same
 +// way: pipe or dup2, then the flags (O_CLOEXEC, and O_NONBLOCK for pipe2)
@@ -53,20 +56,14 @@ branch iris/main):
 +#error "clang's IRIX <fcntl.h> wrapper defines __IRIX_O_CLOEXEC"
 +#endif
 +
-+// IRIX's own open, under its own name (the wrapper renames the one programs
-+// see).
++// IRIX's own open and open64, under their own names (the wrapper renames
++// the ones programs see).
 +extern int __irix_libc_open(const char *, int, ...) __asm__("open");
++extern int __irix_libc_open64(const char *, int, ...) __asm__("open64");
 +
-+int __irix_open(const char *path, int flags, ...) {
-+  mode_t mode = 0;
++static int open_flags(int (*libc_open)(const char *, int, ...),
++                      const char *path, int flags, mode_t mode) {
 +  int fd;
-+
-+  if (flags & O_CREAT) {
-+    va_list ap;
-+    va_start(ap, flags);
-+    mode = (mode_t)va_arg(ap, int);
-+    va_end(ap);
-+  }
 +#ifdef __IRIX_O_NOFOLLOW
 +  if (flags & __IRIX_O_NOFOLLOW) {
 +    struct stat st;
@@ -81,7 +78,7 @@ branch iris/main):
 +  {
 +    int want_dir = (flags & __IRIX_O_DIRECTORY) != 0;
 +    flags &= ~__IRIX_O_DIRECTORY;
-+    fd = __irix_libc_open(path, flags & ~__IRIX_O_CLOEXEC, mode);
++    fd = libc_open(path, flags & ~__IRIX_O_CLOEXEC, mode);
 +    if (fd >= 0 && want_dir) {
 +      struct stat st;
 +      if (fstat(fd, &st) != 0 || !S_ISDIR(st.st_mode)) {
@@ -92,11 +89,33 @@ branch iris/main):
 +    }
 +  }
 +#else
-+  fd = __irix_libc_open(path, flags & ~__IRIX_O_CLOEXEC, mode);
++  fd = libc_open(path, flags & ~__IRIX_O_CLOEXEC, mode);
 +#endif
 +  if (fd >= 0 && (flags & __IRIX_O_CLOEXEC))
 +    fcntl(fd, F_SETFD, FD_CLOEXEC);
 +  return fd;
++}
++
++int __irix_open(const char *path, int flags, ...) {
++  mode_t mode = 0;
++  if (flags & O_CREAT) {
++    va_list ap;
++    va_start(ap, flags);
++    mode = (mode_t)va_arg(ap, int);
++    va_end(ap);
++  }
++  return open_flags(__irix_libc_open, path, flags, mode);
++}
++
++int __irix_open64(const char *path, int flags, ...) {
++  mode_t mode = 0;
++  if (flags & O_CREAT) {
++    va_list ap;
++    va_start(ap, flags);
++    mode = (mode_t)va_arg(ap, int);
++    va_end(ap);
++  }
++  return open_flags(__irix_libc_open64, path, flags, mode);
 +}
 +
 +#pragma weak pipe2

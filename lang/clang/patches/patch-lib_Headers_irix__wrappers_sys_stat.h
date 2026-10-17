@@ -8,10 +8,11 @@ branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
 - timespec in wrapper prototypes: the tag IRIX uses in the mode
 - sys/stat.h: st_blocks a plain member in POSIX and XPG4 modes
+- openat64 and fstatat64; open64 takes O_CLOEXEC
 
 --- lib/Headers/irix_wrappers/sys/stat.h.orig
 +++ lib/Headers/irix_wrappers/sys/stat.h
-@@ -0,0 +1,85 @@
+@@ -0,0 +1,90 @@
 +/*===---- sys/stat.h - IRIX wrapper ------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -62,6 +63,11 @@ branch iris/main):
 +/* POSIX 2008's (compiler-rt's irix/atfile.c; AT_ constants in <fcntl.h>).
 + * No futimens: IRIX cannot set a descriptor's times. */
 +int fstatat(int, const char *, struct stat *, int);
++#if _LFAPI
++/* Its large-file form, beside IRIX's stat64 (glibc has it). */
++struct stat64;
++int fstatat64(int, const char *, struct stat64 *, int);
++#endif
 +int fchmodat(int, const char *, mode_t, int);
 +int mkdirat(int, const char *, mode_t);
 +int mknodat(int, const char *, mode_t, dev_t);
