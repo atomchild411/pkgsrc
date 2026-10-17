@@ -16,5 +16,6 @@ SHA1 (patch-libraries_libldap_ldap-int.h) = 967499db16d31cbf47deff330d97efd0a360
 SHA1 (patch-libraries_libldap_os-local.c) = 7cd4f8638456fae12499de0d36d7802e47d3d688
 SHA1 (patch-libraries_libldap_thr__posix.c) = 21f0efe8f7d2f4c4fecf0a970ce5259ae28e26cb
 SHA1 (patch-libraries_libldap_tls__o.c) = 40a46eb16c8c9e201619aac4f8dc887dce840690
+SHA1 (patch-libraries_liblmdb_mdb.c) = e31df0fc727da7bf55d80cc0b2451dd105e1a765
 SHA1 (patch-libraries_liblutil_sha1.c) = 10deca5c2f0431dd51d9137f14b5070be1264dcd
 SHA1 (patch-servers_slapd_Makefile.in) = 40043fdaecac7b591b462f7af32149a93e88eaf5
