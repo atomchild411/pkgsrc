@@ -18,6 +18,21 @@ MAKE_FLAGS=	MANDIR=${PREFIX}/${PKGMANDIR}
 
 USE_CC_FEATURES+=	c11
 
+.include "../../mk/bsd.prefs.mk"
+
+# On IRIX catgirl takes configure's generic branch, as the BSDs do, whose
+# headers give sig_t even under -std=c11; IRIX's (clang's wrappers) give it
+# only outside strict C: GNU C11.
+.if ${OPSYS} == "IRIX"
+BUILDLINK_TRANSFORM+=	opt:-std=c11:-std=gnu11
+.endif
+
+# IRIX has no readpassphrase either: catgirl's own, as on Linux.
+.if ${OPSYS} == "IRIX"
+post-configure:
+	${ECHO} 'OBJS += compat_readpassphrase.o' >> ${WRKSRC}/config.mk
+.endif
+
 SUBST_CLASSES+=		ssl
 SUBST_STAGE.ssl=	pre-configure
 SUBST_MESSAGE.ssl=	Correcting the hardcoded path to OpenSSL.
