@@ -4,3 +4,4 @@ BLAKE2s (dnscap-141.tar.gz) = 1885b4277f424cd0f19d841ad84a4d99e88fd113e9ac383773
 SHA512 (dnscap-141.tar.gz) = 848f8b5a8ad890738b1bcd7bc1fbf399e912aaf201362c40e5e4191fb3c7e61b0c296129733e52b130f3c2c6ad34743ec57626f04bb0d6b9b5b313bc5e11a3a1
 Size (dnscap-141.tar.gz) = 92801 bytes
 SHA1 (patch-Makefile.in) = 28bb12006e14967140e9c0a8088da6966aa2b971
+SHA1 (patch-dnscap.c) = ccba2560168f1cc088d32b9bae4430c6623f207f

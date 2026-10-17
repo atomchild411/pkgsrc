@@ -10,6 +10,7 @@ COMMENT=		Network capture utility designed specifically for DNS traffic
 LICENSE=		isc
 
 GNU_CONFIGURE=		yes
+USE_TOOLS+=		nroff
 
 .include "../../net/libpcap/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
