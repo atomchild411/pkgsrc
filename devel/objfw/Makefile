@@ -24,6 +24,13 @@ STACK_CHECK_SUPPORTED=	no
 
 .include "../../mk/bsd.prefs.mk"
 
+# A cross configure names the tools for the host (mipseb-sgi-irix6.5-objfw-
+# config and so on), for use beside a native ObjFW; the package is for the
+# host itself.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+MAKE_FLAGS+=	BIN_PREFIX=
+.endif
+
 PLIST_SRC=	PLIST
 PLIST_VARS+=	ddp ipx ofgctester sctp
 
