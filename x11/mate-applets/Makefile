@@ -25,7 +25,7 @@ INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples/mate-applets
 
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/sound/events
 
-.if ${OPSYS} != "Darwin" && ${OPSYS} != "SunOS"
+.if ${OPSYS} != "Darwin" && ${OPSYS} != "SunOS" && ${OPSYS} != "IRIX"
 CONF_FILES+=	${PREFIX}/share/examples/mate-applets/sound/events/mate-battstat_applet.soundlist \
 		${PKG_SYSCONFDIR}/sound/events/mate-battstat_applet.soundlist
 PLIST.batt=	yes
