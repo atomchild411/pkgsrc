@@ -8,3 +8,5 @@ SHA1 (patch-driver_XScreenSaver.ad.in) = 28a921f7506338cac25da20cfa7cbb900e5957c
 SHA1 (patch-driver_xscreensaver-settings.desktop.in) = 524d54cbc0e6baf491a176955fce75076240a395
 SHA1 (patch-driver_xscreensaver.desktop.in) = 2cd34016e705da23e54e32d7b282f1388f0e0419
 SHA1 (patch-hacks_glx_xshadertoy-compile.pl) = 939a50730e3a7a8f6006dbef4dc13f6202c449ef
+SHA1 (patch-hacks_screenhack.c) = a368d4ab58e7f2ccf4fd5979959e1b9fd0583381
+SHA1 (patch-hacks_xsublim.c) = 6de3f135f0062930b94b1a13101683ec953e3e89
