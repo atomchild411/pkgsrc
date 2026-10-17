@@ -16,6 +16,19 @@ _WRAP_EXTRA_ARGS.CXX+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cc+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 
-	
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "IRIX"
+# src/Makefile-helper.sh picks the compiler flags by the build host's
+# uname -s, so cross it gives none of libdnet and libpcap: give it the
+# NetBSD set, the pkgsrc one.
+SUBST_CLASSES+=		helper
+SUBST_STAGE.helper=	pre-build
+SUBST_MESSAGE.helper=	Taking the NetBSD (pkgsrc) flags.
+SUBST_FILES.helper=	src/Makefile-helper.sh
+SUBST_SED.helper=	-e 's|^sys=.*|sys=NetBSD|'
+.endif
+
 .include "../../net/libdnet/buildlink3.mk"
+.include "../../net/libpcap/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
