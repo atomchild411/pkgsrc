@@ -1,0 +1,34 @@
+$NetBSD$
+
+Look for libcurl, libjpeg and libpng when cross compiling too (they were
+only looked for natively, so --with-libcurl and friends then failed).
+
+--- configure.orig
++++ configure
+@@ -18353,7 +18353,7 @@
+ 
+ 
+ if test x$with_libcurl != xno; then
+-    if test x$build = x$host; then
++    if true; then
+         CFLAGS_BACKUP=$CFLAGS
+         LDFLAGS_BACKUP=$LDFLAGS
+         if test x$with_libcurl != xyes -a x$with_libcurl != xauto; then
+@@ -18529,7 +18529,7 @@
+ 
+ 
+ if test x$with_jpeg != xno; then
+-    if test x$build = x$host; then
++    if true; then
+         CFLAGS_BACKUP=$CFLAGS
+         LDFLAGS_BACKUP=$LDFLAGS
+         if test x$with_jpeg != xyes -a x$with_jpeg != xauto; then
+@@ -18706,7 +18706,7 @@
+ 
+ 
+ if test x$with_png != xno; then
+-    if test x$build = x$host; then
++    if true; then
+         CFLAGS_BACKUP=$CFLAGS
+         LDFLAGS_BACKUP=$LDFLAGS
+         if test x$with_png != xyes -a x$with_png != xauto; then
