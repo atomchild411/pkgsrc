@@ -38,4 +38,28 @@ REQD_FILES_PERMS+=	/dev/null ${AMANDA_VAR}/amandates ${AMANDA_USER} ${AMANDA_GRO
 
 SPECIAL_PERMS+=		sbin/amservice ${AM_PROG_PERMS}
 
+# genversion writes version.c (the build settings "amadmin version" shows),
+# and make_security_file amanda-security.conf; both are built for IRIX.
+# Cross-compiling: a short version.c, and make_security_file (stdio and
+# config.h only, not amanda.h and GLib) built for the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=			genversion
+SUBST_STAGE.genversion=		pre-configure
+SUBST_MESSAGE.genversion=	version.c without running genversion.
+SUBST_FILES.genversion=		common-src/Makefile.in
+SUBST_SED.genversion=		-e 's|\./genversion$$(EXEEXT) > version\.c|cp ${WRKDIR}/version-cross.c version.c|'
+SUBST_SED.genversion+=		-e 's|^	\./make_security_file$$|	${WRKDIR}/make_security_file-native|'
+post-configure: amanda-cross-version
+.PHONY: amanda-cross-version
+amanda-cross-version:
+	printf '%s\n' '/* version.c - cross-compiled: not from genversion */' \
+	    'const char * const version_info[] = {' \
+	    '  "  build: VERSION=\"Amanda-${AMANDA_VERSION}\"\n",' \
+	    '  0' '};' > ${WRKDIR}/version-cross.c
+	sed 's|^#include <amanda.h>|#include "config.h"\n#include <stdio.h>\n#include <stdlib.h>|' \
+	    ${WRKSRC}/common-src/make_security_file.c > ${WRKDIR}/msf.c
+	${NATIVE_CC} -I${WRKSRC}/config -o ${WRKDIR}/make_security_file-native \
+	    ${WRKDIR}/msf.c
+.endif
+
 .include "../../mk/bsd.pkg.mk"
