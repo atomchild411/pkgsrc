@@ -17,6 +17,9 @@ BUILD_DIRS=	platforms/bsd
 
 MAKE_FLAGS+=	CXX=${CXX}
 MAKE_FLAGS+=	GIT_VERSION="pkgsrc"
+# Its BSD makefile links GLEW only (pkg-config's glew gives -lGLEW alone);
+# IRIX's linker wants libGL named too.
+LDFLAGS.IRIX+=	-lGL
 
 # Uses alloca, cannot use standard C++ on NetBSD.
 FORCE_CXX_STD=	gnu++11
