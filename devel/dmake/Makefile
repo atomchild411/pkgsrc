@@ -22,6 +22,8 @@ INSTALLATION_DIRS=	bin share/dmake ${PKGMANDIR}/man1
 PLIST_SUBST+=	STARTUPOS=solaris
 .elif ${OPSYS} == "Darwin"
 PLIST_SUBST+=	STARTUPOS=macosx
+.elif ${OPSYS} == "IRIX"
+PLIST_SUBST+=	STARTUPOS=sysvr4
 .else
 PLIST_SUBST+=	STARTUPOS=linux
 .endif
