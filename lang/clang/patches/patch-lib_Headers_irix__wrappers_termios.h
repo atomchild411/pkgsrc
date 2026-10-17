@@ -5,10 +5,11 @@ branch iris/main):
 - <endian.h>, cfmakeraw, lchmod, get_nprocs
 - Declare POSIX functions IRIX hides outside SGI mode
 - compiler-rt: wcstoimax/wcstoumax before 6.5.22, ffsl, ffsll, cfsetspeed
+- <termios.h>: B230400 and B460800
 
 --- lib/Headers/irix_wrappers/termios.h.orig
 +++ lib/Headers/irix_wrappers/termios.h
-@@ -0,0 +1,37 @@
+@@ -0,0 +1,50 @@
 +/*===---- termios.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -42,6 +43,19 @@ branch iris/main):
 +pid_t tcgetsid(int);
 +#ifdef __cplusplus
 +}
++#endif
++#endif
++
++/* The speeds past B115200 that Linux and the BSDs name: with IRIX's numeric
++ * speeds (its new termios, the default), a speed is the rate itself, up to
++ * __NEW_MAX_BAUD (500000), and these are within it. Whether a port runs at
++ * one is its driver's to say. */
++#if !defined(_OLD_TERMIOS) && !_ABIAPI && defined(__NEW_MAX_BAUD)
++#ifndef B230400
++#define B230400 230400
++#endif
++#ifndef B460800
++#define B460800 460800
 +#endif
 +#endif
 +
