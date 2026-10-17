@@ -22,6 +22,12 @@ pre-configure:
 	cd ${WRKSRC} && autoconf
 	cd ${WRKSRC} && autoheader
 
+# hex-ify and c-ify run during the build: in a cross build, compile them
+# for the build machine.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+MAKE_ENV+=	HOSTCC=${NATIVE_CC:Q} HOSTCFLAGS=-O2
+.endif
+
 # Macs lacked clock_gettime way past its implement-by date.
 .if ${OPSYS} == "Darwin" && ${OPSYS_VERSION} < 101200
 LDFLAGS+=	-lMacportsLegacySupport
