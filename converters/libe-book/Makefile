@@ -26,6 +26,10 @@ CONFIGURE_ARGS+=	--without-docs
 
 PKGCONFIG_OVERRIDE+=	libe-book.pc.in
 
+# The library calls ICU's converters (libicuuc) but links libicui18n only;
+# IRIX's linker wants libicuuc named.
+LIBS.IRIX+=	-licuuc
+
 .include "../../converters/libwpd/buildlink3.mk"
 .include "../../converters/librevenge/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
