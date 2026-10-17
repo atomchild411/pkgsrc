@@ -20,12 +20,20 @@
  * Programs link it after libGL (pkgsrc: MesaLib's buildlink3.mk on IRIX),
  * so a libGL that exports a function itself still provides it.
  * glcompat.def lists the functions; mkglcompat.py makes it from IRIX's
- * <GL/gl.h> and the libraries' exported symbols.
+ * <GL/gl.h> and the libraries' exported symbols. glcompat-extra.def adds
+ * OpenGL 1.5 to 3.0 entry points (shaders, buffer, framebuffer and vertex
+ * array objects) that IRIX's header does not declare but programs call
+ * after checking the version (xscreensaver), from Khronos' <GL/glext.h>,
+ * each with its ARB or EXT twin.
  */
 
 #include <GL/gl.h>
 #include <GL/glx.h>
 #include <stddef.h>
+
+/* OpenGL 2.0's and 1.5's types, which IRIX's <GL/gl.h> does not have. */
+typedef char GLchar;
+typedef ptrdiff_t GLsizeiptr;
 
 typedef void (*glc_fn)(void);
 
@@ -66,3 +74,4 @@ glc_lookup(const char *name, const char *alt)
 	}
 
 #include "glcompat.def"
+#include "glcompat-extra.def"

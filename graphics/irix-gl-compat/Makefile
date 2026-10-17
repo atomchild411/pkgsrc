@@ -1,12 +1,13 @@
 # $NetBSD$
 
 DISTNAME=	irix-gl-compat-20261017
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	# none
 DISTFILES=	# none
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-COMMENT=	OpenGL 1.3/1.4 and extension entry points for IRIX's libGL
+COMMENT=	OpenGL 1.3 to 3.0 and extension entry points for IRIX's libGL
 LICENSE=	2-clause-bsd
 
 ONLY_FOR_PLATFORM=	IRIX-*-*
@@ -21,6 +22,7 @@ INSTALLATION_DIRS=	lib
 # through MesaLib's buildlink3.mk, which adds this library to -lGL.
 do-extract:
 	${CP} ${FILESDIR}/glcompat.c ${FILESDIR}/glcompat.def ${WRKSRC}/
+	${CP} ${FILESDIR}/glcompat-extra.def ${WRKSRC}/
 
 do-build:
 	cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -fPIC -shared		\

@@ -6,6 +6,7 @@ BUILDLINK_TREE+=	irix-gl-compat
 IRIX_GL_COMPAT_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.irix-gl-compat+=	irix-gl-compat>=20261017
+BUILDLINK_ABI_DEPENDS.irix-gl-compat+=	irix-gl-compat>=20261017nb1
 BUILDLINK_PKGSRCDIR.irix-gl-compat?=	../../graphics/irix-gl-compat
 .endif	# IRIX_GL_COMPAT_BUILDLINK3_MK
 

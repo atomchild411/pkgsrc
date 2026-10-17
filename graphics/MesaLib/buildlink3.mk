@@ -65,7 +65,7 @@ CWRAPPERS_PREPEND.cxx+=		-DAPIENTRY=
 # package's buildlink3.mk (an indirect dependency is not installed).
 .  include "../../graphics/irix-gl-compat/buildlink3.mk"
 .  if empty(DEPENDS:Mirix-gl-compat*)
-DEPENDS+=	irix-gl-compat>=20261017:../../graphics/irix-gl-compat
+DEPENDS+=	irix-gl-compat>=20261017nb1:../../graphics/irix-gl-compat
 BUILDLINK_TRANSFORM+=	l:GL:GL:GLcompat
 LDFLAGS+=	-Wl,--as-needed -lGLcompat -Wl,--no-as-needed
 .  endif
