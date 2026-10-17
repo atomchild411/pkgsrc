@@ -1,0 +1,19 @@
+$NetBSD$
+
+IRIX 6: shared libraries and plugins as on the BSDs and Linux (ELF, -soname).
+
+--- makedefs.orig
++++ makedefs
+@@ -672,6 +672,12 @@
+ 		# Use the native compiler by default, and allow nested comments.
+ 		: ${CC="cc -woff 1009,1116,1412"}
+ 		RANLIB=echo
++		: ${SHLIB_SUFFIX=.so}
++		: ${SHLIB_CFLAGS=-fPIC}
++		: ${SHLIB_LD="${CC} -shared"' -Wl,-soname,${LIB}'}
++		: ${SHLIB_RPATH='-Wl,-rpath,${SHLIB_DIR}'}
++		: ${SHLIB_ENV="LD_LIBRARYN32_PATH=`pwd`/lib"}
++		: ${PLUGIN_LD="${CC} -shared"}
+ 		;;
+ HP-UX.A.09.*)	SYSTYPE=HPUX9
+ 		SYSLIBS=-ldbm

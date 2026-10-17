@@ -141,10 +141,17 @@ LDFLAGS.Darwin+=	-headerpad_max_install_names
 
 DESTDIR_INSTALLOPTIONS=	-package install_root="${DESTDIR}"
 
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# makedefs runs a program for the default shlib_directory; give it.
+_POSTFIX_CROSS_ARGS=	shlib_directory=${PREFIX}/${SHLIBDIR}
+# main.cf.default is "postconf -d" output, which a cross build cannot run.
+MAKE_FLAGS+=		POSTCONF_DEFAULTS="echo '\# Built by cross compiling: run postconf -d for the defaults.'"
+.endif
+
 do-configure:
 	cd ${WRKSRC} &&							\
 	env ${MAKE_ENV} ${MAKE} -f Makefile.init makefiles		\
 		'CCARGS=${CCARGS}' 'AUXLIBS=${AUXLIBS}'			\
-		shared=yes dynamicmaps=yes
+		shared=yes dynamicmaps=yes ${_POSTFIX_CROSS_ARGS}
 
 .include "../../mk/bdb.buildlink3.mk"
