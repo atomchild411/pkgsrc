@@ -3,7 +3,7 @@
 .include "../../lang/llvm/version.mk"
 
 PKGNAME=	compiler-rt-${LLVM_VERSION}
-PKGREVISION=	22
+PKGREVISION=	23
 
 CATEGORIES=	lang devel
 
