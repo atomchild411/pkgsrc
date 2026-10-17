@@ -1,0 +1,65 @@
+$NetBSD$
+
+The endianness probe runs a program: a cached ac_cv_libnet_endianess (a cross build gives it) takes its place.
+The link-layer choice reads headers from ac_libnet_incdir (default /usr/include): a cross build names the target's.
+
+--- configure.orig
++++ configure
+@@ -3556,6 +3556,7 @@
+ echo "$as_me:$LINENO: checking machine endianess" >&5
+ echo $ECHO_N "checking machine endianess... $ECHO_C" >&6
+ 
++    if test "${ac_cv_libnet_endianess+set}" != set; then
+     cat > conftest.c << EOF
+ #       include <stdio.h>
+ #       include <stdlib.h>
+@@ -3606,6 +3607,7 @@
+             fi
+         fi
+         rm -f conftest* core core.conftest
++    fi
+ 
+         echo "$as_me:$LINENO: result: $ac_cv_libnet_endianess" >&5
+ echo "${ECHO_T}$ac_cv_libnet_endianess" >&6
+@@ -3852,11 +3854,12 @@
+ echo "$as_me:$LINENO: checking link-layer packet interface type" >&5
+ echo $ECHO_N "checking link-layer packet interface type... $ECHO_C" >&6
+ 
++ac_libnet_incdir=${ac_libnet_incdir-/usr/include}
+ if test -r /dev/bpf0 ; then
+     LIBOBJS="$LIBOBJS libnet_link_bpf.$ac_objext"
+     echo "$as_me:$LINENO: result: found bpf" >&5
+ echo "${ECHO_T}found bpf" >&6
+-elif test -r /usr/include/net/pfilt.h ; then
++elif test -r $ac_libnet_incdir/net/pfilt.h ; then
+     LIBOBJS="$LIBOBJS libnet_link_pf.$ac_objext"
+     echo "$as_me:$LINENO: result: found pf" >&5
+ echo "${ECHO_T}found pf" >&6
+@@ -3864,15 +3867,15 @@
+     LIBOBJS="$LIBOBJS libnet_link_snit.$ac_objext"
+     echo "$as_me:$LINENO: result: found snit" >&5
+ echo "${ECHO_T}found snit" >&6
+-elif test -r /usr/include/sys/net/nit.h ; then
++elif test -r $ac_libnet_incdir/sys/net/nit.h ; then
+     LIBOBJS="$LIBOBJS libnet_link_nit.$ac_objext"
+     echo "$as_me:$LINENO: result: found nit" >&5
+ echo "${ECHO_T}found nit" >&6
+-elif test -r /usr/include/net/raw.h ; then
++elif test -r $ac_libnet_incdir/net/raw.h ; then
+     LIBOBJS="$LIBOBJS libnet_link_snoop.$ac_objext"
+     echo "$as_me:$LINENO: result: found snoop" >&5
+ echo "${ECHO_T}found snoop" >&6
+-elif test -r /usr/include/sys/dlpi.h ; then
++elif test -r $ac_libnet_incdir/sys/dlpi.h ; then
+     LIBOBJS="$LIBOBJS libnet_link_dlpi.$ac_objext"
+     echo "$as_me:$LINENO: result: found dlpi" >&5
+ echo "${ECHO_T}found dlpi" >&6
+@@ -3880,7 +3883,7 @@
+ #define HAVE_DLPI 1
+ _ACEOF
+ 
+-elif test -r /usr/include/linux/socket.h ; then
++elif test -r $ac_libnet_incdir/linux/socket.h ; then
+     LIBOBJS="$LIBOBJS libnet_link_linux.$ac_objext"
+     echo "$as_me:$LINENO: result: found linux primitives" >&5
+ echo "${ECHO_T}found linux primitives" >&6

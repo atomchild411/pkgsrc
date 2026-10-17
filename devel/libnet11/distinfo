@@ -5,4 +5,5 @@ SHA512 (libnet-1.1.2.1.tar.gz) = 07ad785427ca9c608a2150095f0623edaefe99a09d06d20
 Size (libnet-1.1.2.1.tar.gz) = 1021236 bytes
 SHA1 (patch-aa) = 1756f4b78b60c2e5bb71d51f8128481999897426
 SHA1 (patch-ab) = 70a38d114f9d3a4e08cb55af5d3645b92526cdbb
+SHA1 (patch-configure) = 45bc211322b55e8aa3e847cff413b8f461fa57ec
 SHA1 (patch-src_libnet__build__gre.c) = fed914e913a361b615a62bba2dd2787bb5fa6f65

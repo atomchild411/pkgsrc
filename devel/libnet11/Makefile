@@ -17,6 +17,16 @@ WRKSRC=		${WRKDIR}/libnet
 GNU_CONFIGURE_LIBSUBDIR=	libnet11
 CONFIGURE_ARGS+=		--includedir=${PREFIX}/include/libnet11
 
+.include "../../mk/bsd.prefs.mk"
+# The endianness probe runs a program (patched to take this answer).
+.if ${USE_CROSS_COMPILE:tl} == "yes" && ${OPSYS} == "IRIX"
+CONFIGURE_ENV+=		ac_cv_libnet_endianess=big
+# The link-layer interface is chosen by the headers present. IRIX's would
+# give snoop, whose code has not kept up with libnet 1.1 (struct
+# libnet_link_int): none, so raw IP works and link-layer injection does not.
+CONFIGURE_ENV+=		ac_libnet_incdir=/nonexistent
+.endif
+
 LNDOCS=		DESIGN_NOTES MIGRATION PACKET_BUILDING RAWSOCKET_NON_SEQUITUR
 LNMAN=		libnet-functions.h.3 libnet-headers.h.3 libnet-macros.h.3 \
 		libnet.h.3 libnet_802_1q_hdr.3 libnet_802_1x_hdr.3
