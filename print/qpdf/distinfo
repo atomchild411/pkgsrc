@@ -4,3 +4,4 @@ BLAKE2s (qpdf-12.4.1.tar.gz) = 9c31d01dade142ed98a4c67461038529c21389a2fc015441c
 SHA512 (qpdf-12.4.1.tar.gz) = 5559bc662f82346fbc2967aa6c994eef786931aaa0c56432a107d4bb71a4c8ab479144e5c03ee9f05b9060b474001c608a4c5d4136cd3d16d1e60e1ced54a576
 Size (qpdf-12.4.1.tar.gz) = 19713921 bytes
 SHA1 (patch-libqpdf.pc.in) = 99a532531daba9308ab1e025fac044e7333fd0c4
+SHA1 (patch-qpdf_test__completion.cc) = 5e5f2c54cd1f06b35938f5daa71d30a368d409b3
