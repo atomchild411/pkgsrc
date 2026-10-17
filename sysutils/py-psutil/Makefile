@@ -2,7 +2,7 @@
 
 DISTNAME=	psutil-7.2.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=    3
+PKGREVISION=    4
 CATEGORIES=	sysutils python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/psutil/}
 
@@ -17,6 +17,17 @@ TEST_DEPENDS+=	${PYPKGPREFIX}-test-instafail>0:../../devel/py-test-instafail
 TEST_DEPENDS+=	${PYPKGPREFIX}-test-xdist>0:../../devel/py-test-xdist
 
 USE_TOOLS+=	gmake
+
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX: the platform module (procfs, sysmp, swapctl, utmpx).
+.if ${OPSYS} == "IRIX"
+post-extract:
+	${CP} ${FILESDIR}/_psirix.py ${FILESDIR}/_psutil_irix.c ${WRKSRC}/psutil/
+	${MKDIR} ${WRKSRC}/psutil/arch/irix
+	${CP} ${FILESDIR}/arch-irix/sysinfo.c ${FILESDIR}/arch-irix/sysinfo.h \
+		${WRKSRC}/psutil/arch/irix/
+.endif
 
 # as of 7.2.1
 # 3 failed, 303 passed, 285 skipped
