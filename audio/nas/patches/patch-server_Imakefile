@@ -1,0 +1,33 @@
+$NetBSD$
+
+SGIArchitecture builds SGI's server only (a cross build's imake also defines
+the build machine's linux, which chose voxware's too), with a rule for
+$(SGILIBS) as patch-ab has for $(VOXWARELIBS).
+
+--- server/Imakefile.orig
++++ server/Imakefile
+@@ -99,7 +99,9 @@
+ #if defined(i386SVR4Architecture) || defined(__FreeBSD_kernel__) || defined(__FreeBSD__) || defined(NetBSDArchitecture) || defined(FreeBSDArchitecture) || defined(LinuxArchitecture) || defined(i386BsdArchitecture) || defined(USLArchitecture) || defined(cygwinArchitecture) || defined(__DragonFly__) || defined(OpenBSDArchitecture)
+ # define CanBuildAuServer	YES
+ 
+-#if !defined(GNUMachArchitecture)
++/* A cross build's imake also defines the build machine's architecture
++ * (linux): SGI's own server, not voxware's, for SGIArchitecture. */
++#if !defined(GNUMachArchitecture) && !defined(SGIArchitecture)
+ # if defined(cygwinArchitecture)
+ ALL1 = nasd.exe
+ # else
+@@ -217,6 +219,13 @@
+ 	@(cd ${@D} && $(MAKE) $(MFLAGS) $(PARALLELMFLAGS) \		@@\ 
+ 		PassCDebugFlags all) || exit $$?
+ 
++#ifdef BuildSGIServer
++$(SGILIBS):
++	@echo "making all in $(CURRENT_DIR)/${@D}..."
++	@(cd ${@D} && $(MAKE) $(MFLAGS) $(PARALLELMFLAGS) \		@@\ 
++		PassCDebugFlags all) || exit $$?
++#endif
++
+ clean::
+ 	$(RM) $(ALL)
+ 

@@ -11,5 +11,7 @@ SHA1 (patch-ae) = 2e88c42f849ec2e3eb942f79d05065ec8ddd1a9e
 SHA1 (patch-af) = 9e387f88504d6ef18ad4210af24702de61efbf1a
 SHA1 (patch-ag) = bd9f832cb3a32fc75deb61a1eb1f4adddffe852e
 SHA1 (patch-clients_audio_auconvert_Imakefile) = 423e6123111fdc1c10943b2d73b0214ca037fdaa
+SHA1 (patch-server_Imakefile) = 0bca64cb78e22ddd93e3b1681f884e49c4319b34
+SHA1 (patch-server_dda_sgi_ausgi.c) = 20b1b6f6162cfc6dcff7d79b79b0386d97b99065
 SHA1 (patch-server_dia_auservertype.h) = 8ee2d064797837a1fcfd6c1389e09879f015cc9b
 SHA1 (patch-server_dia_lex.l) = dbfbf4adcad53034d633d59959d08a7464774b85

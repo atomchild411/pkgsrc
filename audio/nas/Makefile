@@ -18,6 +18,12 @@ MAKE_JOBS_SAFE=		no
 WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 USE_TOOLS+=		yacc lex makedepend
 USE_IMAKE=		yes
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# server/os's objects depend on the imake configuration files ($(ICONFIGFILES)
+# under IRULESRC), which a cross build has only with the build machine's imake.
+MAKE_FLAGS+=		IRULESRC=${TOOLBASE}/lib/X11/config
+.endif
 
 MAKE_FLAGS+=		CDEBUGFLAGS=${CFLAGS:Q}
 MAKE_FLAGS+=		EXTRA_LDOPTIONS=${LDFLAGS:Q}
@@ -79,6 +85,10 @@ post-install:
 	cd ${DESTDIR}${PREFIX}/lib && \
 		${LN} -s libaudio.so.2.4 libaudio.so.2 && \
 		${LN} -s libaudio.so.2 libaudio.so
+.elif ${OPSYS} == "IRIX"
+# sgiLib.rules installs libaudio.so.2.4 and libaudio.so, not the .2 link.
+post-install:
+	cd ${DESTDIR}${PREFIX}/lib && ${LN} -sf libaudio.so.2.4 libaudio.so.2
 .endif
 
 .include "../../x11/libX11/buildlink3.mk"
