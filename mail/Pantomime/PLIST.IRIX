@@ -1,0 +1,3 @@
+@comment $NetBSD$
+lib/GNUstep/Frameworks/Pantomime.framework/Versions/1.4/libPantomime.so.1.4
+lib/libPantomime.so.1.4
