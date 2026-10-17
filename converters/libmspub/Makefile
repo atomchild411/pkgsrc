@@ -32,5 +32,9 @@ CXXFLAGS+=	-Wno-error=unknown-pragmas -Wno-error=c++11-extensions
 .include "../../converters/librevenge/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+# The library calls ICU's uloc_* (libicuuc) but links libicui18n only;
+# IRIX's linker wants libicuuc named.
+LIBS.IRIX+=	-licuuc
+
 .include "../../textproc/icu/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
