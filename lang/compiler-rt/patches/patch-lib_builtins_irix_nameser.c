@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - <arpa/nameser.h>: BIND 8's names and message parser
+- compiler-rt: BIND 8's __p_rcode
 
 --- lib/builtins/irix/nameser.c.orig
 +++ lib/builtins/irix/nameser.c
-@@ -0,0 +1,207 @@
+@@ -0,0 +1,233 @@
 +//===-- irix/nameser.c - BIND 8's DNS message parser for IRIX -------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -21,6 +22,9 @@ branch iris/main):
 +// with IRIX's own dn_expand and dn_skipname (libc). Errors set errno:
 +// EMSGSIZE for a malformed message, ENODEV for a record that is not there.
 +//
++// Also BIND 8's __p_rcode (p_rcode, which glibc's and the BSDs' <resolv.h>
++// map to it): IRIX's libc has p_type and p_class but not this one.
++//
 +// Its own file, so a program is only given it when it asks for it.
 +//
 +//===----------------------------------------------------------------------===//
@@ -30,6 +34,7 @@ branch iris/main):
 +#include "irix_errno.h"
 +#include <arpa/nameser.h>
 +#include <errno.h>
++#include <stdio.h>
 +#include <string.h>
 +
 +// IRIX's, under their own names: <resolv.h> renames dn_expand.
@@ -211,6 +216,28 @@ branch iris/main):
 +  if (++handle->_rrnum > handle->_counts[(int)section])
 +    setsection(handle, (ns_sect)((int)section + 1));
 +  return 0;
++}
++
++// The response code's name, as BIND 8 prints it; another code as a number,
++// in a buffer the next call reuses.
++#pragma weak p_rcode = __p_rcode
++const char *__p_rcode(int rcode) {
++  static const char *const names[] = {
++      "NOERROR", "FORMERR", "SERVFAIL", "NXDOMAIN", "NOTIMP",  "REFUSED",
++      "YXDOMAIN", "YXRRSET", "NXRRSET", "NOTAUTH", "NOTZONE"};
++  static char buf[16];
++  if (rcode >= 0 && rcode < (int)(sizeof names / sizeof names[0]))
++    return names[rcode];
++  switch (rcode) {
++  case 16:
++    return "BADSIG";
++  case 17:
++    return "BADKEY";
++  case 18:
++    return "BADTIME";
++  }
++  snprintf(buf, sizeof buf, "%d", rcode);
++  return buf;
 +}
 +
 +#endif // defined(__sgi)
