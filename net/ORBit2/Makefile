@@ -35,6 +35,13 @@ CHECK_PORTABILITY_SKIP+=	configure.in
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# The build runs orbit-idl-2 on ORBit2's own IDL: the build machine's.
+TOOL_DEPENDS+=		ORBit2>=2.14.19:../../net/ORBit2
+CONFIGURE_ARGS+=	--with-idl-compiler=${TOOLBASE}/bin/orbit-idl-2
+.endif
+
 PKG_OPTIONS_VAR=	PKG_OPTIONS.ORBit2
 PKG_SUPPORTED_OPTIONS=	inet6
 PKG_SUGGESTED_OPTIONS=	inet6
