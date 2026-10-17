@@ -7,10 +7,11 @@ branch iris/main):
 - mkostemp; MAP_FILE
 - <sys/mman.h>: madvise and MADV_* in every mode
 - Headers: sys/mman.h drops SVR4's SHARED and PRIVATE
+- posix_madvise
 
 --- lib/Headers/irix_wrappers/sys/mman.h.orig
 +++ lib/Headers/irix_wrappers/sys/mman.h
-@@ -0,0 +1,71 @@
+@@ -0,0 +1,88 @@
 +/*===---- sys/mman.h - IRIX wrapper -----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -80,5 +81,22 @@ branch iris/main):
 +extern "C"
 +#endif
 +int madvise(void *, size_t, int);
++
++/* posix_madvise (POSIX), which IRIX lacks: compiler-rt's irix/mman.c takes
++ * the advice and does nothing with it, which POSIX allows. IRIX's madvise
++ * would not help: it refuses MADV_NORMAL, MADV_RANDOM, MADV_SEQUENTIAL and
++ * MADV_WILLNEED (EINVAL), and its MADV_DONTNEED may discard the pages'
++ * contents, where POSIX's is advice only. */
++#ifndef POSIX_MADV_NORMAL
++#define POSIX_MADV_NORMAL 0
++#define POSIX_MADV_RANDOM 1
++#define POSIX_MADV_SEQUENTIAL 2
++#define POSIX_MADV_WILLNEED 3
++#define POSIX_MADV_DONTNEED 4
++#endif
++#ifdef __cplusplus
++extern "C"
++#endif
++int posix_madvise(void *, size_t, int);
 +
 +#endif /* __CLANG_IRIX_SYS_MMAN_H */

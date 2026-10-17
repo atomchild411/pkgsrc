@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - MAP_ANON through /dev/zero
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
+- posix_madvise
 
 --- lib/builtins/irix/mman.c.orig
 +++ lib/builtins/irix/mman.c
-@@ -0,0 +1,72 @@
+@@ -0,0 +1,85 @@
 +//===-- irix/mman.c - MAP_ANON for IRIX -----------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -23,6 +24,11 @@ branch iris/main):
 +// fork as asked. Private ones get MAP_AUTORESRV, so swap is reserved when
 +// pages are first written rather than for the whole range at once. The
 +// descriptor argument is ignored, as POSIX allows for MAP_ANON.
++//
++// posix_madvise, which IRIX lacks: the advice is checked and then ignored,
++// as POSIX allows. IRIX's madvise refuses MADV_NORMAL, MADV_RANDOM,
++// MADV_SEQUENTIAL and MADV_WILLNEED (EINVAL), and its MADV_DONTNEED may
++// discard the pages' contents, where POSIX's is advice only.
 +//
 +// Its own file, so a program is only given these when it asks for them.
 +//
@@ -77,6 +83,14 @@ branch iris/main):
 +  if (!(flags & __IRIX_MAP_ANON))
 +    return __irix_libc_mmap64(addr, len, prot, flags, fd, off);
 +  return __irix_mmap(addr, len, prot, flags, -1, 0);
++}
++
++int posix_madvise(void *addr, size_t len, int advice) {
++  (void)addr;
++  (void)len;
++  if (advice < POSIX_MADV_NORMAL || advice > POSIX_MADV_DONTNEED)
++    return EINVAL;
++  return 0;
 +}
 +
 +#endif // defined(__sgi)
