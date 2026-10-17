@@ -23,6 +23,14 @@ LDFLAGS+=	-llua
 
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/cmake/build.mk"
+# IRIX: the executable's own path is where it is installed (Paths.cpp).
+SUBST_CLASSES.IRIX+=	prefix
+SUBST_STAGE.prefix=	pre-configure
+SUBST_FILES.prefix=	source/Paths.cpp
+SUBST_VARS.prefix=	PREFIX
+
+# luaL_requiref, luaL_setfuncs: Lua 5.2 or later.
+LUA_VERSIONS_INCOMPATIBLE=	51
 .include "../../lang/lua/buildlink3.mk"
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
