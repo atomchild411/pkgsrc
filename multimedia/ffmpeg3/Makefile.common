@@ -52,6 +52,15 @@ CONFIGURE_ENV+=		bigendian=yes
 CFLAGS.NetBSD+=		-march=mips4
 .endif
 
+# IRIX: clang's assembler passes the DSP and MSA probes, but an R5000 or
+# R10000 has neither (and MSA's -mmsa stayed in CFLAGS: a backend error).
+# The MIPS FPU inline assembly is for MIPS32's registers (in n32 clang
+# cannot allocate them).
+.if ${OPSYS} == "IRIX"
+CONFIGURE_ARGS+=	--disable-mipsdsp --disable-mipsdspr2 --disable-msa
+CONFIGURE_ARGS+=	--disable-mipsfpu
+.endif
+
 # altivec support is detected at runtime, and only code that is gated
 # on the runtime detection can use it.  The code in ffmpeg that is
 # gated on the runtime detection doesn't need -maltivec -mabi=altivec.
