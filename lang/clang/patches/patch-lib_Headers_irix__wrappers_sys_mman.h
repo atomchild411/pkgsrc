@@ -6,10 +6,11 @@ branch iris/main):
 - MAP_ANON: work when MAP_ANONYMOUS was defined first
 - mkostemp; MAP_FILE
 - <sys/mman.h>: madvise and MADV_* in every mode
+- Headers: sys/mman.h drops SVR4's SHARED and PRIVATE
 
 --- lib/Headers/irix_wrappers/sys/mman.h.orig
 +++ lib/Headers/irix_wrappers/sys/mman.h
-@@ -0,0 +1,61 @@
+@@ -0,0 +1,71 @@
 +/*===---- sys/mman.h - IRIX wrapper -----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -30,6 +31,16 @@ branch iris/main):
 +#define __CLANG_IRIX_SYS_MMAN_H
 +
 +#include_next <sys/mman.h>
++
++/* SVR4's memcntl flags SHARED and PRIVATE, which IRIX defines in SGI mode
++ * for a memcntl it does not implement: as bare macro names they broke
++ * programs' own SHARED and PRIVATE (an enum in bitcoin). */
++#if defined(SHARED) && SHARED == 0x10
++#undef SHARED
++#endif
++#if defined(PRIVATE) && PRIVATE == 0x20
++#undef PRIVATE
++#endif
 +
 +/* Code that defines MAP_ANONYMOUS as MAP_ANON (or the reverse) before
 + * including this header gets the same bit. */
