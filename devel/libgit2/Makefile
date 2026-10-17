@@ -21,6 +21,12 @@ TEST_TARGET=		test
 
 CMAKE_CONFIGURE_ARGS+=	-DREGEX_BACKEND="pcre2"
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The tests call futimes(), which IRIX does not have (the library does not).
+.if ${OPSYS} == "IRIX"
+CMAKE_CONFIGURE_ARGS+=	-DBUILD_TESTS=OFF
+.endif
+
 PKGCONFIG_OVERRIDE+=		${CMAKE_BUILD_DIR}/libgit2.pc
 PKGCONFIG_OVERRIDE_STAGE=	pre-install
 
