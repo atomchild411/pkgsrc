@@ -70,6 +70,8 @@ CONFIGURE_ARGS+=	--disable-docker-plugin
 CONFIGURE_ARGS.Linux+=	--enable-smartalloc
 
 CONFIGURE_ARGS.DragonFly+=	--disable-xattr
+# IRIX has <sys/acl.h>, but bacula has no ACL code for it (no new_bacl).
+CONFIGURE_ARGS.IRIX+=	--disable-acl
 
 REPLACE_PERL+=		scripts/get_malware_abuse.ch
 
