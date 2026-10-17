@@ -68,6 +68,13 @@ _MESON_ARGS=	${MESON_ARGS}
 MESON_CROSS_ARGS+=	--cross-file ${MESON_CROSS_FILE:Q}
 meson-configure: ${MESON_CROSS_FILE}
 
+# A cross meson finds the host's C and C++ compilers in CC and CXX, but
+# knows no default for Objective-C: give it the C compiler, which pkgsrc
+# uses for Objective-C.
+.  if !empty(USE_LANGUAGES:Mobjc)
+MAKE_ENV+=		OBJC=${CC:Q}
+.  endif
+
 
 # The cross file turns these off (see above); the packages' own settings
 # would override it.
