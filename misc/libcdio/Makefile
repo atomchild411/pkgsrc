@@ -28,6 +28,14 @@ TEST_TARGET=		check
 # fix linking of cdda_player
 MAKE_FLAGS.NetBSD+=	CURTERMLIB=-lterminfo
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# help2man would run the programs just built to write their man pages
+# again: keep the ones the distfile has.
+MAKE_FLAGS+=	HELP2MAN=true
+.endif
+
 .include "../../audio/libcddb/buildlink3.mk"
 .include "../../devel/popt/buildlink3.mk"
 .include "../../mk/curses.buildlink3.mk"
