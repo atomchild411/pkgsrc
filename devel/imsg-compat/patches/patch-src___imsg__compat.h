@@ -2,10 +2,11 @@ $NetBSD: patch-src___imsg__compat.h,v 1.3 2025/07/27 14:37:38 vins Exp $
 
 * Define PATH_MAX on NetBSD.
 * Do not warn about unused parameters.
+* Elsewhere (IRIX) PATH_MAX is in <limits.h>.
 
---- src/_imsg_compat.h.orig	2024-09-04 22:07:27.000000000 +0000
+--- src/_imsg_compat.h.orig
 +++ src/_imsg_compat.h
-@@ -27,13 +27,21 @@
+@@ -27,13 +27,23 @@
  #include <string.h>
  #include <unistd.h>
  
@@ -14,6 +15,8 @@ $NetBSD: patch-src___imsg__compat.h,v 1.3 2025/07/27 14:37:38 vins Exp $
  # include <linux/limits.h>
 +#elif defined(__NetBSD__)
 +# include <sys/syslimits.h>
++#else
++# include <limits.h>
 +#endif
 +
 +#ifdef __GNUC__
