@@ -75,10 +75,23 @@ meson-configure: ${MESON_CROSS_FILE}
 MAKE_ENV+=		OBJC=${CC:Q}
 .  endif
 
+# Programs a build runs (generators) need the build machine's compilers,
+# which a cross meson takes from CC_FOR_BUILD and CXX_FOR_BUILD; meson
+# setup runs with MAKE_ENV, not CONFIGURE_ENV.
+.  if defined(NATIVE_CC)
+MAKE_ENV+=		CC_FOR_BUILD=${NATIVE_CC:Q}
+.  endif
+.  if defined(NATIVE_CXX)
+MAKE_ENV+=		CXX_FOR_BUILD=${NATIVE_CXX:Q}
+.  endif
+
 
 # The cross file turns these off (see above); the packages' own settings
 # would override it.
-_MESON_ARGS=	${MESON_ARGS:N-Dintrospection=*:N-Dgir=*:N-Dvapi=*}
+_MESON_CROSS_NO_GIR=	introspection gir vapi gobject_introspection \
+			enable-introspection enable_introspection \
+			with_introspection enable-vala enable_vala with_vapi
+_MESON_ARGS=		${MESON_ARGS:${_MESON_CROSS_NO_GIR:@o@N-D${o}=*@:ts:}}
 .endif				# ${USE_CROSS_COMPILE:U:tl} == yes
 
 .if defined(USE_PKGLOCALEDIR) && ${USE_PKGLOCALEDIR:tl} != "no"

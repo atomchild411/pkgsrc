@@ -2,13 +2,16 @@
 #
 # Reads a project's meson_options.txt or meson.options and prints, for a
 # cross file's [project options], its introspection, gir and vapi options
-# turned off: introspection data cannot be made in a cross build (g-ir-scanner
+# (and their other spellings: gobject_introspection, enable-introspection,
+# with_vapi, enable-vala, ...) turned off: introspection data cannot be made in a cross build (g-ir-scanner
 # runs programs built for the target), and the Vala bindings come from it.
 
 { buf = buf " " $0 }
 
 END {
-	n = split("introspection gir vapi", names, " ")
+	n = split("introspection gir vapi gobject_introspection " \
+	    "enable-introspection enable_introspection with_introspection " \
+	    "enable-vala enable_vala with_vapi", names, " ")
 	for (i = 1; i <= n; i++) {
 		if (!match(buf, "option[ \t]*\\([ \t]*['\"]" names[i] "['\"]"))
 			continue
