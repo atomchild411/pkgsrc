@@ -1,0 +1,8 @@
+/* iconv-detect.h for IRIX, as iconv-detect.c writes it when run against
+ * GNU libiconv (converters/libiconv, 1.19), which gmime uses there. A cross
+ * build cannot run it. */
+
+#define ICONV_ISO_INT_FORMAT "iso-%u-%u"
+#define ICONV_ISO_STR_FORMAT "iso-%u-%s"
+#define ICONV_SHIFT_JIS "shift-jis"
+#define ICONV_10646 "UCS-4BE"

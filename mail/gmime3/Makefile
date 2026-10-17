@@ -26,6 +26,17 @@ PKGCONFIG_OVERRIDE+=	gmime.pc.in
 # https://github.com/jstedfast/gmime/issues/81
 TEST_TARGET=		check
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:tl} == "yes" && exists(${FILESDIR}/iconv-detect.h.${OPSYS})
+# iconv-detect would run on the build machine: its answers for the target.
+CONFIGURE_ENV+=		ac_cv_have_iconv_detect_h=yes
+pre-configure: gmime3-iconv-detect
+.PHONY: gmime3-iconv-detect
+gmime3-iconv-detect:
+	${CP} ${FILESDIR}/iconv-detect.h.${OPSYS} ${WRKSRC}/iconv-detect.h
+.endif
+
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/gpgme/buildlink3.mk"
