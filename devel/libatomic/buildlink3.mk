@@ -1,5 +1,17 @@
 # $NetBSD: buildlink3.mk,v 1.5 2024/03/10 10:18:21 he Exp $
 
+.include "../../mk/bsd.fast.prefs.mk"
+
+.if ${OPSYS} == "IRIX"
+# IRIX: the clang toolchain's compiler-rt builtins, which every link
+# takes, have the __atomic_* calls libatomic provides (and this package,
+# GCC's, does not build with clang): nothing to depend on, and an explicit
+# -latomic is dropped.
+.  if !defined(LIBATOMIC_BUILDLINK3_MK)
+LIBATOMIC_BUILDLINK3_MK:=
+BUILDLINK_TRANSFORM+=	rm:-latomic
+.  endif
+.else
 BUILDLINK_TREE+=	libatomic
 
 .if !defined(LIBATOMIC_BUILDLINK3_MK)
@@ -21,3 +33,4 @@ RUSTFLAGS+=	-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX}/lib
 .endif
 
 BUILDLINK_TREE+=	-libatomic
+.endif
