@@ -6,8 +6,8 @@ bin/bitcoin-util
 bin/bitcoin-wallet
 bin/bitcoind
 libexec/bench_bitcoin
-${PLIST.qt}libexec/bitcoin-gui
-libexec/bitcoin-node
+${PLIST.ipc}${PLIST.qt}libexec/bitcoin-gui
+${PLIST.ipc}libexec/bitcoin-node
 man/man1/bitcoin-cli.1
 ${PLIST.qt}man/man1/bitcoin-qt.1
 man/man1/bitcoin-util.1

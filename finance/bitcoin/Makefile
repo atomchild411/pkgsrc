@@ -39,6 +39,16 @@ USE_PKGSRC_GCC=		yes
 USE_PKGSRC_GCC_RUNTIME=	yes
 .endif
 
+# The multiprocess executables (bitcoin-node, bitcoin-gui) need mpgen,
+# which the build runs: cross-compiling it is built for the target, so
+# leave them out.
+PLIST_VARS+=		ipc
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=	-DENABLE_IPC=OFF
+.else
+PLIST.ipc=		yes
+.endif
+
 # pkgsrc's db4 package installs as db4_, but bitcoin looks for db_.
 BUILDLINK_TRANSFORM+=	l:db_cxx:db4_cxx
 
