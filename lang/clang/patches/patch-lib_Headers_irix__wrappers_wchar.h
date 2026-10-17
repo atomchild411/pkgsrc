@@ -11,11 +11,12 @@ branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
 - POSIX 2008 *_l functions: ctype, wctype and collation
 - swscanf, fwscanf, wscanf and their v forms
-- mbsnrtowcs and wcsnrtombs
+- [IRIX] mbsnrtowcs and wcsnrtombs
+- <wchar.h>: wcsncasecmp
 
 --- lib/Headers/irix_wrappers/wchar.h.orig
 +++ lib/Headers/irix_wrappers/wchar.h
-@@ -0,0 +1,196 @@
+@@ -0,0 +1,197 @@
 +/*===---- wchar.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -156,6 +157,7 @@ branch iris/main):
 +size_t wcsnlen(const wchar_t *, size_t);
 +wchar_t *wcsdup(const wchar_t *);
 +int wcscasecmp(const wchar_t *, const wchar_t *);
++int wcsncasecmp(const wchar_t *, const wchar_t *, size_t);
 +#ifdef __cplusplus
 +}
 +#endif
