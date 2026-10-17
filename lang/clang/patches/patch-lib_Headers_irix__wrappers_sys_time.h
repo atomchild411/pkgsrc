@@ -5,11 +5,12 @@ branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
 - Declare the BSD functions IRIX hides outside SGI mode
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
-- struct timeval and struct itimerval in every mode
+- [Headers][IRIX] struct timeval and itimerval in every mode
+- Headers: sys/time.h, TIMEVAL_TO_TIMESPEC and TIMESPEC_TO_TIMEVAL
 
 --- lib/Headers/irix_wrappers/sys/time.h.orig
 +++ lib/Headers/irix_wrappers/sys/time.h
-@@ -0,0 +1,103 @@
+@@ -0,0 +1,120 @@
 +/*===---- sys/time.h - IRIX wrapper -----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -109,6 +110,23 @@ branch iris/main):
 +      --(result)->tv_sec;                                                      \
 +      (result)->tv_usec += 1000000;                                            \
 +    }                                                                          \
++  } while (0)
++#endif
++
++/* The BSDs' and glibc's timeval <-> timespec conversions (libfprint,
++ * pdns-recursor), outside strict standard modes as there. */
++#if (_SGIAPI || defined(_BSD_COMPAT) || defined(_BSD_SOURCE) ||               \
++     defined(_DEFAULT_SOURCE) || defined(_GNU_SOURCE)) &&                     \
++    !defined(TIMEVAL_TO_TIMESPEC)
++#define TIMEVAL_TO_TIMESPEC(tv, ts)                                            \
++  do {                                                                         \
++    (ts)->tv_sec = (tv)->tv_sec;                                               \
++    (ts)->tv_nsec = (tv)->tv_usec * 1000;                                      \
++  } while (0)
++#define TIMESPEC_TO_TIMEVAL(tv, ts)                                            \
++  do {                                                                         \
++    (tv)->tv_sec = (ts)->tv_sec;                                               \
++    (tv)->tv_usec = (ts)->tv_nsec / 1000;                                      \
 +  } while (0)
 +#endif
 +
