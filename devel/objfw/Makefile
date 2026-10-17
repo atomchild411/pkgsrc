@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.71 2026/07/03 22:07:19 js Exp $
 
 DISTNAME=	objfw-1.5.7
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://objfw.nil.im/downloads/
 
@@ -29,6 +30,19 @@ STACK_CHECK_SUPPORTED=	no
 # host itself.
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 MAKE_FLAGS+=	BIN_PREFIX=
+.endif
+
+# IRIX's clang gives a C or Objective-C link no unwinder (elsewhere the
+# compiler adds libgcc_s as needed), and lld does not look through
+# libobjfw's own DT_NEEDED for _Unwind_Resume: objfw-config names the one
+# configure found, libc++abi.
+.if ${OPSYS} == "IRIX"
+SUBST_CLASSES+=		unwind
+SUBST_STAGE.unwind=	pre-configure
+SUBST_MESSAGE.unwind=	Naming the unwinder in objfw-config.
+SUBST_FILES.unwind=	utils/objfw-config.in
+SUBST_SED.unwind=	-e '/^LIBS=/s|@OBJFW_LIBS@"|@OBJFW_LIBS@ -lc++abi"|'
+SUBST_SED.unwind+=	-e '/^STATIC_LIBS=/s|@OBJFW_LIBS@"|@OBJFW_LIBS@ -lc++abi"|'
 .endif
 
 PLIST_SRC=	PLIST
