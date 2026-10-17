@@ -26,6 +26,13 @@ CFLAGS+=	-DMSB_FIRST
 
 .include "../../mk/bsd.prefs.mk"
 
+# clang predefines "mips" (as MIPSpro does) in GNU modes; the MIPS III core
+# calls its state pointer mips.
+CFLAGS.IRIX+=	-Umips
+# retrofile.c asks for X/Open 500 and pread64/pwrite64, which IRIX declares
+# only in SGI mode; n32's off_t is 64 bits, and they are pread/pwrite.
+CFLAGS.IRIX+=	-Dpread64=pread -Dpwrite64=pwrite
+
 .if !empty(OPSYS:M*BSD) || ${OPSYS} == "DragonFly"
 CFLAGS+=	-DSDLMAME_BSD
 .endif
