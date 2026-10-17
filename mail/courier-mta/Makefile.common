@@ -56,3 +56,18 @@ CONFIGURE_ENV+=		SYSCONFTOOL_PERL=${PERL5:Q}
 .include "../../devel/libidn2/buildlink3.mk"
 .include "../../mail/courier-unicode/buildlink3.mk"
 .include "../../devel/pcre2/buildlink3.mk"
+
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# liblock picks its locking method, and couriertcpd its wait function,
+# with run tests.
+CONFIGURE_ARGS+=	--with-locking-method=fcntl
+CONFIGURE_ARGS+=	--with-waitfunc=wait3
+.endif
+
+# configure writes ${WRKSRC}/version for the sub-configures; after them it
+# only gets in the way: with -I../.. it is C++'s <version> (libc++).
+post-configure: courier-hide-version
+.PHONY: courier-hide-version
+courier-hide-version:
+	${RUN} if [ -f ${WRKSRC}/version ]; then ${MV} ${WRKSRC}/version ${WRKSRC}/version.txt; fi
