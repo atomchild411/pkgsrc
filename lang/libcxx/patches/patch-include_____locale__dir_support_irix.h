@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - libc++: support IRIX 6.5
 - The C95/C99 library IRIX 6.5.7 lacks, and wide characters in libc++
+- libc++: locale support calls ::snprintf and ::sscanf
 
 --- include/__locale_dir/support/irix.h.orig
 +++ include/__locale_dir/support/irix.h
-@@ -0,0 +1,274 @@
+@@ -0,0 +1,276 @@
 +//===-----------------------------------------------------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -242,7 +243,9 @@ branch iris/main):
 +template <class... _Args>
 +_LIBCPP_HIDE_FROM_ABI _LIBCPP_VARIADIC_ATTRIBUTE_FORMAT(__printf__, 4, 5) int __snprintf(
 +    char* __s, size_t __n, __locale_t, const char* __format, _Args&&... __args) {
-+  return std::snprintf(__s, __n, __format, std::forward<_Args>(__args)...);
++  // ::, not std::: a program's own snprintf macro (PHP's ap_php_snprintf)
++  // then names its global function, not a std:: one that does not exist.
++  return ::snprintf(__s, __n, __format, std::forward<_Args>(__args)...);
 +}
 +
 +// IRIX has no asprintf, and its pre-C99 snprintf does not report the length
@@ -257,7 +260,7 @@ branch iris/main):
 +      *__s = nullptr;
 +      return -1;
 +    }
-+    int __r = std::snprintf(__buf, __size, __format, __args...);
++    int __r = ::snprintf(__buf, __size, __format, __args...);
 +    if (__r >= 0 && static_cast<size_t>(__r) < __size - 1) {
 +      *__s = __buf;
 +      return __r;
@@ -270,7 +273,7 @@ branch iris/main):
 +template <class... _Args>
 +_LIBCPP_HIDE_FROM_ABI _LIBCPP_VARIADIC_ATTRIBUTE_FORMAT(__scanf__, 3, 4) int __sscanf(
 +    const char* __s, __locale_t, const char* __format, _Args&&... __args) {
-+  return std::sscanf(__s, __format, std::forward<_Args>(__args)...);
++  return ::sscanf(__s, __format, std::forward<_Args>(__args)...);
 +}
 +
 +_LIBCPP_DIAGNOSTIC_POP
