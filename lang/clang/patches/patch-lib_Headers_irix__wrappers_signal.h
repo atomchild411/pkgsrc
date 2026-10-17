@@ -6,11 +6,12 @@ branch iris/main):
 - Declare the BSD functions IRIX hides outside SGI mode
 - timespec in wrapper prototypes: the tag IRIX uses in the mode
 - Wrapper headers: u_int64_t, CRTSCTS, <strings.h>, sig_t, IOV_MAX
-- NSIG and _NSIG outside SGI mode
+- <signal.h>: NSIG and _NSIG outside SGI mode
+- <signal.h>: sig_t with the glibc feature macros; sighandler_t
 
 --- lib/Headers/irix_wrappers/signal.h.orig
 +++ lib/Headers/irix_wrappers/signal.h
-@@ -0,0 +1,81 @@
+@@ -0,0 +1,90 @@
 +/*===---- signal.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -73,8 +74,11 @@ branch iris/main):
 +#endif
 +#endif
 +
-+/* sig_t: the BSD name for a signal handler's type, which glibc gives too. */
-+#if !defined(__STRICT_ANSI__) && !defined(__CLANG_IRIX_SIG_T)
++/* sig_t: the BSD name for a signal handler's type, which glibc gives too
++ * (in strict C modes, with _BSD_SOURCE, _DEFAULT_SOURCE or _GNU_SOURCE). */
++#if (!defined(__STRICT_ANSI__) || defined(_BSD_SOURCE) ||                     \
++     defined(_DEFAULT_SOURCE) || defined(_GNU_SOURCE)) &&                      \
++    !defined(__CLANG_IRIX_SIG_T)
 +#define __CLANG_IRIX_SIG_T
 +typedef void (*sig_t)(int);
 +#endif
@@ -89,6 +93,12 @@ branch iris/main):
 +#ifndef _NSIG
 +#define _NSIG NSIG
 +#endif
++#endif
++
++/* glibc's _GNU_SOURCE name for a handler's type (IRIX calls it SIG_PF; its
++ * own __sighandler_t is a structure, not this). */
++#if defined(_GNU_SOURCE)
++typedef void (*sighandler_t)(int);
 +#endif
 +
 +#endif /* __CLANG_IRIX_SIGNAL_H */
