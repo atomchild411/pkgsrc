@@ -10,10 +10,11 @@ branch iris/main):
 - Wrapper <sys/socket.h>: msg_namelen is a socklen_t
 - [Headers][IRIX] struct sockaddr without the sa_family macros
 - MSG_NOSIGNAL for send, sendto and sendmsg
+- SOCK_NONBLOCK, SOCK_CLOEXEC and accept4
 
 --- lib/Headers/irix_wrappers/sys/socket.h.orig
 +++ lib/Headers/irix_wrappers/sys/socket.h
-@@ -0,0 +1,182 @@
+@@ -0,0 +1,209 @@
 +/*===---- sys/socket.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -50,6 +51,8 @@ branch iris/main):
 + * compiler-rt's irix/socket.c, which clears a bit IRIX's kernel leaves in
 + * msg_flags that no MSG_ flag names). CMSG_SPACE, CMSG_LEN
 + * and SCM_RIGHTS are defined where IRIX hides them.
++ *
++ * SOCK_NONBLOCK and SOCK_CLOEXEC, and accept4: below.
 + */
 +
 +#ifndef __CLANG_IRIX_SYS_SOCKET_H
@@ -62,6 +65,8 @@ branch iris/main):
 +#define recvmsg __irix_bsd43_recvmsg
 +#define getsockname __irix_libc_getsockname
 +#define getpeername __irix_libc_getpeername
++#define socket __irix_libc_socket
++#define socketpair __irix_libc_socketpair
 +/* IRIX's struct sockaddr (and sockaddr_new) wraps its fields in
 + * union { struct { ... } sa_generic; int sa_align; } sa_union and reaches
 + * them through macros: sa_family is sa_union.sa_generic.sa_family2, and so
@@ -105,6 +110,8 @@ branch iris/main):
 +#undef recvmsg
 +#undef getsockname
 +#undef getpeername
++#undef socket
++#undef socketpair
 +#undef msg_control
 +#undef msg_controllen
 +
@@ -153,6 +160,27 @@ branch iris/main):
 +ssize_t send(int, const void *, size_t, int) __asm__("__irix_send");
 +ssize_t sendto(int, const void *, size_t, int, const struct sockaddr *,
 +               socklen_t) __asm__("__irix_sendto");
++#ifdef __cplusplus
++}
++#endif
++
++/* SOCK_NONBLOCK and SOCK_CLOEXEC (Linux's, the BSDs', POSIX 2024's), which
++ * IRIX lacks: flags or'ed into the type, in bits IRIX's types (1 to 6) do
++ * not use (the BSDs' values), and socket, socketpair and accept4 bound to
++ * compiler-rt's irix/socket.c, which opens the descriptors without them and
++ * then sets O_NONBLOCK and FD_CLOEXEC with fcntl. That is not atomic: a fork
++ * in another thread just then can inherit the descriptor. accept4 is
++ * accept with them. Without the flags, socket and socketpair are IRIX's. */
++#ifndef SOCK_CLOEXEC
++#define SOCK_CLOEXEC 0x10000000
++#define SOCK_NONBLOCK 0x20000000
++#endif
++#ifdef __cplusplus
++extern "C" {
++#endif
++int socket(int, int, int) __asm__("__irix_socket");
++int socketpair(int, int, int, int *) __asm__("__irix_socketpair");
++int accept4(int, struct sockaddr *__restrict, socklen_t *__restrict, int);
 +#ifdef __cplusplus
 +}
 +#endif
