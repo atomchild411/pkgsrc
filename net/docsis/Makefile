@@ -13,5 +13,6 @@ COMMENT=		Utility for manipulating DOCSIS-compliant cable modems
 GNU_CONFIGURE=		YES
 USE_TOOLS+=		gm4 bison
 
+.include "../../devel/flex/buildlink3.mk"
 .include "../../net/net-snmp/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

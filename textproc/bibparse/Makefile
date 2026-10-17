@@ -14,4 +14,5 @@ USE_TOOLS+=	yacc
 
 TEST_TARGET=	check
 
+.include "../../devel/flex/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
