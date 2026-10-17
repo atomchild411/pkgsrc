@@ -4,10 +4,11 @@ Newer Linuxen (2018 Arch here) have moved makedev(3) and friends
 from <sys/types.h> to <sys/sysmacros.h>
 
 Fix for Radmind bug #221, accomodating for 64 bit time_t
+IRIX, like Solaris, has makedev in <sys/mkdev.h>.
 
---- update.c.orig	2010-12-13 03:42:49.000000000 +0000
+--- update.c.orig
 +++ update.c
-@@ -6,6 +6,9 @@
+@@ -6,9 +6,12 @@
  #include "config.h"
  
  #include <sys/types.h>
@@ -16,7 +17,11 @@ Fix for Radmind bug #221, accomodating for 64 bit time_t
 +#endif
  #include <sys/stat.h>
  #include <sys/param.h>
- #ifdef sun
+-#ifdef sun
++#if defined(sun) || defined(__sgi)
+ #include <sys/mkdev.h>
+ #endif /* sun */
+ #ifdef __APPLE__
 @@ -26,6 +29,7 @@
  #include "update.h"
  #include "code.h"
@@ -25,7 +30,7 @@ Fix for Radmind bug #221, accomodating for 64 bit time_t
  #include "transcript.h"
  #include "progress.h"
  #include "mkdirs.h"
-@@ -73,7 +77,7 @@ update( char *path, char *displaypath, i
+@@ -73,7 +77,7 @@
  
  	mode = strtol( targv[ 2 ], (char **)NULL, 8 );
  

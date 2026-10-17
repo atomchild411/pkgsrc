@@ -21,5 +21,5 @@ SHA1 (patch-ra.sh) = 05ba697814bf4833a9c38f881e43639067afba29
 SHA1 (patch-retr.c) = aa667fd76300c8526b1c75137880da83220a2699
 SHA1 (patch-stor.c) = f0a5a94222513a02d6cae3f2141e592866765fcb
 SHA1 (patch-t2pkg.c) = 8c8379ad8e33fc07c83d04c944fb1e425775739c
-SHA1 (patch-transcript.c) = 2fab20d210317b0e0ba52102359588670ba5f941
-SHA1 (patch-update.c) = 2b951451fc1b91492eb0efe16d28e21c5e8d0470
+SHA1 (patch-transcript.c) = 90483c8fb562bb08d2ea9b0d0349b6ad04482702
+SHA1 (patch-update.c) = c329c7328ce5c567e6e76994d515e3f4be61822b

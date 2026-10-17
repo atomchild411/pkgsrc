@@ -4,10 +4,11 @@ Newer Linuxen (2018 Arch here) have moved makedev(3) and friends
 from <sys/types.h> to <sys/sysmacros.h>
 
 Fix for Radmind bug #221, accomodating for 64 bit time_t
+IRIX, like Solaris, has makedev in <sys/mkdev.h>.
 
---- transcript.c.orig	2010-12-13 03:42:49.000000000 +0000
+--- transcript.c.orig
 +++ transcript.c
-@@ -6,6 +6,9 @@
+@@ -6,8 +6,11 @@
  #include "config.h"
  
  #include <sys/types.h>
@@ -15,9 +16,12 @@ Fix for Radmind bug #221, accomodating for 64 bit time_t
 +#include <sys/sysmacros.h>
 +#endif
  #include <sys/param.h>
- #ifdef sun
+-#ifdef sun
++#if defined(sun) || defined(__sgi)
  #include <sys/mkdev.h>
-@@ -271,7 +274,7 @@ transcript_parse( struct transcript *tra
+ #endif /* sun */
+ #include <errno.h>
+@@ -271,7 +274,7 @@
  	tran->t_pinfo.pi_stat.st_mode = strtol( argv[ 2 ], NULL, 8 );
  	tran->t_pinfo.pi_stat.st_uid = atoi( argv[ 3 ] );
  	tran->t_pinfo.pi_stat.st_gid = atoi( argv[ 4 ] );
@@ -26,7 +30,7 @@ Fix for Radmind bug #221, accomodating for 64 bit time_t
  	tran->t_pinfo.pi_stat.st_size = strtoofft( argv[ 6 ], NULL, 10 );
  	if ( tran->t_type != T_NEGATIVE ) {
  	    if (( cksum ) && ( strcmp( "-", argv [ 7 ] ) == 0  )) {
-@@ -436,12 +439,13 @@ t_print( struct pathinfo *fs, struct tra
+@@ -436,12 +439,13 @@
  	 * but the corresponding transcript is negative, hence, retain
  	 * the file system's mtime.  Woof!
  	 */
