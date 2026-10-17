@@ -36,7 +36,8 @@ CMAKE_CONFIGURE_ARGS+=	-DTESTS:BOOL=FALSE
 .endif
 
 PLIST_VARS+=	objcxx
-.if ${OPSYS} != "FreeBSD" && ${OPSYS} != "NetBSD"
+# Not where the C++ runtime is libc++abi: the interoperation is in libobjc.
+.if ${OPSYS} != "FreeBSD" && ${OPSYS} != "NetBSD" && ${OPSYS} != "IRIX"
 PLIST.objcxx=	yes
 .endif
 

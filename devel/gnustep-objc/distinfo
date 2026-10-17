@@ -3,5 +3,6 @@ $NetBSD: distinfo,v 1.20 2025/02/20 14:24:02 manu Exp $
 BLAKE2s (libobjc2-2.2.1.tar.gz) = 8307b74942ab670835b7f0f3ebbc4114d892a9929d4a2292dc611e813d2b0e2a
 SHA512 (libobjc2-2.2.1.tar.gz) = 294db277da1ad929813cbb6c7ae1b5b9dfd9dcb6ceec157b9ec59bca85202c6f344ad8ba8ab3731b83abc5f72c2ab1cb88a79947e56eb92e87dcf62584169af9
 Size (libobjc2-2.2.1.tar.gz) = 205087 bytes
+SHA1 (patch-block__trampolines.S) = 59363fb3db9392a4e42d53ca6c8355e0494cf090
 SHA1 (patch-objc_runtime.h) = 4f429e8e7a85e830f1262351719082f40ffcfbcf
 SHA1 (patch-objcxx_eh.h) = c90b7acccfadb4e3f920810493040a181c428938
