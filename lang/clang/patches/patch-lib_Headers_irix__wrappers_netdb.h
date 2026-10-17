@@ -5,10 +5,11 @@ branch iris/main):
 - getaddrinfo, getnameinfo and RFC 3493's IPv6 types
 - Declare the BSD functions IRIX hides outside SGI mode
 - Wrapper <netdb.h>: EAI_ADDRFAMILY
+- <netdb.h>: gethostbyname2
 
 --- lib/Headers/irix_wrappers/netdb.h.orig
 +++ lib/Headers/irix_wrappers/netdb.h
-@@ -0,0 +1,103 @@
+@@ -0,0 +1,112 @@
 +/*===---- netdb.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -109,6 +110,15 @@ branch iris/main):
 +#ifdef __cplusplus
 +}
 +#endif
++#endif
++
++/* BIND's gethostbyname2, which IRIX lacks: compiler-rt's irix/netdb.c. */
++#ifdef __cplusplus
++extern "C" {
++#endif
++struct hostent *gethostbyname2(const char *, int);
++#ifdef __cplusplus
++}
 +#endif
 +
 +#endif /* __CLANG_IRIX_NETDB_H */

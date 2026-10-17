@@ -6,11 +6,12 @@ branch iris/main):
 - compiler-rt: the libc stand-ins are weak
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
 - [IRIX] The last 22 libc stand-ins are weak too
-- if_nametoindex and if_indextoname moved to irix/ifnameindex.c
+- if_nameindex and friends over SIOCGIFCONF
+- <netdb.h>: gethostbyname2
 
 --- lib/builtins/irix/netdb.c.orig
 +++ lib/builtins/irix/netdb.c
-@@ -0,0 +1,355 @@
+@@ -0,0 +1,370 @@
 +//===-- irix/netdb.c - getaddrinfo and friends for IRIX -------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -22,7 +23,8 @@ branch iris/main):
 +// RFC 3493's getaddrinfo, freeaddrinfo, getnameinfo and gai_strerror, which
 +// no IRIX release has, and the rest of that RFC's names the IRIX wrapper
 +// headers declare (<netdb.h>, <netinet/in.h>): in6addr_any and
-+// in6addr_loopback. (Its interface indexes: irix/ifnameindex.c.)
++// in6addr_loopback. (Its interface indexes: irix/ifnameindex.c.) And BIND's
++// gethostbyname2, which the wrapper <netdb.h> declares too.
 +//
 +// Names resolve over IRIX's reentrant gethostbyname_r and gethostbyaddr_r,
 +// services over getservbyname_r and getservbyport_r: IPv4 only, as IRIX
@@ -54,6 +56,7 @@ branch iris/main):
 +#pragma weak getaddrinfo
 +#pragma weak gai_strerror
 +#pragma weak getnameinfo
++#pragma weak gethostbyname2
 +
 +
 +extern int inet_pton(int, const char *, void *);
@@ -364,5 +367,18 @@ branch iris/main):
 +  return 0;
 +}
 +
++// gethostbyname for AF_INET; no name has an IPv6 address on IRIX, so
++// AF_INET6 is HOST_NOT_FOUND, as BIND says for a name without one.
++struct hostent *gethostbyname2(const char *name, int af) {
++  if (af == AF_INET)
++    return gethostbyname(name);
++  if (af == AF_INET6)
++    h_errno = HOST_NOT_FOUND;
++  else {
++    errno = EAFNOSUPPORT;
++    h_errno = NETDB_INTERNAL;
++  }
++  return NULL;
++}
 +
 +#endif // defined(__sgi)
