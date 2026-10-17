@@ -20,6 +20,10 @@ pre-configure:
 	set -e; cd ${WRKSRC}; \
 	aclocal; autoheader; automake -a --foreign -i; autoconf
 
+# The API documentation is made only where doxygen happens to be on the
+# PATH; the PLIST has none.
+CONFIGURE_ENV+=	ac_cv_prog_DOXYGEN=true
+
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

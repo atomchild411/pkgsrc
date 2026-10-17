@@ -16,6 +16,10 @@ USE_LANGUAGES+=	c c++
 
 PKGCONFIG_OVERRIDE+=	libnjb.pc.in
 
+# The API documentation is made only where doxygen happens to be on the
+# PATH; the PLIST has none.
+CONFIGURE_ENV+=	ac_cv_prog_HAVE_DOXYGEN=false
+
 .include "../../mk/curses.buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/libusb.buildlink3.mk"

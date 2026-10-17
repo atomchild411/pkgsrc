@@ -21,4 +21,8 @@ PKGCONFIG_OVERRIDE+=	dirac.pc.in
 
 REPLACE_PERL=		tests/create_dirac_testfile.pl
 
+# The API documentation is made only where doxygen happens to be on the
+# PATH; the PLIST has none.
+CONFIGURE_ENV+=	ac_cv_prog_HAVE_DOXYGEN=false
+
 .include "../../mk/bsd.pkg.mk"
