@@ -49,7 +49,7 @@ include/proftpd/logfmt.h
 include/proftpd/memcache.h
 include/proftpd/mkhome.h
 include/proftpd/mod_ctrls.h
-include/proftpd/mod_dnsbl.h
+${PLIST.dnsbl}include/proftpd/mod_dnsbl.h
 include/proftpd/mod_load.h
 include/proftpd/mod_quotatab.h
 include/proftpd/mod_sftp.h
@@ -124,7 +124,7 @@ libexec/proftpd/mod_ban.la
 libexec/proftpd/mod_copy.la
 libexec/proftpd/mod_ctrls_admin.la
 libexec/proftpd/mod_deflate.la
-libexec/proftpd/mod_dnsbl.la
+${PLIST.dnsbl}libexec/proftpd/mod_dnsbl.la
 libexec/proftpd/mod_dynmasq.la
 libexec/proftpd/mod_exec.la
 libexec/proftpd/mod_ifsession.la

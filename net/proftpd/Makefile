@@ -37,6 +37,17 @@ MODULES+=	\
 		mod_wrap2_file \
 		mod_wrap2_sql
 
+.include "../../mk/bsd.fast.prefs.mk"
+
+# mod_dnsbl parses DNS replies with BIND's ns_initparse() interface, which
+# IRIX's resolver does not have.
+PLIST_VARS+=		dnsbl
+.if ${OPSYS} == "IRIX"
+MODULES:=		${MODULES:Nmod_dnsbl}
+.else
+PLIST.dnsbl=		yes
+.endif
+
 CONFIGURE_ARGS+=	--with-shared=${MODULES:ts:}
 
 # needed for memset_s

@@ -1,0 +1,18 @@
+$NetBSD$
+
+The platform (-DLINUX, -DIRIX6, ...) is the host the server is built
+for, not the machine building it (cross builds).
+
+--- configure.in.orig
++++ configure.in
+@@ -29,8 +29,8 @@
+ AC_CONFIG_AUX_DIR(./)
+ AC_CANONICAL_SYSTEM
+ 
+-ostype=`echo $build_os | sed 's/\..*$//g' | sed 's/-.*//g' | tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ`
+-osrel=`echo $build_os | sed 's/-.*//g' | tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ | tr '.' '_'`
++ostype=`echo $host_os | sed 's/\..*$//g' | sed 's/-.*//g' | tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ`
++osrel=`echo $host_os | sed 's/-.*//g' | tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ | tr '.' '_'`
+ 
+ OSTYPE="-D$ostype"
+ OSREL="-D$osrel"
