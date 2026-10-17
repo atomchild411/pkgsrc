@@ -4,3 +4,6 @@ BLAKE2s (dnsdist-2.1.2.tar.xz) = d3efe3ca8fb7a385d06a7a764048dbb57173eff08e40d9a
 SHA512 (dnsdist-2.1.2.tar.xz) = c64366e444c67c356b106a10da444dd82869b32cb5ed1671e402e5c5912cadb337889665ec359c44bfe3b55e7cf6e63d85f3d9a51b60b06c8e19f8570a803d4e
 Size (dnsdist-2.1.2.tar.xz) = 2371820 bytes
 SHA1 (patch-configure) = d9ec9f3416862f471a3029168681b9512ced68b9
+SHA1 (patch-dnsdist-console-completion.cc) = e79faa748304be15dba2af3d2e293991a0ba4def
+SHA1 (patch-dnsdist-console.cc) = dcf52c69092f57f61266eadecdbb4ba8793b5b98
+SHA1 (patch-misc.cc) = f45c23868b54263893f1a72df68ab18b9e8d1430

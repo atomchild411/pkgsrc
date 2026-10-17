@@ -49,7 +49,9 @@ CONFIGURE_ARGS+=	--with-boost=${BUILDLINK_PREFIX.boost-headers}
 .if ${READLINE_TYPE} == "editline"
 CONFIGURE_ARGS+=	--with-libedit
 CONFIGURE_ENV+=		LIBEDIT_CFLAGS="-I${BUILDLINK_PREFIX.editlinereadline}/include"
-CONFIGURE_ENV+=		LIBEDIT_LIBS="-L${BUILDLINK_PREFIX.editlinereadline}/lib ${BUILDLINK_LDADD.editlinereadline}"
+# (BUILDLINK_LDADD.editlinereadline can be empty, as with pkgsrc's editline:
+# libedit, by name.)
+CONFIGURE_ENV+=		LIBEDIT_LIBS="-L${BUILDLINK_PREFIX.editlinereadline}/lib -ledit"
 .else
 CONFIGURE_ARGS+=	--without-libedit
 .endif
