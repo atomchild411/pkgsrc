@@ -55,6 +55,13 @@ CONFIGURE_ARGS+=	CONFIG_AO=y
 PLIST.libao=		yes
 .endif
 
+# Doc/ttman runs during the build; configure takes HOSTCC for it, by
+# default "gcc", which in a cross build is the cross compiler's wrapper.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CONFIGURE_ENV+=		HOSTCC=${NATIVE_CC:Q} HOSTLD=${NATIVE_CC:Q}
+CONFIGURE_ENV+=		HOST_CFLAGS=-O2 HOST_LDFLAGS=
+.endif
+
 .include "options.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../audio/flac/buildlink3.mk"
