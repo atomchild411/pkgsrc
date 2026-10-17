@@ -1,4 +1,6 @@
 @comment $NetBSD$
+${PLIST.glwrapper}include/GL/gl.h
 include/GL/glext.h
+${PLIST.glwrapper}include/GL/glx.h
 include/GL/glxext.h
 include/KHR/khrplatform.h
