@@ -3,6 +3,4 @@ include/eventlog/evtlog.h
 include/eventlog/evtmaps.h
 lib/libevtlog.a
 lib/libevtlog.la
-lib/libevtlog.so
-lib/libevtlog.so.0
 lib/pkgconfig/eventlog.pc
