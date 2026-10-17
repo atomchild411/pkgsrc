@@ -23,5 +23,17 @@ CMAKE_CONFIGURE_ARGS+=	-DMAN_INSTALL_DIR:PATH=${PKGMANDIR}/man1
 CMAKE_CONFIGURE_ARGS+=	-DINCLUDE_INSTALL_DIR:PATH=include/tidy
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# The man page comes from "tidy -xml-help" and "-xml-config": run the build
+# machine's tidy.
+TOOL_DEPENDS+=		tidy-[0-9]*:../../www/tidy
+SUBST_CLASSES+=		host-tidy
+SUBST_STAGE.host-tidy=	pre-configure
+SUBST_MESSAGE.host-tidy=	Generating the man page with the build machine's tidy.
+SUBST_FILES.host-tidy=	CMakeLists.txt
+SUBST_SED.host-tidy=	-e 's|COMMAND $${CMAKE_CURRENT_BINARY_DIR}/$${LIB_NAME} -xml-|COMMAND ${TOOLBASE}/bin/tidy -xml-|'
+.endif
+
 .include "../../devel/cmake/build.mk"
 .include "../../mk/bsd.pkg.mk"
