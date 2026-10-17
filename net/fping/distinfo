@@ -4,4 +4,4 @@ BLAKE2s (fping-5.5.tar.gz) = 21d05aa8b14587e9824243fed17e627c23781a2833a3d05f4fb
 SHA512 (fping-5.5.tar.gz) = 80fddfb9462b4ed7231d96d21340e75a42a4c481b78fd70f4889422eab86405b1e4b2ee25162478f4c35f273d4a6b1ff81309af9f09121c574509bfd73b1afde
 Size (fping-5.5.tar.gz) = 215522 bytes
 SHA1 (patch-configure) = 444ef5b9335cd88378890c8f2fff14fc9faedf4d
-SHA1 (patch-src_fping.c) = b96b02f0e0f056aaa1adb090c652b520a0501fc3
+SHA1 (patch-src_fping.c) = d0cfc6d8044bbf1d7dc8a5b74fc2d63cd6a85d6f
