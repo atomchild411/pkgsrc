@@ -14,6 +14,6 @@ include/muParserTest.h
 include/muParserToken.h
 include/muParserTokenReader.h
 lib/libmuparser.so
-lib/libmuparser.so.2
-lib/libmuparser.so.2.2.2
+${PLIST.sover}lib/libmuparser.so.2
+${PLIST.sover}lib/libmuparser.so.2.2.2
 lib/pkgconfig/muparser.pc

@@ -20,6 +20,14 @@ GNU_CONFIGURE=	yes
 
 PKGCONFIG_OVERRIDE+=	build/autoconf/muparser.pc.in
 
+.include "../../mk/bsd.prefs.mk"
+
+# bakefile's build gives IRIX only libmuparser.so, with no version links.
+PLIST_VARS+=		sover
+.if ${OPSYS} != "IRIX"
+PLIST.sover=		yes
+.endif
+
 do-test:
 	cd ${WRKSRC}/samples/example1 && ${ECHO} quit | LD_LIBRARY_PATH=../../lib ./example1
 
