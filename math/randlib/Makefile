@@ -2,7 +2,7 @@
 
 DISTNAME=	randlib.c-1.3
 PKGNAME=	randlib-1.3
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	# ftp://odin.mdacc.tmc.edu/pub/source/
 

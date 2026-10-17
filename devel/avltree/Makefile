@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.17 2022/03/03 09:36:09 jperkin Exp $
 
 DISTNAME=	avltree-1.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	# ftp://odin.compchem.ucsf.edu/pub/amber/
 

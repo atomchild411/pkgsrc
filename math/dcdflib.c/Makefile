@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.27 2019/11/02 16:16:18 rillig Exp $
 
 DISTNAME=	dcdflib.c-1.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	# ftp://odin.mdacc.tmc.edu/pub/source/
 
