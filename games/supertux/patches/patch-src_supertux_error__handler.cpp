@@ -1,10 +1,20 @@
 $NetBSD: patch-src_supertux_error__handler.cpp,v 1.1 2026/03/31 10:47:13 adam Exp $
 
 Fix build.
+No stack trace on IRIX: it has no <execinfo.h>.
 
---- src/supertux/error_handler.cpp.orig	2026-03-31 09:23:40.411242374 +0000
+--- src/supertux/error_handler.cpp.orig
 +++ src/supertux/error_handler.cpp
-@@ -69,7 +69,7 @@ static PCONTEXT pcontext = NULL;
+@@ -33,7 +33,7 @@
+ 
+ #include "util/file_system.hpp"
+ 
+-#if (defined(__unix__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__)) && !(defined(__EMSCRIPTEN__) || defined(__ANDROID__))
++#if (defined(__unix__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__)) && !(defined(__EMSCRIPTEN__) || defined(__ANDROID__) || defined(__sgi))
+ #define UNIX
+ #endif
+ 
+@@ -69,7 +69,7 @@
  static PCONTEXT pcontext = NULL;
  #endif
  
