@@ -8,9 +8,23 @@ SKALIBS_BUILDLINK3_MK:=
 BUILDLINK_API_DEPENDS.skalibs+=		skalibs>=2.14.4.0nb2
 BUILDLINK_PKGSRCDIR.skalibs?=		../../devel/skalibs
 
+.include "../../mk/bsd.prefs.mk"
+
+# In a cross build skalibs is not under PREFIX on the build machine but
+# under the cross destdir, where configure's default sysdeps directory and
+# the make vpath that finds -lskarnet must look. (Not --with-lib: that
+# also goes into Libs.private of the .pc files packages install.)
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+_SKALIBS_DIR=				${_CROSS_DESTDIR}${PREFIX}
+CONFIGURE_ARGS+=			--with-sysdeps=${_SKALIBS_DIR}/lib/skalibs/sysdeps
+CONFIGURE_ARGS+=			--with-dynlib=${_SKALIBS_DIR}/lib
+.else
+_SKALIBS_DIR=				${PREFIX}
+.endif
+
 SKALIBS_TOLERATE_TARGET_SKEW?=		yes
 .if !empty(SKALIBS_TOLERATE_TARGET_SKEW:M[yY][eE][sS])
-SKALIBS_TARGET_cmd=			${CAT} ${PREFIX}/lib/skalibs/sysdeps/target
+SKALIBS_TARGET_cmd=			${CAT} ${_SKALIBS_DIR}/lib/skalibs/sysdeps/target
 CONFIGURE_ARGS+=			--target=${SKALIBS_TARGET_cmd:sh}
 
 SUBST_CLASSES+=				skalibs-target
