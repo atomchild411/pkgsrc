@@ -53,6 +53,10 @@ USE_TOOLS+=	gawk
 USE_TOOLS+=	pkg-config
 
 REPLACE_PYTHON+=	backends/smt2/*.py
+
+# ABC (in namespace abc) includes <unistd.h> inside its namespace, and
+# IRIX's declares select(), already declared outside it: read it first.
+MAKE_FLAGS.IRIX+=	ABC_ARCHFLAGS="-include unistd.h"
 REPLACE_PYTHON+=	docs/source/*.py
 REPLACE_PYTHON+=	passes/pmgen/*.py
 REPLACE_PYTHON+=	techlibs/common/*.py
