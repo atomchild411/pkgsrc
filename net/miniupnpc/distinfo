@@ -6,4 +6,5 @@ Size (miniupnpc-2.2.4.tar.gz) = 102932 bytes
 SHA1 (patch-Makefile) = c9dd195250db498db75ea81e1020b735c379900f
 SHA1 (patch-minissdpc.c) = bb2e5cd4c4cebceb39ad11496ce0d6bf3a1557a4
 SHA1 (patch-miniwget.c) = c4463b91540378c911a1b46db50c3ac4c6efd59e
+SHA1 (patch-src_minissdpc.c) = 8990ad99ef17c4179349ae638ab85e48f2bf29b0
 SHA1 (patch-upnpc.c) = 2eb87b306095950e6c4f2e599b645a5d876e8ae6
