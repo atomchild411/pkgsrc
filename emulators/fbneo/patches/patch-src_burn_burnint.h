@@ -11,7 +11,7 @@ Teach fbneo about endian on NetBSD.
 -// Xbox 360 has byteswap 64-bit intrinsic
 -#ifndef _XBOX
 +// Xbox 360 and NetBSD have byteswap 64-bit intrinsic
-+#if !definded(_XBOX) && !defined(__NetBSD__)
++#if !defined(_XBOX) && !defined(__NetBSD__)
  #define NO_64BIT_BYTESWAP
  #endif
  

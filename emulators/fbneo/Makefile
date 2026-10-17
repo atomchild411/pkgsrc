@@ -19,6 +19,10 @@ MAKE_FILE=	makefile
 WRKSRC=		${WRKDIR}/${DISTNAME}
 
 FORCE_CXX_STD+=	gnu++98
+# clang predefines "mips" (as MIPSpro does) in GNU modes, and the MIPS III
+# core is "namespace mips".
+CFLAGS.IRIX+=	-Umips
+CXXFLAGS.IRIX+=	-Umips
 
 BUILD_TARGET=	sdl2
 
@@ -30,6 +34,20 @@ MAKE_FLAGS+=	PERL=1
 REPLACE_PERL+=	src/dep/scripts/*.pl
 
 .include "../../mk/bsd.prefs.mk"
+
+# The perl scripts only run while building: cross-compiling, the build
+# host's perl (TOOLBASE), not IRIX's.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+REPLACE_PERL=		# none
+SUBST_CLASSES+=		hostperl
+SUBST_STAGE.hostperl=	pre-configure
+SUBST_MESSAGE.hostperl=	The build host's perl for the build-time scripts.
+SUBST_FILES.hostperl=	src/dep/scripts/*.pl
+SUBST_SED.hostperl=	-e '1s|^\#!/usr/bin/perl|\#!${TOOLBASE}/bin/perl|'
+# And its generator programs (m68kmake, ctv_make, pgm_sprite_create).
+MAKE_FLAGS+=		HOSTCC=${NATIVE_CC:Q} HOSTCFLAGS=-O2
+MAKE_FLAGS+=		HOSTCXX=${NATIVE_CXX:Q} HOSTCXXFLAGS=-O2
+.endif
 
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 TOOL_DEPENDS+=	nasm-[0-9]*:../../devel/nasm

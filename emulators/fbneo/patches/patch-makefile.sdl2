@@ -3,10 +3,11 @@ $NetBSD: patch-makefile.sdl2,v 1.1 2023/05/29 19:30:48 nia Exp $
 Honour CFLAGS. Disable partial linking (incompatible with PIE).
 
 Unbundle libpng and zlib.
+Generator programs with HOSTCC/HOSTCXX, for cross builds (defaults as before).
 
---- makefile.sdl2.orig	2021-05-01 20:32:23.000000000 +0000
+--- makefile.sdl2.orig
 +++ makefile.sdl2
-@@ -50,7 +50,7 @@ srcdir	= src/
+@@ -50,7 +50,7 @@
  include makefile.burn_rules
  
  # Platform stuff
@@ -15,7 +16,7 @@ Unbundle libpng and zlib.
  			intf/video/scalers 	intf/video/sdl intf/audio intf/audio/sdl intf/input intf/input/sdl intf/cd intf/cd/sdl \
  			intf/perfcount intf/perfcount/sdl dep/generated
  
-@@ -58,11 +58,6 @@ depobj	+= 	neocdlist.o \
+@@ -58,11 +58,6 @@
  			\
  			conc.o cong.o dat.o gamc.o gami.o image.o ioapi.o misc.o sshot.o state.o statec.o unzip.o zipfn.o \
  			\
@@ -27,7 +28,7 @@ Unbundle libpng and zlib.
  			\
  			aud_dsp.o aud_interface.o cd_interface.o inp_interface.o interface.o lowpass2.o  vid_interface.o \
  			vid_softfx.o vid_support.o \
-@@ -183,13 +178,13 @@ AS	= nasm
+@@ -183,13 +178,13 @@
  
  #LDFLAGS	= -static
  
@@ -43,7 +44,7 @@ Unbundle libpng and zlib.
  	   -Wall -W -Wno-long-long \
  	   -Wunknown-pragmas -Wundef -Wconversion -Wno-missing-braces \
  	   -Wuninitialized -Wpointer-arith -Winline -Wno-multichar \
-@@ -361,7 +356,7 @@ $(NAME):	$(allobj) $(objdir)drivers.o
+@@ -361,7 +356,7 @@
  
  else
  
@@ -52,3 +53,43 @@ Unbundle libpng and zlib.
  	@echo
  	@echo Linking executable... $(NAME)
  	@$(LD) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(lib)
+@@ -435,6 +430,12 @@
+ 
+ # Musashi
+ 
++# The generators the build runs (a cross build sets these for the build host).
++HOSTCC ?= $(CC)
++HOSTCFLAGS ?= $(CFLAGS)
++HOSTCXX ?= $(CC)
++HOSTCXXFLAGS ?= $(CXXFLAGS) $(LDFLAGS)
++
+ $(objdir)cpu/m68k/m68kcpu.o: $(srcdir)cpu/m68k/m68kcpu.c $(objdir)dep/generated/m68kops.h $(srcdir)cpu/m68k/m68k.h $(srcdir)cpu/m68k/m68kconf.h
+ 	@echo Compiling Musashi MC680x0 core \(m68kcpu.c\)...
+ 	@$(CC) $(CFLAGS) -c $(srcdir)cpu/m68k/m68kcpu.c -o $(objdir)cpu/m68k/m68kcpu.o
+@@ -448,7 +449,7 @@
+ 
+ $(objdir)cpu/m68k/m68kmake: $(srcdir)cpu/m68k/m68kmake.c
+ 	@echo Compiling Musashi MC680x0 core \(m68kmake.c\)...
+-	@$(CC) $(CFLAGS) $(srcdir)cpu/m68k/m68kmake.c -o $(objdir)cpu/m68k/m68kmake -Dmain=main
++	@$(HOSTCC) $(HOSTCFLAGS) $(srcdir)cpu/m68k/m68kmake.c -o $(objdir)cpu/m68k/m68kmake -Dmain=main
+ 
+ 
+ #
+@@ -459,7 +460,7 @@
+ 
+ $(ctv.h):	ctv_make.cpp
+ 	@echo Generating $(srcdir)dep/generated/$(@F)...
+-	@$(CC) $(CXXFLAGS) $(LDFLAGS) $< \
++	@$(HOSTCXX) $(HOSTCXXFLAGS) $< \
+ 		-o $(subst $(srcdir),$(objdir),$(<D))/$(<F:.cpp=.exe)  -Dmain=main
+ 	@$(subst $(srcdir),$(objdir),$(<D))/$(<F:.cpp=.exe) >$@
+ 
+@@ -516,7 +517,7 @@
+ 
+ $(pgm_sprite.h):	pgm_sprite_create.cpp
+ 	@echo Generating $(srcdir)dep/generated/$(@F)...
+-	@$(CC) $(CXXFLAGS) $(LDFLAGS) $< \
++	@$(HOSTCXX) $(HOSTCXXFLAGS) $< \
+ 		-o $(subst $(srcdir),$(objdir),$(<D))/$(<F:.cpp=.exe)  -Dmain=main
+ 	@$(subst $(srcdir),$(objdir),$(<D))/$(<F:.cpp=.exe) >$@
+ 
