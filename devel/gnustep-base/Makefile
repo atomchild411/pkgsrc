@@ -20,9 +20,10 @@ USE_LANGUAGES=		objc
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--exec-prefix=${PREFIX}/libexec/GNUstep
 CONFIGURE_ARGS+=	--with-installation-domain=SYSTEM
-# Allow building with NetBSD libiconv that does not support //TRANSLIT
-CONFIGURE_ARGS+=	--enable-stricticonv
 CONFIGURE_ENV+=		INSTALL_PROGRAM=${INSTALL_SCRIPT:Q}
+# IRIX: <sys/fcntl.h> is the system's own; <fcntl.h> (clang's) also has
+# AT_FDCWD and the rest of POSIX 2008's, which NSFileManager uses.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_sys_fcntl_h=no
 MAKE_FILE=		GNUmakefile
 
 # needs _Unwind_Resume_or_Rethrow from libunwind
@@ -56,6 +57,19 @@ SUBST_VARS.pthread=	PTHREAD_LIBS
 SUBST_MESSAGE.pthread=	Fix @PTHREAD_LIBS@ left out in file configure
 
 CONFIGURE_ARGS+=	--with-library-flags=${GNUSTEP_LDFLAGS:Q}
+
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# configure reads GNUstep.conf, which a cross build has only as
+# gnustep-make's example (CONF_FILES are not installed in the destdir).
+CONFIGURE_ARGS+=	--with-default-config=${_CROSS_DESTDIR}${PREFIX}/share/examples/GNUstep/GNUstep-strict-v2.conf
+.  if exists(${FILESDIR}/cross.config.${OPSYS})
+CONFIGURE_ARGS+=	--with-cross-compilation-info=${FILESDIR}/cross.config.${OPSYS}
+.  endif
+.else
+# Allow building with NetBSD libiconv that does not support //TRANSLIT
+# (the check runs a program: not when cross compiling).
+CONFIGURE_ARGS+=	--enable-stricticonv
+.endif
 
 INSTALLATION_DIRS+=	share/GNUstep/Bundles
 INSTALLATION_DIRS+=	share/GNUstep/Frameworks
