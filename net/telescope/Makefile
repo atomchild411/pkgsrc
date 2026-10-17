@@ -39,6 +39,11 @@ CONFIGURE_ARGS+=	--with-libimsg
 CONFIGURE_ARGS+=	--with-libbsd
 .endif
 
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# pagebundler turns the about: pages into C during the build.
+MAKE_FLAGS+=		HOSTCC=${NATIVE_CC:Q} HOSTCFLAGS=-O2
+.endif
+
 pre-configure:
 	set -e; cd ${WRKSRC} && autoreconf -fiv
 
