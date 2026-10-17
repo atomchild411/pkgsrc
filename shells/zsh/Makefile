@@ -37,6 +37,18 @@ CONFIGURE_ENV.NetBSD+=	zsh_cv_shared_environ=yes
 CONFIGURE_ENV.NetBSD+=	zsh_cv_shared_tgetent=yes
 CONFIGURE_ENV.NetBSD+=	zsh_cv_shared_tigetstr=yes
 CONFIGURE_ENV.NetBSD+=	zsh_cv_sys_dynamic_execsyms=yes
+CONFIGURE_ENV.IRIX+=	zsh_cv_shared_environ=yes
+CONFIGURE_ENV.IRIX+=	zsh_cv_shared_tgetent=yes
+CONFIGURE_ENV.IRIX+=	zsh_cv_shared_tigetstr=yes
+CONFIGURE_ENV.IRIX+=	zsh_cv_sys_dynamic_execsyms=yes
+# n32's off_t is 64-bit; printf has %lld; utmp(x) in /var/adm.
+CONFIGURE_ENV.IRIX+=	zsh_cv_off_t_is_64_bit=yes
+CONFIGURE_ENV.IRIX+=	zsh_cv_printf_has_lld=yes
+CONFIGURE_ENV.IRIX+=	zsh_cv_sys_path_dev_fd=/dev/fd
+CONFIGURE_ENV.IRIX+=	zsh_cv_path_utmp=/var/adm/utmp
+CONFIGURE_ENV.IRIX+=	zsh_cv_path_wtmp=/var/adm/wtmp
+CONFIGURE_ENV.IRIX+=	zsh_cv_path_utmpx=/var/adm/utmpx
+CONFIGURE_ENV.IRIX+=	zsh_cv_path_wtmpx=/var/adm/wtmpx
 .endif
 
 INSTALLATION_DIRS+=	share/doc/zsh
