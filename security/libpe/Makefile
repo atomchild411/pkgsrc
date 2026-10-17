@@ -13,6 +13,14 @@ LICENSE=	gnu-lgpl-v3
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
 MAKE_FLAGS+=	prefix=${PREFIX}
 
+.include "../../mk/bsd.prefs.mk"
+
+# The Makefile builds and installs the shared library only on the systems
+# it knows by uname; NetBSD's rules are plain ELF ones.
+.if ${OPSYS} == "IRIX"
+MAKE_FLAGS+=	PLATFORM_OS=NetBSD
+.endif
+
 INSTALLATION_DIRS=	include/libpe
 
 post-install:
