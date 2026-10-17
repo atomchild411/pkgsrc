@@ -11,6 +11,10 @@ LICENSE=	x11
 
 USE_LANGUAGES=	c
 
+# The manual pages are made only where asciidoctor happens to be on the
+# PATH; the PLIST has none.
+CMAKE_CONFIGURE_ARGS+=	-DNN_ENABLE_DOC=OFF
+
 TEST_ENV+=	LD_LIBRARY_PATH=${WRKSRC}/${CMAKE_BUILD_DIR}
 # For Darwin
 TEST_ENV+=	DYLD_LIBRARY_PATH=${WRKSRC}/${CMAKE_BUILD_DIR}
