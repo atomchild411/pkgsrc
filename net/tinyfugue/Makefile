@@ -27,6 +27,7 @@ SUBST_FILES.fix-paths=		unix/Config
 SUBST_VARS.fix-paths=		DESTDIR
 
 LDFLAGS.SunOS+=	-lz
+LDFLAGS.IRIX+=	-lz
 
 .include "../../mk/compiler.mk"
 .if !empty(CC_VERSION:Mgcc-14.*) || !empty(CC_VERSION:Mgcc-15.*)

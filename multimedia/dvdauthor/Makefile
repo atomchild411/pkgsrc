@@ -26,4 +26,8 @@ SUBST_SED.freetype=	-e "s,freetype-config,pkg-config freetype2,"
 .include "../../graphics/ImageMagick6/buildlink3.mk"
 .include "../../converters/fribidi/buildlink3.mk"
 .include "../../multimedia/libdvdread/buildlink3.mk"
+# It calls FreeType directly but links it only through its graphics
+# library; lld wants it named.
+LDFLAGS.IRIX+=	-lfreetype
+
 .include "../../mk/bsd.pkg.mk"

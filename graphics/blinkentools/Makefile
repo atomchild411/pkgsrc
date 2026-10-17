@@ -15,6 +15,7 @@ USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		YES
 
 LDFLAGS.DragonFly=	-lz
+LDFLAGS.IRIX+=		-lz
 
 CONFIGURE_ARGS+=	--enable-oldtools
 

@@ -16,6 +16,7 @@ USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 
 LDFLAGS.SunOS+=		-lcrypto -lsocket
+LDFLAGS.IRIX+=		-lcrypto
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 

@@ -15,6 +15,7 @@ GNU_CONFIGURE=	yes
 
 LDFLAGS.DragonFly=	-lm -lXrender
 LDFLAGS.SunOS+=		-lm -lXrender -lrt
+LDFLAGS.IRIX+=		-lm -lXrender
 
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"

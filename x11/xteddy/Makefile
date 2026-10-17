@@ -17,6 +17,7 @@ USE_TOOLS+=	bash:run pkg-config
 GNU_CONFIGURE=	YES
 
 LDFLAGS.SunOS+=	-lXext
+LDFLAGS.IRIX+=	-lXext
 
 REPLACE_BASH+=	xtoys
 
