@@ -26,6 +26,10 @@ CONFIGURE_ENV+=		ac_cv_header_security_pam_appl_h=no
 .  include "../../security/openssl/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-ssl-includes=${BUILDLINK_PREFIX.openssl}/include
 CONFIGURE_ARGS+=	--with-ssl-libraries=${BUILDLINK_PREFIX.openssl}/lib
+.  if ${USE_CROSS_COMPILE:U:tl} == yes
+# AC_CHECK_FILE cannot look when cross compiling: answer for ssl.h.
+CONFIGURE_ENV+=		ac_cv_file_${BUILDLINK_PREFIX.openssl:S,/,_,g:S,.,_,g}_include_openssl_ssl_h=yes
+.  endif
 .else
 CONFIGURE_ARGS+=	--disable-ssl
 .endif
