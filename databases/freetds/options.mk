@@ -61,6 +61,9 @@ CONFIGURE_ARGS+=	--without-gnutls
 .if !empty(PKG_OPTIONS:Mopenssl)
 .include "../../security/openssl/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
+# configure asks pkg-config first; without it, it searches directories,
+# but not when cross compiling.
+USE_TOOLS+=		pkg-config
 .else
 CONFIGURE_ARGS+=	--without-openssl
 .endif
