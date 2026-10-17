@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - <endian.h>, cfmakeraw, lchmod, get_nprocs
 - [IRIX] The stand-ins set errno as IRIX's libc does: both copies
+- compiler-rt: wcstoimax/wcstoumax before 6.5.22, ffsl, ffsll, cfsetspeed
 
 --- lib/builtins/irix/compat_bsd.c.orig
 +++ lib/builtins/irix/compat_bsd.c
-@@ -0,0 +1,57 @@
+@@ -0,0 +1,65 @@
 +//===-- irix/compat_bsd.c - BSD and glibc calls IRIX lacks ---------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -16,7 +17,7 @@ branch iris/main):
 +//
 +//===----------------------------------------------------------------------===//
 +//
-+// cfmakeraw (<termios.h>), lchmod (<sys/stat.h>), get_nprocs and
++// cfmakeraw and cfsetspeed (<termios.h>), lchmod (<sys/stat.h>), get_nprocs and
 +// get_nprocs_conf (<sys/sysinfo.h>), declared by clang's IRIX wrappers.
 +// Weak, so a program that brings its own copy keeps it.
 +//
@@ -32,6 +33,7 @@ branch iris/main):
 +#include <unistd.h>
 +
 +#pragma weak cfmakeraw
++#pragma weak cfsetspeed
 +#pragma weak lchmod
 +#pragma weak get_nprocs
 +#pragma weak get_nprocs_conf
@@ -46,6 +48,13 @@ branch iris/main):
 +  t->c_cflag |= CS8;
 +  t->c_cc[VMIN] = 1;
 +  t->c_cc[VTIME] = 0;
++}
++
++// The BSDs' and glibc's: both speeds at once.
++int cfsetspeed(struct termios *t, speed_t speed) {
++  if (cfsetispeed(t, speed) == -1)
++    return -1;
++  return cfsetospeed(t, speed);
 +}
 +
 +// IRIX cannot change a symbolic link's mode; glibc's lchmod fails with

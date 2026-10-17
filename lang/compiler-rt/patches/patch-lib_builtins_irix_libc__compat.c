@@ -9,11 +9,12 @@ branch iris/main):
 - Wide printf for 6.5.7; wcsnlen, wcsdup, wcscasecmp
 - btowc('\\0') is L'\\0', not WEOF
 - imaxdiv: defined in the builtins, declared with imaxdiv_t everywhere
-- mbsnrtowcs and wcsnrtombs
+- [IRIX] mbsnrtowcs and wcsnrtombs
+- compiler-rt: wcstoimax/wcstoumax before 6.5.22, ffsl, ffsll, cfsetspeed
 
 --- lib/builtins/irix/libc_compat.c.orig
 +++ lib/builtins/irix/libc_compat.c
-@@ -0,0 +1,411 @@
+@@ -0,0 +1,457 @@
 +//===-- irix/libc_compat.c - C95/C99 functions IRIX 6.5.7's libc lacks ---===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -83,6 +84,10 @@ branch iris/main):
 +#pragma weak strnlen
 +#pragma weak strtoimax
 +#pragma weak strtoumax
++#pragma weak wcstoimax
++#pragma weak wcstoumax
++#pragma weak ffsl
++#pragma weak ffsll
 +#pragma weak imaxabs
 +#pragma weak imaxdiv
 +
@@ -414,6 +419,48 @@ branch iris/main):
 +                    int base) {
 +  return strtoull(s, end, base);
 +}
++
++// wcstoimax and wcstoumax, which 6.5.22's libc has and earlier ones lack:
++// digits, signs and the 0x prefix are ASCII in every IRIX locale, so the
++// run of ASCII characters after the white space is converted as a narrow
++// string, and the end pointer mapped back.
++static size_t wide_number(const wchar_t *s, char *buf, size_t n,
++                          size_t *skip) {
++  size_t i = 0, j = 0;
++  while (iswspace(s[i]))
++    i++;
++  *skip = i;
++  while (s[i] && s[i] < 0x80 && j + 1 < n)
++    buf[j++] = (char)s[i++];
++  buf[j] = 0;
++  return j;
++}
++
++intmax_t wcstoimax(const wchar_t *__restrict s, wchar_t **__restrict end,
++                   int base) {
++  char buf[128], *e;
++  size_t skip;
++  wide_number(s, buf, sizeof buf, &skip);
++  intmax_t v = strtoll(buf, &e, base);
++  if (end)
++    *end = (wchar_t *)(e == buf ? s : s + skip + (e - buf));
++  return v;
++}
++
++uintmax_t wcstoumax(const wchar_t *__restrict s, wchar_t **__restrict end,
++                    int base) {
++  char buf[128], *e;
++  size_t skip;
++  wide_number(s, buf, sizeof buf, &skip);
++  uintmax_t v = strtoull(buf, &e, base);
++  if (end)
++    *end = (wchar_t *)(e == buf ? s : s + skip + (e - buf));
++  return v;
++}
++
++// The BSDs' and glibc's ffs for long and long long.
++int ffsl(long i) { return __builtin_ffsl(i); }
++int ffsll(long long i) { return __builtin_ffsll(i); }
 +
 +intmax_t imaxabs(intmax_t j) { return j < 0 ? -j : j; }
 +

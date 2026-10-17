@@ -12,10 +12,11 @@ branch iris/main):
 - Wrapper <inttypes.h>: keep programs' macros out of IRIX's own names
 - Wrapper <inttypes.h>: set aside all six of 6.5.22's C99 functions
 - imaxdiv: defined in the builtins, declared with imaxdiv_t everywhere
+- compiler-rt: wcstoimax/wcstoumax before 6.5.22, ffsl, ffsll, cfsetspeed
 
 --- lib/Headers/irix_wrappers/inttypes.h.orig
 +++ lib/Headers/irix_wrappers/inttypes.h
-@@ -0,0 +1,310 @@
+@@ -0,0 +1,318 @@
 +/*===---- inttypes.h - IRIX wrapper for C99 format macros -----------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -44,8 +45,8 @@ branch iris/main):
 + * C99 mode, and its libc defines strtoimax, strtoumax, wcstoimax and
 + * wcstoumax. IRIX's declarations have no extern "C", so in C++ they would
 + * give the functions C++ linkage: all six are renamed out of the way while
-+ * its header is read and declared again here, wcstoimax and wcstoumax only
-+ * when the header is 6.5.22's (the one that defines PRId8).
++ * its header is read and declared again here. Before 6.5.22 compiler-rt's
++ * builtins define wcstoimax and wcstoumax too (yash).
 + */
 +
 +#ifndef __CLANG_IRIX_INTTYPES_H
@@ -126,10 +127,18 @@ branch iris/main):
 +} imaxdiv_t;
 +#endif
 +imaxdiv_t imaxdiv(intmax_t, intmax_t);
-+#ifdef PRId8
-+intmax_t wcstoimax(const wchar_t *__restrict, wchar_t **__restrict, int);
-+uintmax_t wcstoumax(const wchar_t *__restrict, wchar_t **__restrict, int);
++/* (In C, wchar_t by its builtin name: C code that includes only this
++ * header has no wchar_t. In C++ it is a type of its own.) */
++#ifdef __cplusplus
++#define __IRIX_INTTYPES_WCHAR wchar_t
++#else
++#define __IRIX_INTTYPES_WCHAR __WCHAR_TYPE__
 +#endif
++intmax_t wcstoimax(const __IRIX_INTTYPES_WCHAR *__restrict,
++                   __IRIX_INTTYPES_WCHAR **__restrict, int);
++uintmax_t wcstoumax(const __IRIX_INTTYPES_WCHAR *__restrict,
++                    __IRIX_INTTYPES_WCHAR **__restrict, int);
++#undef __IRIX_INTTYPES_WCHAR
 +#ifdef __cplusplus
 +}
 +#endif

@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - <endian.h>, cfmakeraw, lchmod, get_nprocs
 - Declare POSIX functions IRIX hides outside SGI mode
+- compiler-rt: wcstoimax/wcstoumax before 6.5.22, ffsl, ffsll, cfsetspeed
 
 --- lib/Headers/irix_wrappers/termios.h.orig
 +++ lib/Headers/irix_wrappers/termios.h
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,37 @@
 +/*===---- termios.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -26,6 +27,7 @@ branch iris/main):
 +extern "C" {
 +#endif
 +void cfmakeraw(struct termios *);
++int cfsetspeed(struct termios *, speed_t);
 +#ifdef __cplusplus
 +}
 +#endif
