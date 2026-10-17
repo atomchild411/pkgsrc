@@ -28,4 +28,5 @@ SHA1 (patch-src_bltTreeCmd.c) = 6ae6ad1f239c632d42607e7a23fb31d15281ff9a
 SHA1 (patch-src_bltTreeView.h) = 2b2d9f2527e22b9a3d66a212777402a094e100a9
 SHA1 (patch-src_bltUnixPipe.c) = 6311e9c17e6327b96fd3dd507f47aebe9b26dcef
 SHA1 (patch-src_bltVecObjCmd.c) = d7c63f88cba0d7dbd5691d9df5a6e2e84692f300
+SHA1 (patch-src_shared_Makefile.in) = c827aaae42a6d6d891172d68da257f43dbf6fd89
 SHA1 (patch-src_tkButton.c) = 39132933914ee8d52389f5be72cbc02b21e7216e

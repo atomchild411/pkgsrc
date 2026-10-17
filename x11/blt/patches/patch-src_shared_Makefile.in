@@ -1,0 +1,15 @@
+$NetBSD$
+
+install-demo installs bltsh too: build it first (when "all" has not).
+
+--- src/shared/Makefile.in.orig
++++ src/shared/Makefile.in
+@@ -156,7 +156,7 @@
+ 
+ install: mkdirs install-lib install-demo
+ 
+-install-demo: $(bltwish)
++install-demo: $(bltwish) $(bltsh)
+ 	$(INSTALL) -m 0755 bltwish$(version) $(INSTALL_ROOT)$(bindir)
+ 	$(INSTALL) -m 0755 bltsh$(version) $(INSTALL_ROOT)$(bindir)
+ 
