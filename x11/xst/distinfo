@@ -4,3 +4,4 @@ BLAKE2s (xst-0.10.0.tar.gz) = d3becf6ec4afa4983ccf4fadf268168b15c1c0b9e21117d3e9
 SHA512 (xst-0.10.0.tar.gz) = 75daa8c7fd3f77e925263eb139e7f35bc322486862b1f45cbddb233afa75feea5466e82ed24d71d6006aedfb8e854f2ec2dc29a61f2caaa8c85946729caf6c6b
 Size (xst-0.10.0.tar.gz) = 65681 bytes
 SHA1 (patch-Makefile) = 086df43bba0b652273026fdbbecc0ac34ff1a237
+SHA1 (patch-st.c) = 0a46330255b5a94906944886bdaf6c2234340e87
