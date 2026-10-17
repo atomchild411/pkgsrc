@@ -17,4 +17,5 @@ SHA1 (patch-al) = df18fb971275f99a7e1757f65455a181bb9eb8eb
 SHA1 (patch-am) = e88ff60e7941cb7bdfdc4bf59727ca401f1a5758
 SHA1 (patch-ap) = 5961dfe22ac087a7df0311235b4fab27d7554c58
 SHA1 (patch-bc) = 8ec863da42941b1b3f0ef0eb880690844ebdff62
-SHA1 (patch-xpdf_XPDFViewer.cc) = 38b1f79365149b37736ecfc73fa0e920fb758d93
+SHA1 (patch-xpdf_XPDFViewer.cc) = a0697e8a866be228575acd825a172736f05c820e
+SHA1 (patch-xpdf_XPDFViewer.h) = 643537771eff76d2351fbc4fec416742353fbe17
