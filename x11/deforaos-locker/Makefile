@@ -46,4 +46,7 @@ post-install:
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 BUILDLINK_API_DEPENDS.gtk-doc+=	gtk-doc>=1.32nb9
 .include "../../textproc/gtk-doc/buildlink3.mk"
+# DPMS (libXext), which it does not link; lld wants it named.
+LDFLAGS.IRIX+=	-lXext
+
 .include "../../mk/bsd.pkg.mk"
