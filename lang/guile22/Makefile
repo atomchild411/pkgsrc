@@ -39,6 +39,14 @@ CONFIGURE_ARGS+=		--infodir=${PREFIX}/${PKGINFODIR}
 CONFIGURE_ARGS+=		--mandir=${PREFIX}/${PKGMANDIR}
 .endif
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# Building Guile runs Guile (it compiles its own Scheme): the build
+# machine's, of this version.
+TOOL_DEPENDS+=		guile22>=2.2.7:../../lang/guile22
+CONFIGURE_ENV+=		GUILE_FOR_BUILD=${TOOLBASE}/guile/2.2/bin/guile
+.endif
+
 INFO_FILES=		yes
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake pkg-config
