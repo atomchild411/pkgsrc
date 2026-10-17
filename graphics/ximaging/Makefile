@@ -21,7 +21,15 @@ SUBST_VARS.pkgsrc+=	PREFIX PKGMANDIR RCDIR
 SUBST_MESSAGE.pkgsrc=	Replacing pkgsrc placeholders
 
 # Enable OpenMP loop optimizations
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "IRIX"
+# No OpenMP runtime on IRIX; and the makefile links its own SYS_LIBS, not
+# LIBS, so name the thread library there.
+MAKE_ENV+=	SYS_LIBS=${PTHREAD_LIBS:Q}
+.else
 MAKE_FLAGS+=	ENABLE_OMP=1
+.endif
 
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
