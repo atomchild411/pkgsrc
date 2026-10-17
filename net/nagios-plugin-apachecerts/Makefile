@@ -16,6 +16,10 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 INSTALLATION_DIRS+=	libexec/nagios
 
+# The Makefile sets CFLAGS and LIBS, with no -L for a non-base OpenSSL.
+CFLAGS+=		-D_BSD_SOURCE
+LIBS.apachecerts=	${LDFLAGS} -lssl -lcrypto
+MAKE_FLAGS+=		CFLAGS=${CFLAGS:Q} LIBS=${LIBS.apachecerts:Q}
 
 BUILD_DEFS+=		NAGIOS_GROUP
 PKG_GROUPS_VARS+=	NAGIOS_GROUP
@@ -28,4 +32,5 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/check_apachecerts \
 	    ${DESTDIR}${PREFIX}/libexec/nagios/
 
+.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
