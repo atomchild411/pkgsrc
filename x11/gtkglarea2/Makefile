@@ -20,6 +20,9 @@ CONFIG_SUB_OVERRIDE+=	.auto/config.sub
 
 PKGCONFIG_OVERRIDE=	gtkgl-2.0.pc.in
 
+# libgtkgl calls XFree but does not link libX11 (lld wants it named).
+LIBS.IRIX+=	-lX11
+
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
