@@ -38,6 +38,12 @@ SUBST_FILES.for=	doc/*/Makefile.in
 SUBST_SED.for=		-e 's,for file in \$$(omffile); do,omffile="$$(omffile)"; for file in $$$$omffile; do,'
 
 .include "../../devel/gettext-lib/buildlink3.mk"
+# dia calls g_module_symbol but links no libgmodule (lld wants it named).
+LIBS.IRIX+=	-lgmodule-2.0
+# IRIX's isinf is a <math.h> macro, so the -lm link probe misses it, and
+# dia's fallback macro then breaks libc++'s <cmath>.
+CONFIGURE_ENV.IRIX+=	ac_cv_lib_m_isinf=yes
+
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"

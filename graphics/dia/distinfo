@@ -19,5 +19,6 @@ SHA1 (patch-lib_properties.h) = 56b40c4dbb6a60f071e88a24d458e7d683b3d97a
 SHA1 (patch-objects_custom_custom__object.c) = d7ff57572fd4c4b1cf7974fc946191afc0600eaf
 SHA1 (patch-plug-ins_postscript_diapsft2renderer.c) = e1983113c33a0ed8f6ee447af97973652b610506
 SHA1 (patch-plug-ins_postscript_paginate__psprint.c) = 59784ea73d32158f457e52132bc5c4cef375dcae
+SHA1 (patch-plug-ins_wmf_wmf.cpp) = f76fa787c5e1b7d8a86a31a1df82b906cb893338
 SHA1 (patch-tests-boundingbox.c) = 0ced66976e1fff4326bbb4238e36927139edf0c1
 SHA1 (patch-tests-test-objects.c) = c9cf2f2bd12efd0990cc12cece99a1d341469bb2
