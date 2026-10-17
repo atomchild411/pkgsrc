@@ -9,3 +9,4 @@ SHA1 (patch-include_haproxy_queue.h) = eed5ea43212462134fb60b50c2a32e619e104d51
 SHA1 (patch-include_haproxy_server-t.h) = 153928a1fd86650fb1b453134f3d0d1959727f8c
 SHA1 (patch-src_backend.c) = a729f02af1c63ab8359b8dbd1dbdf86cc32e523b
 SHA1 (patch-src_queue.c) = d0665fa30d3906bc8362ff0ee81b91459014afe1
+SHA1 (patch-src_tools.c) = 91f9b7ab732e236ea8b52f8dbcf4f25385ecdae4
