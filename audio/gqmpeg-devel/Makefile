@@ -26,6 +26,8 @@ REPLACE_SH=		plugin/gqmpeg-shoutcast-plugin.sh
 MAKE_ENV+=		builddir=.
 
 LIBS.SunOS+=		-lm -lX11
+# Its IRIX audio output calls libaudio (alGetParamInfo, ...).
+LIBS.IRIX+=		-laudio
 LDFLAGS.DragonFly=	-lm -lX11
 
 .include "options.mk"
