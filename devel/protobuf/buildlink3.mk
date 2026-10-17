@@ -19,6 +19,17 @@ PROTOC=			${TOOLBASE}/bin/protoc
 CONFIGURE_ENV+=		PROTOC=${PROTOC:Q}
 MAKE_ENV+=		PROTOC=${PROTOC:Q}
 CMAKE_CONFIGURE_ARGS+=	-DProtobuf_PROTOC_EXECUTABLE=${PROTOC:Q}
+# protobuf's CMake package imports protobuf::protoc (and the upb plugins)
+# from bin/protoc-<version> and refuses to load when a file is missing: the
+# build machine's go there, which are also the ones a project that runs
+# them needs.
+BUILDLINK_TARGETS+=	protobuf-buildlink-host-protoc
+.PHONY: protobuf-buildlink-host-protoc
+protobuf-buildlink-host-protoc:
+	${RUN} ${MKDIR} ${BUILDLINK_DIR}/bin;				\
+	for f in ${TOOLBASE}/bin/protoc-[0-9]* ${TOOLBASE}/bin/protoc-gen-upb*-[0-9]*; do \
+		if [ -f "$$f" ]; then ${LN} -sf "$$f" ${BUILDLINK_DIR}/bin/; fi; \
+	done
 .else
 BUILDLINK_FILES.protobuf+=	bin/protoc
 BUILDLINK_FILES.protobuf+=	bin/protoc-*
