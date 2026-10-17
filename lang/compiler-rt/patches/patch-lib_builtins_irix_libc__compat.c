@@ -12,10 +12,11 @@ branch iris/main):
 - [IRIX] mbsnrtowcs and wcsnrtombs
 - compiler-rt: wcstoimax/wcstoumax before 6.5.22, ffsl, ffsll, cfsetspeed
 - <wchar.h>: wcsncasecmp
+- <wchar.h>: wcpcpy and wcpncpy
 
 --- lib/builtins/irix/libc_compat.c.orig
 +++ lib/builtins/irix/libc_compat.c
-@@ -0,0 +1,469 @@
+@@ -0,0 +1,487 @@
 +//===-- irix/libc_compat.c - C95/C99 functions IRIX 6.5.7's libc lacks ---===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -26,8 +27,8 @@ branch iris/main):
 +//
 +// IRIX before 6.5.22 has only C89's wide-character functions. These are the
 +// C95 and C99 ones C and C++ libraries use, declared by clang's IRIX
-+// <wchar.h> wrapper; POSIX 2008's strnlen, wcsnlen, wcsdup, wcscasecmp and
-+// wcsncasecmp, which no IRIX has; and C99's strtoimax, strtoumax, imaxabs and imaxdiv,
++// <wchar.h> wrapper; POSIX 2008's strnlen, wcsnlen, wcsdup, wcscasecmp,
++// wcsncasecmp, wcpcpy and wcpncpy, which no IRIX has; and C99's strtoimax, strtoumax, imaxabs and imaxdiv,
 +// which IRIX's libc lacks before 6.5.22 (imaxabs and imaxdiv in every
 +// release) and clang's IRIX <inttypes.h> wrapper declares. They live here,
 +// in the builtins every IRIX link takes, so that a program built for 6.5.7
@@ -83,6 +84,8 @@ branch iris/main):
 +#pragma weak wcsnlen
 +#pragma weak wcscasecmp
 +#pragma weak wcsncasecmp
++#pragma weak wcpcpy
++#pragma weak wcpncpy
 +#pragma weak strnlen
 +#pragma weak strtoimax
 +#pragma weak strtoumax
@@ -410,6 +413,22 @@ branch iris/main):
 +      return 0;
 +  }
 +  return 0;
++}
++
++wchar_t *wcpcpy(wchar_t *__restrict d, const wchar_t *__restrict s) {
++  while ((*d = *s++) != 0)
++    ++d;
++  return d;
++}
++
++wchar_t *wcpncpy(wchar_t *__restrict d, const wchar_t *__restrict s,
++                 size_t n) {
++  size_t len = wcsnlen(s, n), i;
++  for (i = 0; i < len; ++i)
++    d[i] = s[i];
++  for (; i < n; ++i)
++    d[i] = 0;
++  return d + len;
 +}
 +
 +/* IRIX streams have no orientation: report none. */

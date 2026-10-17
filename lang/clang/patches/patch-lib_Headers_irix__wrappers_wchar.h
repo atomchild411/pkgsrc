@@ -13,10 +13,11 @@ branch iris/main):
 - swscanf, fwscanf, wscanf and their v forms
 - [IRIX] mbsnrtowcs and wcsnrtombs
 - <wchar.h>: wcsncasecmp
+- <wchar.h>: wcpcpy and wcpncpy
 
 --- lib/Headers/irix_wrappers/wchar.h.orig
 +++ lib/Headers/irix_wrappers/wchar.h
-@@ -0,0 +1,197 @@
+@@ -0,0 +1,199 @@
 +/*===---- wchar.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -158,6 +159,8 @@ branch iris/main):
 +wchar_t *wcsdup(const wchar_t *);
 +int wcscasecmp(const wchar_t *, const wchar_t *);
 +int wcsncasecmp(const wchar_t *, const wchar_t *, size_t);
++wchar_t *wcpcpy(wchar_t *__restrict, const wchar_t *__restrict);
++wchar_t *wcpncpy(wchar_t *__restrict, const wchar_t *__restrict, size_t);
 +#ifdef __cplusplus
 +}
 +#endif
