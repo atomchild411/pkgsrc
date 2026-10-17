@@ -21,4 +21,12 @@ USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 MAKE_FILE=		GNUmakefile
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+# help2man would run the utilities just built. Without it the man pages are
+# installed empty, as they are natively where help2man is not installed.
+CONFIGURE_ENV+=		ac_cv_prog_FOUND_HELP2MAN=no
+.endif
+
 .include "../../mk/bsd.pkg.mk"
