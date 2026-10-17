@@ -38,15 +38,16 @@ branch iris/main):
 - getentropy and arc4random
 - sem_timedwait
 - fts
-- openpty, forkpty, login_tty
+- openpty, forkpty and login_tty; <pty.h>, <util.h>; no -lutil
 - fmemopen and open_memstream
 - swscanf, fwscanf, wscanf and their v forms
-- if_nameindex and friends (irix/ifnameindex.c)
-- pthread_mutex_timedlock and POSIX spin locks
+- if_nameindex and friends over SIOCGIFCONF
+- [IRIX] pthread_mutex_timedlock and POSIX spin locks
+- compiler-rt: posix_fallocate
 
 --- lib/builtins/CMakeLists.txt.orig
 +++ lib/builtins/CMakeLists.txt
-@@ -236,6 +236,64 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
+@@ -236,6 +236,65 @@ option(COMPILER_RT_EXCLUDE_LIBC_PROVIDED_ARM_AEABI_BUILTINS
    "Skip the standard C library provided arm aeabi builtins from compiler-rt)"
    Off)
  
@@ -94,6 +95,7 @@ branch iris/main):
 +    irix/pty.c
 +    irix/locale_l.c
 +    irix/fcntl.c
++    irix/fallocate.c
 +    irix/grouplist.c
 +    irix/dlsym.c
 +    irix/fts.c

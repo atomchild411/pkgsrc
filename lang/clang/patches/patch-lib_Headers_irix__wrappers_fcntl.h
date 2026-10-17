@@ -8,10 +8,11 @@ branch iris/main):
 - POSIX 2008's *at() calls and fdopendir
 - F_DUPFD_CLOEXEC
 - Wrappers: O_ASYNC and LOGIN_NAME_MAX
+- compiler-rt: posix_fallocate
 
 --- lib/Headers/irix_wrappers/fcntl.h.orig
 +++ lib/Headers/irix_wrappers/fcntl.h
-@@ -0,0 +1,93 @@
+@@ -0,0 +1,102 @@
 +/*===---- fcntl.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -32,7 +33,8 @@ branch iris/main):
 + * And O_DIRECTORY: what was opened must be a directory, or the open fails
 + * with ENOTDIR (checked with fstat on the descriptor, so exactly).
 + *
-+ * And the AT_ constants and openat (below).
++ * And the AT_ constants and openat (below), and posix_fallocate, which
++ * IRIX lacks too (irix/fallocate.c).
 + */
 +
 +#ifndef __CLANG_IRIX_FCNTL_H
@@ -94,6 +96,14 @@ branch iris/main):
 +extern "C" {
 +#endif
 +int openat(int, const char *, int, ...);
++#ifdef __cplusplus
++}
++#endif
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++int posix_fallocate(int, off_t, off_t);
 +#ifdef __cplusplus
 +}
 +#endif
