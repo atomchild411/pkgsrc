@@ -25,4 +25,9 @@ post-install:
 .include "../../devel/cmake/build.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/atomic64.mk"
+# IRIX: no sa_len in struct sockaddr; network interfaces from getifaddrs
+# (compiler-rt's IRIX builtins have it).
+# (CXXFLAGS: CMake does not read CPPFLAGS.)
+CXXFLAGS.IRIX+=	-DTORRENT_HAS_SALEN=0 -DTORRENT_USE_IFADDRS=1
+
 .include "../../mk/bsd.pkg.mk"

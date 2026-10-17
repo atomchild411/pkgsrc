@@ -3,4 +3,5 @@ $NetBSD: distinfo,v 1.25 2026/08/24 08:37:16 adam Exp $
 BLAKE2s (libtorrent-rasterbar-2.0.14.tar.gz) = 284e92be1a92cd5df83abf77761e92c07590db84aabaaddae80f86ff92f2e070
 SHA512 (libtorrent-rasterbar-2.0.14.tar.gz) = 13499a15ff0fa4241a8f161d06e8317c65838c6cecd71aa2ce9c4ef94143080a8a7ba6468e7e57c1a03cceebf2b18b5990c50f29f272e6c747c10078d42fda56
 Size (libtorrent-rasterbar-2.0.14.tar.gz) = 4765282 bytes
+SHA1 (patch-src_enum__net.cpp) = 3df69bce72eb73c1af22c97d22c4eccd6e395590
 SHA1 (patch-src_platform__util.cpp) = d1e316ab7a6925fb7050845aaf30ead3f67f0fd9
