@@ -21,6 +21,9 @@ USE_TOOLS+=		autoconf automake autoreconf gmake
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-harden-flags
 CONFIGURE_ARGS+=	--disable-statx
+# Translated manual pages are made only where po4a happens to be on the
+# PATH; the PLIST has none.
+CONFIGURE_ENV+=		ac_cv_prog_PO4A=
 
 PLIST_VARS+=	fuser
 
