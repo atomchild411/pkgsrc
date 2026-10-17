@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - Declare POSIX functions IRIX hides outside SGI mode
 - Wrapper <syslog.h>: LOG_AUTHPRIV as LOG_AUTH
+- LOG_FTP
 
 --- lib/Headers/irix_wrappers/syslog.h.orig
 +++ lib/Headers/irix_wrappers/syslog.h
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,42 @@
 +/*===---- syslog.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -27,6 +28,12 @@ branch iris/main):
 + * (polkit). */
 +#ifndef LOG_AUTHPRIV
 +#define LOG_AUTHPRIV LOG_AUTH
++#endif
++
++/* Their FTP daemon facility, which IRIX's syslogd does not know either:
++ * LOG_DAEMON, where IRIX's ftpd logs (nagios-nrpe, powerdns, wdm). */
++#ifndef LOG_FTP
++#define LOG_FTP LOG_DAEMON
 +#endif
 +
 +/* POSIX's, in IRIX's libc, which its header declares only in SGI mode (and

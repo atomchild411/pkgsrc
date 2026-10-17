@@ -13,10 +13,11 @@ branch iris/main):
 - Declare the BSD functions IRIX hides outside SGI mode
 - Wrappers: constant HUGE_VAL; programs' own snprintf macros left alone
 - fmemopen and open_memstream; fclose and fflush through the builtins
+- fileno as a function, not a macro
 
 --- lib/Headers/irix_wrappers/stdio.h.orig
 +++ lib/Headers/irix_wrappers/stdio.h
-@@ -0,0 +1,221 @@
+@@ -0,0 +1,234 @@
 +/*===---- stdio.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -82,6 +83,19 @@ branch iris/main):
 +#ifdef __IRIX_GETOPT_INDIRECT_STDIO
 +#undef __IRIX_GETOPT_INDIRECT
 +#undef __IRIX_GETOPT_INDIRECT_STDIO
++#endif
++
++/* fileno: IRIX's <stdio.h> makes it a function-like macro (FILE's _file),
++ * which breaks a declaration of it (flex lexers: rsyslog) and ::fileno in
++ * C++ (spdlog, raylib). Where it does, use libc's function instead,
++ * declared here since IRIX declares it only in some of those modes. */
++#ifdef fileno
++#undef fileno
++#ifdef __cplusplus
++extern "C" int fileno(FILE *);
++#else
++extern int fileno(FILE *);
++#endif
 +#endif
 +
 +#ifdef __cplusplus

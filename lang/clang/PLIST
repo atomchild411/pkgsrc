@@ -1142,6 +1142,7 @@ lib/clang/21/include/irix_wrappers/sys/queue.h
 lib/clang/21/include/irix_wrappers/sys/select.h
 lib/clang/21/include/irix_wrappers/sys/socket.h
 lib/clang/21/include/irix_wrappers/sys/stat.h
+lib/clang/21/include/irix_wrappers/sys/stream.h
 lib/clang/21/include/irix_wrappers/sys/sysinfo.h
 lib/clang/21/include/irix_wrappers/sys/termios.h
 lib/clang/21/include/irix_wrappers/sys/time.h
