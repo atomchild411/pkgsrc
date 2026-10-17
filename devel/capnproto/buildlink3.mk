@@ -15,6 +15,16 @@ BUILDLINK_FILES.capnproto+=	bin/capnpc
 BUILDLINK_FILES.capnproto+=	bin/capnpc-c++
 BUILDLINK_FILES.capnproto+=	bin/capnpc-capnp
 
+.include "../../mk/bsd.fast.prefs.mk"
+# Cross-compiling, schemas are compiled with the build host's capnp, not
+# the target's in the buildlink tree (CapnProtoConfig.cmake's
+# CAPNP_EXECUTABLE and CAPNPC_CXX_EXECUTABLE are cache variables).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=		capnproto-[0-9]*:../../devel/capnproto
+CMAKE_CONFIGURE_ARGS+=	-DCAPNP_EXECUTABLE=${TOOLBASE}/bin/capnp
+CMAKE_CONFIGURE_ARGS+=	-DCAPNPC_CXX_EXECUTABLE=${TOOLBASE}/bin/capnpc-c++
+.endif
+
 .endif	# CAPNPROTO_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-capnproto
