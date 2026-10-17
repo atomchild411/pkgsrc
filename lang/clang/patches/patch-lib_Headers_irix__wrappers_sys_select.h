@@ -14,10 +14,11 @@ branch iris/main):
 - sys/select.h: read <string.h> first, with C++ linkage
 - Wrapper <sys/select.h>: select() itself, where IRIX declares it extern
 - Wrapper <sys/select.h>: pselect declared before <sys/time.h> too
+- Headers: sys/select.h skips <sys/time.h> from inside IRIX's
 
 --- lib/Headers/irix_wrappers/sys/select.h.orig
 +++ lib/Headers/irix_wrappers/sys/select.h
-@@ -0,0 +1,125 @@
+@@ -0,0 +1,132 @@
 +/*===---- sys/select.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -110,7 +111,14 @@ branch iris/main):
 +}
 +#endif
 +
++/* Not from inside IRIX's <sys/time.h> (it includes this header before it
++ * declares gettimeofday): there it is a no-op for IRIX's header and this
++ * wrapper's, but it would read a replacement one (gnulib's) right then,
++ * whose gettimeofday macro then renames IRIX's declaration to a conflicting
++ * rpl_gettimeofday (amanda, gcal). */
++#ifndef _SYS_TIME_H
 +#include <sys/time.h>
++#endif
 +
 +/* IRIX gives struct timeval and select() only in X/Open, SGI and BSD modes.
 + * POSIX.1-2001 has both in <sys/select.h> without X/Open, so a program that
