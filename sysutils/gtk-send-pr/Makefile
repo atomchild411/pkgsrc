@@ -13,7 +13,6 @@ COMMENT=		GTK+ based problem report tool
 USE_TOOLS+=		pkg-config
 
 CPPFLAGS.SunOS+=	-Dstrsep=strpbrk
-CPPFLAGS.IRIX+=		-Dstrsep=strpbrk
 LDFLAGS.IRIX+=		-lgen
 
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1
