@@ -45,15 +45,16 @@ branch iris/main):
 - fts
 - Wrapper <errno.h>: oserror, setoserror and goserror in every mode
 - Wrappers <netinet/ip_icmp.h> and <netinet/udp.h>: include guards
-- <pty.h> and <util.h>
-- <netinet/ip6.h> and <audio.h>
-- <netinet/icmp6.h>
-- <sys/stream.h>
+- openpty, forkpty and login_tty; <pty.h>, <util.h>; no -lutil
+- [Headers][IRIX] <netinet/ip6.h> and <audio.h>
+- [Headers][IRIX] <netinet/icmp6.h>
+- [Headers][IRIX] <sys/stream.h> in POSIX and X/Open modes
 - <sys/random.h> and getrandom
+- compiler-rt: nl_langinfo_l, and a <langinfo.h> wrapper
 
 --- lib/Headers/CMakeLists.txt.orig
 +++ lib/Headers/CMakeLists.txt
-@@ -395,6 +395,104 @@ set(zos_wrapper_files
+@@ -395,6 +395,105 @@ set(zos_wrapper_files
    zos_wrappers/builtins.h
  )
  
@@ -85,6 +86,7 @@ branch iris/main):
 +  irix_wrappers/getopt.h
 +  irix_wrappers/ifaddrs.h
 +  irix_wrappers/inttypes.h
++  irix_wrappers/langinfo.h
 +  irix_wrappers/locale.h
 +  irix_wrappers/math.h
 +  irix_wrappers/netdb.h
@@ -158,7 +160,7 @@ branch iris/main):
  include(GetClangResourceDir)
  get_clang_resource_dir(output_dir PREFIX ${LLVM_LIBRARY_OUTPUT_INTDIR}/.. SUBDIR include)
  set(out_files)
-@@ -443,7 +541,7 @@ endfunction(clang_generate_header)
+@@ -443,7 +542,7 @@ endfunction(clang_generate_header)
  
  # Copy header files from the source directory to the build directory
  foreach( f ${files} ${cuda_wrapper_files} ${cuda_wrapper_bits_files}
@@ -167,7 +169,7 @@ branch iris/main):
  	   ${llvm_libc_wrapper_files} ${llvm_offload_wrapper_files})
    copy_header_to_output_dir(${CMAKE_CURRENT_SOURCE_DIR} ${f})
  endforeach( f )
-@@ -557,7 +655,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
+@@ -557,7 +656,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
  add_header_target("hexagon-resource-headers" "${hexagon_files}")
  add_header_target("hip-resource-headers" "${hip_files}")
  add_header_target("loongarch-resource-headers" "${loongarch_files}")
@@ -176,7 +178,7 @@ branch iris/main):
  add_header_target("ppc-resource-headers" "${ppc_files};${ppc_wrapper_files}")
  add_header_target("ppc-htm-resource-headers" "${ppc_htm_files}")
  add_header_target("riscv-resource-headers" "${riscv_files};${riscv_generated_files}")
-@@ -625,6 +723,41 @@ install(
+@@ -625,6 +724,41 @@ install(
    DESTINATION ${header_install_dir}/zos_wrappers
    COMPONENT clang-resource-headers)
  

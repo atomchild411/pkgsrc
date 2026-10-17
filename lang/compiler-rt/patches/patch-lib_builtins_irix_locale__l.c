@@ -4,10 +4,11 @@ IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - POSIX 2008 *_l functions: ctype, wctype and collation
 - compiler-rt: strftime_l
+- compiler-rt: nl_langinfo_l, and a <langinfo.h> wrapper
 
 --- lib/builtins/irix/locale_l.c.orig
 +++ lib/builtins/irix/locale_l.c
-@@ -0,0 +1,266 @@
+@@ -0,0 +1,341 @@
 +//===-- irix/locale_l.c - POSIX 2008 *_l functions for IRIX ---------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -31,6 +32,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <ctype.h>
++#include <langinfo.h>
 +#include <locale.h>
 +#include <stdlib.h>
 +#include <string.h>
@@ -70,6 +72,7 @@ branch iris/main):
 +#pragma weak wcscoll_l
 +#pragma weak wcsxfrm_l
 +#pragma weak strftime_l
++#pragma weak nl_langinfo_l
 +
 +// The C locale's classes, for any value: EOF, WEOF and everything outside
 +// ASCII are in none of them.
@@ -271,6 +274,79 @@ branch iris/main):
 +  size_t n = strftime(s, max, f, tm);
 +  free(f);
 +  return n;
++}
++
++// nl_langinfo in the C locale: IRIX's own answer when the category the item
++// belongs to is the C locale anyway, otherwise POSIX's C locale values.
++static int c_langinfo_category(nl_item item) {
++  switch (item) {
++  case RADIXCHAR:
++  case THOUSEP:
++    return LC_NUMERIC;
++  case YESSTR:
++  case NOSTR:
++  case YESEXPR:
++  case NOEXPR:
++    return LC_MESSAGES;
++  case CRNCYSTR:
++    return LC_MONETARY;
++  case CODESET:
++    return LC_CTYPE;
++  default:
++    return LC_TIME;
++  }
++}
++
++static const char *const c_abday[7] = {"Sun", "Mon", "Tue", "Wed",
++                                       "Thu", "Fri", "Sat"};
++static const char *const c_abmon[12] = {"Jan", "Feb", "Mar", "Apr",
++                                        "May", "Jun", "Jul", "Aug",
++                                        "Sep", "Oct", "Nov", "Dec"};
++
++static const char *c_langinfo(nl_item item) {
++  if (item >= DAY_1 && item <= DAY_7)
++    return c_wday[item - DAY_1];
++  if (item >= ABDAY_1 && item <= ABDAY_7)
++    return c_abday[item - ABDAY_1];
++  if (item >= MON_1 && item <= MON_12)
++    return c_month[item - MON_1];
++  if (item >= ABMON_1 && item <= ABMON_12)
++    return c_abmon[item - ABMON_1];
++  switch (item) {
++  case RADIXCHAR:
++    return ".";
++  case D_T_FMT:
++    return "%a %b %e %H:%M:%S %Y";
++  case D_FMT:
++    return "%m/%d/%y";
++  case T_FMT:
++    return "%H:%M:%S";
++  case T_FMT_AMPM:
++    return "%I:%M:%S %p";
++  case AM_STR:
++    return "AM";
++  case PM_STR:
++    return "PM";
++  case CODESET:
++    return "ANSI_X3.4-1968";
++  case YESEXPR:
++    return "^[yY]";
++  case NOEXPR:
++    return "^[nN]";
++  case CRNCYSTR:
++    return "-";
++  default: // THOUSEP, YESSTR, NOSTR, the eras, ALT_DIGITS
++    return "";
++  }
++}
++
++char *nl_langinfo_l(nl_item item, locale_t l) {
++  if (GLOBAL(l))
++    return nl_langinfo(item);
++  const char *cur = setlocale(c_langinfo_category(item), NULL);
++  if (cur && (!strcmp(cur, "C") || !strcmp(cur, "POSIX")))
++    return nl_langinfo(item);
++  return (char *)c_langinfo(item);
 +}
 +
 +#endif // __sgi
