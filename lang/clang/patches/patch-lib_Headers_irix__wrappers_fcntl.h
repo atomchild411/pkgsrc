@@ -10,10 +10,11 @@ branch iris/main):
 - Wrappers: O_ASYNC and LOGIN_NAME_MAX
 - compiler-rt: posix_fallocate
 - openat64 and fstatat64; open64 takes O_CLOEXEC
+- <fcntl.h>: flock and the LOCK_ operations
 
 --- lib/Headers/irix_wrappers/fcntl.h.orig
 +++ lib/Headers/irix_wrappers/fcntl.h
-@@ -0,0 +1,111 @@
+@@ -0,0 +1,125 @@
 +/*===---- fcntl.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -123,5 +124,19 @@ branch iris/main):
 +#ifndef O_ASYNC
 +#define O_ASYNC 0x1000
 +#endif
++
++/* flock (4.3BSD's, in IRIX's libc) and its LOCK_ operations, which IRIX
++ * declares only in <sys/file.h>: the BSDs' and glibc's <fcntl.h> have them,
++ * and code written for those includes nothing else. IRIX's values. */
++#ifndef LOCK_SH
++#define LOCK_SH 1
++#define LOCK_EX 2
++#define LOCK_NB 4
++#define LOCK_UN 8
++#endif
++#ifdef __cplusplus
++extern "C"
++#endif
++int flock(int, int);
 +
 +#endif /* __CLANG_IRIX_FCNTL_H */
