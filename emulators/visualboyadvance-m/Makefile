@@ -27,6 +27,12 @@ USE_TOOLS+=		pkg-config msgmerge zip
 USE_CXX_FEATURES+=	c++17
 
 .include "../../devel/cmake/build.mk"
+
+# bin2c, which the build runs, built with the build host's compiler.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=	-DHOST_CC=${NATIVE_CC:Q}
+.endif
+
 .include "../../audio/openal-soft/buildlink3.mk"
 .include "../../devel/SDL2/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

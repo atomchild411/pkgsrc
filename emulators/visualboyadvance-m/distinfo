@@ -4,5 +4,7 @@ BLAKE2s (visualboyadvance-m-2.1.4.tar.gz) = ffbfbdf69f7f5df30e8dea8cb2983932c78a
 SHA512 (visualboyadvance-m-2.1.4.tar.gz) = 9070715797c6be1648661019f236eb9328eb409f52e80e15aac52d814cf4155cf1ea37c230557c1288f152f0d27d838b11bee38679787a8d5198ca81f173d896
 Size (visualboyadvance-m-2.1.4.tar.gz) = 3891574 bytes
 SHA1 (patch-CMakeLists.txt) = 47fcd47e6fd46607e5214f28c1bbd26185c42a7e
+SHA1 (patch-cmake_HostCompile.cmake) = df1e9af35876eb4e53d364ce132dce44255eb95c
+SHA1 (patch-src_filters_xBRZ_xbrz.cpp) = 679f02a088156e1084a4c1ab06bb3523e9ea4704
 SHA1 (patch-src_wx_CMakeLists.txt) = 3218a2ec2984a371cc101aa1d8cea0176abbdc01
 SHA1 (patch-src_wx_openal.h) = 37108109b993cd2748e51408cf030629f5dcc1c6
