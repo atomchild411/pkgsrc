@@ -1,0 +1,15 @@
+$NetBSD$
+
+Removing -lm must not join its neighbours.
+
+--- pfe/configure.ac.orig
++++ pfe/configure.ac
+@@ -510,7 +510,7 @@
+ esac
+ dnl --------------------------------------------------------------------
+ AC_MSG_RESULT(cleaning LIBS from -lm occurrences)
+-LIBS=`echo " $LIBS " | sed -e "s/ -lm //g"`
++LIBS=`echo " $LIBS " | sed -e "s/ -lm / /g"`
+ 
+ PACKAGE_CFLAGS="$EXTRAS" # PACKAGE_LIBS = -lpfe
+ 

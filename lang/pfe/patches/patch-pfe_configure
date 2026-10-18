@@ -2,10 +2,11 @@ $NetBSD: patch-pfe_configure,v 1.1 2012/10/12 15:29:35 marino Exp $
 
 Fix typo "-W," -> "-Wl,".  GCC 4.7.2 doesn't allow this to pass as older
 GCCs do.
+Removing -lm must not join its neighbours.
 
---- pfe/configure.orig	2009-10-17 17:50:54.000000000 +0000
+--- pfe/configure.orig
 +++ pfe/configure
-@@ -20482,7 +20482,7 @@ opt_level="$WITHVAL_OPT"
+@@ -20482,7 +20482,7 @@
  if test "$GCC" = "yes" ; then
     OPTIM="-O$opt_level"
     DEBUG=" -W -Wshadow"
@@ -14,3 +15,12 @@ GCCs do.
     # GCC_WARN="$GCC_WARN -Wtraditional"
     # GCC_WARN="$GCC_WARN -Wconversion"
  elif test ".$am_cv_CC_dependencies_compiler_type" = ".aix" ; then
+@@ -20545,7 +20545,7 @@
+ esac
+ { $as_echo "$as_me:$LINENO: result: cleaning LIBS from -lm occurrences" >&5
+ $as_echo "cleaning LIBS from -lm occurrences" >&6; }
+-LIBS=`echo " $LIBS " | sed -e "s/ -lm //g"`
++LIBS=`echo " $LIBS " | sed -e "s/ -lm / /g"`
+ 
+ PACKAGE_CFLAGS="$EXTRAS" # PACKAGE_LIBS = -lpfe
+ 

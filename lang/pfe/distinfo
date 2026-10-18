@@ -5,4 +5,5 @@ SHA512 (pfe-0.33.71.tar.bz2) = d038ec9b6ca0ae5082c5cb68b1af40b4cdfce34d7706c9a38
 Size (pfe-0.33.71.tar.bz2) = 1789663 bytes
 SHA1 (patch-aa) = 8e2612bb1a828e531c023011f8ff4bb64d16c511
 SHA1 (patch-doc_pfedoc_docbookdocument.py) = b44293561361253074518fcfa3fa2d47137b5893
-SHA1 (patch-pfe_configure) = c1b2aaa1a2cc2d5dac1d9717e5450c45067bdbb8
+SHA1 (patch-pfe_configure) = 0aa8d7ffa017e79a378767a32cc7c95aca942674
+SHA1 (patch-pfe_configure.ac) = 06b5ee2556d64b79f130f1296517e97cad475508
