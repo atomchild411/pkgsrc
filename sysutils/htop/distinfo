@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.29 2026/04/29 16:10:16 fox Exp $
 BLAKE2s (htop-3.5.1.tar.xz) = 51d0ce81ab2e2f68ddd333a8700d7aa0372fefbd9582be581cb9faf2067ccac6
 SHA512 (htop-3.5.1.tar.xz) = c942cf3e9ddaca4716fdf953968fa242c20d86a69b4be4f2c3e961f8b8cf88defb6d12553432ea061cc1ea46318d5ead722d68a6083ec3208a7b678ae30eb245
 Size (htop-3.5.1.tar.xz) = 461728 bytes
+SHA1 (patch-Meter.c) = 96431ef73f8eb9cec3e41445ed3820eb4ed15c97
