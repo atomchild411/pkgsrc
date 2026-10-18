@@ -7,3 +7,4 @@ SHA1 (patch-Makefile) = 1316be75730b7823d5f0f00adb243bc5b9100f26
 SHA1 (patch-mf_Makefile.pkgsrc) = 26f8fa4ee7d57d1c1ed0bfea46c19302d4e1e5fd
 SHA1 (patch-src_common.mf) = 3a4a80449ad060732abacb08cfd2d32012e0750f
 SHA1 (patch-src_smconf.h) = 5d13a8334e89bff3dbb7fe998869d75378d9aadd
+SHA1 (patch-src_smmain.c) = 1bc5afce7e2bd73d7eeaf6fe51ad7a48c23ea112
