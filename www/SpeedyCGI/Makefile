@@ -23,5 +23,9 @@ SUBST_FILES.run=	src/optdefs
 SUBST_SED.run+=		-e "s|@@PREFIX@@|${PREFIX}|g"
 SUBST_MESSAGE.run=	Fixing hardcoded paths.
 
+# The embedded interpreter's dTHX calls pthread_getspecific; the build
+# host's perl, whose flags it links with, needs no -lpthread for it.
+BUILDLINK_TRANSFORM.IRIX+=	l:perl:perl:pthread
+
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"
