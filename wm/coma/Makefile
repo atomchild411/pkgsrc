@@ -28,6 +28,9 @@ SUBST_FILES.ints+=	client.c coma.h frame.c wm.c
 SUBST_SED.ints=		-e 's|u_int|uint|g'
 .endif
 
+# IRIX <sys/wait.h> has no WAIT_ANY.
+CFLAGS.IRIX+=	-DWAIT_ANY=-1
+
 LDFLAGS+=	${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.libX11}/lib
 LDFLAGS+=	-L${BUILDLINK_PREFIX.libX11}/lib -lX11 -lXft
 
