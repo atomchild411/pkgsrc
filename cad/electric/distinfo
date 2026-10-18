@@ -3,7 +3,7 @@ $NetBSD: distinfo,v 1.10 2021/10/26 10:04:10 nia Exp $
 BLAKE2s (electric-7.00.tar.gz) = 8c6065ef36589ba4f5c998ad0933441d17377738b5595bc5d7a8e8feade9e751
 SHA512 (electric-7.00.tar.gz) = 038421d7e846efc156961be512ed2e8d50974ac5d6557b8d8a9af2660bebcde525a6027df981162455baf5544dc3aa8d53bdabaf332d56810c43fff496e11469
 Size (electric-7.00.tar.gz) = 4474722 bytes
-SHA1 (patch-aa) = ca3aa5c28eef818dce61055daeedc1b7d2e9a8a7
+SHA1 (patch-aa) = ef3ec26cefa5453b69be187688ea5663229a844c
 SHA1 (patch-ab) = 088f1318a39692534ebbf7313893a6420d49523f
 SHA1 (patch-ac) = fac49d88feab792ff665686e9e4fc8a29caab471
 SHA1 (patch-ad) = 6be5c47ead4bf023ef6215d7bce496a2f7abb5b0

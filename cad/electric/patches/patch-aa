@@ -1,8 +1,8 @@
 $NetBSD: patch-aa,v 1.2 2004/12/01 04:47:53 dmcmahill Exp $
 
---- Makefile.in.orig	Fri Jul 16 01:59:50 2004
+--- Makefile.in.orig
 +++ Makefile.in
-@@ -796,11 +796,11 @@ CORE_SRC = \
+@@ -796,11 +796,11 @@
  BUILDOPTS = $(DEBUG) $(ARCHFLAGS) 
  BUILDDIR = obj
  HDS = src/include
@@ -17,7 +17,15 @@ $NetBSD: patch-aa,v 1.2 2004/12/01 04:47:53 dmcmahill Exp $
      $(LANGTCLLIBS) $(LANGJAVALIBS) @PTHREAD_CFLAGS@ @PTHREAD_LIBS@
  FIND = find
  INSTALL = install
-@@ -943,8 +943,8 @@ install: all
+@@ -936,15 +936,15 @@
+ 	rm -f src/vhdl/*~ src/vhdl/"#"*"#"
+ 
+ install: all
+-	$(INSTALL) -d -m755 @bindir@ $(DESTDIR)@datadir@/electric/lib
++	$(INSTALL) -d -m755 $(DESTDIR)@bindir@ $(DESTDIR)@datadir@/electric/lib
+ 	$(INSTALL) -m755 $(PROGNAME) $(DESTDIR)@bindir@/$(PROGNAME)
+ 	$(INSTALL) -m644 lib/.cadrc $(DESTDIR)@datadir@/electric/lib
+ 	@(cd lib ; \
  	for d in `$(FIND) . -type d -print`; do \
  	  $(INSTALL) -d -m755 $(DESTDIR)@datadir@/electric/lib/$$d ; \
  	  (cd $$d ; \
@@ -28,7 +36,7 @@ $NetBSD: patch-aa,v 1.2 2004/12/01 04:47:53 dmcmahill Exp $
  	  done ) ; \
  	done ) ; 
  
-@@ -955,8 +955,8 @@ install.html:
+@@ -955,8 +955,8 @@
  	for d in `$(FIND) . -type d -print`; do \
  	  $(INSTALL) -d -m755 $(DESTDIR)@datadir@/electric/doc/html/$$d ; \
  	  (cd $$d ; \
