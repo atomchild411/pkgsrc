@@ -63,6 +63,16 @@ MAKE_FLAGS+=	RELEASE=1					\
 
 .include "options.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The makefiles test for headers under /usr/include: the target's, not ours.
+SUBST_CLASSES+=		incdir
+SUBST_STAGE.incdir=	pre-configure
+SUBST_MESSAGE.incdir=	Pointing header probes at the target headers.
+SUBST_FILES.incdir=	src/build/Common.gmake src/xpdev/Common.gmake
+SUBST_FILES.incdir+=	src/conio/GNUmakefile
+SUBST_SED.incdir=	-e 's,\[ -\([ef]\) /usr/include/,[ -\1 ${CROSS_DESTDIR}/usr/include/,g'
+.endif
+
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/dlopen.buildlink3.mk"

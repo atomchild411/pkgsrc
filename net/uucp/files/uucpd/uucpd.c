@@ -205,7 +205,9 @@ doit(sa)
 	    setgid(pw->pw_gid) < 0 ||
 	    chdir(pw->pw_dir) < 0 ||
 	    setsid() < 0 ||
+#ifndef __sgi	/* IRIX has no setlogin() */
 	    setlogin(user) < 0 ||
+#endif
 	    setuid(pw->pw_uid) < 0) {
 		fprintf(stderr, "Could not set permissions.\n");
 		if (dolog)

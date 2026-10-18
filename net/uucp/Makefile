@@ -79,6 +79,10 @@ UUCPD_CPPFLAGS.${OPSYS}+=	-DSUPPORT_UTMPX
 .endif
 UUCPD_CPPFLAGS.Darwin=		-DSUPPORT_UTMP
 UUCPD_CPPFLAGS.*=		# empty
+# IRIX has neither BSD login()/loginx() nor libutil (and the exists()
+# tests above look at the build host when cross-compiling).
+UUCPD_CPPFLAGS.IRIX=		# empty
+UUCPD_LIBS.IRIX=		# empty
 UUCPD_LIBS.Darwin=		# empty
 UUCPD_LIBS.*=			-lcrypt -lutil
 OPSYSVARS+=			UUCPD_CPPFLAGS UUCPD_LIBS
