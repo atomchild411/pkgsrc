@@ -3,4 +3,4 @@ $NetBSD: distinfo,v 1.18 2025/03/09 03:17:19 gutteridge Exp $
 BLAKE2s (xfce4-fsguard-plugin-1.1.4.tar.bz2) = 8021e9d2f91fd8cf819079d1f52130abce160bbdb3de8b248a62acda48db9b8f
 SHA512 (xfce4-fsguard-plugin-1.1.4.tar.bz2) = 844708aebbf7e0561ad1895f6c901a734bcfedfa217c4ab1c78e904069f639c3266a69dccee8a69529bd94c925de874ab2ff1746f8927d4445908d1bd4dff78c
 Size (xfce4-fsguard-plugin-1.1.4.tar.bz2) = 468762 bytes
-SHA1 (patch-panel-plugin_fsguard.c) = 813ab6c5f61591039c4b8d8a817183dbe1c9505e
+SHA1 (patch-panel-plugin_fsguard.c) = 79bf3ad6afe768831df56cb0e6f3dfb63bdf0ec7

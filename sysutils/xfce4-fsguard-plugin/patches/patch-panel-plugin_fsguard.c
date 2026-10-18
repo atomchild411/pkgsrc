@@ -2,8 +2,9 @@ $NetBSD: patch-panel-plugin_fsguard.c,v 1.3 2018/05/28 23:41:53 youri Exp $
 
 Fix NetBSD support.
 Add SunOS, OS X and DragonFlyBSD support.
+Add IRIX support (statvfs).
 
---- panel-plugin/fsguard.c.orig	2016-10-29 06:43:10.000000000 +0000
+--- panel-plugin/fsguard.c.orig
 +++ panel-plugin/fsguard.c
 @@ -38,13 +38,18 @@
  #include <string.h>
@@ -18,18 +19,18 @@ Add SunOS, OS X and DragonFlyBSD support.
  #include <sys/mount.h>
  #endif
  
-+#if defined(__NetBSD__) || defined(__sun)
++#if defined(__NetBSD__) || defined(__sun) || defined(__sgi)
 +#define statfs statvfs
 +#endif
 +
  #include <gtk/gtk.h>
  #include <libxfce4util/libxfce4util.h>
  #include <libxfce4ui/libxfce4ui.h>
-@@ -277,7 +282,11 @@ fsguard_check_fs (FsGuard *fsguard)
+@@ -266,7 +271,11 @@
      err = statfs (fsguard->path, &fsd);
  
      if (err != -1) {
-+#ifdef __NetBSD__
++#if defined(__NetBSD__) || defined(__sgi)
 +        blocksize       = fsd.f_frsize;
 +#else
          blocksize       = fsd.f_bsize;
