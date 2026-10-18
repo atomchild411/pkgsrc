@@ -19,6 +19,11 @@ USE_TOOLS+=	pax perl:run
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-locfile=loc/pkgsrc
 CONFIGURE_ENV+=		PATH_PERL=${PERL5}
+# IRIX's libc has a pthread_create stub, so linking it alone works; the
+# rest of the API is in libpthread.
+CONFIGURE_ENV.IRIX+=	ol_cv_pthread_create=no
+# select() blocks only the calling thread.
+CONFIGURE_ARGS.IRIX+=	--with-yielding-select=yes
 
 OVERRIDE_DIRDEPTH=	4
 
@@ -47,6 +52,7 @@ PLIST_VARS+=	ntptime tickadj timetrim
 PLIST.ntptime=		yes
 PLIST.tickadj=		yes
 .elif ${OPSYS} == "IRIX"
+PLIST.tickadj=		yes
 PLIST.timetrim=		yes
 .elif ${OPSYS} == "Darwin"
 PLIST.tickadj=		yes
