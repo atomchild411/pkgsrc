@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.2 2025/10/29 05:03:47 imil Exp $
 BLAKE2s (nitro-0.5.tar.gz) = ce979a0f891f4e4e1109d67ae132cc300ae943cb70da50349b3e658d5397f701
 SHA512 (nitro-0.5.tar.gz) = 7d9df3f35257657a84db7680f40c5a2867fb7cdc2dfba0d34a4083805eb2a6f240d5639fcd0064ca5d8ea5934313a0f4671594b95a7bd2cfce82e82e9ac27563
 Size (nitro-0.5.tar.gz) = 28665 bytes
+SHA1 (patch-nitro.c) = 570849fcd42dacc5a07964d6b249db437947a97e
