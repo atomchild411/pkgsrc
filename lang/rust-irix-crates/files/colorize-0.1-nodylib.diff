@@ -1,0 +1,14 @@
+colorize 0.1 (dbcat): no dylib crate type; it would link the target's libstd.so,
+which is not installed.
+
+--- Cargo.toml.orig
++++ Cargo.toml
+@@ -5,7 +5,7 @@
+ 
+ [lib]
+ name = "colorize"
+-crate-type = ["rlib", "dylib"]
++crate-type = ["rlib"]
+ 
+ [[bin]]
+ name = "colorize_tests"

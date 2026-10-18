@@ -1,0 +1,13 @@
+html2md-bulletty (bulletty): no dylib crate type; it would link the target's
+libstd.so, which is not installed.
+
+--- Cargo.toml.orig
++++ Cargo.toml
+@@ -49,7 +49,6 @@
+ name = "html2md_bulletty"
+ crate-type = [
+     "rlib",
+-    "dylib",
+     "staticlib",
+ ]
+ path = "src/lib.rs"
