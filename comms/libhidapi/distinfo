@@ -6,5 +6,6 @@ Size (hidapi-0.15.0.tar.gz) = 363838 bytes
 SHA1 (patch-Makefile.am) = 8e39fc4650601af39c510107ca2b3c85029fb2df
 SHA1 (patch-configure.ac) = caf23d94ec0af608f63dfd3acba7b3624af78bdc
 SHA1 (patch-libusb_Makefile.am) = 2caf718bd7538bcc43b7eaea75dc5a7024f12581
+SHA1 (patch-libusb_hidapi__thread__pthread.h) = 27eaa1d4ad89bd6b37e0a1c494cd24b418fce9ad
 SHA1 (patch-netbsd_CMakeLists.txt) = 6a9ddb4e69be23cc34f59aee71520e17795b647a
 SHA1 (patch-netbsd_hid.c) = 4bd7079c86b34e5a43e12c5b609d7f1e209fedf0
