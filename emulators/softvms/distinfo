@@ -4,3 +4,4 @@ BLAKE2s (softvms-1.10/softvms.tar.gz) = 2de3d4379a0343b19579b41c2b0ac44beaba0cb7
 SHA512 (softvms-1.10/softvms.tar.gz) = d92e38b06947efcb96236355f55fae8803363151e4a31d01ec6b13bdd82813ff870866697eedc7d8708ed3450eebb35daa0425df7cf973ac33270040a950df71
 Size (softvms-1.10/softvms.tar.gz) = 93333 bytes
 SHA1 (patch-Makefile.in) = 0c75a7584a00ec8183ed1afb9db6434f145e1c2d
+SHA1 (patch-prototypes.h) = 09851750d91d4e1bf81c2caed197d3c92a9ddb47
