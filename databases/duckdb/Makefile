@@ -22,6 +22,9 @@ CMAKE_CONFIGURE_ARGS+=	-DBUILD_BENCHMARKS=ON
 CMAKE_CONFIGURE_ARGS+=	-DBUILD_TPCE=ON
 CMAKE_CONFIGURE_ARGS+=	-DWITH_INTERNAL_ICU=True
 CMAKE_CONFIGURE_ARGS+=	-DDUCKDB_EXPLICIT_VERSION=${PKGVERSION_NOREV}
+# The build runs a program to name the platform (and would call 32-bit
+# MIPS i686): name it.
+CMAKE_CONFIGURE_ARGS.IRIX+=	-DDUCKDB_EXPLICIT_PLATFORM=irix_mips
 
 .include "../../devel/cmake/build.mk"
 .include "../../security/openssl/buildlink3.mk"
