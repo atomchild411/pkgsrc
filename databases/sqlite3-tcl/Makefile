@@ -22,6 +22,11 @@ BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.6.10
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# Else configure asks the build host's tclsh (its $auto_path) where to install.
+CONFIGURE_ENV+=		TCLLIBDIR=${PREFIX}/lib/tcl8.6/sqlite${PKGVERSION_NOREV}
+.endif
+
 .if ${OPSYS} == "Darwin"
 post-install:
 	install_name_tool -id \
