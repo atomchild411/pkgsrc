@@ -18,5 +18,6 @@ SHA1 (patch-ak) = e73ed21080cf92db41038acec7ea3f574b3bad59
 SHA1 (patch-al) = af704d8e0b5712f0bc1286f7c1dfbf2f761e735b
 SHA1 (patch-am) = 36bed0bf2167a3ab5919d02d191e405e68687108
 SHA1 (patch-configure) = ab71c13b31a678b3cc3502a78f14200df0a8f0b3
+SHA1 (patch-include_Phrase.h) = e41afc267bc72419694fe22c6e48e22111746fd4
 SHA1 (patch-server_TLS__ImmOp.cpp) = 89992124de68fd00ba5a7f4c73c9638a23a559d0
 SHA1 (patch-server_TLS__MemFile.cpp) = f5231f5af38e9d833035bc6dccf7758beb02764c
