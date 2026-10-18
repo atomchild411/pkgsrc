@@ -2,10 +2,30 @@ $NetBSD: patch-meson.build,v 1.1 2025/02/07 16:18:14 pho Exp $
 
 Fix build with quickjs: it only installs static libraries so "static:
 false" never succeeds. Did the upstream actually test this?
+HAVE_EXECINFO_H is unset where there is no <execinfo.h>.
+find_library(static: false) looks only in the compiler's own directories, not LDFLAGS' (no libbz2 in the base system): link-test it.
 
---- meson.build.orig	2025-02-07 12:39:03.321364259 +0000
+--- meson.build.orig
 +++ meson.build
-@@ -669,7 +669,7 @@ if not compiler.links('''#include <stdin
+@@ -396,7 +396,7 @@
+ st = get_option('static')
+ deps = []
+ 
+-if conf_data.get('CONFIG_BACKTRACE') and conf_data.get('HAVE_EXECINFO_H') == 1
++if conf_data.get('CONFIG_BACKTRACE') and conf_data.get('HAVE_EXECINFO_H', 0) == 1
+     execinfodeps = compiler.find_library('execinfo', static: st, required: false)
+     if execinfodeps.found()
+         deps += execinfodeps
+@@ -502,7 +502,7 @@
+ if conf_data.get('CONFIG_BZIP2')
+     bz2deps = dependency('bzip2', static: st, required: false)
+     if not bz2deps.found()
+-        bz2deps = compiler.find_library('bz2', static: st)
++        bz2deps = st ? compiler.find_library('bz2', static: true) : compiler.find_library('bz2')
+     endif
+     deps += bz2deps
+ endif
+@@ -669,7 +669,7 @@
  endif
  
  if conf_data.get('CONFIG_QUICKJS')

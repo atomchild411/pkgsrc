@@ -56,6 +56,14 @@ MESON_ARGS+=	-Dlibsixel=true	# requires graphics/libsixel
 MESON_ARGS+=	-Dlibcurl=true	# requires www/curl
 MESON_ARGS+=	-Dsftp=true	# requires www/curl
 
+# doc/ runs the elinks it builds (man pages too); not in cross builds.
+PLIST_VARS+=	doc
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MESON_ARGS+=	-Ddoc=false
+.else
+PLIST.doc=	yes
+.endif
+
 REPLACE_PERL+=	doc/tools/help2xml
 
 .include "options.mk"
