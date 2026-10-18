@@ -5,3 +5,4 @@ SHA512 (grafx2-2.8.3132-src.tgz) = a1dd563c6bf357b43a1c83c891e7e8d11e9b293b28cd4
 Size (grafx2-2.8.3132-src.tgz) = 1179872 bytes
 SHA1 (patch-main.c) = 3116bf8990994265132ce95fec1ca13a0b735912
 SHA1 (patch-misc.c) = bd349d1012d220facfdf8beeef28d0d3c212a3f4
+SHA1 (patch-osdep.c) = d87367142ae14b5fe84cff321728fc083c7b87c7
