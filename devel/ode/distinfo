@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.12 2025/03/11 07:52:38 wiz Exp $
 BLAKE2s (ode-0.16.5.tar.gz) = fe309e712c85ab19d0671287fef0281a4b8d7d4d87283ce29139c6be566cd209
 SHA512 (ode-0.16.5.tar.gz) = 61f9b72e4871df0c6c69f34058ecdcefd3c8d79b29e6019889b9d505d49a5f966fcc3f7f5caf72f1136508a5d487d0af7fc6e18a77b41f3e6f46094743890bf9
 Size (ode-0.16.5.tar.gz) = 2629150 bytes
+SHA1 (patch-ode_src_threading__impl__posix.h) = 670a538c0e61911e1e03d4e0acd341f8d676bede
