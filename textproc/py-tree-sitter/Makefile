@@ -14,5 +14,8 @@ LICENSE=	mit
 
 TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
 
+# portable/endian.h: IRIX's <endian.h> is clang's wrapper.
+CFLAGS.IRIX+=	-DHAVE_ENDIAN_H
+
 .include "../../lang/python/wheel.mk"
 .include "../../mk/bsd.pkg.mk"

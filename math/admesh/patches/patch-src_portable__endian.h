@@ -3,15 +3,16 @@ $NetBSD: patch-src_portable__endian.h,v 1.1 2025/10/04 17:15:36 kikadf Exp $
 * Fix build, Net-, Free- and DragonFly BSD provide be16toh, le16toh, 
   etc, so there's no need for that definitions
   https://github.com/admesh/admesh/commit/7c6ffaf9bd87aa86212ce9b131ae5282729a9702
+* IRIX: <sys/endian.h> (clang's IRIX wrappers) has them too.
 
---- src/portable_endian.h.orig	2025-10-04 15:37:51.064690701 +0000
+--- src/portable_endian.h.orig
 +++ src/portable_endian.h
 @@ -46,23 +46,10 @@
  #	define __LITTLE_ENDIAN LITTLE_ENDIAN
  #	define __PDP_ENDIAN    PDP_ENDIAN
  
 -#elif defined(__OpenBSD__)
-+#elif defined(__OpenBSD__) || defined(__NetBSD__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#elif defined(__OpenBSD__) || defined(__NetBSD__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__sgi)
  
  #	include <sys/endian.h>
  

@@ -4,4 +4,4 @@ BLAKE2s (admesh-0.98.5.tar.gz) = c9f30eb0dc7284a4d2dab74ecd46c3dccdcfa88b4bb9695
 SHA512 (admesh-0.98.5.tar.gz) = 3ee049e2194365798ca42ec29efa85fbec5651b8876385ab79a81301054be7ce1194b3083a5efe202db63884be8a709ea4c1b9a9247a941283aaa525ee2cc03b
 Size (admesh-0.98.5.tar.gz) = 41122 bytes
 SHA1 (patch-Makefile.am) = af2fdd7020747681554c6b04bb3da663761a3949
-SHA1 (patch-src_portable__endian.h) = 603cc2afac5a0def66f65a5b2cb2de0d880d75e0
+SHA1 (patch-src_portable__endian.h) = 6d0c0149b1fd3894bb80680f6ea924d77c6000f7
