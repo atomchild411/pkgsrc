@@ -5,5 +5,5 @@ SHA512 (mpg321_0.3.2.orig.tar.gz) = f1bead2c11e4cde0f1a87e1b2e3d216ef80c9a5dd8b2
 Size (mpg321_0.3.2.orig.tar.gz) = 151139 bytes
 SHA1 (patch-ao.c) = cb404acdfb032c5a823c717965d14319db0d4466
 SHA1 (patch-mpg321.c) = 3d3939a83404bae20a397f8bbc6f2584169ad466
-SHA1 (patch-mpg321.h) = 79f991a1a18b09b851a42a1e44c24eac33f5a0ad
+SHA1 (patch-mpg321.h) = 4d8b0b0bc269426f228e9791194dc2e3fe7ed607
 SHA1 (patch-options.c) = 316b1428ed5453ec3633b47cd3e398680b5b9255

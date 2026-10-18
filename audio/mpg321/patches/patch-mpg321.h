@@ -1,10 +1,10 @@
 $NetBSD: patch-mpg321.h,v 1.1 2025/10/07 03:56:02 mrg Exp $
 
 Add / uncomment missing prototypes for GCC 14.
+IRIX <sys/sem.h> defines union semun (outside X/Open modes).
 
-
---- mpg321.h.orig	2012-03-25 05:27:49.000000000 -0700
-+++ mpg321.h	2025-09-29 14:04:56.946748517 -0700
+--- mpg321.h.orig
++++ mpg321.h
 @@ -242,7 +242,7 @@
  } fft_state;
  
@@ -14,7 +14,17 @@ Add / uncomment missing prototypes for GCC 14.
  
  fft_state *fft_init(void);
  
-@@ -303,4 +303,9 @@
+@@ -290,7 +290,8 @@
+ /* Shared total decoded frames */
+ decoded_frames *Decoded_Frames;
+ 
+-#if defined(__GNU_LIBRARY__) && !defined(_SEM_SEMUN_UNDEFINED)
++#if (defined(__GNU_LIBRARY__) && !defined(_SEM_SEMUN_UNDEFINED)) || \
++    (defined(__sgi) && _NO_XOPEN4)
+ /* */
+ #else
+ union semun {
+@@ -303,4 +304,9 @@
  /* Get the next encoding/decoding place in the frame buffer */
  int getnext_place(int position);
  
