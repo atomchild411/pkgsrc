@@ -74,4 +74,16 @@ CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# substads and preproc are built and run during the build (app defaults,
+# messages.h, the manual page): compile them for the build host.
+SUBST_CLASSES+=		hosttools
+SUBST_STAGE.hosttools=	pre-build
+SUBST_MESSAGE.hosttools=	Building substads and preproc for the build host.
+SUBST_FILES.hosttools=	Makefile
+SUBST_SED.hosttools=	-e 's,$$(CC) $$(CFLAGS) substads\.c,${NATIVE_CC} -O2 substads.c,'
+SUBST_SED.hosttools+=	-e 's,$$(CC) $$(CFLAGS) preproc\.c,${NATIVE_CC} -O2 preproc.c,'
+.endif
+
 .include "../../mk/bsd.pkg.mk"
