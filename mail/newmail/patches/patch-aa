@@ -1,8 +1,10 @@
 $NetBSD: patch-aa,v 1.2 2006/01/24 19:08:09 joerg Exp $
 
---- newmail.c.orig	1999-10-14 04:49:42.000000000 +0000
+IRIX has no d_type: stat the entry.
+
+--- newmail.c.orig
 +++ newmail.c
-@@ -28,6 +28,22 @@
+@@ -28,6 +28,35 @@
  static void usage();
  static void version();
  
@@ -10,6 +12,9 @@ $NetBSD: patch-aa,v 1.2 2006/01/24 19:08:09 joerg Exp $
 +#define DIRENT_IS_REG(x) ((x) == DT_REG)
 +#elif defined(DTTOIF)
 +#define DIRENT_IS_REG(x) (S_ISREG(DTTOIF((x))))
++#elif defined(__sgi)
++/* No d_type on IRIX: stat the entry (the directory is the cwd). */
++#define DIRENT_IS_REG(x) dirent_is_mode(curr_file->d_name, S_IFREG)
 +#else
 +#error "Neither DT_REG nor DTTOIF is defined."
 +#endif
@@ -18,14 +23,24 @@ $NetBSD: patch-aa,v 1.2 2006/01/24 19:08:09 joerg Exp $
 +#define DIRENT_IS_DIR(x) ((x) == DT_DIR)
 +#elif defined(DTTOIF)
 +#define DIRENT_IS_DIR(x) (S_ISDIR(DTTOIF((x))))
++#elif defined(__sgi)
++#define DIRENT_IS_DIR(x) dirent_is_mode(curr_file->d_name, S_IFDIR)
 +#else
 +#error "Neither DT_REG nor DTTOIF is defined."
++#endif
++
++#ifdef __sgi
++static int dirent_is_mode(const char *name, mode_t type) {
++	struct stat st;
++
++	return stat(name, &st) == 0 && (st.st_mode & S_IFMT) == type;
++}
 +#endif
 +
  unsigned char	no_mail_message,
  				individual_messages,
  				use_exit_val;
-@@ -98,7 +114,7 @@ int main(int argc, char *argv[]) {
+@@ -98,7 +127,7 @@
  					continue;
  				}
  				/* see if its a regular file */
@@ -34,7 +49,7 @@ $NetBSD: patch-aa,v 1.2 2006/01/24 19:08:09 joerg Exp $
  					/* stat it for check_mailbox */
  					if (stat(curr_file->d_name, &file_info) == -1) {
  						err(EX_NOINPUT, "couldn't stat %s/%s", argv[ui], curr_file->d_name);
-@@ -106,7 +122,7 @@ int main(int argc, char *argv[]) {
+@@ -106,7 +135,7 @@
  					check_mailbox(curr_file->d_name, &file_info, &found_mail);
  				} else if (warn_non_regular) {
  					/* just check its not a directory before warning */
@@ -43,7 +58,7 @@ $NetBSD: patch-aa,v 1.2 2006/01/24 19:08:09 joerg Exp $
  						warnx("Found %s/%s: Not a regular file", argv[ui], curr_file->d_name);
  					}
  				} /* end of is dirent a regular file */
-@@ -148,19 +164,19 @@ void check_mailbox(const char *const fn,
+@@ -148,19 +177,19 @@
  
  static void usage() {
  
