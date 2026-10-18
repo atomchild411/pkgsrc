@@ -1,0 +1,30 @@
+--- src/net/unix/ucred.rs.orig
++++ src/net/unix/ucred.rs
+@@ -46,6 +46,9 @@
+ #[cfg(any(target_os = "solaris", target_os = "illumos"))]
+ pub(crate) use self::impl_solaris::get_peer_cred;
+ 
++#[cfg(target_os = "irix")]
++pub(crate) use self::impl_irix::get_peer_cred;
++
+ #[cfg(any(target_os = "linux", target_os = "android", target_os = "openbsd"))]
+ pub(crate) mod impl_linux {
+     use crate::net::unix::UnixStream;
+@@ -250,3 +253,17 @@
+         }
+     }
+ }
++
++// IRIX cannot tell who is at the other end of a UNIX-domain socket.
++#[cfg(target_os = "irix")]
++pub(crate) mod impl_irix {
++    use crate::net::unix::UnixStream;
++    use std::io;
++
++    pub(crate) fn get_peer_cred(_sock: &UnixStream) -> io::Result<super::UCred> {
++        Err(io::Error::new(
++            io::ErrorKind::Other,
++            "IRIX has no peer credentials for UNIX-domain sockets",
++        ))
++    }
++}
