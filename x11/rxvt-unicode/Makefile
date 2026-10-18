@@ -20,6 +20,9 @@ USE_FEATURES+=	snprintf
 CONFIGURE_ENV+=		ac_cv_path_TIC=no
 
 CONFIGURE_ARGS+=	--enable-256-color
+# IRIX keeps lastlog as one file per user under /var/adm/lastlog, which
+# libptytty does not write.
+CONFIGURE_ARGS.IRIX+=	--disable-lastlog
 
 INSTALLATION_DIRS+=	share/doc/rxvt-unicode share/examples/rxvt-unicode
 
