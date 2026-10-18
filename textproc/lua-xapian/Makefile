@@ -7,6 +7,8 @@ HOMEPAGE=		https://xapian.org/docs/bindings/lua/
 CONFIGURE_ARGS+=	--with-lua
 CONFIGURE_ENV+=		LUA_CFLAGS=-I${PREFIX:Q}/${LUA_INCDIR:Q}
 CONFIGURE_ENV+=		LUA_LIBS=-L${PREFIX:Q}/${LUA_CDIR:Q}
+# configure asks the lua it runs (the build machine's, in cross builds) where.
+CONFIGURE_ENV+=		LUA_LIB=${PREFIX:Q}/${LUA_CDIR:Q} LUA_SO=.so
 MAKE_ENV+=		LUA_PKGPREFIX=${LUA_PKGPREFIX:Q}
 
 REPLACE_LUA=		lua/docs/examples/*.lua
