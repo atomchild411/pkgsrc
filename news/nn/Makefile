@@ -32,6 +32,8 @@ SFILE.*=	s-netbsd.h
 
 .if ${MACHINE_ARCH} == "i386"
 MFILE=	m-i80386.h
+.elif ${MACHINE_ARCH:Mmips*eb}
+MFILE=	m-mips.h
 .elif ${MACHINE_ARCH:Mmips*}
 MFILE=	m-mipsel.h
 .elif ${MACHINE_CPU} == "aarch64" || ${MACHINE_CPU} == "arm"
@@ -57,6 +59,12 @@ post-patch:
 	${CP} ${FILESDIR}/m-sparc64.h ${WRKSRC}/conf/m-sparc64.h
 	${CP} ${FILESDIR}/m-x86_64.h ${WRKSRC}/conf/m-x86_64.h
 	${CP} ${WRKSRC}/conf/m-m680x0.h ${WRKSRC}/conf/m-m68k.h
+.if ${OPSYS} == "IRIX"
+	# No libtermcap on IRIX: pkgsrc's ncurses has the termcap functions.
+	${SED} -e 's,-ltermcap,-lncurses,' ${WRKSRC}/conf/s-netbsd.h \
+	    > ${WRKSRC}/conf/s-netbsd.h.new
+	${MV} ${WRKSRC}/conf/s-netbsd.h.new ${WRKSRC}/conf/s-netbsd.h
+.endif
 
 SUBST_CLASSES+=		fix-dest
 SUBST_STAGE.fix-dest=	post-build
