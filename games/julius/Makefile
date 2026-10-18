@@ -17,6 +17,9 @@ USE_CMAKE=	yes
 USE_TOOLS+=	pkg-config
 
 CMAKE_CONFIGURE_ARGS+=  -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+# CMakeLists.txt builds everything with --coverage for GCC and Clang; IRIX
+# has no profiling runtime.
+BUILDLINK_TRANSFORM.IRIX+=	rm:--coverage
 
 LDFLAGS.NetBSD+=	-lexecinfo
 
