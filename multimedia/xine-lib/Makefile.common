@@ -36,7 +36,12 @@ USE_TOOLS+=		gmake pkg-config xmkmf perl gsed
 
 PTHREAD_OPTS+=		require
 PTHREAD_AUTO_VARS=	yes
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${OPSYS} != "IRIX"
+# IRIX: the plugins use pthread_cleanup_push(), whose __pthread_cancel_list
+# lives in libpthread; keep -lpthread there.
 BUILDLINK_TRANSFORM+=	rm:-lpthread
+.endif
 
 CPPFLAGS+=		-DHAVE_ZERO_SAFE_MEM=1
 
