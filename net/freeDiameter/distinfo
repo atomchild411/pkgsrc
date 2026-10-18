@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.16 2025/10/18 12:06:54 wiz Exp $
 BLAKE2s (freeDiameter-1.6.0.tar.gz) = 5ad344e994d46fe8a17e1db708df7376149f2d45d26cd9f4fcc449ca97cc8085
 SHA512 (freeDiameter-1.6.0.tar.gz) = b8fedd71e7d9b70393203529f0dba6cba897a5c23b372b53b81557f6ff11d9f50f9a125e4dff05e9eeb831a882cd0c118d79d5aa98565e5d5d9d24b3ef6e2b06
 Size (freeDiameter-1.6.0.tar.gz) = 1033949 bytes
+SHA1 (patch-libfdproto_dictionary__functions.c) = 35e50e389be69d8b687aec70800609c0cfc4da23
