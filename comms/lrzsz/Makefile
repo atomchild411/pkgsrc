@@ -21,7 +21,8 @@ CFLAGS+=	-Wno-error=incompatible-pointer-types
 CPPFLAGS.Linux+=-DSTRICT_PROTOTYPES=1	# XXX glibc 2.43
 
 .if (${OPSYS} == "SunOS" || ${OPSYS} == "Darwin" \
-	|| ${OPSYS} == "Linux" || ${OPSYS} == "Haiku")
+	|| ${OPSYS} == "Linux" || ${OPSYS} == "Haiku" \
+	|| ${OPSYS} == "IRIX")
 BROKEN_GETTEXT_DETECTION=yes
 .  include "../../devel/gettext-lib/buildlink3.mk"
 LOCALE_SUFFIX=		mo
