@@ -4,3 +4,4 @@ BLAKE2s (xrmftp-1.2.4.src.tgz) = cbd64389ee5470ab66ca8571bb8d2fe898f9fe46d8529bd
 SHA512 (xrmftp-1.2.4.src.tgz) = 1875cdd0f8442b030ee39e1a492ce76b65f3007298fed5da6d4ac783700ab9ef0b9d6159e00231b969ace189e289725f37b1f1b293b2c379359b2ea5f4abb8ac
 Size (xrmftp-1.2.4.src.tgz) = 37171 bytes
 SHA1 (patch-aa) = dc4312962ea88f7de850b5efb4dc66717abd6447
+SHA1 (patch-xftp.c) = 58ef3c362ab72479f085cfa111e4e3785b8f74d5
