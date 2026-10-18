@@ -14,6 +14,9 @@ USE_TOOLS+=	aclocal automake autoconf yacc
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 
+# IRIX has no DEFFILEMODE (BSD <sys/stat.h>).
+CPPFLAGS.IRIX+=	-DDEFFILEMODE=0666
+
 pre-configure:
 	cd ${WRKSRC} && ${TOOLBASE}/bin/libtoolize --copy --force
 	cd ${WRKSRC} && ${TOOLS_CMD.aclocal}

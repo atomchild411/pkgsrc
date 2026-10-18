@@ -6,3 +6,5 @@ Size (openrcs-20110824192219.tar.gz) = 106878 bytes
 SHA1 (patch-openbsd-compat_Makefile.am) = f231553fb4f4fd8f6ee17cdd7c2422125869a161
 SHA1 (patch-openbsd-compat_NOTES) = bf80bdce4af14245255556434e94a420fcb39218
 SHA1 (patch-openbsd-compat_memrchr.c) = 24f52eb05159318261ebfdb8b703da909633c6f2
+SHA1 (patch-src_rcsclean.c) = 3995dd9b05c7979a0b735000fff49c574a225bf5
+SHA1 (patch-src_rcstime.c) = edbb0ef870ab8740596c6febe04722c12c310183
