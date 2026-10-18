@@ -21,6 +21,8 @@ MAKE_FLAGS+=	CXXFLAGS-debug-no=
 MAKE_FLAGS+=	PREFIX=${PREFIX}
 
 CXXFLAGS.Darwin=	-Wno-deprecated-declarations
+# IRIX cannot tell a process its executable's path: give it, as on OpenBSD.
+CPPFLAGS.IRIX+=	-DKAK_BIN_PATH=\"${PREFIX}/bin/kak\"
 LDFLAGS.SunOS+=		-lsocket -lnsl
 
 .include "../../devel/ncurses/buildlink3.mk"
