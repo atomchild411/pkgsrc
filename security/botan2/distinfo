@@ -4,6 +4,7 @@ BLAKE2s (Botan-2.19.5.tar.xz) = c13fcad1935ac6e48db9820e012ab61e61a09a055c2c170e
 SHA512 (Botan-2.19.5.tar.xz) = 323930fbabd833a6affd71f90835e4ca31a9632e346dee9c5f396aca898697d0f2993b860f739d02cdf49fa7fbb3a2d306c4790e5d5f39620b2dea284983669c
 Size (Botan-2.19.5.tar.xz) = 6140148 bytes
 SHA1 (patch-configure.py) = 2688fe59474bf3de425b49d2e0c9c1f4ecccfd16
+SHA1 (patch-src_build-data_os_irix.txt) = 3d035f2de9c805eb8d258ddb16b1e0adf70b75d6
 SHA1 (patch-src_build-data_os_openbsd.txt) = 7858a819d457e0cb18a5b9d608c386bee36813ee
 SHA1 (patch-src_cli_tls__http__server.cpp) = f99030de233a8221f9c33ecb22987cd5b7690c89
 SHA1 (patch-src_cli_tls__proxy.cpp) = 713900a5c01a518577071637207d7d34ecd17546

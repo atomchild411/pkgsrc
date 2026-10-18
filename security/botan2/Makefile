@@ -17,7 +17,7 @@ USE_LANGUAGES=		c++
 
 PYTHON_FOR_BUILD_ONLY=	yes
 
-CONFIG_SHELL=		${PYTHONBIN}
+CONFIG_SHELL=		${TOOL_PYTHONBIN}
 CONFIGURE_SCRIPT=	./configure.py
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIGURE_ARGS+=	--docdir=share/doc
@@ -49,6 +49,11 @@ CONFIGURE_ARGS+=	--cpu=ppc64
 CONFIGURE_ARGS+=	--cpu=arm64
 .elif ${MACHINE_ARCH:Mearm*}
 CONFIGURE_ARGS+=	--cpu=arm32
+.endif
+
+# Botan's configure has no IRIX of its own; patches add src/build-data/os/irix.txt.
+.if ${OPSYS} == "IRIX"
+CONFIGURE_ARGS+=	--os=irix --cpu=mips32
 .endif
 
 PKGCONFIG_OVERRIDE=		build/botan-2.pc

@@ -17,7 +17,7 @@ USE_LANGUAGES=		c++03
 
 PYTHON_VERSIONS_ACCEPTED=	27 # not yet ported as of 1.8.14; 1.10 is supposedly better
 
-CONFIG_SHELL=		${PYTHONBIN}
+CONFIG_SHELL=		${TOOL_PYTHONBIN}
 CONFIGURE_SCRIPT=	./configure.py
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIGURE_ARGS+=	--docdir=share/doc

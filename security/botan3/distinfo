@@ -3,4 +3,5 @@ $NetBSD: distinfo,v 1.9 2025/10/19 13:45:30 adam Exp $
 BLAKE2s (Botan-3.9.0.tar.xz) = 1bc9b14c45fbecb6b59da6b04ebd97e679744c3d4aef3775a629ddf43356d1c5
 SHA512 (Botan-3.9.0.tar.xz) = 50fc581d120619dc8ceadff8f2c6a831992fbb7c74621edcfb266f2bc973e66723e15d855fdad96f46204bdcdb957609c506e02d2d7edbecb67eb54b4bd96fc6
 Size (Botan-3.9.0.tar.xz) = 8769364 bytes
+SHA1 (patch-src_build-data_os_irix.txt) = cede1fc2ecf3855937434660aa768c26b6c8390e
 SHA1 (patch-src_scripts_install.py) = c8ac2a6315e0e53a0292447e8e6b967572de9d24
