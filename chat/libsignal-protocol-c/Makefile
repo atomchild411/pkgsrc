@@ -16,6 +16,10 @@ USE_LANGUAGES=	c c++
 
 CMAKE_CONFIGURE_ARGS+=	-DBUILD_SHARED_LIBS=true
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+# find_library() does not search the IRIX sysroot (cross builds find
+# libraries through .buildlink): name its libm (a file: the result is
+# also used as a dependency).
+CMAKE_CONFIGURE_ARGS.IRIX+=	-DM_LIB=${_CROSS_DESTDIR}/usr/lib${LIBABISUFFIX}/libm.so
 
 PKGCONFIG_OVERRIDE+=	src/libsignal-protocol-c.pc.in
 
