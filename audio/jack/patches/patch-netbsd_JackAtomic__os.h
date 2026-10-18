@@ -1,10 +1,11 @@
 $NetBSD: patch-netbsd_JackAtomic__os.h,v 1.1 2021/09/08 19:19:20 nia Exp $
 
 Add NetBSD support.
+- IRIX: the NetBSD port without its Sun audio driver, CAS via __sync.
 
---- netbsd/JackAtomic_os.h.orig	2021-09-08 13:51:19.683563214 +0000
+--- netbsd/JackAtomic_os.h.orig
 +++ netbsd/JackAtomic_os.h
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,40 @@
 +/*
 +Copyright (C) 2004-2008 Grame
 +
@@ -28,11 +29,19 @@ Add NetBSD support.
 +#define __JackAtomic_netbsd__
 +
 +#include "JackTypes.h"
++#ifdef __sgi
++#include <stdint.h>
++#else
 +#include <atomic.h>
++#endif
 +
 +static inline char CAS(volatile UInt32 value, UInt32 newvalue, volatile void* addr)
 +{
++#ifdef __sgi
++     return __sync_bool_compare_and_swap((uint32_t*)addr, value, newvalue);
++#else
 +     return (atomic_cas_32((uint32_t*)addr, value, newvalue) == value);
++#endif
 +}
 +
 +#endif

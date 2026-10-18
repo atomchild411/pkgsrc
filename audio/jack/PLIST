@@ -17,7 +17,7 @@ include/jack/types.h
 include/jack/uuid.h
 include/jack/weakjack.h
 include/jack/weakmacros.h
-lib/jack/audioadapter.so
+${PLIST.adapter}lib/jack/audioadapter.so
 ${PLIST.alsa}lib/jack/jack_alsa.so
 ${PLIST.alsa}lib/jack/jack_alsarawmidi.so
 ${PLIST.boomer}lib/jack/jack_boomer.so

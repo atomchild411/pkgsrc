@@ -38,6 +38,16 @@ PLIST_VARS+=	sun
 PLIST.sun=	yes
 .endif
 
+# IRIX builds the NetBSD port's POSIX parts, with no audio driver or
+# adapter; --platform defaults to the build host's sys.platform, so name
+# it for cross builds.
+PLIST_VARS+=	adapter
+.if ${OPSYS} == "IRIX"
+WAF_ARGS+=	--platform=irix6
+.else
+PLIST.adapter=	yes
+.endif
+
 PLIST_VARS+=	darwin
 .if ${OPSYS} == "Darwin"
 PLIST.darwin=	yes
