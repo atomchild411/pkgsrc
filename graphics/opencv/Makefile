@@ -15,11 +15,29 @@ PYTHON_VERSIONS_INCOMPATIBLE=	310 311
 
 CMAKE_CONFIGURE_ARGS+=	-DPYTHON_EXECUTABLE=${PYTHONBIN}
 
-PLIST_VARS+=	opencl
+PLIST_VARS+=	itt opencl
 
 .include "../../mk/bsd.prefs.mk"
 .if ${OPSYS} != "Darwin"
 PLIST.opencl=	yes
+.endif
+# Intel's ITT (ittnotify) is built only for these processors.
+.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64" || \
+    !empty(MACHINE_ARCH:M*arm*) || !empty(MACHINE_ARCH:Maarch64*) || \
+    ${MACHINE_ARCH} == "powerpc64le"
+PLIST.itt=	yes
+.endif
+
+# Cross compiling, OpenCV cannot probe the target's Python and NumPy, and
+# leaves the bindings out unless told where they are (the target's, from
+# the cross destdir; numpy's buildlink3.mk has the same directory) and
+# where they go. Its generators run the build machine's python.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=	-DPYTHON3_EXECUTABLE=${TOOL_PYTHONBIN}
+CMAKE_CONFIGURE_ARGS+=	-DPYTHON3_INCLUDE_PATH=${BUILDLINK_DIR}/${PYINC}
+CMAKE_CONFIGURE_ARGS+=	-DPYTHON3_LIBRARIES=${BUILDLINK_DIR}/lib/libpython${PYVERSSUFFIX}.so
+CMAKE_CONFIGURE_ARGS+=	-DPYTHON3_NUMPY_INCLUDE_DIRS=${_CROSS_DESTDIR}${PREFIX}/${PYSITELIB}/numpy/_core/include
+CMAKE_CONFIGURE_ARGS+=	-DPYTHON3_PACKAGES_PATH=${PREFIX}/${PYSITELIB}
 .endif
 
 .include "options.mk"
