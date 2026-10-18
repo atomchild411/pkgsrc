@@ -16,6 +16,17 @@ GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	--enable-piddir=${VARBASE}/run
 
+.include "../../mk/bsd.fast.prefs.mk"
+# configure checks that the pid directory exists, and looks for the mail
+# spool, on the build host. IRIX's spool is /var/mail.
+CONFIGURE_ARGS.IRIX+=	--enable-mailspool=/var/mail
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		piddir
+SUBST_STAGE.piddir=	pre-configure
+SUBST_FILES.piddir=	config/configure
+SUBST_SED.piddir=	-e 's,^elif test -d $$pop_piddir; then$$,elif true; then,'
+.endif
+
 EGDIR=		${PREFIX}/share/examples/teapop
 CONF_FILES=	${EGDIR}/teapop.passwd ${PKG_SYSCONFDIR}/teapop.passwd
 
