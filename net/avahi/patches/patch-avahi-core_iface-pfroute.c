@@ -34,7 +34,18 @@ IRIX: routing-message sockaddrs carry a length byte and a family byte; its struc
  #else
  #define ADVANCE(x, n) (x += ROUNDUP(sizeof(struct sockaddr)))
  #endif
-@@ -153,13 +167,13 @@
+@@ -138,6 +152,10 @@
+ #if defined(__NetBSD__) || defined(__OpenBSD__)
+   if(((struct sockaddr *)cp)->sa_family == AF_UNSPEC)
+     ((struct sockaddr *)cp)->sa_family = AF_INET;
++#elif defined(__sgi)
++  /* IRIX too gives the netmask no family; set the family byte. */
++  if(PFR_SA_FAMILY(cp) == AF_UNSPEC)
++    ((unsigned char *)cp)[1] = AF_INET;
+ #endif
+ 
+   for (cp0 = cp, i = 0; i < RTAX_MAX; i++) {
+@@ -153,13 +171,13 @@
  #endif
    }
  
@@ -51,7 +62,7 @@ IRIX: routing-message sockaddrs carry a length byte and a family byte; its struc
  
    for(cp = cp0, i = 0; i < RTAX_MAX; i++)
      {
-@@ -167,10 +181,10 @@
+@@ -167,10 +185,10 @@
  	continue;
        sa = (struct sockaddr *)cp;
  #ifdef HAVE_SYS_SYSCTL_H
