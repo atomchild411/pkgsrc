@@ -8,6 +8,10 @@ COMMENT=	Contrib subtree of tools and plug-ins
 DEPENDS+=	postgresql17-server>=${PKGVERSION_NOREV}:../../databases/postgresql17-server
 
 BUILD_MAKE_FLAGS=	USE_PGXS=1
+# Parsers are no longer pre-generated, and the installed Makefile.global
+# names bison, flex and perl by their target paths.
+BUILD_MAKE_FLAGS+=	BISON=${TOOLS_CMD.bison:Q} FLEX=${TOOLS_CMD.lex:Q}
+BUILD_MAKE_FLAGS+=	PERL=${TOOLS_CMD.perl:Q}
 
 BUILD_DIRS+=		contrib/auth_delay
 BUILD_DIRS+=		contrib/auto_explain
