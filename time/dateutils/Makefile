@@ -26,4 +26,11 @@ pre-configure:
 
 .include "../../devel/gperf/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
+# The .tzmcc maps are made by running a program the build makes: not in
+# cross builds.
+PLIST_VARS+=	tzmcc
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.tzmcc=	yes
+.endif
+
 .include "../../mk/bsd.pkg.mk"

@@ -26,7 +26,7 @@ PKG_SUGGESTED_OPTIONS+=	x11
 PKG_SUGGESTED_OPTIONS+=	wayland
 .endif
 
-PLIST_VARS+=	glx gl2
+PLIST_VARS+=	gl1 glx gl2
 
 .include "../../mk/bsd.options.mk"
 
@@ -71,6 +71,10 @@ PLIST_VARS+=		x11
 .if !empty(PKG_OPTIONS:Mx11)
 PLIST.x11=		yes
 .  if ${OPSYS} != "Darwin"
+PLIST.gl1=		yes
+.  endif
+# IRIX's OpenGL (SGI's libGL) is 1.x: no OpenGL 2.0 plugins.
+.  if ${OPSYS} != "Darwin" && ${OPSYS} != "IRIX"
 PLIST.gl2=		yes
 PLIST.glx=		yes
 .  endif

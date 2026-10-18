@@ -166,8 +166,8 @@ ${PLIST.egl}${PLIST.x11}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_gl_egl_
 ${PLIST.egl}${PLIST.x11}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_gl_egl_x11.so
 ${PLIST.aalib}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_aa.a
 ${PLIST.aalib}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_aa.so
-${PLIST.glx}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_opengl.a
-${PLIST.glx}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_opengl.so
+${PLIST.gl1}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_opengl.a
+${PLIST.gl1}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_opengl.so
 ${PLIST.gl2}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_opengl2.a
 ${PLIST.gl2}lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_opengl2.so
 lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_vo_out_raw.a

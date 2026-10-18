@@ -35,4 +35,11 @@ post-install:
 		${DESTDIR}${PREFIX}/share/doc/puzzles
 
 .include "../../x11/gtk2/buildlink3.mk"
+# The icons are drawn by running the games: not in cross builds
+# (CMake builds them with no-icon.c then).
+PLIST_VARS+=	icons
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.icons=	yes
+.endif
+
 .include "../../mk/bsd.pkg.mk"
