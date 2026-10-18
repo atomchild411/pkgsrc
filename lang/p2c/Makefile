@@ -15,6 +15,15 @@ CFLAGS+=	-Dunix=1
 
 .include "../../mk/bsd.prefs.mk"
 
+# The build runs makeproto to write p2c.proto and p2c.hdrs: build it for
+# the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		makeproto
+SUBST_STAGE.makeproto=	pre-build
+SUBST_FILES.makeproto=	Makefile
+SUBST_SED.makeproto=	-e 's,^\t$$(CC) $$(CFLAGS) $$(LFLAGS) makeproto.c -o makeproto$$,\t${NATIVE_CC} -std=gnu89 makeproto.c -o makeproto,'
+.endif
+
 post-extract:
 	# The distfile contains a number of world-writable files, including
 	# an entry for '.' that causes pkgsrc to become upset. Fix it.
