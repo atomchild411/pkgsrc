@@ -1,0 +1,115 @@
+diff -ruN a/src/platform/irix.rs b/src/platform/irix.rs
+--- src/platform/irix.rs	1970-01-01 00:00:00.000000000 +0000
++++ src/platform/irix.rs	2026-10-18 16:19:19.713743352 +0000
+@@ -0,0 +1,95 @@
++//! IRIX: no battery information, so no batteries.
++
++use std::sync::Arc;
++
++use crate::platform::traits::{BatteryDevice, BatteryIterator, BatteryManager};
++use crate::units::{ElectricPotential, Energy, Power, ThermodynamicTemperature};
++use crate::{Result, State, Technology};
++
++#[derive(Debug)]
++pub struct NoneManager;
++
++impl BatteryManager for NoneManager {
++    type Iterator = NoneIterator;
++
++    fn new() -> Result<Self> {
++        Ok(NoneManager)
++    }
++
++    fn refresh(&self, device: &mut NoneDevice) -> Result<()> {
++        match *device {}
++    }
++}
++
++#[derive(Debug)]
++pub struct NoneIterator;
++
++impl Iterator for NoneIterator {
++    type Item = Result<NoneDevice>;
++
++    fn next(&mut self) -> Option<Self::Item> {
++        None
++    }
++}
++
++impl BatteryIterator for NoneIterator {
++    type Manager = NoneManager;
++    type Device = NoneDevice;
++
++    fn new(_manager: Arc<NoneManager>) -> Result<Self> {
++        Ok(NoneIterator)
++    }
++}
++
++#[derive(Debug)]
++pub enum NoneDevice {}
++
++impl BatteryDevice for NoneDevice {
++    fn energy(&self) -> Energy {
++        match *self {}
++    }
++
++    fn energy_full(&self) -> Energy {
++        match *self {}
++    }
++
++    fn energy_full_design(&self) -> Energy {
++        match *self {}
++    }
++
++    fn energy_rate(&self) -> Power {
++        match *self {}
++    }
++
++    fn state(&self) -> State {
++        match *self {}
++    }
++
++    fn voltage(&self) -> ElectricPotential {
++        match *self {}
++    }
++
++    fn temperature(&self) -> Option<ThermodynamicTemperature> {
++        match *self {}
++    }
++
++    fn vendor(&self) -> Option<&str> {
++        match *self {}
++    }
++
++    fn model(&self) -> Option<&str> {
++        match *self {}
++    }
++
++    fn serial_number(&self) -> Option<&str> {
++        match *self {}
++    }
++
++    fn technology(&self) -> Technology {
++        match *self {}
++    }
++
++    fn cycle_count(&self) -> Option<u32> {
++        match *self {}
++    }
++}
+diff -ruN a/src/platform/mod.rs b/src/platform/mod.rs
+--- src/platform/mod.rs	2026-10-18 16:19:19.713743352 +0000
++++ src/platform/mod.rs	2026-10-18 16:19:19.713743352 +0000
+@@ -29,6 +29,12 @@
+         pub type Manager = netbsd::SysMonManager;
+         pub type Iterator = netbsd::SysMonIterator;
+         pub type Device = netbsd::SysMonDevice;
++    } else if #[cfg(target_os = "irix")] {
++        mod irix;
++
++        pub type Manager = irix::NoneManager;
++        pub type Iterator = irix::NoneIterator;
++        pub type Device = irix::NoneDevice;
+     } else {
+         compile_error!("Support for this target OS is not implemented yet!\n \
+             You may want to create an issue: https://github.com/starship/rust-battery/issues/new");
