@@ -3,3 +3,5 @@ $NetBSD: distinfo,v 1.17 2026/06/23 13:49:10 pin Exp $
 BLAKE2s (lagrange-1.20.8.tar.gz) = 15932e3aba055a06328cb3b3477322ea25a28616665892ed0be1f21aaab87da7
 SHA512 (lagrange-1.20.8.tar.gz) = b19ac63f3bef1e1c9abe8a1e5bc4c79ffb9d838e6db5e5ef8bcad09c828b236c94dfca793dcde29fbecfe293f592e362bd9d45767bba6765a04a4d9f82a22527
 Size (lagrange-1.20.8.tar.gz) = 12314298 bytes
+SHA1 (patch-lib_the__Foundation_src_fileinfo.c) = ce51310dfefa41cea0ed0c34c5c087893c89dcb8
+SHA1 (patch-lib_the__Foundation_src_time.c) = 20bc670efbf42ff0271c9ec5f130d0919c0ce79e
