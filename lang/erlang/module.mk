@@ -21,28 +21,7 @@ MAKE_FLAGS+=	REBAR=${REBAR}
 # Used by some Erlang packages to use system deps
 MAKE_ENV+=	USE_GLOBAL_DEPS=true
 
-.if ${USE_CROSS_COMPILE:U:tl} == "yes"
-# The build machine's erl runs rebar: let it find the Erlang packages
-# installed for the target (the "system deps"; not the target's OTP
-# applications, whose NIFs it cannot load), and compile NIFs against the
-# target's erts and ei (erl_int_sizes_config.h is the target's).
-_ERL_CROSS_LIBS=	${WRKDIR}/.erl_libs
-MAKE_ENV+=	ERL_LIBS=${_ERL_CROSS_LIBS}
-MAKE_ENV+=	ERL_CFLAGS="-I${PREFIX}/lib/erlang/usr/include"
-# rebar.config port_env often names the erl_interface of the erl running
-# rebar: map the build machine's Erlang tree to the target's (same release).
-BUILDLINK_TRANSFORM+=	I:${TOOLBASE}/lib/erlang:${BUILDLINK_DIR}/lib/erlang
-BUILDLINK_TRANSFORM+=	L:${TOOLBASE}/lib/erlang:${BUILDLINK_DIR}/lib/erlang
-pre-configure: erlang-cross-libs
-.PHONY: erlang-cross-libs
-erlang-cross-libs:
-	${RUN}${MKDIR} ${_ERL_CROSS_LIBS};					\
-	for d in ${CROSS_DESTDIR}${PREFIX}/lib/erlang/lib/*; do		\
-		[ -d "$$d" ] || continue;					\
-		[ -d ${TOOLBASE}/lib/erlang/lib/$${d##*/} ] ||		\
-		    ${LN} -sf "$$d" ${_ERL_CROSS_LIBS}/;			\
-	done
-.endif
+.include "../../lang/erlang/cross.mk"
 
 ERL_MOD_NAME?=		${DISTNAME:C/-.*//}
 ERL_MOD_DIR?=		lib/erlang/lib/${ERL_MOD_NAME}-${PKGVERSION_NOREV}

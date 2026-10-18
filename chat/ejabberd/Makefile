@@ -187,4 +187,5 @@ post-install:
 
 BUILDLINK_API_DEPENDS.erlang+=	erlang>=27.0
 .include "../../lang/erlang/buildlink3.mk"
+.include "../../lang/erlang/cross.mk"
 .include "../../mk/bsd.pkg.mk"
