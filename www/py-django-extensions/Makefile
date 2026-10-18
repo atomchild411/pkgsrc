@@ -15,5 +15,17 @@ DEPENDS+=	${PYPKGPREFIX}-django>=4.2:../../www/py-django
 
 USE_LANGUAGES=	# none
 
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# setuptools gets the version by importing the module, which imports its
+# dependencies, which the build machine does not have: give it statically.
+SUBST_CLASSES+=		staticver
+SUBST_STAGE.staticver=	pre-configure
+SUBST_MESSAGE.staticver=	Giving the version statically.
+SUBST_FILES.staticver=	pyproject.toml
+SUBST_SED.staticver=	-e '/^dynamic = \[ *"version",* *\]$$/s/.*/version = "${PKGVERSION_NOREV}"/'
+SUBST_SED.staticver+=	-e '/^version = { *attr = /d'
+.endif
+
 .include "../../lang/python/wheel.mk"
 .include "../../mk/bsd.pkg.mk"

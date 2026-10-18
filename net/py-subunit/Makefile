@@ -28,5 +28,17 @@ PY_RENAME_BINARIES+=	subunit-ls subunit-notify subunit-output subunit-stats
 PY_RENAME_BINARIES+=	subunit-tags subunit2csv subunit2disk subunit2gtk
 PY_RENAME_BINARIES+=	subunit2junitxml subunit2pyunit tap2subunit
 
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# setuptools gets the version by importing the module, which imports its
+# dependencies, which the build machine does not have: give it statically.
+SUBST_CLASSES+=		staticver
+SUBST_STAGE.staticver=	pre-configure
+SUBST_MESSAGE.staticver=	Giving the version statically.
+SUBST_FILES.staticver=	pyproject.toml
+SUBST_SED.staticver=	-e '/^dynamic = \[ *"version",* *\]$$/s/.*/version = "${PKGVERSION_NOREV}"/'
+SUBST_SED.staticver+=	-e '/^version = { *attr = /d'
+.endif
+
 .include "../../lang/python/wheel.mk"
 .include "../../mk/bsd.pkg.mk"
