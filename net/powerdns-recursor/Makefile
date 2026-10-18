@@ -45,6 +45,13 @@ do-build:
 # Cross-compiling, cargo builds the Rust library under target/<target>/.
 .if !empty(RUST_CROSS_TARGET)
 MAKE_FLAGS+=		RUSTC_TARGET_ARCH=${RUST_CROSS_TARGET}
+# The sample configuration is pdns_recursor --config=default, which cannot
+# run here: ship one that names no settings, so all are at their defaults.
+SUBST_CLASSES+=		ymldist
+SUBST_STAGE.ymldist=	pre-configure
+SUBST_MESSAGE.ymldist=	Not running pdns_recursor for the sample configuration.
+SUBST_FILES.ymldist=	Makefile.in
+SUBST_SED.ymldist=	-e 's,\./pdns_recursor --config=default 2> /dev/null,echo "\# All settings at their defaults: see pdns_recursor --config=default",'
 .endif
 .include "../../lang/lua/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
