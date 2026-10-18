@@ -1,8 +1,11 @@
 $NetBSD: patch-analize.c,v 1.1 2013/02/26 10:29:34 joerg Exp $
 
---- analize.c.orig	2013-02-25 20:44:13.000000000 +0000
+random()<1000 < param_kan meant random()%1000 < param_kan (clang rejects
+the chained comparison).
+
+--- analize.c.orig
 +++ analize.c
-@@ -98,7 +98,6 @@ static int pointdiff;
+@@ -98,7 +98,6 @@
  
  static calc_myposition();
  static analize_policy();
@@ -10,7 +13,7 @@ $NetBSD: patch-analize.c,v 1.1 2013/02/26 10:29:34 joerg Exp $
  static filter_random();
  static filter_dora();
  static filter_zone();
-@@ -118,6 +117,8 @@ static print_pai();
+@@ -118,6 +117,8 @@
  static print_point();
  static naki_look();
  
@@ -19,7 +22,7 @@ $NetBSD: patch-analize.c,v 1.1 2013/02/26 10:29:34 joerg Exp $
  static calc_myposition(gp) global_t *gp; {
          int i,j,tmp;
  	int s[4];
-@@ -224,10 +225,11 @@ typedef struct {
+@@ -224,10 +225,11 @@
  
  pnt_t result_pnt;
  
@@ -32,7 +35,16 @@ $NetBSD: patch-analize.c,v 1.1 2013/02/26 10:29:34 joerg Exp $
  #endif
  {
  	int r[14];
-@@ -608,7 +610,7 @@ static analize_policy(gp) global_t *gp; 
+@@ -293,7 +295,7 @@
+ 		analize_policy(gp);
+ 		if (policy != POL_CHITOI && policy != POL_KOKUSHI && 
+ 		    (result_rest == 1
+-		     || (result_rest <= 2 && random()<1000 < param_kan)))
++		     || (result_rest <= 2 && random()%1000 < param_kan)))
+ 			ask_attr = T_HN_KAN;
+ 	}
+ }
+@@ -608,7 +610,7 @@
  }
  
  
