@@ -5,4 +5,5 @@ SHA512 (chipmunk-1.4.tar.gz) = 73da98bcd287451b3bd172a1b6c7ca085aac836bf4fe12a7d
 Size (chipmunk-1.4.tar.gz) = 62181 bytes
 SHA1 (patch-aa) = 6f883506ef85335ff896d662a4dae7ec7f299889
 SHA1 (patch-ab) = 4d7509547b0901291fd2083f5af840dfef6ee2eb
+SHA1 (patch-config.h) = 54c901abd5f0b79c7ba8e71bc5bbbda4d49e59d5
 SHA1 (patch-control.c) = 24b74238151c498aafc9223492cd1f123caf86fe
