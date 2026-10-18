@@ -9,6 +9,9 @@ HOMEPAGE=	https://jumpgate.sourceforge.net/
 COMMENT=	TCP connection forwarder with capture and syslog support
 
 GNU_CONFIGURE=	YES
+# configure looks for in_addr_t in <sys/types.h> only; IRIX has it in
+# <netinet/in.h>, which jumpgate includes.
+CONFIGURE_ENV.IRIX+=	ac_cv_type_in_addr_t=yes
 
 # Fix for newer gcc
 CFLAGS+=	-Wno-implicit-int
