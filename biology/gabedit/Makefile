@@ -20,6 +20,13 @@ CHECK_PORTABILITY_SKIP=	utils/Dalton/SGE/submitDalton \
 
 LDFLAGS.SunOS+=	-lsocket -lnsl
 
+# No OpenMP runtime on IRIX.
+SUBST_CLASSES.IRIX+=	noomp
+SUBST_STAGE.noomp=	post-configure
+SUBST_MESSAGE.noomp=	Building without OpenMP.
+SUBST_FILES.noomp=	CONFIG
+SUBST_SED.noomp=	-e 's/^OMPLIB=.*/OMPLIB=/' -e 's/^OMPCFLAGS=.*/OMPCFLAGS=/'
+
 do-configure:
 	cd ${WRKSRC} && cp platforms/CONFIG.unix CONFIG
 
