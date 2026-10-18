@@ -1,0 +1,36 @@
+--- src/os/irix.rs.orig
++++ src/os/irix.rs
+@@ -0,0 +1,18 @@
++//! IRIX: the constants are the libc crate's; termios is as IRIX has it
++//! (c_ospeed and c_ispeed after c_lflag; NCCS is 23), with the derives the
++//! other targets' modules have.
++#![allow(non_camel_case_types)]
++
++pub use libc::*;
++
++#[derive(Debug,Copy,Clone,Eq,PartialEq)]
++#[repr(C)]
++pub struct termios {
++    pub c_iflag: tcflag_t,
++    pub c_oflag: tcflag_t,
++    pub c_cflag: tcflag_t,
++    pub c_lflag: tcflag_t,
++    pub c_ospeed: speed_t,
++    pub c_ispeed: speed_t,
++    pub c_cc: [cc_t; NCCS]
++}
+--- src/os/mod.rs.orig
++++ src/os/mod.rs
+@@ -9,6 +9,7 @@
+ #[cfg(target_os = "dragonfly")] pub use self::dragonfly as target;
+ #[cfg(target_os = "solaris")] pub use self::solaris as target;
+ #[cfg(target_os = "illumos")] pub use self::illumos as target;
++#[cfg(target_os = "irix")] pub use self::irix as target;
+ 
+ #[cfg(target_os = "linux")] pub mod linux;
+ #[cfg(target_os = "android")] pub mod android;
+@@ -19,3 +20,4 @@
+ #[cfg(target_os = "dragonfly")] pub mod dragonfly;
+ #[cfg(target_os = "solaris")] pub mod solaris;
+ #[cfg(target_os = "illumos")] pub mod illumos;
++#[cfg(target_os = "irix")] pub mod irix;

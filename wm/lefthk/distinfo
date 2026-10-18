@@ -249,3 +249,4 @@ Size (x11-dl-2.21.0.crate) = 66823 bytes
 BLAKE2s (xdg-3.0.0.crate) = 9a9a1c2ed7666d89b133f8f3a5a6077299d8663c5e759971fa349cfea7dd163e
 SHA512 (xdg-3.0.0.crate) = 466afe1f7c4271bc3b98841a1e24cfc929d88ad4d55773c9edaf6fee38b411ae3b6596399dd9a39a4491920af203b954f4ea942f73721d173fe4458e2b2e60a2
 Size (xdg-3.0.0.crate) = 15821 bytes
+SHA1 (patch-lefthk-core_src_xwrap.rs) = eba3dd9b89fb103c68a717dc0832b3c9bcd95dcd
