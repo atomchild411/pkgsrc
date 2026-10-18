@@ -11,19 +11,16 @@ COMMENT=	Header-only C++ library for asynchronous programming
 LICENSE=	boost-license
 
 USE_LANGUAGES=	# none
-USE_TOOLS=	pax tar
+USE_TOOLS=	pax
 NO_CONFIGURE=	yes
 NO_BUILD=	yes
 
 INSTALLATION_DIRS=	include
 
-do-extract:
-	cd ${WRKDIR} && \
-	${TAR} -xzf "${DISTDIR}/${DISTFILES}" '*/include/*.*pp'
-
 do-install:
 	cd ${WRKSRC} && \
-	${PAX} -r -w include ${DESTDIR}${PREFIX}
+	${FIND} include \( -name '*.hpp' -o -name '*.ipp' \) -print | \
+	${PAX} -r -w ${DESTDIR}${PREFIX}
 
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
