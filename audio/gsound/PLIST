@@ -1,5 +1,5 @@
 @comment $NetBSD: PLIST,v 1.2 2024/04/14 14:20:28 adam Exp $
-bin/gsound-play
+${PLIST.play}bin/gsound-play
 include/gsound-attr.h
 include/gsound-context.h
 include/gsound.h

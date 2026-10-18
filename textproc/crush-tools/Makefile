@@ -23,5 +23,17 @@ REPLACE_PERL+=	src/bin/genman.pl
 
 CFLAGS.SunOS+=	-Du_int32_t=uint32_t
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# configure looks for Date::Calc in the build host's perl; the scripts that
+# need it get it from DEPENDS on the target.
+SUBST_CLASSES+=		datecalc
+SUBST_STAGE.datecalc=	pre-configure
+SUBST_MESSAGE.datecalc=	Taking Date::Calc from DEPENDS.
+SUBST_FILES.datecalc=	configure
+SUBST_SED.datecalc=	-e 's,^  \$$PERL -MDate::Calc -e exit >/dev/null 2>&1$$,  true,'
+.endif
+
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

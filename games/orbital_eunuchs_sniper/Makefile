@@ -35,6 +35,15 @@ CPU=			${MACHINE_ARCH}
 
 PLIST_SUBST+=		CPU=${CPU:Q}
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# configure names the binary after `uname -m`, the build host's here.
+SUBST_CLASSES+=		cpu
+SUBST_STAGE.cpu=	pre-configure
+SUBST_MESSAGE.cpu=	Naming the binary after the target CPU.
+SUBST_FILES.cpu=	configure
+SUBST_SED.cpu=		-e 's,^CPU_IS=`uname -m`$$,CPU_IS=${CPU},'
+.endif
+
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/README \
 		${DESTDIR}${PREFIX}/share/doc/orbital_eunuchs_sniper

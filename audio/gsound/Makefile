@@ -17,6 +17,15 @@ USE_TOOLS+=	pkg-config
 
 PKGCONFIG_OVERRIDE+=	gsound/gsound.pc
 
+.include "../../mk/bsd.prefs.mk"
+
+# gsound-play is Vala over the GIR, and there is no introspection when
+# cross-compiling (devel/gobject-introspection/buildlink3.mk).
+PLIST_VARS+=		play
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.play=		yes
+.endif
+
 .include "../../audio/libcanberra/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"
