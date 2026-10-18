@@ -1,10 +1,11 @@
 $NetBSD: patch-src_cache.cc,v 1.1 2017/09/15 22:18:00 ast Exp $
 
 * Compile with pre-2016/12/16 v1.36 dirent.h on NetBSD
+* IRIX: scandir() takes the callbacks without const (pre-POSIX 2008)
 
---- src/cache.cc.orig	2017-01-25 09:31:18.000000000 +0100
-+++ src/cache.cc	2017-09-15 22:05:44.077172709 +0200
-@@ -18,6 +18,8 @@
+--- src/cache.cc.orig
++++ src/cache.cc
+@@ -19,6 +19,8 @@
   *   Boston, MA 02110-1301 USA.                                            *
   ***************************************************************************/
  
@@ -13,7 +14,7 @@ $NetBSD: patch-src_cache.cc,v 1.1 2017/09/15 22:18:00 ast Exp $
  #include "cache.h"
  #include "output.h"
  
-@@ -85,9 +87,17 @@
+@@ -86,9 +88,17 @@
  
  // I feel so bad...
  static const char *cache_directory;
@@ -31,3 +32,18 @@ $NetBSD: patch-src_cache.cc,v 1.1 2017/09/15 22:18:00 ast Exp $
  
  	struct stat bufa, bufb;
  	if (stat(A.c_str(), &bufa) != 0) return 0;
+@@ -110,7 +120,14 @@
+ void limit_cachesize(const char *cache, int entries) {
+ 	struct dirent **namelist;
+ 	cache_directory = cache;
++#ifdef __sgi
++	// IRIX's scandir() predates POSIX 2008: same callbacks, without const.
++	int n = scandir(cache, &namelist,
++	    reinterpret_cast<int (*)(struct dirent *)>(agefilter),
++	    reinterpret_cast<int (*)(struct dirent **, struct dirent **)>(agesort));
++#else
+ 	int n = scandir(cache, &namelist, agefilter, agesort);
++#endif
+ 	if (n < 0) {
+ 		return;
+ 	} else {

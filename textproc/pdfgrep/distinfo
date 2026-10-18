@@ -3,7 +3,7 @@ $NetBSD: distinfo,v 1.10 2021/10/26 11:22:56 nia Exp $
 BLAKE2s (pdfgrep-2.1.2.tar.gz) = 0a68131d4abe72092556b0b811cbaaca5ead1b71110bfd1bc5b985260737fdd8
 SHA512 (pdfgrep-2.1.2.tar.gz) = 27bc4741e5203b2fd265815a22ad8d702b3455b2ae932641b040fc9ce615bc9ff0abef221eb2ec8aa59c79cb139d31184261d076f9731177129a473d62aa4e5c
 Size (pdfgrep-2.1.2.tar.gz) = 197289 bytes
-SHA1 (patch-src_cache.cc) = 64f38fe8e99792119b79f7af50fb34d77bdffec3
+SHA1 (patch-src_cache.cc) = e7a5ca3d25c0b9d52b4038f6c406f4061fe9734b
 SHA1 (patch-src_cache.cc_config.h.in) = 2b05d4ccf870660f640aa85c6eadbd94a85322af
 SHA1 (patch-src_cache.cc_configure) = 1f522d758bf9d84fec4a3ffffacf4e9341074aa9
 SHA1 (patch-src_cache.cc_configure.ac) = f82c18c66c6b7f9036fe172a7310094620777199
