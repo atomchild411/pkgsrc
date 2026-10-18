@@ -18,6 +18,18 @@ CMAKE_CONFIGURE_ARGS+=	-DMANSUBDIR=${PKGMANDIR}
 
 REPLACE_PERL=	3rd-party/dirsplit/dirsplit
 
+.include "../../mk/bsd.fast.prefs.mk"
+
+# include/CMakeLists.txt runs a bitfield order test (try_run), which a
+# cross build cannot: big-endian MIPS allocates bitfields from the high bit.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && ${OPSYS} == "IRIX"
+CMAKE_CONFIGURE_ARGS+=	-DBITFIELDS_HTOL=1
+# icedax's FIND_FILE calls would find the build host's soundcard headers.
+CMAKE_CONFIGURE_ARGS+=	-DHAVE_SYS_SOUNDCARD_H=HAVE_SYS_SOUNDCARD_H-NOTFOUND
+CMAKE_CONFIGURE_ARGS+=	-DHAVE_LINUX_SOUNDCARD_H=HAVE_LINUX_SOUNDCARD_H-NOTFOUND
+CMAKE_CONFIGURE_ARGS+=	-DHAVE_LIBOSSAUDIO=HAVE_LIBOSSAUDIO-NOTFOUND
+.endif
+
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
