@@ -18,6 +18,8 @@ GNU_CONFIGURE=	yes
 .include "../../mk/bsd.prefs.mk"
 
 CPPFLAGS.SunOS+=	-std=c99 -Du_int32_t=uint32_t
+# IRIX: no sa_len/sin_len (Apple mDNS code)
+CPPFLAGS.IRIX+=		-DNOT_HAVE_SA_LEN
 
 RCD_SCRIPTS=	mtdaapd
 EGDIR=		${PREFIX}/share/examples/${PKGBASE}
