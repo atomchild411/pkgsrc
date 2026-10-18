@@ -22,4 +22,9 @@ SUBST_STAGE.paths=	pre-configure
 
 .include "../../lang/python/egg.mk"
 .include "../../print/libcups/buildlink3.mk"
+# clang predefines sgi on IRIX (as gcc did, outside strict modes); the
+# sources use it as a name.
+CFLAGS.IRIX+=	-Usgi
+CXXFLAGS.IRIX+=	-Usgi
+
 .include "../../mk/bsd.pkg.mk"

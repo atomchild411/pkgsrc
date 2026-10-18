@@ -27,4 +27,9 @@ CPPFLAGS+=	-DUSE_INTERP_RESULT -DUSE_INTERP_ERRORLINE
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
+# clang predefines sgi on IRIX (as gcc did, outside strict modes); the
+# sources use it as a name.
+CFLAGS.IRIX+=	-Usgi
+CXXFLAGS.IRIX+=	-Usgi
+
 .include "../../mk/bsd.pkg.mk"

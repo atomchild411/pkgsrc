@@ -20,4 +20,9 @@ CMAKE_CONFIGURE_ARGS+=	-DBUILD_SHARED_LIBS:BOOL=ON
 .include "../../graphics/MesaLib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.glfw+=	glfw>=3.4
 .include "../../graphics/glfw/buildlink3.mk"
+# clang predefines mips on IRIX (as gcc did, outside strict modes); the
+# sources use it as a name.
+CFLAGS.IRIX+=	-Umips
+CXXFLAGS.IRIX+=	-Umips
+
 .include "../../mk/bsd.pkg.mk"

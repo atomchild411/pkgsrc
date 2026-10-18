@@ -59,4 +59,9 @@ post-install:
 .include "../../x11/libXmu/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+# clang predefines mips on IRIX (as gcc did, outside strict modes); the
+# sources use it as a name.
+CFLAGS.IRIX+=	-Umips
+CXXFLAGS.IRIX+=	-Umips
+
 .include "../../mk/bsd.pkg.mk"
