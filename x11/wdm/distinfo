@@ -6,4 +6,5 @@ Size (wdm-1.28.tar.gz) = 409544 bytes
 SHA1 (patch-aa) = 7dc96ecf4d8e492bec54c5e6f2b9e5d6ec651103
 SHA1 (patch-ab) = 0a63e3b18aa002ece5c9f63ce6dbcdd9e0dbdb03
 SHA1 (patch-configure) = f2309d16215f4f50004ed483d1f728f7a1e60797
+SHA1 (patch-src_wdm_daemon.c) = c34da9f9f20e29f7727768559bcf0ce894e991b5
 SHA1 (patch-src_wdm_util.c) = 51c22f471d6e9cdde1fd4cb1cd06b11974529628
