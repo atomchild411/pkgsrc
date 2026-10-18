@@ -10,8 +10,23 @@ BUILDLINK_ABI_DEPENDS.vala+=	vala>=0.56.13nb1
 BUILDLINK_PKGSRCDIR.vala?=	../../lang/vala
 BUILDLINK_DEPMETHOD.vala?=	build
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build machine's valac and vapigen, also reading the .vapi files of
+# the packages installed for the target.
+TOOL_DEPENDS+=	vala>=0.56:../../lang/vala
+.  for t in valac vapigen
+TOOLS_CREATE+=	${t} ${t}-0.56
+TOOLS_SCRIPT.${t}=	exec ${TOOLBASE}/bin/${t}-0.56 \
+	--vapidir=${CROSS_DESTDIR}${LOCALBASE}/share/vala/vapi "$$@"
+TOOLS_SCRIPT.${t}-0.56=	${TOOLS_SCRIPT.${t}}
+.  endfor
+VALAC=		${TOOLS_DIR}/bin/valac-0.56
+VAPIGEN=	${TOOLS_DIR}/bin/vapigen-0.56
+.else
 VALAC=		${PREFIX}/bin/valac-0.56
 VAPIGEN=	${PREFIX}/bin/vapigen-0.56
+.endif
 .if defined(GNU_CONFIGURE)
 CONFIGURE_ENV+=	VALAC=${VALAC} VAPIGEN=${VAPIGEN}
 .endif
