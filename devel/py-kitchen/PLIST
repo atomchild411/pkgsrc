@@ -78,3 +78,5 @@ ${PYSITELIB}/kitchen/text/utf8.pyo
 ${PYSITELIB}/kitchen/versioning/__init__.py
 ${PYSITELIB}/kitchen/versioning/__init__.pyc
 ${PYSITELIB}/kitchen/versioning/__init__.pyo
+share/locale/de/LC_MESSAGES/kitchen.mo
+share/locale/en_US/LC_MESSAGES/kitchen.mo

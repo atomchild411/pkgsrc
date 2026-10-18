@@ -13,5 +13,8 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_LANGUAGES=	# none
 
+# Compiles po/ into the message catalogs.
+TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools-gettext-[0-9]*:../../devel/py-setuptools-gettext
+
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"
