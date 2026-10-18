@@ -4,3 +4,4 @@ BLAKE2s (nsd-4.15.2.tar.gz) = c8aecdc2849d51ea3b993b5aa417fc78560fcb8e36ea495bc5
 SHA512 (nsd-4.15.2.tar.gz) = e543425438402ca1f4c61ea9f54bcb6ea3ca802b1d645aa76d56bbc82aefedaa6080a757b0e7bd4051c4cd0177a09fd55473eaf9cd641d1021eec94f143df6ea
 Size (nsd-4.15.2.tar.gz) = 1634936 bytes
 SHA1 (patch-Makefile.in) = 93f77704ee6730aef41955511807ce2f4b6cfc90
+SHA1 (patch-util.h) = bbdf3a1cca2c7fd86888b612bb2eaa25db9556f7
