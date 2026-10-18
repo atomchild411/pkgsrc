@@ -19,6 +19,11 @@ CONFIGURE_ARGS+=	--htmldir=${PREFIX}/share/doc/nasm/html
 CONFIGURE_ENV+=		ASCIIDOC=false
 CONFIGURE_ENV+=		XMLTO=false
 
+# clang warns when nasm_assert()'s error attribute is declared again with
+# another message (-Wignored-attributes), and configure adds
+# -Werror=attributes.
+CFLAGS.IRIX+=		-Wno-error=ignored-attributes
+
 BUILD_TARGET=		everything
 INSTALL_TARGET=		install_everything
 TEST_TARGET=		test
