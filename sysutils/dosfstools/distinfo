@@ -4,4 +4,4 @@ BLAKE2s (dosfstools-4.2.tar.gz) = 820877a9a31afca4ff272ec76cd0f51b7a0e7631b3c355
 SHA512 (dosfstools-4.2.tar.gz) = 3cc0808edb4432428df8a67da4bb314fd1f27adc4a05754c1a492091741a7b6875ebd9f6a509cc4c5ad85643fc40395b6e0cadee548b25cc439cc9b725980156
 Size (dosfstools-4.2.tar.gz) = 320917 bytes
 SHA1 (patch-src_blkdev_blkdev.c) = dd39aa031b83429770a6164556f91d58bf88c3d5
-SHA1 (patch-src_device__info.c) = 46102c27a601de7297a4ce3488bf327e818b8fa6
+SHA1 (patch-src_device__info.c) = 00c7b97f0b43a007ebf1650813b4af769d98d36f
