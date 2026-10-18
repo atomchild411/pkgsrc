@@ -13,4 +13,6 @@ SHA1 (patch-platform_x11_pdfapp.c) = e806f10b9c7dad2f6db2386c0b5509d5cf311f06
 SHA1 (patch-source_fitz_crypt-sha2.c) = c6b113818b32cb4470e8549c00a16e0b2f364ede
 SHA1 (patch-source_fitz_load-jpx.c) = 237367451cf048950a99c6e2ea948298cad23e9e
 SHA1 (patch-source_fitz_stext-search.c) = c7115f748ddb9e3b12b432cee37cbde5dceec4d7
+SHA1 (patch-source_fitz_stext-table.c) = 56ded28a92b40b0ce840865447f9d060c104b0ed
 SHA1 (patch-source_helpers_pkcs7_pkcs7-openssl.c) = e0fb32b2c82a5951ef5befd14ca88c47f075dd4e
+SHA1 (patch-thirdparty_extract_src_document.h) = c3f246a60025b76552c6f8e0e588fc73514e87bc
