@@ -32,4 +32,20 @@ PKGCONFIG_OVERRIDE+=	libmarkdown.pc.in
 INSTALL_TARGET=		install.everything
 TEST_TARGET=		test
 
+.include "../../mk/bsd.fast.prefs.mk"
+# configure.inc compiles a helper (config.sed) that it runs for every
+# substitution, and the build runs mktags to write blocktags: build both
+# for the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		configsed
+SUBST_STAGE.configsed=	pre-configure
+SUBST_FILES.configsed=	configure.inc
+SUBST_SED.configsed=	-e 's,$$AC_CC -o config.sed ngc,${NATIVE_CC} -o config.sed ngc,'
+SUBST_CLASSES+=		mktags
+SUBST_STAGE.mktags=	pre-configure
+SUBST_FILES.mktags=	Makefile.in
+SUBST_SED.mktags=	-e 's,^mktags: mktags.o$$,mktags: mktags.c,'
+SUBST_SED.mktags+=	-e 's,^\t$$(LINK) -o mktags mktags.o$$,\t${NATIVE_CC} -I. -o mktags mktags.c,'
+.endif
+
 .include "../../mk/bsd.pkg.mk"
