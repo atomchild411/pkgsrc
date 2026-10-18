@@ -1,0 +1,22 @@
+$NetBSD$
+
+Cross builds (NGX_CROSS=yes): no test programs run.
+
+--- auto/feature.orig
++++ auto/feature
+@@ -47,6 +47,15 @@
+ eval "/bin/sh -c \"$ngx_test\" >> $NGX_AUTOCONF_ERR 2>&1"
+ 
+ 
++# NGX_CROSS=yes: the test cannot run here.  One that has to run counts as
++# found if it builds; one that reports a value (or a bug), as not found.
++if [ "$NGX_CROSS" = yes ]; then
++    case "$ngx_feature_run" in
++        yes) ngx_feature_run=no ;;
++        value|bug) rm -f $NGX_AUTOTEST ;;
++    esac
++fi
++
+ if [ -x $NGX_AUTOTEST ]; then
+ 
+     case "$ngx_feature_run" in

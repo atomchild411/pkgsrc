@@ -1,0 +1,30 @@
+$NetBSD$
+
+Cross builds (NGX_CROSS=yes): no test programs run.
+
+--- auto/types/sizeof.orig
++++ auto/types/sizeof
+@@ -40,7 +40,22 @@
+ 
+ 
+ if [ -x $NGX_AUTOTEST ]; then
+-    ngx_size=`$NGX_AUTOTEST`
++    if [ "$NGX_CROSS" = yes ]; then
++        # cross builds: find the size with compile-only tests
++        for ngx_try in 1 2 4 8 16; do
++            sed -e "s/^int main(void) {\$/char ngx_size_test[sizeof($ngx_type) == $ngx_try ? 1 : -1];\
++&/" \
++                $NGX_AUTOTEST.c > $NGX_AUTOTEST-x.c
++            if $CC $CC_TEST_FLAGS $CC_AUX_FLAGS -c -o $NGX_AUTOTEST-x.o \
++                $NGX_AUTOTEST-x.c >> $NGX_AUTOCONF_ERR 2>&1
++            then
++                ngx_size=$ngx_try
++                break
++            fi
++        done
++    else
++        ngx_size=`$NGX_AUTOTEST`
++    fi
+     echo " $ngx_size bytes"
+ fi
+ 

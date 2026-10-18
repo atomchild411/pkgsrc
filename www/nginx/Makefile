@@ -33,6 +33,11 @@ PKG_SHELL.${NGINX_USER}=	${NOLOGIN}
 
 USE_PKGLOCALEDIR=	yes
 HAS_CONFIGURE=		yes
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# No test programs run (patches to auto/feature, auto/endianness and
+# auto/types/sizeof).
+CONFIGURE_ENV+=		NGX_CROSS=yes
+.endif
 CONFIGURE_ARGS+=	--user=${NGINX_USER}
 CONFIGURE_ARGS+=	--group=${NGINX_GROUP}
 CONFIGURE_ARGS+=	--with-ld-opt=-L${PREFIX}/lib\ ${COMPILER_RPATH_FLAG}${PREFIX}/lib
