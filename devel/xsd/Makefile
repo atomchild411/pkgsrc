@@ -29,6 +29,8 @@ post-patch:
 	# Avoid conflict with C++20 <version>
 	${RM} -f ${WRKSRC}/version
 	${RM} -f ${WRKSRC}/build/import/lib*/version
+	${RM} -f ${WRKSRC}/libcutl/version ${WRKSRC}/libxsd-frontend/version
+	${RM} -f ${WRKSRC}/xsd/version
 
 .include "../../devel/libcutl/buildlink3.mk"
 .include "../../textproc/xerces-c/buildlink3.mk"
