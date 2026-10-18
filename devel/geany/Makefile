@@ -24,6 +24,9 @@ CONFIGURE_ARGS+=	--enable-plugins
 CONFIGURE_ARGS+=	--enable-vte
 CONFIGURE_ARGS+=	--enable-socket
 CONFIGURE_ARGS+=	--disable-gtkdoc-header
+# ctags defines its own scandir() unless told the system has one; IRIX
+# declares its own with other prototypes.
+CPPFLAGS.IRIX+=		-DHAVE_SCANDIR
 
 MAKE_FLAGS+=		CCLD=${CXX:Q}
 
