@@ -57,6 +57,15 @@ MGP_PRE_STAGE=		ctlwords.h grammar.c scanner.c tokdefs.h \
 
 .include "options.mk"
 
+# The build runs ctlwords (it lists the keywords in globals.c): build it
+# for the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		ctlwords
+SUBST_STAGE.ctlwords=	pre-configure
+SUBST_FILES.ctlwords=	Imakefile.in
+SUBST_SED.ctlwords=	-e 's,$$(CC) -o ./ctlwords,${NATIVE_CC} -o ./ctlwords,'
+.endif
+
 SUBST_CLASSES+=		conf
 SUBST_FILES.conf+=	sample/default.mgp
 SUBST_VARS.conf=	MGP_TFONT
