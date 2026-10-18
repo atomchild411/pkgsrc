@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.6 2026/04/26 10:13:11 wiz Exp $
 BLAKE2s (highway-1.4.0.tar.gz) = b4cbdce4d193800c2f88e4da811bae1f00dd9ab8754af678c9ed61a838bd807f
 SHA512 (highway-1.4.0.tar.gz) = 819422857d6a74e3a936c402698e078db5b7b88fb43767e62429ec7bd954fe93b017e75029a4df4a1a97ef3a2486107eef5247da751eb487640dea409f3f2fa2
 Size (highway-1.4.0.tar.gz) = 3691240 bytes
+SHA1 (patch-hwy_detect__compiler__arch.h) = 0d0434102cdd0c079377a3ec36604c4c62970943
