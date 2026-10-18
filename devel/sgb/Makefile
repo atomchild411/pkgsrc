@@ -12,6 +12,8 @@ COMMENT=	The Stanford GraphBase
 
 DEPENDS+=	tex-tex-[0-9]*:../../print/tex-tex
 DEPENDS+=	web2c-[0-9]*:../../print/web2c
+TOOL_DEPENDS+=	tex-tex-[0-9]*:../../print/tex-tex
+TOOL_DEPENDS+=	web2c-[0-9]*:../../print/web2c
 
 MAKE_JOBS_SAFE=	no
 USE_LIBTOOL=	yes
@@ -24,7 +26,7 @@ SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Fixing hardcoded paths.
 SUBST_STAGE.paths=	pre-configure
 SUBST_FILES.paths=	Makefile
-SUBST_VARS.paths=	LOCALBASE
+SUBST_SED.paths=	-e 's,@LOCALBASE@,${TOOLBASE},g'
 SUBST_SED.paths+=	-e 's,@PREFIX@,$${DESTDIR}${PREFIX},g'
 
 # gb_io.w: In function 'icode_setup':

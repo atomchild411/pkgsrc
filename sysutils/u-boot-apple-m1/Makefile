@@ -42,9 +42,9 @@ post-build:
 	cd ${DTS_DIR} && \
 	    ${CPP} -P -x assembler-with-cpp -I ${DTS_INC} -I ${DTS_ARCH_INC} \
 	    -include ${DTS_DIR}/${board}.dts /dev/null | \
-	    ${PREFIX}/bin/dtc -i ${DTS_INC} -i ${DTS_ARCH_INC} -I dts -O dtb \
+	    ${TOOLBASE}/bin/dtc -i ${DTS_INC} -i ${DTS_ARCH_INC} -I dts -O dtb \
 	       -p 1024 -b 0 -o ${WRKDIR}/${board}.dtb
-	cat ${PREFIX}/share/m1n1/m1n1.macho \
+	cat ${TOOLBASE}/share/m1n1/m1n1.macho \
 	    ${WRKDIR}/u-boot-nodtb.bin.gz \
 	    ${WRKDIR}/${board}.dtb \
 	    > ${WRKSRC}/u-boot-${board}.macho

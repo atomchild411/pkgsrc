@@ -14,6 +14,7 @@ LICENSE=	foiltex-license
 
 DEPENDS+=	tex-latex-[0-9]*:../../print/tex-latex
 DEPENDS+=	tex-latex-bin-[0-9]*:../../print/tex-latex-bin
+TOOL_DEPENDS+=	tex-latex-bin-[0-9]*:../../print/tex-latex-bin
 
 RESTRICTED=		May not be redistributed for profit
 NO_BIN_ON_CDROM=	${RESTRICTED}
@@ -31,7 +32,7 @@ do-extract:
 	done
 
 do-build:
-	cd ${WRKSRC} && ${LOCALBASE}/bin/latex foiltex.ins
+	cd ${WRKSRC} && ${TOOLBASE}/bin/latex foiltex.ins
 
 do-install:
 	cd ${WRKSRC} && for f in foils.* foil*.clo fltfonts.def; do \
