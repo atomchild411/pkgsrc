@@ -1,0 +1,27 @@
+--- src/lib.rs.orig
++++ src/lib.rs
+@@ -2114,6 +2114,7 @@
+             target_vendor = "apple",
+             target_os = "espidf",
+             target_os = "haiku",
++            target_os = "irix",
+             windows,
+         )))]
+         let flags = rn::SocketFlags::CLOEXEC;
+@@ -2122,6 +2123,7 @@
+             target_vendor = "apple",
+             target_os = "espidf",
+             target_os = "haiku",
++            target_os = "irix",
+             windows,
+         ))]
+         let flags = rn::SocketFlags::empty();
+@@ -2130,7 +2132,7 @@
+         let socket = rn::socket_with(domain, rn::SocketType::STREAM, flags, protocol)?;
+ 
+         // Set cloexec if necessary.
+-        #[cfg(any(target_os = "aix", target_vendor = "apple"))]
++        #[cfg(any(target_os = "aix", target_vendor = "apple", target_os = "irix"))]
+         rio::fcntl_setfd(&socket, rio::fcntl_getfd(&socket)? | rio::FdFlags::CLOEXEC)?;
+ 
+         // Set non-blocking mode.

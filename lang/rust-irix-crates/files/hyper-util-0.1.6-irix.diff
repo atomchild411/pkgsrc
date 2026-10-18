@@ -1,0 +1,34 @@
+--- src/client/legacy/connect/http.rs.orig
++++ src/client/legacy/connect/http.rs
+@@ -115,6 +115,7 @@
+         target_os = "aix",
+         target_os = "openbsd",
+         target_os = "redox",
++        target_os = "irix",
+         target_os = "solaris"
+     )))]
+     fn ka_with_interval(ka: TcpKeepalive, interval: Duration, dirty: &mut bool) -> TcpKeepalive {
+@@ -126,6 +127,7 @@
+         target_os = "aix",
+         target_os = "openbsd",
+         target_os = "redox",
++        target_os = "irix",
+         target_os = "solaris"
+     ))]
+     fn ka_with_interval(ka: TcpKeepalive, _: Duration, _: &mut bool) -> TcpKeepalive {
+@@ -136,6 +138,7 @@
+         target_os = "aix",
+         target_os = "openbsd",
+         target_os = "redox",
++        target_os = "irix",
+         target_os = "solaris",
+         target_os = "windows"
+     )))]
+@@ -148,6 +151,7 @@
+         target_os = "aix",
+         target_os = "openbsd",
+         target_os = "redox",
++        target_os = "irix",
+         target_os = "solaris",
+         target_os = "windows"
+     ))]

@@ -1,0 +1,41 @@
+--- src/loop_logic.rs.orig
++++ src/loop_logic.rs
+@@ -669,7 +669,8 @@
+     }
+ }
+ 
+-#[cfg(unix)]
++// IRIX: polling's poll(2) backend has no single fd to hand out.
++#[cfg(all(unix, not(target_os = "irix")))]
+ impl<'l, Data> AsRawFd for EventLoop<'l, Data> {
+     /// Get the underlying raw-fd of the poller.
+     ///
+@@ -683,7 +684,7 @@
+     }
+ }
+ 
+-#[cfg(unix)]
++#[cfg(all(unix, not(target_os = "irix")))]
+ impl<'l, Data> AsFd for EventLoop<'l, Data> {
+     /// Get the underlying fd of the poller.
+     ///
+--- src/sources/ping/pipe.rs.orig
++++ src/sources/ping/pipe.rs
+@@ -12,7 +12,7 @@
+     generic::Generic, EventSource, Interest, Mode, Poll, PostAction, Readiness, Token, TokenFactory,
+ };
+ 
+-#[cfg(target_os = "macos")]
++#[cfg(any(target_os = "macos", target_os = "irix"))]
+ #[inline]
+ fn make_ends() -> std::io::Result<(OwnedFd, OwnedFd)> {
+     use rustix::fs::{fcntl_getfl, fcntl_setfl, OFlags};
+@@ -28,7 +28,7 @@
+     Ok((read, write))
+ }
+ 
+-#[cfg(not(target_os = "macos"))]
++#[cfg(not(any(target_os = "macos", target_os = "irix")))]
+ #[inline]
+ fn make_ends() -> std::io::Result<(OwnedFd, OwnedFd)> {
+     use rustix::pipe::{pipe_with, PipeFlags};

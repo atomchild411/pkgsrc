@@ -1,0 +1,73 @@
+--- src/rs/server_impl/common_poll.rs.orig
++++ src/rs/server_impl/common_poll.rs
+@@ -48,6 +48,11 @@
+         ))]
+         let poll_fd = kqueue().map_err(Into::into).map_err(InitError::Io)?;
+ 
++        // IRIX has neither epoll nor kqueue: no Wayland server there.
++        #[cfg(target_os = "irix")]
++        let poll_fd: OwnedFd =
++            return Err(InitError::Io(std::io::ErrorKind::Unsupported.into()));
++
+         Ok(Self { state: Arc::new(Mutex::new(State::new(poll_fd))) })
+     }
+ 
+@@ -77,6 +82,11 @@
+         ret
+     }
+ 
++    #[cfg(target_os = "irix")]
++    pub fn dispatch_all_clients(&self, _data: &mut D) -> std::io::Result<usize> {
++        Err(std::io::ErrorKind::Unsupported.into())
++    }
++
+     #[cfg(any(target_os = "linux", target_os = "android"))]
+     pub fn dispatch_all_clients(&self, data: &mut D) -> std::io::Result<usize> {
+         use std::os::unix::io::AsFd;
+--- src/rs/server_impl/handle.rs.orig
++++ src/rs/server_impl/handle.rs
+@@ -359,6 +359,9 @@
+             unsafe { kevent(&self.poll_fd, &[evt], events, None).map(|_| ()) }
+         };
+ 
++        #[cfg(target_os = "irix")]
++        let ret: rustix::io::Result<()> = Err(rustix::io::Errno::NOSYS);
++
+         match ret {
+             Ok(()) => Ok(id),
+             Err(e) => {
+--- src/rs/socket.rs.orig
++++ src/rs/socket.rs
+@@ -41,9 +41,9 @@
+     /// slice should not be longer than `MAX_BYTES_OUT` otherwise the receiving
+     /// end may lose some data.
+     pub fn send_msg(&self, bytes: &[u8], fds: &[OwnedFd]) -> IoResult<usize> {
+-        #[cfg(not(target_os = "macos"))]
++        #[cfg(not(any(target_os = "macos", target_os = "irix")))]
+         let flags = SendFlags::DONTWAIT | SendFlags::NOSIGNAL;
+-        #[cfg(target_os = "macos")]
++        #[cfg(any(target_os = "macos", target_os = "irix"))]
+         let flags = SendFlags::DONTWAIT;
+ 
+         if !fds.is_empty() {
+@@ -72,9 +72,9 @@
+     /// slice `MAX_FDS_OUT` long, otherwise some data of the received message may
+     /// be lost.
+     pub fn rcv_msg(&self, buffer: &mut [u8], fds: &mut VecDeque<OwnedFd>) -> IoResult<usize> {
+-        #[cfg(not(target_os = "macos"))]
++        #[cfg(not(any(target_os = "macos", target_os = "irix")))]
+         let flags = RecvFlags::DONTWAIT | RecvFlags::CMSG_CLOEXEC;
+-        #[cfg(target_os = "macos")]
++        #[cfg(any(target_os = "macos", target_os = "irix"))]
+         let flags = RecvFlags::DONTWAIT;
+ 
+         let mut cmsg_space = [MaybeUninit::uninit(); rustix::cmsg_space!(ScmRights(MAX_FDS_OUT))];
+@@ -90,7 +90,7 @@
+             })
+             .flatten();
+         fds.extend(received_fds);
+-        #[cfg(target_os = "macos")]
++        #[cfg(any(target_os = "macos", target_os = "irix"))]
+         for fd in fds.iter() {
+             if let Ok(flags) = rustix::io::fcntl_getfd(fd) {
+                 let _ = rustix::io::fcntl_setfd(fd, flags | rustix::io::FdFlags::CLOEXEC);

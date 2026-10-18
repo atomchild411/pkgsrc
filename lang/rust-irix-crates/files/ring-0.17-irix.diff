@@ -1,0 +1,8 @@
+--- src/rand.rs.orig
++++ src/rand.rs
+@@ -134,4 +134,5 @@
+     target_os = "hermit",
+     target_os = "illumos",
++    target_os = "irix",
+     target_os = "ios",
+     target_os = "linux",

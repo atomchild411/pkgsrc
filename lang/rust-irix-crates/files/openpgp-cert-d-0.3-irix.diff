@@ -1,0 +1,20 @@
+--- src/unixdir.rs.orig
++++ src/unixdir.rs
+@@ -173,10 +173,17 @@
+     // Return `self.entry`'s d_type, safely.
+     //
+     // See the insanity comment above.
++    #[cfg(not(target_os = "irix"))]
+     fn entry_d_type(&self) -> libc::c_uchar {
+         unsafe { (&*self.entry).d_type }
+     }
+ 
++    // IRIX's struct dirent has no d_type.
++    #[cfg(target_os = "irix")]
++    fn entry_d_type(&self) -> libc::c_uchar {
++        libc::DT_UNKNOWN
++    }
++
+     // Return `self.entry`'s d_name, safely.
+     //
+     // See the insanity comment above.
