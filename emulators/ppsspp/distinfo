@@ -5,3 +5,4 @@ SHA512 (ppsspp-1.20.4.tar.xz) = 0bcea5c33e58b3cfa28d5cf56b1915c663a0cc74d6c0eb7f
 Size (ppsspp-1.20.4.tar.xz) = 60860348 bytes
 SHA1 (patch-Common_CPUDetect.cpp) = c3a302d6c9b373eb8ad9a99f9508d86e4da2effd
 SHA1 (patch-ext_aemu__postoffice_client_sock__impl.h) = cba4052d22fdb9eca1f6411c4ee005225c7433a6
+SHA1 (patch-ext_armips_ext_filesystem_include_ghc_filesystem.hpp) = 18bf77237cd378942be87a094f344d64ea128797
