@@ -15,6 +15,8 @@ pkgbase:=		libmemcached
 .if !empty(PKG_BUILD_OPTIONS.libmemcached:Msasl)
 .  include "../../security/cyrus-sasl/buildlink3.mk"
 .endif
+# Its libtool archives link libexecinfo where it is not in libc.
+.include "../../devel/libexecinfo/buildlink3.mk"
 .endif # LIBMEMCACHED_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-libmemcached
