@@ -10,3 +10,4 @@ SHA1 (patch-ak) = dc0c5295df0dd090ffca730d0e58243d0e5c4884
 SHA1 (patch-al) = 97d474be72591c415cf2978422753b5533109c48
 SHA1 (patch-am) = 54cb262e37f0f281aa49bc30f9df92d9577431a1
 SHA1 (patch-an) = 028562347998a4f18237cccc3cc1fe9647848c83
+SHA1 (patch-machine_m__irixsgi.c) = 927d341b5d45f2e132690610186f0bacd2f9e50b
