@@ -6,3 +6,4 @@ Size (softhsm-2.6.1.tar.gz) = 1066766 bytes
 SHA1 (patch-configure) = 220881a76fa84e8ba6a81c902bdfd07bc6af88bd
 SHA1 (patch-configure.ac) = 5d1d5134e580f1310446da4323c0e1c65b6115de
 SHA1 (patch-src_lib_common_Makefile.in) = ca783cdfdb4d16eece5fd21d02033e71968d00c6
+SHA1 (patch-src_lib_object__store_DB.cpp) = 21e15ea91685342a90a8ed7903bf0c6e2b3535b8
