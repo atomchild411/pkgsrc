@@ -8,4 +8,5 @@ SHA1 (patch-ab) = 15a42f42e6cb7768dc77598cb9aa6dabf8e6d47f
 SHA1 (patch-ac) = ea5a749f064a35be6b5411c5967139103f1481ae
 SHA1 (patch-native_jni_gtk-peer_gnu__java__awt__peer__gtk__FreetypeGlyphVector.c) = ffb175228d637cfb72e883cab4d1438ad9aa4ecf
 SHA1 (patch-native_jni_gtk-peer_gnu__java__awt__peer__gtk__GdkFontPeer.c) = 21112598c611b2fd5bbf3c8295454513037219d9
+SHA1 (patch-native_jni_java-nio_javanio.c) = 8d45a5402a5fa49728032580d9300f7290e97e54
 SHA1 (patch-scripts_check__jni__methods.sh) = b09191a41e9121c62259f5da78eba6f3235ebccb

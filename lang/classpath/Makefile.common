@@ -25,5 +25,8 @@ UNLIMIT_RESOURCES+=	datasize
 CONFIGURE_ARGS+=	--disable-gconf-peer
 CONFIGURE_ARGS+=	--disable-plugin
 CONFIGURE_ARGS+=	--with-jikes
+# The networking code calls gethostbyname_r() with glibc's six arguments;
+# IRIX's takes five, as Solaris's.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_gethostbyname_r=no
 
 .include "../../devel/glib2/buildlink3.mk"
