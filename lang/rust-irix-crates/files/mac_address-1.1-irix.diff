@@ -1,0 +1,65 @@
+diff -ruN a/src/irix.rs b/src/irix.rs
+--- src/irix.rs	1970-01-01 00:00:00.000000000 +0000
++++ src/irix.rs	2026-10-18 15:54:46.869718484 +0000
+@@ -0,0 +1,11 @@
++use crate::MacAddressError;
++
++// IRIX has no getifaddrs(): report no MAC address.
++
++pub fn get_mac(_name: Option<&str>) -> Result<Option<[u8; 6]>, MacAddressError> {
++    Ok(None)
++}
++
++pub fn get_ifname(_mac: &[u8; 6]) -> Result<Option<String>, MacAddressError> {
++    Ok(None)
++}
+diff -ruN a/src/iter/irix.rs b/src/iter/irix.rs
+--- src/iter/irix.rs	1970-01-01 00:00:00.000000000 +0000
++++ src/iter/irix.rs	2026-10-18 15:54:46.869718484 +0000
+@@ -0,0 +1,20 @@
++use crate::{MacAddress, MacAddressError};
++
++/// An iterator over all available MAC addresses on the system: none on
++/// IRIX, which has no getifaddrs().
++pub struct MacAddressIterator;
++
++impl MacAddressIterator {
++    /// Creates a new `MacAddressIterator`.
++    pub fn new() -> Result<MacAddressIterator, MacAddressError> {
++        Ok(MacAddressIterator)
++    }
++}
++
++impl Iterator for MacAddressIterator {
++    type Item = MacAddress;
++
++    fn next(&mut self) -> Option<MacAddress> {
++        None
++    }
++}
+diff -ruN a/src/iter/mod.rs b/src/iter/mod.rs
+--- src/iter/mod.rs	2006-07-24 01:21:28.000000000 +0000
++++ src/iter/mod.rs	2026-10-18 15:54:46.869718484 +0000
+@@ -14,4 +14,8 @@
+ #[path = "linux.rs"]
+ mod internal;
+ 
++#[cfg(target_os = "irix")]
++#[path = "irix.rs"]
++mod internal;
++
+ pub use internal::MacAddressIterator;
+diff -ruN a/src/lib.rs b/src/lib.rs
+--- src/lib.rs	2006-07-24 01:21:28.000000000 +0000
++++ src/lib.rs	2026-10-18 15:54:46.865718413 +0000
+@@ -22,6 +22,10 @@
+ #[path = "linux.rs"]
+ mod os;
+ 
++#[cfg(target_os = "irix")]
++#[path = "irix.rs"]
++mod os;
++
+ mod iter;
+ pub use iter::MacAddressIterator;
+ 
