@@ -9,3 +9,4 @@ SHA1 (patch-ba) = cad8b0f0e02ea8dce625484736d56e4f8a23c68e
 SHA1 (patch-bb) = 53bb0db34e544a226a102d55a5e2d9171ed67575
 SHA1 (patch-bc) = 900567f02b574d24cdd539e68ae91ad7474b8c40
 SHA1 (patch-bd) = f7f2b611b2f3063d3a0ba5bb26fa00633431719a
+SHA1 (patch-process.c) = 46fe653e8c66f2b3e206f28c02bfa4aab070c13c
