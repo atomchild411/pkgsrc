@@ -14,6 +14,9 @@ USE_LANGUAGES=		c c++
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		flex perl:run
 GNU_CONFIGURE=		yes
+# IRIX's <sys/dir.h> needs <sys/types.h> first, and maildir.c includes it
+# before; it uses <dirent.h> anyway.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_sys_dir_h=no
 
 REPLACE_PERL=		src/elmoconf.pl
 
