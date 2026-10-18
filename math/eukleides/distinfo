@@ -8,3 +8,5 @@ SHA1 (patch-bash_euktoeps) = 64e5fe59779197e2f03afd88823d53168f7bfa9a
 SHA1 (patch-build_Makefile) = eb173e9f91a3f6d2bb5fbc46f1a139abbfea9698
 SHA1 (patch-doc_Makefile) = bee61472eb0d70ceb32fa9429e34dae2f6fece4d
 SHA1 (patch-man_Makefile) = b9224f78d60382bf921d29a25f10dbc596e5754f
+SHA1 (patch-src_common_compiler.h) = 1f0286877dad81851e33d6c297c0f1b49c4761f8
+SHA1 (patch-src_common_parser.y) = 1738c405a597802aade3bfc35e6efa82fa83c12b

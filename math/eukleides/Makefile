@@ -18,7 +18,9 @@ INFO_FILES=	yes
 
 REPLACE_BASH=	bash/*
 
-BUILDLINK_TRANSFORM+=	l:ncurses:curses
+# The Makefile links -lncurses: use the curses pkgsrc picked (IRIX has no
+# libcurses; pkgsrc's ncurses there).
+BUILDLINK_TRANSFORM+=	l:ncurses:${BUILDLINK_LIBNAME.curses}
 
 SUBST_CLASSES+=		getopt
 SUBST_STAGE.getopt=	pre-configure
