@@ -38,6 +38,15 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/ckuker.nr \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/kermit.1
 
+# The build runs wart (ckwart.c, a state table generator) on ckcpro.w.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		wart
+SUBST_STAGE.wart=	pre-build
+SUBST_FILES.wart=	makefile
+SUBST_SED.wart=		-e 's,^wart: ckwart.$$(EXT)$$,wart: ckwart.c,'
+SUBST_SED.wart+=	-e 's,^\t$$(CC) $$(LNKFLAGS) -o wart ckwart.$$(EXT) $$(LIBS)$$,\t${NATIVE_CC} -std=gnu89 -o wart ckwart.c,'
+.endif
+
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"
 
@@ -64,7 +73,8 @@ MAKE_ENV+=		HAVE_CURSES=-DCK_NCURSES
 .elif ${OPSYS} == "SunOS"
 BUILD_TARGET_OPSYS=	solaris11g
 .elif ${OPSYS} == "IRIX"
-BUILD_TARGET_OPSYS=	irix${OS_VERSION:C/\.//g}
+# irix65 uses MIPSpro options; irix65gcc is the same build for GCC (and clang).
+BUILD_TARGET_OPSYS=	irix${OS_VERSION:C/\.//g}gcc
 .else
 BUILD_TARGET_OPSYS=	netbsd
 .endif
