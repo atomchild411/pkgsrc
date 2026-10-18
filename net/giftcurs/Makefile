@@ -16,6 +16,9 @@ USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
 
+# configure finds ncurses.h but never adds the library on IRIX.
+LIBS.IRIX+=	${BUILDLINK_LDADD.curses}
+
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../net/gift/buildlink3.mk"
