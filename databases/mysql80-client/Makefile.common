@@ -45,6 +45,15 @@ CONFIG_SHELL=		${TOOLS_PATH.bash}
 BUILD_DEFS+=		VARBASE
 
 # paths
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# configure.cmake and cmake/libevent.cmake run test programs: clock_gettime()
+# and CLOCK_REALTIME work, and the libevent is pkgsrc's.
+CMAKE_CONFIGURE_ARGS+=		-DHAVE_CLOCK_GETTIME_EXITCODE=0
+CMAKE_CONFIGURE_ARGS+=		-DHAVE_CLOCK_REALTIME_EXITCODE=0
+CMAKE_CONFIGURE_ARGS+=		-DTEST_RUN_RESULT=0
+CMAKE_CONFIGURE_ARGS+=		-DTEST_RUN_RESULT__TRYRUN_OUTPUT=2.1.13-stable
+.endif
 CMAKE_CONFIGURE_ARGS+=		-DINSTALL_DOCDIR="share/doc/mysql"
 CMAKE_CONFIGURE_ARGS+=		-DINSTALL_DOCREADMEDIR="share/doc/mysql"
 CMAKE_CONFIGURE_ARGS+=		-DINSTALL_INCLUDEDIR="include/mysql"
