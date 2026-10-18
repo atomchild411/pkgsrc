@@ -32,23 +32,6 @@ INSTALLATION_DIRS+=	share/examples/dovecot share/examples/dovecot/conf.d
 OWN_DIRS=		${PKG_SYSCONFDIR}/dovecot/
 OWN_DIRS+=		${PKG_SYSCONFDIR}/dovecot/conf.d
 
-# configure's run tests stop a cross build; IRIX's answers. time_t is a
-# signed 32-bit long; no epoll or posix_fallocate; fd passing (SCM_RIGHTS)
-# and coherent mmap/write; C99 vsnprintf through clang's IRIX runtime;
-# va_list is a pointer (n32), so it copies by value.
-CONFIGURE_ENV.IRIX+=	i_cv_epoll_works=no
-CONFIGURE_ENV.IRIX+=	i_cv_posix_fallocate_works=no
-CONFIGURE_ENV.IRIX+=	i_cv_gmtime_max_time_t=31
-CONFIGURE_ENV.IRIX+=	i_cv_mmap_plays_with_write=yes
-CONFIGURE_ENV.IRIX+=	i_cv_fd_passing=yes
-CONFIGURE_ENV.IRIX+=	i_cv_c99_vsnprintf=yes
-CONFIGURE_ENV.IRIX+=	lib_cv_va_copy=yes
-CONFIGURE_ENV.IRIX+=	lib_cv___va_copy=yes
-CONFIGURE_ENV.IRIX+=	lib_cv_va_val_copy=yes
-# IRIX's quotactl() and <sys/quota.h> are not Linux's, which quota-fs.c
-# then assumes; build the quota plugin without the fs backend.
-CONFIGURE_ENV.IRIX+=	ac_cv_func_quotactl=no
-
 REPLACE_BASH+=		src/util/dovecot-sysreport
 REPLACE_BASH+=		src/util/health-check.sh
 
