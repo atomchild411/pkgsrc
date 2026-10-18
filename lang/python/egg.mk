@@ -74,10 +74,19 @@ TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools-[0-9]*:${SETUPTOOLS_PATH}
     ${PYTHON_FOR_BUILD_ONLY:Uno:tl} == "build"
 _COOKIE.pysetupcross=	${WRKDIR}/.pysetupcross_done
 pre-configure: ${_COOKIE.pysetupcross}
+# The executable goes into the package's own [build] section if it has one:
+# a second one is an error to configparser.
 ${_COOKIE.pysetupcross}:
 	@${STEP_MSG} "Adjusting Python setup.cfg for cross-compiling"
-	${RUN} ${PRINTF} "\\n[build]\\nexecutable = '%s'\\n" ${PYTHONBIN:Q} \
-		>>${WRKSRC}/setup.cfg
+	${RUN} if ${GREP} -q '^\[build\]' ${WRKSRC}/setup.cfg 2>/dev/null; then \
+		${AWK} -v exe=${PYTHONBIN:Q} '{ print }			\
+		    /^\[build\]/ && !d { print "executable = \047" exe "\047"; d = 1 }' \
+		    ${WRKSRC}/setup.cfg > ${WRKSRC}/setup.cfg.cross &&	\
+		${MV} ${WRKSRC}/setup.cfg.cross ${WRKSRC}/setup.cfg;	\
+	else								\
+		${PRINTF} "\\n[build]\\nexecutable = '%s'\\n" ${PYTHONBIN:Q} \
+		    >>${WRKSRC}/setup.cfg;				\
+	fi
 	${RUN} touch ${.TARGET}
 .  endif
 .endif
