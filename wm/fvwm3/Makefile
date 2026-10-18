@@ -37,6 +37,12 @@ SUBST_FILES.paths+=	fvwm/fvwm3.c meson.build
 SUBST_VARS.paths=	PKG_SYSCONFDIR SED
 SUBST_SED.paths=	-e "s:/etc/system.fvwm2rc:${PKG_SYSCONFDIR}/fvwm/system.fvwm2rc:g"
 SUBST_SED.paths+=	-e "s:/usr/local/share/fvwm:${PREFIX}/share/fvwm:g"
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# meson.build runs @SED@ during the build: the build machine's sed.
+SUBST_VARS.paths=	PKG_SYSCONFDIR
+SUBST_SED.paths+=	-e "s,@SED@,${TOOLS_PATH.sed},g"
+.endif
 
 CPPFLAGS.SunOS+=	-D__EXTENSIONS__ 			#strncasecmp()
 LDFLAGS.SunOS+=		-lsocket

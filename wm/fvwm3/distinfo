@@ -193,3 +193,4 @@ SHA1 (patch-bin_fvwm-menu-desktop.in) = 233e16992dbf81efdb4d41421a2904bc24463c16
 SHA1 (patch-doc_meson.build) = 4fa0d191c79356b4b1c40305f1051d93f6fee247
 SHA1 (patch-meson.build) = 7c800b73ee5213bbcfc574215f7bba368e686f8f
 SHA1 (patch-meson.options) = 1b39baf3ae658cc5df1b9e951a2a1707c70aa2bd
+SHA1 (patch-modules_FvwmEvent_FvwmEvent.c) = 39e32ec35e501b2bd43e1aac76a1dc13f64eff3d

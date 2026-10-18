@@ -2,7 +2,11 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.fvwm3
 PKG_SUPPORTED_OPTIONS=	doc go svg
-PKG_SUGGESTED_OPTIONS=	doc go
+PKG_SUGGESTED_OPTIONS=	doc
+.if ${OPSYS} != "IRIX"
+# Go has no IRIX port.
+PKG_SUGGESTED_OPTIONS+=	go
+.endif
 
 .include "../../mk/bsd.options.mk"
 
@@ -24,7 +28,7 @@ MESON_ARGS+=    -Dsvg=disabled
 .if !empty(PKG_OPTIONS:Mdoc)
 MESON_ARGS+=	-Dmandoc=true
 TOOL_DEPENDS+=		${RUBY_PKGPREFIX}-asciidoctor-[0-9]*:../../textproc/ruby-asciidoctor
-ASCIIDOC=               ${PREFIX}/bin/asciidoctor${RUBY_VER}
+ASCIIDOC=               ${TOOLBASE}/bin/asciidoctor${RUBY_VER}
 SUBST_VARS.paths+=	ASCIIDOC
 .  include "../../lang/ruby/rubyversion.mk"
 PLIST.doc=		yes
