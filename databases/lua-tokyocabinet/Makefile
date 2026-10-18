@@ -23,6 +23,8 @@ REPLACE_LUA=		*.lua
 INSTALLATION_DIRS+=	${LUA_DOCDIR} ${LUA_EXAMPLESDIR}
 
 MAKE_ENV+=	INCLUDEDIR=${BUILDLINK_PREFIX.tokyocabinet}/include
+# configure asks the lua it finds (the build machine's) where modules go.
+MAKE_FLAGS+=	LUALIBDIR=${PREFIX}/${LUA_CDIR}
 
 post-extract:
 	${CHMOD} -R go-w ${WRKSRC}

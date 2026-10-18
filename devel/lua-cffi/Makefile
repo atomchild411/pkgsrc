@@ -20,4 +20,5 @@ WRKSRC=			${WRKDIR}/${DISTNAME}
 .include "../../devel/libffi/buildlink3.mk"
 .include "../../devel/meson/build.mk"
 .include "../../lang/lua/buildlink3.mk"
+.include "../../lang/lua/module.mk"
 .include "../../mk/bsd.pkg.mk"
