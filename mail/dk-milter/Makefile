@@ -52,6 +52,9 @@ INSTALLATION_DIRS=	lib ${PKGMANDIR}/man8 sbin share/doc/dk-milter/libdk
 pre-configure:
 	mv ${WRKSRC}/site.config.m4.dist ${WRKSRC}/devtools/Site/site.config.m4
 .if ${OPSYS} == "IRIX"
+	# devtools/OS/IRIX.6.5 has MIPSpro's options in confCC (-mips3 -n32
+	# -OPT:Olimit=0): the compiler's defaults and the wrappers' flags instead.
+	${ECHO} "define(\`confCC', \`cc')" >> ${WRKSRC}/devtools/Site/site.config.m4
 	# conf.h's IRIX section predates unsetenv; the toolchain provides it.
 	${ECHO} "APPENDDEF(\`confENVDEF', \`-DHASUNSETENV=1')" \
 	    >> ${WRKSRC}/devtools/Site/site.config.m4
