@@ -15,6 +15,15 @@ NO_INSTALL_MANPAGES=	yes
 post-patch:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} ${MAKE_FLAGS} clean
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The build runs makeh (make's default rule) to write xfishy.h.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		makeh
+SUBST_STAGE.makeh=	pre-configure
+SUBST_FILES.makeh=	Imakefile
+SUBST_SED.makeh=	-e 's,^xfishy.h: makeh FishList$$,makeh: makeh.c\n\t${NATIVE_CC} -std=gnu89 -o makeh makeh.c\n\n&,'
+.endif
+
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
