@@ -48,6 +48,7 @@ CONF_FILES+=		${EGDIR}/${EGSUBDIR.${subdir}}/${file} \
 
 LDFLAGS.NetBSD+=	-lm # frexp
 LDFLAGS.SunOS+=		-lX11 -lXrender -lsocket -lnsl
+LDFLAGS.IRIX+=		-lX11 -lXrender -lXext -lXft -lXinerama -lXrandr
 
 SUBST_CLASSES+=		vars
 SUBST_STAGE.vars=	pre-configure

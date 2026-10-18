@@ -26,6 +26,7 @@ BUILDLINK_TRANSFORM.Darwin+=	rm:-static
 CPPFLAGS.Darwin+=		-DBIND_8_COMPAT
 
 BUILDLINK_TRANSFORM.SunOS+=	rm:-static
+BUILDLINK_TRANSFORM.IRIX+=	rm:-static
 CPPFLAGS.SunOS+=		-Du_int16_t=uint16_t
 LDFLAGS.SunOS+=			-lresolv -lsocket -lnsl
 

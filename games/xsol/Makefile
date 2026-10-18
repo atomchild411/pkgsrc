@@ -13,6 +13,7 @@ LICENSE=	gnu-gpl-v2
 WRKSRC=		${WRKDIR}/${DISTNAME:S/_/-/g}
 
 LDFLAGS.SunOS+=	-lX11 -lXt
+LDFLAGS.IRIX+=	-lX11 -lXt
 
 INSTALLATION_DIRS+=	bin
 INSTALLATION_DIRS+=	share/applications

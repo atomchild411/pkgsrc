@@ -24,6 +24,7 @@ INSTALL_MAKE_FLAGS+=	PREFIX=${DESTDIR}${PREFIX}
 INSTALLATION_DIRS+=	bin
 
 BUILDLINK_TRANSFORM.SunOS+=	rm:-static
+BUILDLINK_TRANSFORM.IRIX+=	rm:-static
 
 do-build:
 	cd ${WRKSRC} && make make_impress make_font3d

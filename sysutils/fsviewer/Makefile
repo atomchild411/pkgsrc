@@ -18,6 +18,7 @@ USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 
 LDFLAGS.SunOS+=		-lWUtil -lX11 -lXpm -lm -lwraster
+LDFLAGS.IRIX+=		-lWUtil -lX11 -lXpm -lm -lwraster
 LDFLAGS.DragonFly=	-lintl -lfontconfig
 
 .include "../../mk/bsd.prefs.mk"

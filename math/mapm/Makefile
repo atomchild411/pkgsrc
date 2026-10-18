@@ -21,6 +21,7 @@ FORCE_CXX_STD=	c++03
 INSTALLATION_DIRS=	bin include lib share/doc/mapm
 
 BUILDLINK_TRANSFORM.SunOS+=	rm:-static
+BUILDLINK_TRANSFORM.IRIX+=	rm:-static
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/m_apm.h ${DESTDIR}${PREFIX}/include

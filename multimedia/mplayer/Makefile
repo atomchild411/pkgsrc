@@ -17,6 +17,7 @@ CONFIGURE_ARGS+=	--disable-gif # giflib removes private API
 INSTALLATION_DIRS+=	bin
 
 LDFLAGS.SunOS+=	-lX11 -lXext
+LDFLAGS.IRIX+=	-lX11 -lXext
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/mplayer ${DESTDIR}${PREFIX}/bin
