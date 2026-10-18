@@ -6,3 +6,4 @@ Size (dte-1.11.1.tar.gz) = 415294 bytes
 SHA1 (patch-GNUmakefile) = f8de9c3a3d84d89c996f72bad933a72ca2ad734a
 SHA1 (patch-src_buffer.c) = 0118730fde1e72a7f86cbcebc20f3061eda478a2
 SHA1 (patch-src_convert.c) = afa6e5969701b31462fb96a0ac505e4cdbbea028
+SHA1 (patch-src_util_exitcode.h) = 63b39b1e1d27b4717d5556ecdc607907659c6bcd
