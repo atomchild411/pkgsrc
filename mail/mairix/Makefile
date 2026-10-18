@@ -16,4 +16,13 @@ CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
 
 USE_TOOLS+=		bison flex
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The build runs dfasyn (a scanner generator) from its dfasyn/ subdirectory.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		dfasyn
+SUBST_STAGE.dfasyn=	pre-configure
+SUBST_FILES.dfasyn=	Makefile.in
+SUBST_SED.dfasyn=	-e 's,cd dfasyn ; $$(MAKE) CC="$$(CC)" CFLAGS="$$(CFLAGS)",cd dfasyn ; $$(MAKE) CC="${NATIVE_CC}" CFLAGS="",'
+.endif
+
 .include "../../mk/bsd.pkg.mk"
