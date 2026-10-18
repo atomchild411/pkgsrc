@@ -42,6 +42,8 @@ MAKE_ENV+=   LUA_PKGNAME=${LUA_PACKAGE:S/lua/lua-/:S/5/5./}
 PTHREAD_AUTO_VARS=      yes
 PTHREAD_OPTS+=          require
 CFLAGS+=		-DHAVE_PTHREAD
+# The build links with LDLIBS (not LIBS); IRIX needs -lpthread.
+LDLIBS+=		${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}
 .endif
 
 .if !empty(PKG_OPTIONS:Mx11)

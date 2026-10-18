@@ -35,6 +35,11 @@ SUBST_CLASSES+=		pkgsrc
 SUBST_STAGE.pkgsrc=	pre-configure
 SUBST_FILES.pkgsrc=	src/Makefile
 SUBST_VARS.pkgsrc=	CC PREFIX PKGMANDIR SED YACC
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# src/Makefile runs sed at build time; SUBST_VARS would give the target's.
+SUBST_VARS.pkgsrc:=	${SUBST_VARS.pkgsrc:NSED}
+SUBST_SED.pkgsrc+=	-e 's,@SED@,${SED},g'
+.endif
 SUBST_MESSAGE.pkgsrc=	Replacing pkgsrc placeholders
 
 MAKE_ENV+=	CFLAGS_CURSES=${BUILDLINK_CFLAGS.ncurses:Q}
