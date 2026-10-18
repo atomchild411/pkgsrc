@@ -11,4 +11,7 @@ SHA1 (patch-lualib_rspamadm_dmarc__report.lua) = 93ccb04512dd84ea83de44c394571ef
 SHA1 (patch-src_libserver_symcache_symcache__impl.cxx) = 8a5c69ab343409427619a9cbc0dc080d548b9c53
 SHA1 (patch-src_libstat_backends_redis__backend.cxx) = 4c60287a574066a841c76081cd88512a57f0b27f
 SHA1 (patch-src_libutil_fpconv__format.c) = 6c876f570fb45a7a0618e933fb48e03ef77d1c04
+SHA1 (patch-src_libutil_util.c) = 08d25195854bb7c4f35380dfff169104ed65b73d
+SHA1 (patch-src_lua_lua__parsers.c) = cac53d634ddaf40ec4067aa907969a73bdf2dab2
+SHA1 (patch-src_lua_lua__task.c) = 4361a5270bd011d29b6019db84141b3eda34ec97
 SHA1 (patch-src_rspamd.c) = 1903994d5970af57de9c5d522df3dd12576c8418

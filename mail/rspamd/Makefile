@@ -30,6 +30,20 @@ USE_CXX_FEATURES+=	c++20
 # shm_open takes its name as a file's path, which the test does not expect.
 CMAKE_CONFIGURE_ARGS+=	-DHAVE_ATOMIC_BUILTINS_EXITCODE=0
 CMAKE_CONFIGURE_ARGS+=	-DHAVE_SANE_SHMEM_EXITCODE=1
+# The build runs the snowball compiler it builds (contrib/snowball) to
+# write the stemmers' C: build one for the build host too, and run that.
+SUBST_CLASSES+=		snowball
+SUBST_STAGE.snowball=	pre-configure
+SUBST_MESSAGE.snowball=	Running a build-host snowball.
+SUBST_FILES.snowball=	contrib/snowball/CMakeLists.txt
+SUBST_SED.snowball=	-e 's,$${CMAKE_CURRENT_BINARY_DIR}/snowball ,${WRKDIR}/snowball-native ,'
+pre-configure: rspamd-snowball-native
+.PHONY: rspamd-snowball-native
+rspamd-snowball-native:
+	${RUN} cd ${WRKSRC}/contrib/snowball && \
+		${NATIVE_CC} -O2 -DDISABLE_JS -DDISABLE_GO -DDISABLE_JAVA \
+		-DDISABLE_PYTHON -DDISABLE_CSHARP -DDISABLE_PASCAL -DDISABLE_RUST \
+		-o ${WRKDIR}/snowball-native compiler/*.c
 .endif
 
 BUILDLINK_TRANSFORM.SunOS+=	rm:-liberty
