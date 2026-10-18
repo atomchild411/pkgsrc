@@ -6,4 +6,5 @@ Size (libstatgrab-0.92.1.tar.gz) = 817531 bytes
 SHA1 (patch-config.h.in) = dbb85d6a2ccfb6af8d3c104d6597868d7f9502f1
 SHA1 (patch-configure) = 1c1afc172f876893f793c55ceac0ab48ce577042
 SHA1 (patch-configure.ac) = 804bb49b775af9fc953a77d0ef34abb3f0874f57
+SHA1 (patch-src_libstatgrab_disk__stats.c) = e48e1d21fb92b61dccee9d066489a950385ad51b
 SHA1 (patch-src_libstatgrab_tools.h) = 992716718d84a0501a7e5c3f8a85bd2c713fa350
