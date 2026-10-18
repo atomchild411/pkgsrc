@@ -2,7 +2,7 @@
 
 DISTNAME=	love-0.7.2-linux-src
 PKGNAME=	${DISTNAME:S/-linux-src//:S/love/love07/}
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	games lua
 MASTER_SITES=	${MASTER_SITE_GITHUB:=love2d/}
 
