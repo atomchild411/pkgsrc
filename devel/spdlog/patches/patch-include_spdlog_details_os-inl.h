@@ -1,10 +1,11 @@
 $NetBSD: patch-include_spdlog_details_os-inl.h,v 1.1 2026/04/12 20:28:26 tnn Exp $
 
 SunOS does not have tm_gmtoff
+IRIX has no tm_gmtoff.
 
---- include/spdlog/details/os-inl.h.orig	2026-04-12 20:26:15.597056433 +0000
+--- include/spdlog/details/os-inl.h.orig
 +++ include/spdlog/details/os-inl.h
-@@ -260,6 +260,15 @@ SPDLOG_INLINE int utc_minutes_offset(const std::tm &tm
+@@ -260,6 +260,21 @@
      auto offset_seconds = utc_time_t - local_time_t;
      return static_cast<int>(offset_seconds / 60);
  }
@@ -16,6 +17,12 @@ SunOS does not have tm_gmtoff
 +        offset += 60;
 +    }
 +    return offset;
++}
++#elif defined(__sgi)
++// IRIX's struct tm has no tm_gmtoff: SVR4's timezone and altzone (seconds
++// west of UTC), which localtime() has set.
++SPDLOG_INLINE int utc_minutes_offset(const std::tm &tm) {
++    return static_cast<int>(-(tm.tm_isdst > 0 ? altzone : timezone) / 60);
 +}
  #else
  // On unix simply use tm_gmtoff
