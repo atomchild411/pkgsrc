@@ -7,10 +7,11 @@ branch iris/main):
 - Wrappers: constant HUGE_VAL; programs' own snprintf macros left alone
 - Wrappers: O_ASYNC and LOGIN_NAME_MAX
 - <limits.h>: IOV_MAX in plain XPG4 mode too
+- <limits.h>: LLONG_MIN, LLONG_MAX, ULLONG_MAX in GNU C89 and C++98
 
 --- lib/Headers/irix_wrappers/limits.h.orig
 +++ lib/Headers/irix_wrappers/limits.h
-@@ -0,0 +1,73 @@
+@@ -0,0 +1,89 @@
 +/*===---- limits.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -81,6 +82,22 @@ branch iris/main):
 + * it as LOGNAME_MAX (8). */
 +#ifndef LOGIN_NAME_MAX
 +#define LOGIN_NAME_MAX 9
++#endif
++
++/* C99's long long limits, which clang's <limits.h> gives only in C99 and
++ * C++11, and IRIX only as LONGLONG_MIN and so on: in the GNU C89 modes and
++ * C++98 too, as glibc and the BSDs give them unless strictly ANSI C (clamav
++ * builds with -std=gnu90). */
++#if !defined(__STRICT_ANSI__) || defined(__cplusplus)
++#ifndef LLONG_MAX
++#define LLONG_MAX __LONG_LONG_MAX__
++#endif
++#ifndef LLONG_MIN
++#define LLONG_MIN (-__LONG_LONG_MAX__ - 1LL)
++#endif
++#ifndef ULLONG_MAX
++#define ULLONG_MAX (__LONG_LONG_MAX__ * 2ULL + 1ULL)
++#endif
 +#endif
 +
 +#endif /* __CLANG_IRIX_LIMITS_H */
