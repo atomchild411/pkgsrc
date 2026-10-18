@@ -3,6 +3,7 @@ $NetBSD: distinfo,v 1.9 2021/10/26 10:51:35 nia Exp $
 BLAKE2s (focal.tar.gz) = ce7823d85379aa6169f1ef2f55be1698c75abc97e62b35eef0d679d265ce1f0a
 SHA512 (focal.tar.gz) = 5d1c04e1d27b62a29eb3694df262eef5a4bb01a10d28aa79e2b535571d81927136a18a0702fc8ea699bd0a00d6db6695015a7e7e207f01094e5a8c50d8cadd94
 Size (focal.tar.gz) = 12561 bytes
+SHA1 (patch-focal.h) = 57c633da33d7663278f2876b58fab39231ca4bcc
 SHA1 (patch-focal0_c) = 9e761e135665dad02b8cc700d80bf4eba69a0e7d
 SHA1 (patch-focal1_c) = 3957cde40ea86a218aea8411623d4bd033df9dbe
 SHA1 (patch-focal2_c) = b4f0c53188dc67fa890da6093d5d5431df3b7efc
