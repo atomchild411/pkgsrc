@@ -14,6 +14,9 @@ LICENSE=	gnu-gpl-v2
 MAKE_JOBS_SAFE=		no
 USE_TOOLS+=		flex yacc
 GNU_CONFIGURE=		yes
+# The build defines _POSIX_SOURCE (POSIX.1-1990), and IRIX then hides
+# struct timespec and clock_gettime (POSIX.1b) that yuk.c uses.
+CPPFLAGS.IRIX+=		-D_POSIX_C_SOURCE=199309L
 INSTALLATION_DIRS+=	bin lib
 INFO_FILES=		yes
 
