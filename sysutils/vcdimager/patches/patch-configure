@@ -1,0 +1,16 @@
+$NetBSD$
+
+Cross builds: IRIX (big-endian MIPS) lays bitfields out from the most significant bit.
+
+--- configure.orig
++++ configure
+@@ -18203,6 +18203,9 @@
+      *-*-mingw32* | *-*-cygwin*)
+        bf_lsbf=1
+      ;;
++     mips*-*-irix*)
++       bf_lsbf=0
++     ;;
+      *)
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: unknown" >&5
+ $as_echo "unknown" >&6; }

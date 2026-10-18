@@ -1,0 +1,16 @@
+$NetBSD$
+
+Cross builds: IRIX (big-endian MIPS) lays bitfields out from the most significant bit.
+
+--- configure.ac.orig
++++ configure.ac
+@@ -268,6 +268,9 @@
+      *-*-mingw32* | *-*-cygwin*)
+        bf_lsbf=1
+      ;;
++     mips*-*-irix*)
++       bf_lsbf=0
++     ;;
+      *)
+        AC_MSG_RESULT([unknown])
+        AC_MSG_ERROR([value of bitfield test isn't known for $host
