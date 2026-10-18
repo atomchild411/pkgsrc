@@ -32,4 +32,5 @@ SHA1 (patch-ay) = 9f673fd72c1b111163c95038933b9ffb68474138
 SHA1 (patch-az) = 334817c8e6f92a39f8df8e0e645ae13c0716bd52
 SHA1 (patch-ba) = 9dee52aa7d37e94727a93b7372f97bc5afb73b2f
 SHA1 (patch-bb) = fd59f3ccf4cd4cf3616199b2990abcced4e6fb42
+SHA1 (patch-include_Compat.hh) = a460704319d16ee8557cdef7c4c1e3850c554e42
 SHA1 (patch-include_Debug.hh) = 67d9fdf4e214be4695f00d1baf9b43910479c395

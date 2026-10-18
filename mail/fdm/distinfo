@@ -4,4 +4,5 @@ BLAKE2s (fdm-2.2.tar.gz) = 89eb5ee09baea4b949b97578deb439d95955f4c73cc7b6cf620b8
 SHA512 (fdm-2.2.tar.gz) = 9af91baf3ee6d4d2fa1994718bde2e8bcc33ca781dced8b2574142ee67ef3b929396ce5f01bccf721ab89f149c85198df1441c4fea44f9a5d061d7cbbbe5b7a2
 Size (fdm-2.2.tar.gz) = 184913 bytes
 SHA1 (patch-Makefile.am) = 2169ebc8e7c920cdf8492ee2039b410f5a6e358c
+SHA1 (patch-fdm.h) = a1e99708dc17c9007d151b4f70f170e9bf536eca
 SHA1 (patch-shm-mmap.c) = 3cd0c54c982ddd4702ad921ebf5f1b890b503cd4

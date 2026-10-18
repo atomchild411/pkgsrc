@@ -5,4 +5,5 @@ SHA512 (vifm-0.14.3.tar.bz2) = 850d29a1c50e7579d53fcd519e3108f7edd1d5046ca473217
 Size (vifm-0.14.3.tar.bz2) = 1764017 bytes
 SHA1 (patch-configure) = 84f8b6d3e5c4f9aa9d632ebd828ad57e94c47452
 SHA1 (patch-src_Makefile.in) = 4ab1ae1049d71235008f6e3c7548f3caed133ecf
+SHA1 (patch-src_ops.h) = bbac4ebc3da644a553ef3e0acc6a3d4c6d14b1e9
 SHA1 (patch-src_version.c) = 4e558368da00f719317b3c0dc1f2209f248a3c11

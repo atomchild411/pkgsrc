@@ -6,6 +6,7 @@ Size (scim-fcitx.3.1.1.tar.bz2) = 1612134 bytes
 SHA1 (patch-aa) = 3b50251864dd69c79dfef9c46c728e735a88248e
 SHA1 (patch-src_ime.cpp) = e773fbdd58e671cd68515f648724ddc702ec0d65
 SHA1 (patch-src_py.cpp) = 7f777dc5593673fd13a475ab0dc836a0ba525a9d
+SHA1 (patch-src_py.h) = 7c6cb6e1d248fc417c59091b62899b7be2cf0a83
 SHA1 (patch-src_scim__fcitx__imengine.cpp) = ce70db4491d62191b1c80c6e8f6434127a3cb1a3
 SHA1 (patch-src_sp.cpp) = 9197b71c17929b63d2b60e90129960960e56260f
 SHA1 (patch-src_table.cpp) = b5b7a883330b30d7a3493d9895e18576afbc5fb9
