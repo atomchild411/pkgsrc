@@ -6,5 +6,6 @@ Size (z3-4.14.0.tar.gz) = 5841848 bytes
 SHA1 (patch-scripts_mk__util.py) = 56380c984c667ecf3861d3a329a6425d4a93bb1e
 SHA1 (patch-src_api_python_setup.py) = 90756d137a1c447515cdfdda26487c6a1adada5f
 SHA1 (patch-src_ast_rewriter_seq__eq__solver.cpp) = 31cf8fc41855a4b3b5b6a10de88f613054719bc0
+SHA1 (patch-src_math_realclosure_mpz__matrix.cpp) = 3b33b80d0553adf3fc782dea110d39be2a600354
 SHA1 (patch-src_sat_sat__lookahead.cpp) = c091d8b267b5476e438888e82c9161599873264c
 SHA1 (patch-src_sat_sat__solver.cpp) = 0e279f291801901eabb11b7cb0268c137a3b41fe
