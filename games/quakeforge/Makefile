@@ -29,6 +29,17 @@ REPLACE_PYTHON+=	tools/qfcc/source/qfpreqcc
 
 .include "../../mk/bsd.prefs.mk"
 
+# configure cannot test the byte order when cross-compiling: name it.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+.  include "../../mk/endian.mk"
+CONFIGURE_ARGS+=	--with-endian=${MACHINE_ENDIAN}
+# No libcdaudio (nor libmediad, libds) in the IRIX sysroot.
+CONFIGURE_ENV+=		qf_cv_sgi_cd=no
+.endif
+# Its IRIX sound output (snd_sgi.c) no longer builds; SDL's plays sound
+# on IRIX instead.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_dmedia_audio_h=no
+
 PLIST_VARS+=		sunaudio linux
 .if ${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS"
 PLIST.sunaudio=		yes

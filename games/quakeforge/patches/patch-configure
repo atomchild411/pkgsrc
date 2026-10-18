@@ -1,0 +1,18 @@
+$NetBSD$
+
+qf_cv_sgi_cd=no leaves out IRIX CD audio (cross builds: no libcdaudio to link).
+
+--- configure.orig
++++ configure
+@@ -19987,9 +19987,11 @@
+ _ACEOF
+ if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+   $EGREP "QF_maGiC_VALUE" >/dev/null 2>&1; then :
++  if test "x$qf_cv_sgi_cd" != xno; then
+   CDTYPE="$CDTYPE SGI"
+ 	cd_need_sgi=yes
+ 	SGI_CD_LIBS="-lcdaudio -lmediad -lds"
++  fi
+ 
+ fi
+ rm -f conftest*
