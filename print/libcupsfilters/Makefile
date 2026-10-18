@@ -20,6 +20,13 @@ USE_LANGUAGES=	c c++
 
 PKGCONFIG_OVERRIDE+=	libcupsfilters.pc.in
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# configure finds the build machine's cups-config (and its data directories);
+# the target's is a script that runs here too.
+CONFIGURE_ARGS+=	--with-cups-config=${CROSS_DESTDIR}${LOCALBASE}/bin/cups-config
+.endif
+
 .include "options.mk"
 
 .include "../../fonts/fontconfig/buildlink3.mk"
