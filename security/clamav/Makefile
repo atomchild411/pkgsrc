@@ -24,6 +24,9 @@ CMAKE_CONFIGURE_ARGS+=	-DENABLE_MILTER=off
 # cmake/Check{SignedRightShift,StructPacking,UnamePosix,FDPassing}.cmake run
 # their tests, all through the one cache variable.
 CMAKE_CONFIGURE_ARGS+=	-Dtest_run_result=0 -Dtest_run_result__TRYRUN_OUTPUT=
+# cmake/FindRust.cmake takes the host rustc's target unless told; cargo
+# then builds libclamav_rust for the build host.
+CMAKE_CONFIGURE_ARGS+=	-DRUST_COMPILER_TARGET=${RUST_CROSS_TARGET}
 .endif
 
 CHECK_PORTABILITY_SKIP=	contrib/* unit_tests/* win32/*
