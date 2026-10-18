@@ -52,8 +52,33 @@ REPLACE_PYTHON+=	lib/libvsc/vsctool.py
 
 CONFIGURE_ARGS+=	--localstatedir=${STATEDIR}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASE}
-CONFIGURE_ARGS+=	--with-rst2html=${PREFIX}/bin/rst2html-${PYVERSSUFFIX}
-CONFIGURE_ARGS+=	--with-rst2man=${PREFIX}/bin/rst2man-${PYVERSSUFFIX}
+CONFIGURE_ARGS+=	--with-rst2html=${TOOLBASE}/bin/rst2html-${PYVERSSUFFIX}
+CONFIGURE_ARGS+=	--with-rst2man=${TOOLBASE}/bin/rst2man-${PYVERSSUFFIX}
+# Run tests: IRIX has none of these socket options, nor close_range().
+CONFIGURE_ENV.IRIX+=	ac_cv_have_tcp_keep=no ac_cv_have_tcp_keepalive=no
+CONFIGURE_ENV.IRIX+=	ac_cv_have_tcp_fastopen=no ac_cv_have_working_close_range=no
+
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build runs vhp_gen_hufdec (vhp_hufdec.h) and varnishstat_help_gen:
+# build them for the build machine as well (with libvarnish's VSB, and a
+# VAS_Fail of their own).
+SUBST_CLASSES+=		gens
+SUBST_STAGE.gens=	pre-configure
+SUBST_MESSAGE.gens=	Running the build machine's generators.
+SUBST_FILES.gens=	bin/varnishd/Makefile.in bin/varnishstat/Makefile.in
+SUBST_SED.gens=		-e 's,$$(AM_V_GEN) \./vhp_gen_hufdec >,$$(AM_V_GEN) ${WRKDIR}/vhp_gen_hufdec >,'
+SUBST_SED.gens+=	-e 's,$$(AM_V_GEN) \./varnishstat_help_gen >,$$(AM_V_GEN) ${WRKDIR}/varnishstat_help_gen >,'
+pre-build: varnish-host-gens
+.PHONY: varnish-host-gens
+varnish-host-gens:
+	${NATIVE_CC} -I${WRKSRC}/include -I${WRKSRC} -o ${WRKDIR}/vhp_gen_hufdec \
+	    ${WRKSRC}/bin/varnishd/hpack/vhp_gen_hufdec.c ${FILESDIR}/vas-stub.c
+	cd ${WRKSRC}/bin/varnishstat && ${NATIVE_CC} -I${WRKSRC}/include \
+	    -I${WRKSRC} -I. -o ${WRKDIR}/varnishstat_help_gen \
+	    varnishstat_help_gen.c ${WRKSRC}/lib/libvarnish/vsb.c \
+	    ${FILESDIR}/vas-stub.c
+.endif
 CONFIGURE_ARGS+=	--with-sphinx-build=${PREFIX}/bin/sphinx-build-${PYVERSSUFFIX}
 
 # Explicitly disable epoll on illumos, provided for Linux compat only.
