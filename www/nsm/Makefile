@@ -11,6 +11,8 @@ COMMENT=	Cross-platform git- and LaTeX-like command-line website manager
 LICENSE=	mit
 
 USE_LANGUAGES=		c c++
+# The bundled exprtk: clang 19 makes this one an error (clang-only on IRIX).
+CXXFLAGS.IRIX+=		-Wno-error=missing-template-arg-list-after-template-kw
 USE_TOOLS+=		gmake
 INSTALLATION_DIRS=	bin
 
