@@ -1,10 +1,16 @@
 $NetBSD: patch-setup.py,v 1.5 2024/05/29 17:51:10 adam Exp $
 
 Add NetBSD support.
+IRIX: build as on Linux (pkg-config, icu-config).
 
---- setup.py.orig	2024-04-29 20:14:33.000000000 +0000
+--- setup.py.orig
 +++ setup.py
-@@ -64,6 +64,8 @@ if platform.startswith(('linux', 'gnu'))
+@@ -60,10 +60,12 @@
+ 
+ 
+ platform = sys.platform
+-if platform.startswith(('linux', 'gnu')):
++if platform.startswith(('linux', 'gnu', 'irix')):
      platform = 'linux'
  elif platform.startswith('freebsd'):
      platform = 'freebsd'
@@ -13,7 +19,7 @@ Add NetBSD support.
  
  
  CONFIGURE_WITH_ICU_CONFIG = {
-@@ -73,6 +75,7 @@ CONFIGURE_WITH_ICU_CONFIG = {
+@@ -73,6 +75,7 @@
      'win32': False,   # no icu-config
      'sunos5': False,  # not tested
      'cygwin': False,  # not tested
@@ -21,7 +27,7 @@ Add NetBSD support.
  }
  
  CONFIGURE_WITH_PKG_CONFIG = {
-@@ -82,6 +85,7 @@ CONFIGURE_WITH_PKG_CONFIG = {
+@@ -82,6 +85,7 @@
      'win32': False,   # no pkg-config ?
      'sunos5': False,  # not tested
      'cygwin': False,  # not tested
@@ -29,7 +35,7 @@ Add NetBSD support.
  }
  
  
-@@ -114,6 +118,7 @@ INCLUDES = {
+@@ -114,6 +118,7 @@
      'win32': ['c:/icu/include'],
      'sunos5': [],
      'cygwin': [],
@@ -37,7 +43,7 @@ Add NetBSD support.
  }
  
  if sys.platform == 'win32' and sys.version_info < (3,9):
-@@ -132,6 +137,7 @@ PEDANTIC_FLAGS = {
+@@ -132,6 +137,7 @@
      'win32': [],
      'sunos5': [],
      'cygwin': ['-pedantic'],
@@ -45,7 +51,7 @@ Add NetBSD support.
  }
  
  CFLAGS = {
-@@ -141,6 +147,7 @@ CFLAGS = {
+@@ -141,6 +147,7 @@
      'win32': ['/Zc:wchar_t', '/EHsc'],
      'sunos5': ['-std=c++17'],
      'cygwin': ['-D_GNU_SOURCE=1', '-std=c++17'],
@@ -53,7 +59,7 @@ Add NetBSD support.
  }
  
  # added to CFLAGS when setup is invoked with --debug
-@@ -151,6 +158,7 @@ DEBUG_CFLAGS = {
+@@ -151,6 +158,7 @@
      'win32': ['/Od', '/DDEBUG'],
      'sunos5': ['-DDEBUG'],
      'cygwin': ['-Og', '-g', '-DDEBUG'],
@@ -61,7 +67,7 @@ Add NetBSD support.
  }
  
  LFLAGS = {
-@@ -160,6 +168,7 @@ LFLAGS = {
+@@ -160,6 +168,7 @@
      'win32': ['/LIBPATH:c:/icu/lib'],
      'sunos5': [],
      'cygwin': [],
@@ -69,7 +75,7 @@ Add NetBSD support.
  }
  
  LIBRARIES = {
-@@ -169,6 +178,7 @@ LIBRARIES = {
+@@ -169,6 +178,7 @@
      'win32': ['icuin', 'icuuc', 'icudt'],
      'sunos5': ['icui18n', 'icuuc', 'icudata'],
      'cygwin': ['icui18n', 'icuuc', 'icudata'],
