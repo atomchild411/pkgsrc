@@ -18,6 +18,14 @@ CFLAGS+=	-I${BUILDLINK_DIR}/include
 
 MAKE_FLAGS=	prefix=${PREFIX}
 
+.include "../../mk/bsd.prefs.mk"
+
+# components/output has no output component for IRIX.
+PLIST_VARS+=	oss
+.if ${OPSYS} != "IRIX"
+PLIST.oss=	yes
+.endif
+
 .include "../../devel/smooth/buildlink3.mk"
 .include "../../misc/libcdio-paranoia/buildlink3.mk"
 .include "../../textproc/uriparser/buildlink3.mk"

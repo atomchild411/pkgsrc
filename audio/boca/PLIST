@@ -146,7 +146,7 @@ lib/boca/boca_encoder_twolame.1.0.xml
 lib/boca/boca_encoder_vorbis.1.0.so
 lib/boca/boca_encoder_wavpack.1.0.xml
 lib/boca/boca_extension_statustime.1.0.so
-lib/boca/boca_output_oss.1.0.so
+${PLIST.oss}lib/boca/boca_output_oss.1.0.so
 lib/boca/boca_playlist_cuesheet.1.0.so
 lib/boca/boca_playlist_m3u.1.0.so
 lib/boca/boca_playlist_pls.1.0.so
