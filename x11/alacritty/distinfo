@@ -868,3 +868,4 @@ BLAKE2s (zerocopy-derive-0.8.27.crate) = 0fffa0ca637a0ab654943d44e56f8ebc970ec70
 SHA512 (zerocopy-derive-0.8.27.crate) = 9fd0b4f900e6ea7c92998b7297deafa84870e7e57d09225ae3910894358da9f405925fed88d2528f52caf5a1f6e32dd75bfa18ed3a7f9fee75bfa88c0f23e451
 Size (zerocopy-derive-0.8.27.crate) = 89827 bytes
 SHA1 (patch-.._vendor_x11rb-0.13.2_src_xcb__ffi_raw__ffi_ffi.rs) = b80ac1ecb6b77a77c6510c8421c78a0984a28073
+SHA1 (patch-alacritty__terminal_src_tty_unix.rs) = f5e3c542b13613e221a515d33beafab278aea07e
