@@ -7,4 +7,6 @@ SHA1 (patch-aa) = f094ead71b69995d6a8a48ac954bddac22339982
 SHA1 (patch-ab) = 6e5ad3221243cb942b265d664e9833596c7f24c3
 SHA1 (patch-ac) = 356895fa6e9309ac1479ca52a1ec3164f6a1613a
 SHA1 (patch-ad) = 1ccc064bab8aa9d5d87a1f2b063a458a22bd36af
+SHA1 (patch-include_bignum.h) = 59663bcf6c3a8c05c13e14c6b3b8970dabb02ae0
 SHA1 (patch-src_bignum.c) = 85f57372c8b7044dee5f6744c5ffe6fc99669c68
+SHA1 (patch-src_monoopt.c) = 38224005ab75943918785af0b585ac41741ae5ce
