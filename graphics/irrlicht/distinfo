@@ -3,6 +3,7 @@ $NetBSD: distinfo,v 1.3 2021/10/26 10:46:20 nia Exp $
 BLAKE2s (irrlicht-1.8.4.zip) = b4bf342023a79d0629e2de08d578783ab01e008375afb1e3935ef6f7d74213eb
 SHA512 (irrlicht-1.8.4.zip) = de69ddd2c6bc80a1b27b9a620e3697b1baa552f24c7d624076d471f3aecd9b15f71dce3b640811e6ece20f49b57688d428e3503936a7926b3e3b0cc696af98d1
 Size (irrlicht-1.8.4.zip) = 27927144 bytes
+SHA1 (patch-source_Irrlicht_CFileSystem.cpp) = 051263c5d0c7f82ceeff6e26ad06a264aa05f5c2
 SHA1 (patch-source_Irrlicht_COSOperator.cpp) = 8019eba39d03ba80de76ab8bb5fad68d9863f5bf
 SHA1 (patch-source_Irrlicht_Makefile) = 4d49b4eac2b501c0bbfeacb8b1f1f54e9d5feea3
 SHA1 (patch-source_Irrlicht_os.cpp) = de05d9e836c3dc619ab15075366db50f11ebe3fc
