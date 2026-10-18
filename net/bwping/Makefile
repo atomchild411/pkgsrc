@@ -14,4 +14,15 @@ GNU_CONFIGURE=	yes
 
 LDFLAGS.SunOS+=	-lnsl -lresolv
 
+.include "../../mk/bsd.prefs.mk"
+
+# configure runs a program to find IPv6; answer it from IPV6_READY.
+PLIST_VARS+=	inet6
+.if ${IPV6_READY} == "YES"
+CONFIGURE_ENV+=	ac_cv_ipv6=yes
+PLIST.inet6=	yes
+.else
+CONFIGURE_ENV+=	ac_cv_ipv6=no
+.endif
+
 .include "../../mk/bsd.pkg.mk"
