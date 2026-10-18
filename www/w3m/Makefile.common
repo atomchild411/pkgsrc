@@ -83,6 +83,26 @@ post-install:
 	set -e; cd ${WRKSRC}; pax -r -w -s ',.*\.1$$,,' doc doc-jp \
 	    ${DESTDIR}${PREFIX}/${DOCDIR}
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build runs mktable, which it builds, to write tagtable.c, entity.h
+# and functable.c: build one for the build host too (with its Boehm GC),
+# and run that.
+TOOL_DEPENDS+=		boehm-gc>=7:../../devel/boehm-gc
+SUBST_CLASSES+=		mktable
+SUBST_STAGE.mktable=	pre-build
+SUBST_MESSAGE.mktable=	Running a build-host mktable.
+SUBST_FILES.mktable=	Makefile
+SUBST_SED.mktable=	-e 's,\./mktable$$(EXT) ,${WRKDIR}/mktable-native ,'
+pre-build: w3m-mktable-native
+.PHONY: w3m-mktable-native
+w3m-mktable-native:
+	${RUN} cd ${WRKSRC} && ${NATIVE_CC} -O2 -I. -I${TOOLBASE}/include \
+		-DDUMMY -c -o ${WRKDIR}/mktable-dummy.o entity.c
+	${RUN} cd ${WRKSRC} && ${NATIVE_CC} -O2 -I. -I${TOOLBASE}/include \
+		-o ${WRKDIR}/mktable-native mktable.c ${WRKDIR}/mktable-dummy.o \
+		Str.c hash.c myctype.c -L${TOOLBASE}/lib -Wl,-rpath,${TOOLBASE}/lib -lgc
+.endif
+
 .include "../../devel/boehm-gc/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
