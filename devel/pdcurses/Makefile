@@ -49,4 +49,13 @@ post-install:
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# doc/Makefile builds manext and runs it to write PDCurses.txt: build it for
+# the build host beforehand (the target one is never needed).
+pre-build: pdcurses-manext-native
+.PHONY: pdcurses-manext-native
+pdcurses-manext-native:
+	${RUN} ${NATIVE_CC} -O2 -o ${WRKSRC}/doc/manext ${WRKSRC}/doc/manext.c
+.endif
+
 .include "../../mk/bsd.pkg.mk"
