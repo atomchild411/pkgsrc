@@ -5,4 +5,6 @@ SHA512 (mysql-connector-c++-9.5.0-src.tar.gz) = 73b6da746fadae55fae722fb2403d03d
 Size (mysql-connector-c++-9.5.0-src.tar.gz) = 4788458 bytes
 SHA1 (patch-cdk_extra_lz4_CMakeLists.txt) = 7b395ee311793715b41bafa9c7767f648cabf330
 SHA1 (patch-cdk_extra_protobuf_CMakeLists.txt) = e8ca8cb48de499e3c4932abf8e8d6a7966eeb423
+SHA1 (patch-cdk_extra_protobuf_protobuf-3.19.6_src_google_protobuf_port__def.inc) = b83b8b7fb106d1b58a45118dc66067f1cf2c5f51
 SHA1 (patch-cdk_extra_zstd_CMakeLists.txt) = 0a498ca681fd324235625a3c99f11d72144903f1
+SHA1 (patch-cdk_foundation_socket__detail.cc) = 13e0a67fe23d7cd2831481cf49237450f0e61c38
