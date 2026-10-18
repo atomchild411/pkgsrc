@@ -39,17 +39,23 @@ MAKE_ENV+=	top_builddir=.
 MAKE_ENV+=	src_dir=.
 
 LDFLAGS.SunOS+=	-lfreetype
+LDFLAGS.IRIX+=	-lfreetype
 
 SUBST_CLASSES+=		lua
 SUBST_STAGE.lua=	pre-configure
 SUBST_MESSAGE.lua=	Correcting lua library name.
 SUBST_FILES.lua+=	configure
 SUBST_SED.lua=		-e 's/lua5.1/lua-5.1/g'
+# The files configure checks for are in the source tree: look for them
+# when cross-compiling too.
+SUBST_SED.lua+=		-e 's/^  test "$$cross_compiling" = yes &&$$/  false \&\&/'
 
 CONFIGURE_ARGS+=	--disable-sdltest
 CONFIGURE_ARGS+=	--disable-oggtest
 CONFIGURE_ARGS+=	--disable-vorbistest
 CONFIGURE_ARGS+=	--disable-ft2test
+# The bundled Loki: clang 19 makes this one an error (clang-only on IRIX).
+CXXFLAGS.IRIX+=		-Wno-error=missing-template-arg-list-after-template-kw
 
 GNU_CONFIGURE_WX_VERSION=	no
 
