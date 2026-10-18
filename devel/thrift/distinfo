@@ -5,6 +5,7 @@ SHA512 (thrift-0.22.0.tar.gz) = beb37ee2a295fae7df12cce6449c92799076771bae515faf
 Size (thrift-0.22.0.tar.gz) = 4422267 bytes
 SHA1 (patch-compiler_cpp_Makefile.in) = f0dcffa37887897387316563e0776f623dee09f3
 SHA1 (patch-configure) = 7d61f2aec2cb3b6b232e130ef1d2b83774995dc6
+SHA1 (patch-lib_cpp_src_thrift_protocol_TProtocol.h) = 64493981a5d7168532716d95e6ec26c981a8026a
 SHA1 (patch-lib_cpp_src_thrift_server_TNonblockingServer.cpp) = 1f648fc9ad2c3e3664e1baf64c1132a061dd249f
 SHA1 (patch-lib_cpp_src_thrift_transport_SocketCommon.cpp) = 751a3408d5931553571527f57f0ec1fd9cf026ae
 SHA1 (patch-lib_cpp_src_thrift_transport_TSocketUtils.h) = 56b03b612c7b638769f3137de09f254df9ea83c6
