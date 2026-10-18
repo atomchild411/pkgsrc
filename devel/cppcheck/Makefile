@@ -20,7 +20,7 @@ USE_TOOLS+=		gmake
 #USE_CMAKE=		yes
 
 BUILD_TARGET=		all man
-BUILD_MAKE_FLAGS+=	DB2MAN=${PREFIX}/share/xsl/docbook/manpages/docbook.xsl
+BUILD_MAKE_FLAGS+=	DB2MAN=${TOOLBASE}/share/xsl/docbook/manpages/docbook.xsl
 # tell cppcheck where its CPP files are
 MAKE_FLAGS+=		FILESDIR=${PREFIX}/share/cppcheck
 # rules support (needs pcre)
@@ -36,6 +36,14 @@ PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 .if ${CC_VERSION:Mgcc-4.[0-5]*} || ${CC_VERSION:Mgcc-3.*}
 CXXFLAGS+=		-include lib/cxx11emu.h
+.endif
+
+.if ${OPSYS} == "IRIX"
+# lib/standards.h, found through -Ilib, shadowed IRIX's own <standards.h>,
+# which its <ctype.h> includes; cppcheck includes its headers with quotes.
+MAKE_FLAGS+=	INCLUDE_FOR_LIB="-iquote lib -isystem externals -isystem externals/picojson -isystem externals/simplecpp -isystem externals/tinyxml2"
+MAKE_FLAGS+=	INCLUDE_FOR_CLI="-iquote lib -isystem externals/simplecpp -isystem externals/tinyxml2"
+MAKE_FLAGS+=	INCLUDE_FOR_TEST="-iquote lib -iquote cli -isystem externals/simplecpp -isystem externals/tinyxml2"
 .endif
 
 INSTALLATION_DIRS+=	${PKGMANDIR}/man1
