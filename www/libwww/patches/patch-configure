@@ -2,10 +2,35 @@ $NetBSD: patch-configure,v 1.2 2025/10/04 13:37:08 tnn Exp $
 
 Explicit declaration of SSL_library_init() & zlibVersion()
 Portability fix.
+Cross builds: answer the time_t and size_t run tests from the sizes configure found.
 
---- configure.orig	2017-06-24 06:11:34.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -15439,7 +15439,7 @@ if test "x$ac_cv_func_remove" = xyes; th
+@@ -14727,10 +14727,7 @@
+ 
+ 
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++  if test "$ac_cv_sizeof_time_t" = "$ac_cv_sizeof_long"; then $as_echo "#define HAVE_LONG_TIME_T 1" >>confdefs.h; fi
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+@@ -14762,10 +14759,7 @@
+ fi
+ 
+ if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++  if test "$ac_cv_sizeof_size_t" = "$ac_cv_sizeof_long" && test "$ac_cv_sizeof_int" != "$ac_cv_sizeof_long"; then $as_echo "#define HAVE_LONG_SIZE_T 1" >>confdefs.h; fi
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+@@ -15439,7 +15433,7 @@
  
  fi
  
@@ -14,7 +39,7 @@ Portability fix.
  
  $as_echo "#define unlink remove" >>confdefs.h
  
-@@ -15538,6 +15538,7 @@ $as_echo "#define HT_ZLIB 1" >>confdefs.
+@@ -15538,6 +15532,7 @@
      cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
@@ -22,7 +47,7 @@ Portability fix.
  int
  main ()
  {
-@@ -16420,6 +16421,7 @@ $as_echo "no" >&6; }
+@@ -16420,6 +16415,7 @@
      LIBS="$LIBS $withval"
      cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
