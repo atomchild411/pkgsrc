@@ -5,4 +5,5 @@ SHA512 (cdecl-2.5.tar.gz) = 15495f5a794d11f964297c1f39f2f62f89778cd2e791b93f7e6c
 Size (cdecl-2.5.tar.gz) = 21435 bytes
 SHA1 (patch-aa) = 307dcbc080e1fa5b05f95bef93ea3748762c912b
 SHA1 (patch-ab) = f12ac884f95c9b241cda749b0ea50f6d69e1c6a4
+SHA1 (patch-cdecl.c) = a921bee0dd5005e546e015b6cb6e1ab429616cdd
 SHA1 (patch-cdgram.y) = b58b64a83aa01f4bfb18b7c927cae9d11f52482c
