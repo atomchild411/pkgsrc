@@ -16,6 +16,12 @@ MAKE_ENV+=	ROOT_GROUP=${ROOT_GROUP}
 MAKE_ENV+=	ROOT_USER=${ROOT_USER}
 MAKE_FLAGS+=	NROFF=${NROFF:Q}
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The build runs setmaps; the Makefile takes its compiler from LOCALCC.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_FLAGS+=	LOCALCC=${NATIVE_CC:Q} LOCALCFLAGS= LOCALLDFLAGS=
+.endif
+
 INSTALL_MAKE_FLAGS+=	JOVEHOME=${DESTDIR}${PREFIX}
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1
 CFLAGS.NetBSD+=		-DUSE_OPENPTY -DNO_TIOCREMOTE
