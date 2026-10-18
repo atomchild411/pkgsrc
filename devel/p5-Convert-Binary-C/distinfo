@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.9 2025/05/02 00:17:00 wen Exp $
 BLAKE2s (Convert-Binary-C-0.85.tar.gz) = 1be79b3464ad5db1742b7792cd3782fd7de862cbcbc687909c51f51c5ca2c434
 SHA512 (Convert-Binary-C-0.85.tar.gz) = 892287e313a5d13656c6ffed2eb5dbbabe8db2f3628404d05223130fb2396d8d6cd4365d134c37f17793b9168a926f3df1b00ca29fa5e56d5da343c18250633e
 Size (Convert-Binary-C-0.85.tar.gz) = 1365702 bytes
+SHA1 (patch-ctlib_arch.pl) = a514136c498e0bc49cf3bf8ec92d6d55a114f594

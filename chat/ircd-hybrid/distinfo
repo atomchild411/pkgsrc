@@ -6,3 +6,4 @@ Size (ircd-hybrid-8.2.47.tgz) = 1125642 bytes
 SHA1 (patch-doc_Makefile.in) = 787cb151da51cd947a384e33ae35c58df1d17e19
 SHA1 (patch-libio_src_io__time.c) = 41dabd2091794fd5c8e7ef4fc2f1b66c5b6a7532
 SHA1 (patch-libio_src_misc.c) = d6f17e3ec9754bcb6464113ae620acf734faf237
+SHA1 (patch-src_ircd__signal.h) = 17561f1cbef831b19e4018ecefc037e4da30a329
