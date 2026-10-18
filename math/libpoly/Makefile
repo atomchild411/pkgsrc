@@ -15,6 +15,9 @@ USE_LANGUAGES=		c c++
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Release
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_INSTALL_PREFIX=${PREFIX}
 
+# The build has -Werror; clang warns about gmpxx.h's literal operators.
+CXXFLAGS.IRIX+=		-Wno-error=deprecated-literal-operator
+
 #TEST_DEPENDS+=	${PYPKGPREFIX}-sympy>=1.14.0:../../math/py-sympy
 
 .include "../../devel/cmake/build.mk"
