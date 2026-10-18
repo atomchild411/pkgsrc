@@ -38,7 +38,7 @@ LIBTOOL_CROSS_COMPILE=	yes
 # XXX Tweaked for cross-compilation.
 #PKGNAME=	${DISTNAME:S/-/-base-/}
 PKGNAME=	${DISTNAME:S/^libtool-/cross-libtool-base-${MACHINE_PLATFORM}-/}
-PKGREVISION=	8
+PKGREVISION=	9
 
 COMMENT=	Generic shared library support script (the script itself)
 
@@ -91,8 +91,10 @@ fix-libtool:
 
 post-build: fix-libtool
 
+# shlibtool runs this package's libtool, under cross-${MACHINE_PLATFORM}, not
+# the native one in PREFIX/bin (which knows the build machine's C++ runtime).
 post-build:
-	@${SED}	-e "s|@PREFIX@|"${PREFIX:Q}"|g"				\
+	@${SED}	-e "s|@PREFIX@|"${GNU_CONFIGURE_PREFIX:Q}"|g"		\
 		-e "s|@SH@|"${SH:Q}"|g"					\
 		${FILESDIR}/shlibtool.in > ${WRKSRC}/shlibtool
 
