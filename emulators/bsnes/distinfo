@@ -4,4 +4,6 @@ BLAKE2s (bsnes-115.tar.gz) = e3b14e3a0f2a37db52c6e8c4a119605e6c23a16f32588cfa6f2
 SHA512 (bsnes-115.tar.gz) = 80b993bd6ab6f3e4772e97cdce504ea4e511bc09d551d7ad19a42c1676880645adb3b286bf803c715f5b0f6e2c410cea73845bcb7e83089ebb59111eaa3da5b3
 Size (bsnes-115.tar.gz) = 4145996 bytes
 SHA1 (patch-bsnes_GNUmakefile) = 61ac57779404771b706eb94c7dac01b0acc963e6
-SHA1 (patch-nall_intrinsics.hpp) = 641999cb8b261fe65f786f70d0aed6ffa92ffb0b
+SHA1 (patch-bsnes_target-bsnes_tools_cheat-editor.cpp) = 5b0e74023cd3fa36b9eddcd5078866ff0e079cd7
+SHA1 (patch-nall_directory.hpp) = f56c08cd5e13d9d845b0e25eed6007885a0a7bd6
+SHA1 (patch-nall_intrinsics.hpp) = 0feccd46ee2322ec1d18d6edc1b503943f1f5e2b

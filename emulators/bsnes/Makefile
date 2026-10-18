@@ -50,6 +50,16 @@ SUBST_SED.oss+=		-e "s,/dev/dsp,${DEVOSSAUDIO},g"
 .  endif
 .endif
 
+.if ${OPSYS} == "IRIX"
+# No OSS on IRIX: audio through OpenAL. -fuse-ld=bfd is a FreeBSD workaround.
+MAKE_FLAGS+=	ruby="video.glx video.glx2 video.xvideo video.xshm audio.openal input.sdl input.xlib"
+SUBST_CLASSES+=		ldbfd
+SUBST_STAGE.ldbfd=	pre-configure
+SUBST_MESSAGE.ldbfd=	Dropping -fuse-ld=bfd.
+SUBST_FILES.ldbfd=	ruby/GNUmakefile
+SUBST_SED.ldbfd=	-e "s, -fuse-ld=bfd,,"
+.endif
+
 MAKE_FLAGS+=	compiler=${CXX}
 MAKE_FLAGS+=	openmp=false
 # Disable -march=native.
