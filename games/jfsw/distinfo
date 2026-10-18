@@ -14,5 +14,5 @@ SHA512 (jonof-jfmact-731c0cc4aabd3cc0f510c9322825f1b61b2e47b3.tar.gz) = 5d25ffae
 Size (jonof-jfmact-731c0cc4aabd3cc0f510c9322825f1b61b2e47b3.tar.gz) = 25469 bytes
 SHA1 (patch-jfaudiolib_Makefile) = 8dba9f73b4f4cceec795c361a584e63d231b264c
 SHA1 (patch-jfaudiolib_src_midi.c) = 5688ef851101feb0a66b59563b68e61d5bbf6af7
-SHA1 (patch-jfbuild_include_compat.h) = 983d257dee9788ef4981a9b30f548c8852eaf44c
+SHA1 (patch-jfbuild_include_compat.h) = cc0d6456169ecae186e01505542030d3d98d847d
 SHA1 (patch-jfbuild_src_mmulti.c) = 225f094d9079c15e3c1c962ab64b36089b572121

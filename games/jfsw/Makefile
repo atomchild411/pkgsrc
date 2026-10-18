@@ -35,6 +35,13 @@ MAKE_FLAGS+=	DATADIR=${PREFIX}/share/${PKGBASE}
 
 MAKE_FLAGS.NetBSD+=	PLATFORM=BSD
 
+.include "../../mk/bsd.fast.prefs.mk"
+
+# bin2c runs at build time.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_FLAGS+=	HOSTCXX=${NATIVE_CXX:Q}
+.endif
+
 INSTALLATION_DIRS+=	bin
 INSTALLATION_DIRS+=	share/${PKGBASE}
 INSTALLATION_DIRS+=	share/applications

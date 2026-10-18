@@ -1,8 +1,9 @@
 $NetBSD: patch-jfbuild_include_compat.h,v 1.1 2026/05/04 12:28:52 nia Exp $
 
 Build on NetBSD.
+Big-endian IRIX (no endian.h).
 
---- jfbuild/include/compat.h.orig	2025-12-26 07:45:04.000000000 +0000
+--- jfbuild/include/compat.h.orig
 +++ jfbuild/include/compat.h
 @@ -28,6 +28,10 @@
  #define USE_COMPAT_H_BMACROS 1
@@ -15,7 +16,7 @@ Build on NetBSD.
  #ifndef _XOPEN_SOURCE
  # define _XOPEN_SOURCE 700
  #endif
-@@ -120,9 +124,9 @@ typedef unsigned __int64 uint64_t;
+@@ -120,9 +124,9 @@
  #  define B_LITTLE_ENDIAN 0
  #  define B_BIG_ENDIAN    1
  # endif
@@ -28,3 +29,15 @@ Build on NetBSD.
  
  #elif defined(__APPLE__)
  # if defined(__LITTLE_ENDIAN__)
+@@ -137,6 +141,11 @@
+ # define B_SWAP32(x) OSSwapConstInt32(x)
+ # define B_SWAP16(x) OSSwapConstInt16(x)
+ 
++#elif defined(__sgi)
++# define B_LITTLE_ENDIAN 0
++# define B_BIG_ENDIAN    1
++# define B_ENDIAN_C_INLINE 1
++
+ #elif defined(_WIN32)
+ # define B_LITTLE_ENDIAN 1
+ # define B_BIG_ENDIAN    0
