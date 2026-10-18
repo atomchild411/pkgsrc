@@ -18,6 +18,11 @@ MAKE_JOBS_SAFE=	no
 
 WRKSRC=		${WRKDIR}
 GNU_CONFIGURE=	yes
+# IRIX's __sighandler_t is sigaction's handler union, not glibc's handler
+# pointer type that configure looks for.
+CONFIGURE_ENV.IRIX+=	mh_cv__sighandler_t=no
+# IRIX's sysinfo() is SVR4's (command, buffer, size), not Linux's struct one.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_sysinfo=no
 USE_TOOLS+=	gmake
 
 CONF_FILES+=		share/regina/examples/rxstack.conf ${PKG_SYSCONFDIR}/rxstack.conf
@@ -45,5 +50,13 @@ _WRAP_EXTRA_ARGS.CC+=	${_RELRO_LDFLAGS}
 _WRAP_EXTRA_ARGS.CXX+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cc+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
+
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "IRIX"
+# configure finds pthread_exit() in libc (IRIX has stubs there), so the
+# threader test program, which calls pthread_join(), gets no -lpthread.
+_REGINA_THREADER_LIBS=	-L. -lregina -lpthread
+MAKE_FLAGS+=		THREADER_BINARY_LIBS=${_REGINA_THREADER_LIBS:Q}
+.endif
 
 .include "../../mk/bsd.pkg.mk"

@@ -5,3 +5,5 @@ SHA512 (regina397.zip) = 6d6f7b7e1770e3968875c5bc50a025e25b9f4ed95ff7ea4ce308cde
 Size (regina397.zip) = 2999882 bytes
 SHA1 (patch-aa) = 4b7381cb1e078f3b4541aa5b9b695e74bd35cf33
 SHA1 (patch-ab) = 2975ea1dabe871650a153cd294a0f23d1f3120a0
+SHA1 (patch-configure) = a51bd4b13a294c8ef9b277b181974d6b154d2bce
+SHA1 (patch-mt__posix.c) = f07bc5fb20894f035e1d0b5b1a5961f3904698f3

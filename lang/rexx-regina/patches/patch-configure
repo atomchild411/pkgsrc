@@ -1,0 +1,24 @@
+$NetBSD$
+
+Version numbered shared library on IRIX too, as on the BSDs (patch-aa),
+but no static link: IRIX has no static libc.
+
+--- configure.orig
++++ configure
+@@ -9100,6 +9100,16 @@
+       STATIC_LDFLAGS="-static"
+       SHLPRE="lib"
+       ;;
++   *-irix*)
++      LD_RXLIB_A1="${CC} -shared ${LDFLAGS} -o \$(@)"
++      LD_RXLIB_A2="${CC} -shared ${LDFLAGS} -o \$(@)"
++      LD_RXLIB_UTILA="${CC} -shared ${LDFLAGS} -o \$(@)"
++      SHL_LD="${CC} -o ${SHLPRE}${SHLFILE}${SHLPST}.\$(ABI) -shared ${LDFLAGS} ${SHL_SCRIPT} -Wl,-soname=${SHLPRE}${SHLFILE}${SHLPST}.\$(ABI_MAJOR) \$(SHOFILES) -lc"
++      SHL_BASE="${SHLPRE}${SHLFILE}${SHLPST}.\$(ABI)"
++      OTHER_INSTALLS="installabilib"
++      USE_ABI="yes"
++      SHLPRE="lib"
++      ;;
+    *linux*|*kfreebsd*-gnu*)
+       LD_RXLIB_A1="${CC} -shared ${LDFLAGS} -o \$(@)"
+       LD_RXLIB_A2="${CC} -shared ${LDFLAGS} -o \$(@)"
