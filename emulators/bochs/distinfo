@@ -6,6 +6,7 @@ Size (bochs-2.7.tar.gz) = 5298413 bytes
 SHA1 (patch-.bochsrc) = df5b8879ec005fe44bca8bee42c549095012013d
 SHA1 (patch-Makefile.in) = ca8d485a9f4901df15eb3e521105de2ae833cfcb
 SHA1 (patch-configure) = aff62a847311bf2afad27445813656ff081bb93b
+SHA1 (patch-cpu_decoder_fetchdecode.h) = dbae282f62943a90c3b1287fdf4c9879c9eeab5e
 SHA1 (patch-gui_Makefile.in) = fb5e2ba02533c39169ea95101b9acaa6e33f6392
 SHA1 (patch-gui_textconfig.cc) = 8bbb1d4019d985bea8216175ad0d3dee6ff4e7e0
 SHA1 (patch-iodev_display_voodoo__func.h) = 157fe1bd40177054a76b2a8aff50c423e9847779

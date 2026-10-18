@@ -60,4 +60,9 @@ post-install:
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/trio/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+# clang predefines sgi on IRIX (as gcc did, outside strict modes); the
+# sources use it as a name.
+CFLAGS.IRIX+=	-Usgi
+CXXFLAGS.IRIX+=	-Usgi
+
 .include "../../mk/bsd.pkg.mk"

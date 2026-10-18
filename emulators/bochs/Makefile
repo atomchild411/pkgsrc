@@ -87,6 +87,12 @@ BOCHSRC_SUBST.*+=	-e 's,@FLOPPY_LINUX@,\#,'
 PRINT_PLIST_AWK+=	/\/plugins\// { $$0 = "$${PLIST.plugins}" $$0 }
 PRINT_PLIST_AWK+=	/libbx_/ { $$0 = "$${PLIST.notiny}" $$0 }
 
+# No tun/tap Ethernet plugin on IRIX.
+PLIST_VARS+=		tuntap
+.if ${OPSYS} != "IRIX"
+PLIST.tuntap=		yes
+.endif
+
 .if ${OPSYS} == "Darwin"
 MESSAGE_SRC=		${.CURDIR}/MESSAGE.Darwin
 PLIST_SRC=		${.CURDIR}/PLIST.Darwin

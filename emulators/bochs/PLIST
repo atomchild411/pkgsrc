@@ -12,7 +12,7 @@ ${PLIST.plugins}lib/bochs/plugins/libbx_es1370.la
 ${PLIST.plugins}lib/bochs/plugins/libbx_eth_null.la
 ${PLIST.plugins}lib/bochs/plugins/libbx_eth_slirp.la
 ${PLIST.plugins}lib/bochs/plugins/libbx_eth_socket.la
-${PLIST.plugins}lib/bochs/plugins/libbx_eth_tuntap.la
+${PLIST.plugins}${PLIST.tuntap}lib/bochs/plugins/libbx_eth_tuntap.la
 ${PLIST.plugins}lib/bochs/plugins/libbx_eth_vde.la
 ${PLIST.plugins}lib/bochs/plugins/libbx_eth_vnet.la
 ${PLIST.plugins}lib/bochs/plugins/libbx_extfpuirq.la
