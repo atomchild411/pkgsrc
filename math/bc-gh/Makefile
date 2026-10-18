@@ -24,4 +24,11 @@ CONFIGURE_ENV=		EXECSUFFIX="-gh" MANDIR="${PREFIX}/${PKGMANDIR}" NLSPATH="${PREF
 
 TEST_TARGET=	test
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The build runs gen/strgen; configure.sh takes the build host's compiler
+# from HOSTCC.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CONFIGURE_ENV+=		HOSTCC=${NATIVE_CC:Q} HOSTCFLAGS=
+.endif
+
 .include "../../mk/bsd.pkg.mk"
