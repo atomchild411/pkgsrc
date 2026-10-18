@@ -12,6 +12,7 @@ PLIST_VARS+=		nls
 .if !empty(PKG_OPTIONS:Mnls)
 USE_TOOLS+=		msgfmt msgmerge xgettext
 PLIST.nls=		yes
+.include "../../devel/gettext-lib/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--without-gettext
 .endif
