@@ -19,6 +19,13 @@ CMAKE_CONFIGURE_ARGS+=	-DENABLE_EXTERNAL_MSPACK=on
 CMAKE_CONFIGURE_ARGS+=	-DENABLE_TESTS=off
 CMAKE_CONFIGURE_ARGS+=	-DENABLE_MILTER=off
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# cmake/Check{SignedRightShift,StructPacking,UnamePosix,FDPassing}.cmake run
+# their tests, all through the one cache variable.
+CMAKE_CONFIGURE_ARGS+=	-Dtest_run_result=0 -Dtest_run_result__TRYRUN_OUTPUT=
+.endif
+
 CHECK_PORTABILITY_SKIP=	contrib/* unit_tests/* win32/*
 
 .include "../../mk/compiler.mk"
