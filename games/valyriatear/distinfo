@@ -7,6 +7,7 @@ SHA1 (patch-CMake_Modules_FindSDL2__ttf.cmake) = c24ab84a5088d834c37d59421e5ebba
 SHA1 (patch-src_CMakeLists.txt) = e28e7ee4cf8866ba6e650bd61ef21b7622ead784
 SHA1 (patch-src_common_app__settings.cpp) = 826d0eb42ad777b61296b5b4a21787ce0707930b
 SHA1 (patch-src_common_global_shop_shop__data.h) = baddc1a5b2b9756d1a11b82b7f3ee36fd60de1ef
+SHA1 (patch-src_engine_audio_audio__input.cpp) = 83ea44523db7d689d45815ce93d25a4e57d089ad
 SHA1 (patch-src_engine_video_text.h) = 515fa3822611fcbc7028b81975f3220aeb295c8a
 SHA1 (patch-src_main.cpp) = 2c8f826e34341f2a7a47c67886d6a6a3ce0fa819
 SHA1 (patch-src_utils_src_utils_gl__include.h) = 9f46181ef726a3b34cffaa6559acfff556cb61a5
