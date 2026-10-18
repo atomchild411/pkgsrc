@@ -36,6 +36,10 @@ CHECK_PORTABILITY_SKIP+=	debian/*
 .include "../../graphics/glu/buildlink3.mk"
 .include "../../net/libcares/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build machine's curl-config names its own headers: use the target's.
+CONFIGURE_ENV+=	ac_cv_path__libcurl_config=${_CROSS_DESTDIR}${BUILDLINK_PREFIX.curl}/bin/curl-config
+.endif
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXxf86vm/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
