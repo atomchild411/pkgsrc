@@ -33,6 +33,10 @@ CONFIGURE_ARGS+=	--disable-uninstall
 CONFIGURE_ARGS+=	--disable-useradd
 # This sanitizes paths
 CONFIGURE_ARGS+=	--disable-games
+# IRIX's isblank is libc's __isblank (the toolchain's <ctype.h> renames it),
+# so configure's link test without the header misses it, and defs.h then
+# defines a bool isblank that clashes with the int one.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_isblank=yes
 
 CHECK_PORTABILITY_SKIP+=	docker/deploy/targets.sh.in
 
