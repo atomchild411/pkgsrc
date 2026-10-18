@@ -46,4 +46,19 @@ do-install:
 .include "../../devel/SDL/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+# buf.cpp finds no va_copy on IRIX (even with <stdarg.h>); the builtin is it.
+CXXFLAGS.IRIX+=	-Dva_copy=__builtin_va_copy
+
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# buildall.sh builds the support tools (map2c, tile2c, ...) and the game
+# runs them: build the tools for the build host.
+SUBST_CLASSES+=		hosttools
+SUBST_STAGE.hosttools=	pre-build
+SUBST_MESSAGE.hosttools=	Building the support tools for the build host.
+SUBST_FILES.hosttools=	buildall.sh
+SUBST_SED.hosttools=	-e 's,^    make$$,    make CXX=${NATIVE_CXX} CXXFLAGS=-O2 LDFLAGS=,'
+# ... and keep port/linux's clean, which removes them too, from undoing that.
+SUBST_SED.hosttools+=	-e '/cd \.\.\/\.\.\/port\/linux/{n;s,make clean,: make clean,;}'
+.endif
+
 .include "../../mk/bsd.pkg.mk"
