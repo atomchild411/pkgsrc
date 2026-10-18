@@ -22,8 +22,15 @@ CMAKE_CONFIGURE_ARGS+=		-DBUILD_RELEASE=1
 CMAKE_CONFIGURE_ARGS+=		-DCMAKE_BUILD_TYPE=Release
 CMAKE_CONFIGURE_ARGS+=		-DBUILD_HDF5_OPCODES=OFF
 CMAKE_CONFIGURE_ARGS+=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+# find_library() does not search the IRIX sysroot (cross builds find
+# libraries through .buildlink): name its libm (a file: the result is
+# also used as a dependency).
+CMAKE_CONFIGURE_ARGS.IRIX+=	-DFLTK_MATH_LIBRARY=${_CROSS_DESTDIR}/usr/lib${LIBABISUFFIX}/libm.so
 # XXX uses python2.7 and was broken for years, GCC 14 found.
 CMAKE_CONFIGURE_ARGS+=		-DBUILD_PYTHON_OPCODES=OFF
+# Not in the PLIST either (it is built only where swig and Python are found,
+# e.g. on a cross build's host).
+CMAKE_CONFIGURE_ARGS+=		-DBUILD_PYTHON_INTERFACE=OFF
 # CMAKE_INSTALL_RPATH doesn't work for some reason, so do it here.
 LDFLAGS+=		${COMPILER_RPATH_FLAG}${PREFIX}/lib/csound6
 
