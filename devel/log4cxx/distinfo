@@ -7,4 +7,5 @@ SHA1 (patch-src_examples_cpp_console.cpp) = 203b987f6a324c906c9ca5a19113190bdb3b
 SHA1 (patch-src_main_cpp_inputstreamreader.cpp) = a4540a7154a11d12928829eac76c44fbcabc41bb
 SHA1 (patch-src_main_cpp_socketoutputstream.cpp) = ebfd51ed3cb86f2995571ba70a82fba5c2ddb7ce
 SHA1 (patch-src_main_cpp_stringhelper.cpp) = f108eb6c4998d5df83e5efa706466d14d7d0a534
+SHA1 (patch-src_main_cpp_syslogappender.cpp) = 8ebec60d42ae37f59ec98b91f206dbaf793ab3ed
 SHA1 (patch-src_main_include_log4cxx_helpers_simpledateformat.h) = 7cf95276cfc3b6cb6ad02aad68e9e45d7663a2d5
