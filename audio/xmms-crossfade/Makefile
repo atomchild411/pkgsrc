@@ -24,4 +24,8 @@ MAKE_ENV+=		OSS_DEFS=${OSS_DEFS:Q}
 CONFIGURE_ARGS+=	--disable-oss
 .endif
 
+# configure cannot run its constructor-attribute test when cross-compiling,
+# and the fallback (a _fini calling fini) does not compile.
+CPPFLAGS.IRIX+=		-DHAVE_CTOR=1
+
 .include "../../mk/bsd.pkg.mk"
