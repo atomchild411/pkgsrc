@@ -25,6 +25,14 @@ CMAKE_CONFIGURE_ARGS+=	-DVM_HOST=${MACHINE_GNU_PLATFORM:Q} -DVM_VERSION=${SQUEAK
 CMAKE_CONFIGURE_ARGS+=	-DDEVOSSAUDIO=${DEVOSSAUDIO}
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
+.include "../../mk/bsd.fast.prefs.mk"
+# unix/vm/config.cmake runs two tests (try_run), which a cross build
+# cannot. MIPS traps on a misaligned double; big-endian keeps a double's
+# high word first.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && ${OPSYS} == "IRIX"
+CMAKE_CONFIGURE_ARGS+=	-DDOUBLE_WORD_ALIGNMENT=1 -DDOUBLE_WORD_ORDER=0
+.endif
+
 LDFLAGS.SunOS+=	-lsocket -lnsl -lm
 
 CFLAGS+=	-Wno-int-conversion
