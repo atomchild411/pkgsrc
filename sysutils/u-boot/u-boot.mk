@@ -51,6 +51,17 @@ UBOOT_ENV+=	UBOOT_PKGREVISION=nb${PKGREVISION}
 
 MAKE_ENV+=	${UBOOT_ENV}
 
+# The tools built and run during the build (fixdep, mkimage, ...) are
+# the build host's: the Makefile sets HOSTCC, so say it on the command line.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+UBOOT_MAKE_FLAGS+=	HOSTCC=${NATIVE_CC:Q} HOSTCXX=${NATIVE_CXX:Q}
+# mkimage signs FIT images with the build host's OpenSSL.
+TOOL_DEPENDS+=		openssl>=1.1:../../security/openssl
+_UBOOT_HOSTLDFLAGS=	-L${TOOLBASE}/lib -Wl,-rpath,${TOOLBASE}/lib
+UBOOT_MAKE_FLAGS+=	HOSTCFLAGS=-I${TOOLBASE}/include
+UBOOT_MAKE_FLAGS+=	HOSTLDFLAGS=${_UBOOT_HOSTLDFLAGS:Q}
+.endif
+
 INSTALLATION_DIRS+=	share/u-boot/${UBOOT_TARGET}
 
 post-patch:
@@ -63,12 +74,12 @@ do-configure:
 .if !empty(UBOOT_SWIG_VERSION:M3)
 	${MKDIR} -p ${BUILDLINK_DIR}/bin
 	${RM} -f ${BUILDLINK_DIR}/bin/swig
-	${LN} -s ${PREFIX}/bin/swig3.0 ${BUILDLINK_DIR}/bin/swig
+	${LN} -s ${TOOLBASE}/bin/swig3.0 ${BUILDLINK_DIR}/bin/swig
 .endif
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} ${UBOOT_CONFIG}
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} ${UBOOT_MAKE_FLAGS} ${UBOOT_CONFIG}
 
 do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} ${_MAKE_JOBS} ${BUILD_TARGET}
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} ${_MAKE_JOBS} ${UBOOT_MAKE_FLAGS} ${BUILD_TARGET}
 
 do-install:
 .for bin in ${UBOOT_BIN}

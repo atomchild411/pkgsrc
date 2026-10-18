@@ -3,6 +3,6 @@
 MAINTAINER=	port-riscv@NetBSD.org
 TOOL_DEPENDS+=	cross-riscv64-none-elf-gcc-[0-9]*:../../cross/riscv64-none-elf-gcc
 
-UBOOT_ENV+=	CROSS_COMPILE=${PREFIX}/cross-riscv64-none-elf/bin/riscv64-none-elf-
+UBOOT_ENV+=	CROSS_COMPILE=${TOOLBASE}/cross-riscv64-none-elf/bin/riscv64-none-elf-
 
 .include "u-boot.mk"

@@ -3,7 +3,7 @@
 MAINTAINER=	port-arm@NetBSD.org
 TOOL_DEPENDS+=	cross-aarch64-none-elf-gcc-[0-9]*:../../cross/aarch64-none-elf-gcc
 
-UBOOT_ENV+=	CROSS_COMPILE=${PREFIX}/cross-aarch64-none-elf/bin/aarch64-none-elf-
+UBOOT_ENV+=	CROSS_COMPILE=${TOOLBASE}/cross-aarch64-none-elf/bin/aarch64-none-elf-
 
 .include "u-boot.mk"
 
