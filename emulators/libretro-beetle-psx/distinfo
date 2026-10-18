@@ -4,4 +4,5 @@ BLAKE2s (libretro-beetle-psx-20200610-3db06fd98c4ad2e4c35f31dd1bbc71c519a26f7a.t
 SHA512 (libretro-beetle-psx-20200610-3db06fd98c4ad2e4c35f31dd1bbc71c519a26f7a.tar.gz) = d99c389595985b27815429dfd65d11d6899949f7981b5f7bd6c1dd008365a51c297e4d3504d8c07451914b08d4b3d96d9f0c24fe49b9a8a6b38722ab072c9f51
 Size (libretro-beetle-psx-20200610-3db06fd98c4ad2e4c35f31dd1bbc71c519a26f7a.tar.gz) = 2907608 bytes
 SHA1 (patch-Makefile.common) = f4f72feae1602c6806b974b4816142d3494f1ddf
-SHA1 (patch-libretro-common_rthreads_rthreads.c) = 1ba4a13ca0ae3e7fe0b4cb7259d3ee7d6629781b
+SHA1 (patch-libretro-common_rthreads_rthreads.c) = 14715829e652aeb9d771e212ab7aa6f0afdc11b4
+SHA1 (patch-mednafen_state.cpp) = 1824f6e2b27ae05175fd94f2367e72134a42505c
