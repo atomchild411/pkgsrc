@@ -1,0 +1,20 @@
+$NetBSD$
+
+Cross builds: krb5_is_thread_safe() from fr_cv_krb5_is_thread_safe, as configure cannot run it.
+
+--- src/modules/rlm_krb5/configure.orig
++++ src/modules/rlm_krb5/configure
+@@ -4004,10 +4004,9 @@
+ 
+ 	if test "x$ac_cv_lib_krb5_krb5_is_thread_safe" = xyes; then
+ 		if test "$cross_compiling" = yes; then :
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
++  if test "x$fr_cv_krb5_is_thread_safe" = xyes; then
++    krb5threadsafe="-DKRB5_IS_THREAD_SAFE"
++  fi
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */

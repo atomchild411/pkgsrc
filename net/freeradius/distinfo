@@ -13,3 +13,4 @@ SHA1 (patch-src_main_command.c) = 1c79b29eb13df341906c710c8dd41860a27473dd
 SHA1 (patch-src_main_listen.c) = d05ed0fc19457cc3ac52f5290b9c217e80275da0
 SHA1 (patch-src_main_util.c) = 0262dd82992e21715f844e1ab50e2328aa10a471
 SHA1 (patch-src_modules_proto__dhcp_dhcp.c) = 12c134a2f4a7132278e471224e7bfbf34ce1fcda
+SHA1 (patch-src_modules_rlm__krb5_configure) = 5a61495663966c75e02e79f4ed2fa772381ff998

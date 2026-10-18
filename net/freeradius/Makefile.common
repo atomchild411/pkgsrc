@@ -17,6 +17,30 @@ CONFIGURE_ARGS+=	--with-openssl-include-dir=${BUILDLINK_PREFIX.openssl}/include
 CONFIGURE_ARGS+=	--with-openssl-lib-dir=${BUILDLINK_PREFIX.openssl}/lib
 CONFIGURE_ARGS+=	--without-rlm_yubikey
 
+# Compiler checks configure runs, which a cross build cannot: clang's answers
+# (__bounded__ is OpenBSD's gcc's).
+CONFIGURE_ENV+=		ax_cv_cc_builtin_choose_expr=yes
+CONFIGURE_ENV+=		ax_cv_cc_builtin_types_compatible_p=yes
+CONFIGURE_ENV+=		ax_cv_cc_builtin_bswap64=yes
+CONFIGURE_ENV+=		ax_cv_cc_bounded_attribute=no
+
+.include "../../mk/bsd.fast.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:U:tl} == yes
+# jlibtool runs at build time.
+MAKE_FLAGS+=		JLIBTOOL_CC=${NATIVE_CC:Q}
+# configure looks for last(1) on the build machine; the PLIST has radlast.
+CONFIGURE_ARGS+=	--with-radlast
+# configure only runs its __thread test natively; IRIX's clang has it
+# (emulated TLS), and threads.h has no other way.
+CONFIGURE_ENV.IRIX+=	fr_cv_cross_thread_tls=yes
+# debug.c wants BSD/Linux ptrace requests (PT_ATTACH); without the header it
+# just cannot tell whether a debugger is attached.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_sys_ptrace_h=no
+# rlm_krb5 runs krb5_is_thread_safe(); MIT Kerberos is (patched configure).
+CONFIGURE_ENV+=		fr_cv_krb5_is_thread_safe=yes
+.endif
+
 CFLAGS.SunOS+=		-D_XPG4_2 -D__EXTENSIONS__
 LIBS.SunOS+=		-lnsl -lresolv -lsocket
 
