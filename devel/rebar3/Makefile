@@ -29,8 +29,17 @@ INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1 share/examples/rebar3
 
 # We shouldn't have to override http_proxy and https_proxy here
 # https://github.com/erlang/rebar3/issues/2887
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# bootstrap's #! names the target's escript: run the build machine's.
+TOOL_DEPENDS+=		erlang-[0-9]*:../../lang/erlang
+REBAR3_BOOTSTRAP=	${TOOLBASE}/bin/escript ./bootstrap
+.else
+REBAR3_BOOTSTRAP=	./bootstrap
+.endif
+
 do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} http_proxy= https_proxy= ./bootstrap --offline
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} http_proxy= https_proxy= ${REBAR3_BOOTSTRAP} --offline
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/rebar3 ${DESTDIR}${PREFIX}/bin/

@@ -73,5 +73,15 @@ post-install:
 	${RM} -f ${DESTDIR}${WWWDIR}/shoppingcart/Makefile*
 
 .include "../../lang/erlang/buildlink3.mk"
+.include "../../lang/erlang/cross.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# scripts/regular-install picks an init script by probing the build
+# host (systemctl, /etc/os-release): install none, as on IRIX itself.
+SUBST_CLASSES+=		init
+SUBST_STAGE.init=	pre-configure
+SUBST_MESSAGE.init=	Not probing the build host for its init system.
+SUBST_FILES.init=	scripts/regular-install
+SUBST_SED.init=		-e "s,^\# Start by detecting if systemd is used,exit 0,"
+.endif
 .include "../../mk/pam.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
