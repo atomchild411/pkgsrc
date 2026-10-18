@@ -8,3 +8,4 @@ SHA1 (patch-ab) = d365aeba430374b3ba6b4f1f88731f3b809fca31
 SHA1 (patch-ac) = 5f23d2b9611f403409902fdc7cb4ac2218b1cafb
 SHA1 (patch-ad) = cda6e504d5d88cdf1ae202ce1bad786313546f3d
 SHA1 (patch-configure) = 4882567200e22583308895868ddd594283b96980
+SHA1 (patch-util.c) = 5941f5f204c06ddd079d93aad10820e4160a6b2f
