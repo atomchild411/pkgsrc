@@ -17,10 +17,13 @@ CHECK_PORTABILITY_SKIP=	contrib/gpg2_update.sh # not needed
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "SunOS" && empty(OS_VERSION:M5.[6-9])
-# Since Solaris 10, static linking no longer possible
+.if (${OPSYS} == "SunOS" && empty(OS_VERSION:M5.[6-9])) || ${OPSYS} == "IRIX"
+# Since Solaris 10, static linking no longer possible; nor on IRIX
 CONFIGURE_ARGS+=	--disable-static
 .endif
+
+# configure runs a program to choose ino64_t; on IRIX (n32 too) ino_t is 64 bits.
+CONFIGURE_ENV.IRIX+=	AIDE_INO_TYPE=ino_t
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/mhash/buildlink3.mk"

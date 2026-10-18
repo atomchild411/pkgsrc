@@ -17,6 +17,7 @@ GNU_CONFIGURE=	yes
 
 CFLAGS+=	-Wno-implicit-function-declaration
 
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/pcre2/buildlink3.mk"
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
