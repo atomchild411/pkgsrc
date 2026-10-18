@@ -77,7 +77,7 @@ TEST_ENV+=		PGUSER=pgsql
 .include "../../devel/cunit/buildlink3.mk"
 
 # DOC DEPENDS
-CONFIGURE_ARGS+=	-with-xsldir=${PREFIX}/share/xsl/docbook
+CONFIGURE_ARGS+=	-with-xsldir=${TOOLBASE}/share/xsl/docbook
 # By default xsltproc downloads DTDs.  postgis tells it not to, but
 # the dependencies are not packaged.  The timing option, not needed,
 # is to make the variable non-empty, to work around a

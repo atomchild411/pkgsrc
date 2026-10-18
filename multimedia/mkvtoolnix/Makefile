@@ -27,7 +27,7 @@ CONFIGURE_ARGS+=	--disable-optimization
 CONFIGURE_ARGS+=	--disable-precompiled-headers
 CONFIGURE_ARGS+=	--disable-update-check
 CONFIGURE_ARGS+=	--with-boost-libdir=${BUILDLINK_PREFIX.boost-libs}/lib
-CONFIGURE_ARGS+=	--with-docbook-xsl-root=${PREFIX}/share/xsl/docbook
+CONFIGURE_ARGS+=	--with-docbook-xsl-root=${TOOLBASE}/share/xsl/docbook
 CONFIGURE_ARGS+=	--with-qmake=${QTDIR}/bin/qmake
 CONFIGURE_ENV+=		QMAKE6=${QTDIR}/bin/qmake6
 # Hack: do not let configure override -std flag, or boost compilation will fail.

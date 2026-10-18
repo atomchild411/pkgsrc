@@ -22,7 +22,7 @@ CONFIGURE_ARGS+=	--disable-cmocka
 CONFIGURE_ARGS+=	--disable-strict  # avoid -Werror
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 # The stylesheets are not found without this.
-CONFIGURE_ARGS+=	--with-xsl-stylesheetsdir=${PREFIX}/share/xsl/docbook
+CONFIGURE_ARGS+=	--with-xsl-stylesheetsdir=${TOOLBASE}/share/xsl/docbook
 TEST_TARGET=		check
 
 CFLAGS.SunOS+=		-D__STDC_WANT_LIB_EXT1__=1

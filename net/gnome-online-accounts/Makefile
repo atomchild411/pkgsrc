@@ -17,7 +17,7 @@ USE_PKGLOCALEDIR=	yes
 TOOL_DEPENDS+=		glib2-introspection-[0-9]*:../../devel/glib2-introspection
 # required to generate man pages
 TOOL_DEPENDS+=		docbook-xsl-[0-9]*:../../textproc/docbook-xsl
-DOCBOOK_MANPAGE_XSL=	${PREFIX}/share/xsl/docbook/manpages/docbook.xsl
+DOCBOOK_MANPAGE_XSL=	${TOOLBASE}/share/xsl/docbook/manpages/docbook.xsl
 
 SUBST_CLASSES+=		man
 SUBST_STAGE.man=	pre-configure

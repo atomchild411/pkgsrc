@@ -46,7 +46,7 @@ MESON_ARGS+=	-Dsystemduserunitdir=no \
 
 # Generate man pages; requires docbook-xsl.
 TOOL_DEPENDS+=		docbook-xsl-[0-9]*:../../textproc/docbook-xsl
-DOCBOOK_MANPAGE_XSL=	${PREFIX}/share/xsl/docbook/manpages/docbook.xsl
+DOCBOOK_MANPAGE_XSL=	${TOOLBASE}/share/xsl/docbook/manpages/docbook.xsl
 MESON_ARGS+=		-Dman=true
 
 SUBST_CLASSES+=		man

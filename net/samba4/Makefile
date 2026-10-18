@@ -155,7 +155,7 @@ SUBST_FILES.docbook+=	*/*/man/*.xml
 SUBST_FILES.docbook+=	*/*/*/man/*.xml
 SUBST_STAGE.docbook=	pre-configure
 SUBST_SED.docbook=	-e 's,http://www.oasis-open.org/docbook/xml,${PREFIX}/share/xml/docbook,g'
-SUBST_SED.docbook+=	-e 's,http://docbook.sourceforge.net/release/xsl/current,${PREFIX}/share/xsl/docbook,g'
+SUBST_SED.docbook+=	-e 's,http://docbook.sourceforge.net/release/xsl/current,${TOOLBASE}/share/xsl/docbook,g'
 
 SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Fixing paths.

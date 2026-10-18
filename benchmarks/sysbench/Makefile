@@ -17,7 +17,7 @@ USE_TOOLS+=		aclocal autoconf autoheader automake gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-system-ck
 CONFIGURE_ARGS+=	--with-system-luajit
-CONFIGURE_ENV+=		DOCBOOK_ROOT=${PREFIX}/share/xsl/docbook/xhtml
+CONFIGURE_ENV+=		DOCBOOK_ROOT=${TOOLBASE}/share/xsl/docbook/xhtml
 CONFIGURE_ENV+=		XML_CATALOG=${PREFIX}/share/xml/catalog
 PTHREAD_AUTO_VARS=	yes
 

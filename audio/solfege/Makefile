@@ -20,7 +20,7 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q} ac_cv_path_MSGGREP=true
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	--disable-oss-sound
-CONFIGURE_ARGS+=	--enable-docbook-stylesheet=${PREFIX}/share/xsl/docbook/html/chunk.xsl
+CONFIGURE_ARGS+=	--enable-docbook-stylesheet=${TOOLBASE}/share/xsl/docbook/html/chunk.xsl
 CONFIGURE_ARGS+=	--localedir=${PREFIX}/${PKGLOCALEDIR}/locale
 # lilypond dumps core and causes 100%-CPU-using-processes
 CONFIGURE_ARGS+=	ac_cv_path_LILYPOND=""

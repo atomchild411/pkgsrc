@@ -19,7 +19,7 @@ USE_PKGLOCALEDIR=	yes
 
 PYTHON_FOR_BUILD_ONLY=	tool
 
-DOCBOOK_MANPAGE_XSL=	${PREFIX}/share/xsl/docbook-ns/manpages/docbook.xsl
+DOCBOOK_MANPAGE_XSL=	${TOOLBASE}/share/xsl/docbook-ns/manpages/docbook.xsl
 
 SUBST_CLASSES+=		man
 SUBST_STAGE.man=	pre-configure

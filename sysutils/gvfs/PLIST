@@ -56,7 +56,7 @@ share/gvfs/mounts/archive.mount
 share/gvfs/mounts/burn.mount
 ${PLIST.cdparanoia}share/gvfs/mounts/cdda.mount
 share/gvfs/mounts/computer.mount
-share/gvfs/mounts/dav+sd.mount
+${PLIST.dnssd}share/gvfs/mounts/dav+sd.mount
 share/gvfs/mounts/dav.mount
 ${PLIST.dnssd}share/gvfs/mounts/dns-sd.mount
 share/gvfs/mounts/ftp.mount
