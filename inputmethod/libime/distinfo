@@ -13,3 +13,4 @@ BLAKE2s (table-20240108.tar.gz) = 7a2125b22e2b0a23f69b92cf38bb77bf8d5b91fb2e7cca
 SHA512 (table-20240108.tar.gz) = 0268a4aaf7279e03938ec8165a57d92d7ef9f6cfd30be332eaa4286c5162754946d326444643c1a556ed615cc82c8851bb9a4d996ce432833c50ca23d2d6416a
 Size (table-20240108.tar.gz) = 4144659 bytes
 SHA1 (patch-data_CMakeLists.txt) = b389b03ca9995b351d5f4464bc96f3188fa5a74c
+SHA1 (patch-src_libime_core_kenlm_util_bit__packing.hh) = f25c68d10ba2ef863f992082c70eed422a2e6883
