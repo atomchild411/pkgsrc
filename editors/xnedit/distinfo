@@ -4,3 +4,5 @@ BLAKE2s (xnedit-1.6.3.tar.gz) = 6dd2976c83ed95cbad70482bae3236e30a3a0d2053035e43
 SHA512 (xnedit-1.6.3.tar.gz) = 517d4908073b60bad9a1abd54882cf5dd57f164e0c965a5ab299b73cff49617d5d3e20a6874c43562ae9dd16ffabe66d3373cafdf23587643c3859278ec2e286
 Size (xnedit-1.6.3.tar.gz) = 1494234 bytes
 SHA1 (patch-Makefile) = abbc994e0e21e0cb54a65518e75418dc19a4bc10
+SHA1 (patch-source_macro.c) = 6dbc78a16893fc5624e6c6601055ac0f93ba8391
+SHA1 (patch-source_text.c) = c4550f06ec628d89d13742731c939325f30a2670
