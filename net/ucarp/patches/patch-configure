@@ -1,0 +1,33 @@
+$NetBSD$
+
+Cross builds: the C99 snprintf return (8) unless ucarp_cv_snprintf_type says otherwise.
+Cross builds: the bundled SHA1.
+
+--- configure.orig
++++ configure
+@@ -30132,11 +30132,7 @@
+ { $as_echo "$as_me:$LINENO: checking whether snprintf is C99 conformant" >&5
+ $as_echo_n "checking whether snprintf is C99 conformant... " >&6; }
+ if test "$cross_compiling" = yes; then
+-  { { $as_echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-$as_echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++  CONF_SNPRINTF_TYPE=${ucarp_cv_snprintf_type:-8}
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -30219,11 +30215,7 @@
+ { $as_echo "$as_me:$LINENO: checking whether you already have a standard SHA1 implementation" >&5
+ $as_echo_n "checking whether you already have a standard SHA1 implementation... " >&6; }
+ if test "$cross_compiling" = yes; then
+-  { { $as_echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-$as_echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++  : # cross-compiling: use the bundled SHA1
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */

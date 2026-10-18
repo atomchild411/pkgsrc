@@ -4,3 +4,4 @@ BLAKE2s (radiusclient-ng-0.5.5.1.tar.gz) = b4f79a444e78a77f74bc5ea37b48427167c7d
 SHA512 (radiusclient-ng-0.5.5.1.tar.gz) = 72f9b0fc3d132163a320e218890fa4539e0ba7f54ebe742c3497604ba6bff571f152989b1ba674b6e2978568c43c3b9d607563b25f3899be2a08d39fb2e869af
 Size (radiusclient-ng-0.5.5.1.tar.gz) = 383855 bytes
 SHA1 (patch-aa) = 197f4f966193c6d4cd249029fd6f6c9be7762b0b
+SHA1 (patch-configure) = 47f7e9ad1598038eb569b23a424597408dbda3a1

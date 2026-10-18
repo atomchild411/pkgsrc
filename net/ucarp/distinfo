@@ -4,4 +4,5 @@ BLAKE2s (ucarp-1.5.2.tar.bz2) = 70bff76ce63cc89fdf84bcd702e88d9b00a7100252b90881
 SHA512 (ucarp-1.5.2.tar.bz2) = e2e9753225eef28f4c95c6efac9ee384a97576a41ed486b79f16294c6bd828539d264559ee6d92fc1f1431c6a690f31804a1bf3f0fa656f13b096c1e95058984
 Size (ucarp-1.5.2.tar.bz2) = 315414 bytes
 SHA1 (patch-aa) = ef0d7b65f6a964607a695c7a33891d45fd116569
+SHA1 (patch-configure) = 86a4455fcbdede120b6eb95a53dfad20e45b43ec
 SHA1 (patch-src_fillmac.c) = c8d862d5e222aae283f1311735dff1f7be32f4af
