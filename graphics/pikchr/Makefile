@@ -20,4 +20,13 @@ INSTALLATION_DIRS+=	bin
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/${PKGBASE} ${DESTDIR}${PREFIX}/bin
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The build runs lemon (the parser generator) on pikchr.y.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		lemon
+SUBST_STAGE.lemon=	pre-build
+SUBST_FILES.lemon=	Makefile
+SUBST_SED.lemon=	-e 's,^\t$$(CC) $$(CFLAGS) lemon.c -o lemon$$,\t${NATIVE_CC} lemon.c -o lemon,'
+.endif
+
 .include "../../mk/bsd.pkg.mk"
