@@ -20,6 +20,14 @@ USE_TOOLS+=		autoconf bison
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-modules
+
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX has no IPv6 networking, and with INET6 defined its headers give an
+# early draft's sockaddr_in6 (no sin6_scope_id).
+.if ${OPSYS} == "IRIX"
+CONFIGURE_ARGS+=	--disable-ipv6
+.endif
 # wcwidth from gnulib fails with duplicate symbol '_rpl_wcwidth'
 CONFIGURE_ENV+=		gl_cv_func_wcwidth_works=yes
 CONFIGURE_ENV+=		readline_prefix=${BUILDLINK_DIR}
