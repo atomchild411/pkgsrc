@@ -25,21 +25,33 @@ SUBST_MESSAGE.libs=	Fixing paths.
 
 INSTALLATION_DIRS=	bin include lib ${PKGMANDIR}/man3 ${PKGMANDIR}/man8
 
+.include "../../mk/bsd.fast.prefs.mk"
+
 post-extract:
 	${CP} ${FILESDIR}/sid-filter.m4 ${WRKSRC}/sid-filter/Makefile.m4
+.if ${OPSYS} == "IRIX"
+	# devtools/OS/IRIX.6.5 has MIPSpro's options in confCC (-mips3 -n32
+	# -OPT:Olimit=0): the compiler's defaults and the wrappers' flags instead.
+	${ECHO} "define(\`confCC', \`cc')" >> ${WRKSRC}/devtools/Site/site.config.m4
+	# conf.h's IRIX section predates unsetenv; the toolchain provides it.
+	${ECHO} "APPENDDEF(\`confENVDEF', \`-DHASUNSETENV=1')" \
+	    >> ${WRKSRC}/devtools/Site/site.config.m4
+.endif
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ./Build)
 
+# obj.* is the one directory Build made (named from the target's uname -srm,
+# which a cross build's ${UNAME} is not).
 do-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${SIDDOC}
-	${INSTALL_LIB} ${WRKSRC}/${SIDWORK}/libmarid/sm-marid.h \
+	${INSTALL_LIB} ${WRKSRC}/obj.*/libmarid/sm-marid.h \
 		${DESTDIR}${PREFIX}/include
-	${INSTALL_LIB} ${WRKSRC}/${SIDWORK}/libar/libar.a \
+	${INSTALL_LIB} ${WRKSRC}/obj.*/libar/libar.a \
 		${DESTDIR}${PREFIX}/lib
 	${INSTALL_MAN} ${WRKSRC}/libar/ar.3 \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man3/
-	${INSTALL_PROGRAM} ${WRKSRC}/${SIDWORK}/sid-filter/sid-filter \
+	${INSTALL_PROGRAM} ${WRKSRC}/obj.*/sid-filter/sid-filter \
 		${DESTDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/sid-filter/sid-filter.8 \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man8/
@@ -58,6 +70,3 @@ do-install:
 .include "../../mail/libmilter/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
-
-# Has to be below include for bsd.pkg.mk, else substition fails
-SIDWORK!=		${ECHO} obj.`${UNAME} -srm | ${TR} \  . | ${TR} \/ -`
