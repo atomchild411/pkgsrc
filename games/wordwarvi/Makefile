@@ -17,6 +17,12 @@ USE_TOOLS+=	gmake pkg-config
 MAKE_FLAGS+=	PREFIX=${PREFIX}
 MAKE_ENV+=	MANDIR=${PREFIX}/${PKGMANDIR}
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The build runs stamp (BUILD_CC) to write stamp.h.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MAKE_FLAGS+=	BUILD_CC=${NATIVE_CC:Q}
+.endif
+
 # FIXME: replace by proper LDFLAGS handling
 _WRAP_EXTRA_ARGS.CC+=	${_RELRO_LDFLAGS}
 _WRAP_EXTRA_ARGS.CXX+=	${_RELRO_LDFLAGS}
