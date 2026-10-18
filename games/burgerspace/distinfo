@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.6 2026/01/05 21:37:12 ktnb Exp $
 BLAKE2s (burgerspace-1.10.0.tar.gz) = 4606c718a8e4c843accd817a949769c181f2399fcb388ea7ed1deb500af65b54
 SHA512 (burgerspace-1.10.0.tar.gz) = 7ce6fa48829414ff7a48cb038b87842112c18829769105f34a842bffcfe99072ed6201ba3772f98efd115b8ffd9de0d1d15dc9f8b80a5f978f5763b72a358d8c
 Size (burgerspace-1.10.0.tar.gz) = 251038 bytes
+SHA1 (patch-src_BurgerSpaceEngine.cpp) = a33191c9a5c12144b13d0cf9a72300d90e8547f5
