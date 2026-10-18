@@ -17,4 +17,9 @@ CONFIGURE_ARGS+=	--with-${MODNAME}=shared,${BUILDLINK_PREFIX.aspell}
 
 .include "../../lang/php/ext.mk"
 .include "../../textproc/aspell/buildlink3.mk"
+.if ${OPSYS} == "IRIX"
+# aspell gets snprintf from libnbcompat there (USE_FEATURES), and its
+# libtool archives, which this links through, name -lnbcompat.
+.include "../../pkgtools/libnbcompat/buildlink3.mk"
+.endif
 .include "../../mk/bsd.pkg.mk"

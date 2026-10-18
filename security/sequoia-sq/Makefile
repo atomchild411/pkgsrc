@@ -44,5 +44,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/target/release/build/sequoia-sq-*/out/shell-completions/_sq ${DESTDIR}${PREFIX}/share/zsh/site-functions
 
 .include "../../lang/rust/cargo.mk"
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
