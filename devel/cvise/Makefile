@@ -25,6 +25,9 @@ TEST_TARGET=	test
 
 USE_CXX_FEATURES+=	c++17
 
+# tree-sitter's portable/endian.h: IRIX's <endian.h> is clang's wrapper.
+CFLAGS.IRIX+=	-DHAVE_ENDIAN_H
+
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} != "NetBSD"
