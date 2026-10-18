@@ -23,6 +23,7 @@ LDFLAGS+=	${BUILDLINK_LDADD.curses} -lreadline
 .endif
 
 CFLAGS.SCO_SV+=	-DSVR4
+LDFLAGS.IRIX+=	-lgen	# regcmp (after the objects: see the link line)
 
 MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 

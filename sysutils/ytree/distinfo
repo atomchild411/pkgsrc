@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.7 2024/09/19 09:17:12 nia Exp $
 BLAKE2s (ytree-2.09.tar.gz) = 830967125937b49452e82b4f1b817e80813c6b601f6b6bed3a5b400c466bb052
 SHA512 (ytree-2.09.tar.gz) = 6220345d89791b0ac7a68c4ac477e669cd2c50fb25002b1c4742f811f2dd4ec89385e5a920e5ef815e8eb1efa935d388f096216a94971a0ef3b90789ead8663b
 Size (ytree-2.09.tar.gz) = 121209 bytes
+SHA1 (patch-ytree.h) = bc8cf9a40ef8882b4734c88ebeab4fdb967f191c
