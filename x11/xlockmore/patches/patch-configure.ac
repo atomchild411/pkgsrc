@@ -3,10 +3,20 @@ $NetBSD: patch-configure.ac,v 1.1 2023/07/14 10:43:34 micha Exp $
 Upstream expects a specific compiler/linker for a specific OS.
 pkgsrc is not limited to such configurations.
 Use COMPILER_RPATH_FLAG to set runtime library search path.
+IRIX: OpenGL is libGL; -lgl is IRIS GL, which the OpenGL modes do not use.
 
---- configure.ac.orig	2023-07-06 02:10:20.000000000 +0000
+--- configure.ac.orig
 +++ configure.ac
-@@ -5040,18 +5040,18 @@ case "${canonical}" in
+@@ -3410,7 +3410,7 @@
+       fi
+     ;;
+     *-*-irix5* | *-*-irix6* )
+-      XLOCKLIBS="${XLOCKLIBS} -lgl"
++      # OpenGL is libGL; -lgl would be IRIS GL
+     ;;
+   esac
+   ac_cv_path_opengl="no_opengl= ac_opengl_includes=$opengl_includes ac_opengl_libraries=$opengl_libraries"
+@@ -5040,18 +5040,18 @@
          dirname=`which gcc`
          dirname=`dirname $dirname`
          dirname=`dirname $dirname`/lib
@@ -31,7 +41,7 @@ Use COMPILER_RPATH_FLAG to set runtime library search path.
    ;;
  
    *-*-dgux5* )
-@@ -5169,13 +5169,13 @@ dnl    XLOCKLIBS="${XLOCKLIBS} -lsocket 
+@@ -5171,13 +5171,13 @@
          dirname=`which gcc`
          dirname=`dirname $dirname`
          dirname=`dirname $dirname`/lib
