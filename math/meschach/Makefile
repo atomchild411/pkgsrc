@@ -13,6 +13,17 @@ COMMENT=		Library of C Routines for Matrix Computations
 WRKSRC=			${WRKDIR}
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-all
+
+.include "../../mk/bsd.fast.prefs.mk"
+# configure runs macheps (double and float epsilon) and maxint: IEEE
+# values and a 32-bit int, the same on the build host, so build them there.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		probes
+SUBST_STAGE.probes=	pre-configure
+SUBST_FILES.probes=	configure
+SUBST_SED.probes=	-e 's,^$$CC -o macheps ,${NATIVE_CC} -std=gnu89 -o macheps ,'
+SUBST_SED.probes+=	-e 's,^$$CC -o maxint ,${NATIVE_CC} -std=gnu89 -o maxint ,'
+.endif
 MAKE_FILE=		makefile
 USE_BSD_MAKEFILE=	yes
 MAKE_FLAGS+=		MKPROFILE=yes
