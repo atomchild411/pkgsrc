@@ -51,6 +51,11 @@ INSTALLATION_DIRS=	lib ${PKGMANDIR}/man8 sbin share/doc/dk-milter/libdk
 
 pre-configure:
 	mv ${WRKSRC}/site.config.m4.dist ${WRKSRC}/devtools/Site/site.config.m4
+.if ${OPSYS} == "IRIX"
+	# conf.h's IRIX section predates unsetenv; the toolchain provides it.
+	${ECHO} "APPENDDEF(\`confENVDEF', \`-DHASUNSETENV=1')" \
+	    >> ${WRKSRC}/devtools/Site/site.config.m4
+.endif
 
 do-build:
 	(cd ${WRKSRC}; ${SETENV} ${MAKE_ENV} ./Build)
