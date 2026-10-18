@@ -16,6 +16,8 @@ USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 
 LDFLAGS+=	${LIBOSSAUDIO}
+# The IRIX audio driver uses libaudio AL calls.
+LDFLAGS.IRIX+=	-laudio
 
 .include "../../audio/libsidplay2/buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"

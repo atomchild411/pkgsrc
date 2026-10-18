@@ -15,6 +15,8 @@ USE_IMAKE=		YES
 INSTALLATION_DIRS=	bin lib/X11/app-defaults
 
 MAKE_JOBS_SAFE=		no
+# The IRIX audio driver uses libaudio AL calls.
+LDFLAGS.IRIX+=	-laudio
 
 .include "../../mk/oss.buildlink3.mk"
 
