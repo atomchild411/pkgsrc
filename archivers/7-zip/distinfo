@@ -3,4 +3,8 @@ $NetBSD: distinfo,v 1.13 2026/09/07 05:22:50 adam Exp $
 BLAKE2s (7z2603-src.tar.xz) = 0b4e03417547526bc6382189ae08753ed99d76ce5caf20a2dc790d726440d0ee
 SHA512 (7z2603-src.tar.xz) = 469ebb37fb1495982ffee453cc6298dabb14b449e42fbe231001d0dae51ee3bcc83fdf46fec137a7cf7d6688a696b689a90d1aff3408d716e458b2ce064458c7
 Size (7z2603-src.tar.xz) = 1552200 bytes
+SHA1 (patch-CPP_Windows_FileFind.cpp) = 4c9b86adb231cb429c6910bbad4b73c5fa7b8f91
+SHA1 (patch-CPP_Windows_FileFind.h) = 85da1ad5b3089a8ae5d102a8fb6daae09a93c71b
+SHA1 (patch-CPP_Windows_FileIO.cpp) = eb59791a75a5585cc1c282314fbb7aa28bd023c9
+SHA1 (patch-CPP_Windows_System.cpp) = eb93c3b82f31c721df4f2bf25d6ae3bf3fbf5f91
 SHA1 (patch-C_SwapBytes.c) = 1e32b0dd26a3c16251c74d48a97da0aada43f506
