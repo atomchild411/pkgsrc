@@ -22,6 +22,23 @@ CONFIGURE_ARGS+=	--enable-hpack-tools
 # for '#include <print>'
 GCC_REQD+=		14
 
+# C++23 std::unexpected (for std::expected) collides with the old
+# std::unexpected() that mk/platform/IRIX.mk keeps libc++ declaring.
+CXXFLAGS.IRIX+=		-U_LIBCPP_ENABLE_CXX17_REMOVED_UNEXPECTED_FUNCTIONS
+
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "IRIX"
+# LOG_AUTHPRIV and LOG_FTP are LOG_AUTH's and LOG_DAEMON's values on IRIX:
+# drop their duplicate cases from the facility-to-name switch (names still
+# parse to them).
+SUBST_CLASSES+=		syslog
+SUBST_STAGE.syslog=	pre-configure
+SUBST_MESSAGE.syslog=	Dropping duplicate syslog facility cases.
+SUBST_FILES.syslog=	src/shrpx_config.cc
+SUBST_SED.syslog=	-e '/^  case (LOG_AUTHPRIV):$$/,/^    return "authpriv"sv;$$/d'
+SUBST_SED.syslog+=	-e '/^  case (LOG_FTP):$$/,/^    return "ftp"sv;$$/d'
+.endif
+
 INSTALL_DIRS+=		src
 
 REPLACE_PYTHON+=	script/fetch-ocsp-response
