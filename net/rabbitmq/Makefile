@@ -29,7 +29,7 @@ MAKE_JOBS_SAFE=		no
 
 # Create a mix tool to avoid nested interpreter issues.
 TOOLS_CREATE+=		mix
-TOOLS_SCRIPT.mix=	${PREFIX}/bin/elixir -r ${PREFIX}/bin/mix -- "$$@"
+TOOLS_SCRIPT.mix=	${TOOLBASE}/bin/elixir -r ${TOOLBASE}/bin/mix -- "$$@"
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -107,8 +107,10 @@ CHECK_INTERPRETER_SKIP+=	${RABBITMQ_HOME}/sbin/cuttlefish
 MAKE_ENV+=		MANDIR="${PREFIX}/${PKGMANDIR}"
 MAKE_ENV+=		RMQ_BINDIR="${PREFIX}/sbin"
 MAKE_ENV+=		RMQ_LIBDIR="${PREFIX}/lib/erlang/lib"
-MAKE_ENV+=		RSYNC="${PREFIX}/bin/rsync"
+MAKE_ENV+=		RSYNC="${TOOLBASE}/bin/rsync"
 MAKE_ENV+=		VERSION="${PKGVERSION_NOREV}"
+# erlang.mk knows its platform from uname -s, and not IRIX.
+MAKE_ENV.IRIX+=		PLATFORM=linux
 
 INSTALL_TARGET=		install-erlapp install-scripts install-bin install-man
 # XXX this test target doesn't work correctly at present, needs investigation.
@@ -121,6 +123,7 @@ post-install:
 		${DESTDIR}${PREFIX}/share/examples/rabbitmq
 
 .include "../../lang/erlang/buildlink3.mk"
+.include "../../lang/erlang/cross.mk"
 .include "../../lang/python/batteries-included.mk"
 .include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"
