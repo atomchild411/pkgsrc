@@ -31,4 +31,7 @@ post-install:
 .include "../../devel/gmp/buildlink3.mk"
 .include "../../devel/libsigsegv/buildlink3.mk"
 .include "../../devel/libtecla/buildlink3.mk"
+# configure adds -lcurses for libtecla: buildlink the curses there is
+# (IRIX has none in its sysroot; pkgsrc's ncurses maps the name).
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
