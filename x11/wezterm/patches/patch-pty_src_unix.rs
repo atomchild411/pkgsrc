@@ -1,0 +1,87 @@
+$NetBSD$
+
+IRIX has no openpty() or TIOCSCTTY: use _getpty(), and acquire the controlling tty System V style.
+
+--- pty/src/unix.rs.orig
++++ pty/src/unix.rs
+@@ -19,6 +19,62 @@
+ #[derive(Default)]
+ pub struct UnixPtySystem {}
+ 
++#[cfg(not(target_os = "irix"))]
++use libc::openpty as sys_openpty;
++
++// IRIX has no openpty(): get a pty pair from _getpty().
++#[cfg(target_os = "irix")]
++unsafe fn sys_openpty(
++    master: *mut RawFd,
++    slave: *mut RawFd,
++    _name: *mut libc::c_char,
++    _termp: *const libc::termios,
++    winp: *const winsize,
++) -> libc::c_int {
++    extern "C" {
++        fn _getpty(
++            fildes: *mut libc::c_int,
++            oflag: libc::c_int,
++            mode: libc::mode_t,
++            nofork: libc::c_int,
++        ) -> *mut libc::c_char;
++    }
++    let name = _getpty(master, libc::O_RDWR | libc::O_NOCTTY, 0o600, 0);
++    if name.is_null() {
++        return -1;
++    }
++    *slave = libc::open(name, libc::O_RDWR | libc::O_NOCTTY);
++    if *slave == -1 {
++        libc::close(*master);
++        return -1;
++    }
++    if !winp.is_null() {
++        libc::ioctl(*slave, libc::TIOCSWINSZ as _, winp);
++    }
++    0
++}
++
++#[cfg(not(target_os = "irix"))]
++unsafe fn set_controlling_tty() -> libc::c_int {
++    libc::ioctl(0, libc::TIOCSCTTY as _, 0)
++}
++
++// IRIX has no TIOCSCTTY: as in System V, a session leader's first open
++// of a terminal makes it the controlling one.
++#[cfg(target_os = "irix")]
++unsafe fn set_controlling_tty() -> libc::c_int {
++    let name = libc::ttyname(0);
++    if name.is_null() {
++        return -1;
++    }
++    let fd = libc::open(name, libc::O_RDWR);
++    if fd == -1 {
++        return -1;
++    }
++    libc::close(fd);
++    0
++}
++
+ fn openpty(size: PtySize) -> anyhow::Result<(UnixMasterPty, UnixSlavePty)> {
+     let mut master: RawFd = -1;
+     let mut slave: RawFd = -1;
+@@ -33,7 +89,7 @@
+     let result = unsafe {
+         // BSDish systems may require mut pointers to some args
+         #[allow(clippy::unnecessary_mut_passed)]
+-        libc::openpty(
++        sys_openpty(
+             &mut master,
+             &mut slave,
+             ptr::null_mut(),
+@@ -268,7 +324,7 @@
+                         // Failure to do this means that delivery of
+                         // SIGWINCH won't happen when we resize the
+                         // terminal, among other undesirable effects.
+-                        if libc::ioctl(0, libc::TIOCSCTTY as _, 0) == -1 {
++                        if set_controlling_tty() == -1 {
+                             return Err(io::Error::last_os_error());
+                         }
+                     }
