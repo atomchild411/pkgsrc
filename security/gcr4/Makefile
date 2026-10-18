@@ -44,5 +44,13 @@ PKGCONFIG_OVERRIDE+=		output/meson-private/gck-2.pc \
 .include "../../security/libsecret/buildlink3.mk"
 .include "../../security/p11-kit/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The paths of ssh-add and ssh-agent are compiled in: the target's, which
+# the build machine need not have.
+MESON_BINARIES+=	ssh-add ssh-agent
+MESON_BINARY.ssh-add=	${PREFIX}/bin/ssh-add
+MESON_BINARY.ssh-agent=	${PREFIX}/bin/ssh-agent
+.endif
 .include "../../devel/meson/build.mk"
 .include "../../mk/bsd.pkg.mk"

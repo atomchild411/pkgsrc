@@ -37,6 +37,20 @@ REPLACE_PYTHON=		meson_post_install.py
 .include "../../devel/gettext-tools/msgfmt-desktop.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"
+.include "../../mk/bsd.fast.prefs.mk"
+# Cross builds make no introspection data (devel/gobject-introspection/
+# buildlink3.mk), and the reference is built from it.
+PLIST_VARS+=	docs
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MESON_ARGS+=	-Dgtk_doc=false
+# The paths of ssh-add and ssh-agent are compiled in: the target's, which
+# the build machine need not have.
+MESON_BINARIES+=	ssh-add ssh-agent
+MESON_BINARY.ssh-add=	${PREFIX}/bin/ssh-add
+MESON_BINARY.ssh-agent=	${PREFIX}/bin/ssh-agent
+.else
+PLIST.docs=	yes
+.endif
 .include "../../devel/meson/build.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../lang/python/application.mk"
