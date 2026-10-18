@@ -28,6 +28,9 @@ INSTALLATION_DIRS+=	bin
 
 .include "../../mk/bsd.prefs.mk"
 
+# IRIX's libc has a __syscall, but not the BSD one configure means.
+CONFIGURE_ENV.IRIX+=	ac_cv_func___syscall=no
+
 # for backtrace
 .if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)
 LIBS+=	-lexecinfo
