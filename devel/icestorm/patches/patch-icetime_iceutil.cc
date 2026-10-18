@@ -1,9 +1,10 @@
 $NetBSD: patch-icetime_iceutil.cc,v 1.2 2024/03/02 23:07:59 thorpej Exp $
 
 On NetBSD, also use KERN_PROC_PATHNAME to get the path to the executable.
+IRIX cannot tell a process its executable's path: use the installed one.
 
---- icetime/iceutil.cc.orig	2023-12-12 12:01:19.000000000 +0000
-+++ icetime/iceutil.cc	2024-03-02 22:37:27.137509507 +0000
+--- icetime/iceutil.cc.orig
++++ icetime/iceutil.cc
 @@ -32,7 +32,7 @@
  #  include <unistd.h>
  #endif
@@ -13,7 +14,7 @@ On NetBSD, also use KERN_PROC_PATHNAME to get the path to the executable.
  #  include <sys/sysctl.h>
  #endif
  
-@@ -51,10 +51,14 @@ std::string proc_self_dirname()
+@@ -51,10 +51,14 @@
  		buflen--;
  	return std::string(path, buflen);
  }
@@ -29,3 +30,16 @@ On NetBSD, also use KERN_PROC_PATHNAME to get the path to the executable.
  	size_t buflen;
  	char *buffer;
  	std::string path;
+@@ -116,6 +120,12 @@
+ 		path += char(shortpath[i]);
+ 	return path;
+ }
++#elif defined(__sgi)
++// IRIX cannot tell a process its executable's path: the installed one.
++std::string proc_self_dirname()
++{
++	return PREFIX "/bin/";
++}
+ #elif defined(EMSCRIPTEN)
+ std::string proc_self_dirname()
+ {
