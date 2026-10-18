@@ -53,4 +53,8 @@ post-install:
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/motif.buildlink3.mk"
+# Only SGI's own Motif (dt) has the _SG_vendorExtension class fields.
+.if ${MOTIF_TYPE} != "dt"
+CPPFLAGS+=	-DNO_SG_VENDOR_EXTENSION
+.endif
 .include "../../mk/bsd.pkg.mk"
