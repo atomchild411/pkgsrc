@@ -31,6 +31,16 @@ MESON_ARGS+=	-Dintrospection=true
 MESON_ARGS+=	-Dnautilus=false
 MESON_ARGS+=	-Dthumbnail_cache=disabled
 
+# Cross builds make no introspection data (devel/gobject-introspection/
+# buildlink3.mk), and the gi-docgen reference is built from it.
+PLIST_VARS+=	docs
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MESON_ARGS+=	-Dgtk_doc=false
+.else
+PLIST.docs=	yes
+.endif
+
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.44.0
 .include "../../devel/glib2/schemas.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"

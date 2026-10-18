@@ -2,7 +2,12 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.libgusb
 PKG_SUPPORTED_OPTIONS=	doc vapi
+.include "../../mk/bsd.fast.prefs.mk"
+# Cross builds make no introspection data (devel/gobject-introspection/
+# buildlink3.mk), from which the reference and the vapi are generated.
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
 PKG_SUGGESTED_OPTIONS=	${PKG_SUPPORTED_OPTIONS}
+.endif
 
 .include "../../mk/bsd.options.mk"
 
