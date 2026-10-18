@@ -7,3 +7,4 @@ SHA1 (patch-build__tools_git__version__gen.sh) = d66abecc900fa411f6da9c5fbb9f70f
 SHA1 (patch-cmake_ConfigureChecks.cmake) = e8194cd5b927e6f5c42afb8ca953756d223b8d1c
 SHA1 (patch-cmake_Install.cmake) = 1defcb125ab0082649f1b6e592df96a9c5d49c0a
 SHA1 (patch-cmake_Tests.cmake) = cf23eb434e5030801eea8ebbe4e2b7ae33debcd8
+SHA1 (patch-src_history.cpp) = 8f286899295245d0a69017a19d8abf63e702d25b

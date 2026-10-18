@@ -20,6 +20,14 @@ CMAKE_CONFIGURE_ARGS+=	-DCMAKE_INSTALL_SYSCONFDIR=${PKG_SYSCONFDIR}
 CMAKE_CONFIGURE_ARGS+=	-DBUILD_DOCS=OFF
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
+# config.h defines __fallthrough__, a reserved name that libc++ uses itself
+# ([[__fallthrough__]] in <__functional/hash.h>): rename fish's macro.
+SUBST_CLASSES+=		fallthrough
+SUBST_STAGE.fallthrough=	pre-configure
+SUBST_FILES.fallthrough=	config_cmake.h.in src/common.cpp src/expand.cpp
+SUBST_FILES.fallthrough+=	src/parse_util.cpp src/reader.cpp
+SUBST_SED.fallthrough=	-e 's,__fallthrough__,fish_fallthrough,g'
+
 PKG_SHELL=		bin/fish
 
 .include "../../mk/bsd.prefs.mk"
