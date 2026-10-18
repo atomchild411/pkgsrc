@@ -21,6 +21,14 @@ USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	--disable-debug
 
+# cppduals specializes std::is_compound, which libc++ does not allow; it is
+# true for the dual class anyway.
+SUBST_CLASSES+=		compound
+SUBST_STAGE.compound=	pre-configure
+SUBST_MESSAGE.compound=	Dropping the std::is_compound specialization.
+SUBST_FILES.compound=	src/include/cppduals/duals/dual
+SUBST_SED.compound=	-e '/^\/\/\/ Duals are compound types\.$$/,/^struct is_compound<duals::dual<T>> : true_type {};$$/d'
+
 # error: 'for' loop initial declarations are only allowed in C99 mode
 FORCE_C_STD=		c99
 
