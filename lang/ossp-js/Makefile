@@ -40,6 +40,14 @@ REPLACE_FILES.js=	jslint.js jspack.js
 
 .include "libm.mk"
 
+# The build runs jscpucfg to write src/jsautocfg.h; a cross build cannot.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && ${OPSYS} == "IRIX"
+SUBST_CLASSES+=		cpucfg
+SUBST_STAGE.cpucfg=	pre-configure
+SUBST_FILES.cpucfg=	Makefile.in
+SUBST_SED.cpucfg=	-e 's,$$(LIBTOOL) --mode=execute ./jscpucfg >src/jsautocfg.h,cp ${FILESDIR}/jsautocfg-IRIX.h src/jsautocfg.h,'
+.endif
+
 .if !empty(JS_FDLIBM_MATH_REQUESTED:M[Yy][Ee][Ss])
 MAKE_ENV+=		-DJS_FDLIBM_MATH_REQUESTED=1
 CONFIGURE_ENV+=		LIBM=""

@@ -6,7 +6,7 @@
 #
 .include "../../mk/bsd.fast.prefs.mk"
 
-JS_FDLIBM_PLATFORMS=	Linux-*-* IRIX-*-* SunOS-*-* \
+JS_FDLIBM_PLATFORMS=	Linux-*-* SunOS-*-* \
 			Solaris-*-* AIX-*-* HPUX-*-*
 
 JS_FDLIBM_MATH_REQUESTED?=	no
