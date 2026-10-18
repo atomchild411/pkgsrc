@@ -22,6 +22,22 @@ CONFIGURE_ARGS+=	--enable-release
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# configure only cross-compiles (tests the compiler without running its
+# output) when told the host.
+CONFIGURE_ARGS+=	--host=${MACHINE_GNU_PLATFORM}
+.endif
+# Its IRIX branch links libmd, which the IRIX sysroot has not; scummvm
+# has its own MD5.
+.if ${OPSYS} == "IRIX"
+SUBST_CLASSES+=		libmd
+SUBST_STAGE.libmd=	pre-configure
+SUBST_MESSAGE.libmd=	Not linking libmd on IRIX.
+SUBST_FILES.libmd=	configure
+SUBST_SED.libmd=	-e 's,"-lmd -lfastm -lm","-lfastm -lm",'
+.endif
+
 UNLIMIT_RESOURCES=	datasize
 EXTRACT_USING=		bsdtar
 
