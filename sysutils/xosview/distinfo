@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.35 2021/12/03 13:06:57 micha Exp $
 BLAKE2s (xosview-1.23.tar.gz) = 31b109d2cc86a3760f9eded657e7dd3f8b8c19a2fad7a23cb942f48c0d588105
 SHA512 (xosview-1.23.tar.gz) = b4313ff6473c7f1f89ba2cc9b8828cc25c7ab010a5f5c9b7602def77dbfdcbb5b0da57826919deb7be9000f6e1b5ed3801b2ad54c661b7d7bbc6c30f24f1a1a6
 Size (xosview-1.23.tar.gz) = 147356 bytes
+SHA1 (patch-irix65_cpumeter.cc) = 57d869a2fd4a38ed2136532153aaf9b6fed47e91
