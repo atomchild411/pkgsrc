@@ -11,4 +11,7 @@ CONFIGURE_ARGS+=	--with-motif=${MOTIFBASE:Q}
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../mk/motif.buildlink3.mk"
 .include "../../databases/sqsh/Makefile.common"
+# configure runs a program to see how signal() behaves: IRIX's is System V's.
+CONFIGURE_ENV.IRIX+=	ac_cv_signal_behaviour=SYSV
+
 .include "../../mk/bsd.pkg.mk"
