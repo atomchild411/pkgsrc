@@ -5,12 +5,17 @@
 PKGNAME?=	${GITHUB_PROJECT}-${PLATFORM}-${VERSION}
 
 RELRO_SUPPORTED=	no
-MAKE_FLAGS+=	CROSS_COMPILE=${PREFIX}/cross-aarch64-none-elf/bin/aarch64-none-elf-
+MAKE_FLAGS+=	CROSS_COMPILE=${TOOLBASE}/cross-aarch64-none-elf/bin/aarch64-none-elf-
 .if !empty(ATF_CORTEX_M0:Myes)
-MAKE_FLAGS+=	M0_CROSS_COMPILE=${PREFIX}/cross-arm-none-eabi/bin/arm-none-eabi-
+MAKE_FLAGS+=	M0_CROSS_COMPILE=${TOOLBASE}/cross-arm-none-eabi/bin/arm-none-eabi-
 .endif
 MAKE_FLAGS+=	PLAT=${PLATFORM}
 MAKE_FLAGS+=	CFLAGS='-gdwarf-2'
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The target's LDFLAGS (an IRIX link's) mean nothing to the firmware's ld.
+MAKE_FLAGS+=	LDFLAGS=
+.endif
 #MAKE_FLAGS+=	DEBUG=1
 #MAKE_FLAGS+=	LOG_LEVEL=50
 #MAKE_FLAGS+=	V=1
