@@ -47,8 +47,13 @@ SUBST_SED.datadir=	-e 's,@DATADIR@,${PREFIX}/share/helix,g'
 .include "../../mk/bsd.prefs.mk"
 
 post-build:
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# hx cannot run here: build the grammars as hx --grammar build would.
+	${RUN} cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${SH} ${FILESDIR}/build-grammars.sh
+.else
 	${RUN} cd ${WRKSRC} && ${SETENV} HELIX_RUNTIME=${WRKSRC}/runtime \
 		./target/release/hx --grammar build
+.endif
 # not under ${PREFIX}/lib, or else lang/rust/cargo.mk would handle it
 .if ${OPSYS} == "Darwin"
 	${RUN} cd ${WRKSRC}/runtime/grammars &&				\
