@@ -19,6 +19,8 @@ TEST_DEPENDS+=	${PYPKGPREFIX}-hypothesis>0:../../devel/py-hypothesis
 PLIST_SUBST+=	PYTHON_VERSION=${_PYTHON_VERSION}
 PLIST_VARS+=	avx2
 PLIST_VARS+=	sse2
+.include "../../mk/bsd.prefs.mk"
+
 # x86_64 may use avx2, i386 may use avx2 or sse2
 # docs say it'll build them in any case and then autodetect at runtime
 # whether the system supports it (using _feature_detector_cpp.so)
