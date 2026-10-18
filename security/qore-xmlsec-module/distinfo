@@ -1,5 +1,8 @@
 $NetBSD: distinfo,v 1.5 2022/01/27 18:27:16 nros Exp $
 
+BLAKE2s (qore-1.19.2.tar.bz2) = 1a31e08213226deaf11a5c0100737740890674dee3394762f0993d2a4af2697e
+SHA512 (qore-1.19.2.tar.bz2) = b66a3cab3fe6b9c5fb2e623207894a0079c02e6ab6f30416845547656ed17cd34f1517ab8c0d0941d6be1fcb2af0ea4a660731d026ace46142e45590261f3b2d
+Size (qore-1.19.2.tar.bz2) = 50739655 bytes
 BLAKE2s (qore-xmlsec-module-1.0.0.tar.bz2) = 032ea59c72bf8b579119f3ea94382237ed6e4b21cbe10b137730b67ecf03c5f7
 SHA512 (qore-xmlsec-module-1.0.0.tar.bz2) = 10a9e48e97109f1a056813902a9b039d6333c02a3ffe07f93919632874334d5e66a5c0c807278981ed5cbba0d715ceab0d97e3946c1386fed19b65b81fdb5ff3
 Size (qore-xmlsec-module-1.0.0.tar.bz2) = 31258 bytes

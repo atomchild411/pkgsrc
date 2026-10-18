@@ -1,5 +1,8 @@
 $NetBSD: distinfo,v 1.3 2026/01/04 00:26:42 wiz Exp $
 
+BLAKE2s (qore-1.19.2.tar.bz2) = 1a31e08213226deaf11a5c0100737740890674dee3394762f0993d2a4af2697e
+SHA512 (qore-1.19.2.tar.bz2) = b66a3cab3fe6b9c5fb2e623207894a0079c02e6ab6f30416845547656ed17cd34f1517ab8c0d0941d6be1fcb2af0ea4a660731d026ace46142e45590261f3b2d
+Size (qore-1.19.2.tar.bz2) = 50739655 bytes
 BLAKE2s (qore-process-module-1.0.5.tar.bz2) = f46e78735e354dad25e646dbf4b4b46c71209e0cd2efa495ed7ee08b7d9bd156
 SHA512 (qore-process-module-1.0.5.tar.bz2) = 3531b2bd864f58fbd7786abe0a26835c1e5fd0c71bc88fe5f376845ed30fb9009649e0fca3bc1a6abf3a327b33dbbb4115eed476372feacf395b40ed8a4200a4
 Size (qore-process-module-1.0.5.tar.bz2) = 2174282 bytes

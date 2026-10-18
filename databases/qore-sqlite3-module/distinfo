@@ -1,5 +1,8 @@
 $NetBSD: distinfo,v 1.5 2022/01/27 18:03:03 nros Exp $
 
+BLAKE2s (qore-1.19.2.tar.bz2) = 1a31e08213226deaf11a5c0100737740890674dee3394762f0993d2a4af2697e
+SHA512 (qore-1.19.2.tar.bz2) = b66a3cab3fe6b9c5fb2e623207894a0079c02e6ab6f30416845547656ed17cd34f1517ab8c0d0941d6be1fcb2af0ea4a660731d026ace46142e45590261f3b2d
+Size (qore-1.19.2.tar.bz2) = 50739655 bytes
 BLAKE2s (qore-sqlite3-module-1.0.2.tar.gz) = 5a7f8b10be5593e0b44551e7e572400e77281784aa34b93bd399c40c1b748a17
 SHA512 (qore-sqlite3-module-1.0.2.tar.gz) = 38c55312c80dd8ee3c551cad65e92edbb05ecbb92dde697bdc43ce93dbb248317629a48747443d1c15df297a9c199bb009dedbfe9a40efbbefe45fd481ed2fd4
 Size (qore-sqlite3-module-1.0.2.tar.gz) = 506698 bytes

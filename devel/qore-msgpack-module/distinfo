@@ -1,5 +1,8 @@
 $NetBSD: distinfo,v 1.1 2023/08/16 12:11:07 nros Exp $
 
+BLAKE2s (qore-1.19.2.tar.bz2) = 1a31e08213226deaf11a5c0100737740890674dee3394762f0993d2a4af2697e
+SHA512 (qore-1.19.2.tar.bz2) = b66a3cab3fe6b9c5fb2e623207894a0079c02e6ab6f30416845547656ed17cd34f1517ab8c0d0941d6be1fcb2af0ea4a660731d026ace46142e45590261f3b2d
+Size (qore-1.19.2.tar.bz2) = 50739655 bytes
 BLAKE2s (qore-msgpack-module-1.0.1.tar.bz2) = 0a6e476cef98bab4032ca9e8aa5f11cd25d01acf6ea2701987f3917cae809129
 SHA512 (qore-msgpack-module-1.0.1.tar.bz2) = 57062c8ba62733b48b3f09abf96c0568f9d9d20c99b7832b087d72c84347d8e9881864d4f91bc6eeb74be4be219c68fd4e60c1e5ce2523e7166174f21c725ebd
 Size (qore-msgpack-module-1.0.1.tar.bz2) = 78083 bytes

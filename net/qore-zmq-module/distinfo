@@ -1,5 +1,8 @@
 $NetBSD: distinfo,v 1.1 2023/08/16 07:22:44 nros Exp $
 
+BLAKE2s (qore-1.19.2.tar.bz2) = 1a31e08213226deaf11a5c0100737740890674dee3394762f0993d2a4af2697e
+SHA512 (qore-1.19.2.tar.bz2) = b66a3cab3fe6b9c5fb2e623207894a0079c02e6ab6f30416845547656ed17cd34f1517ab8c0d0941d6be1fcb2af0ea4a660731d026ace46142e45590261f3b2d
+Size (qore-1.19.2.tar.bz2) = 50739655 bytes
 BLAKE2s (qore-zmq-module-1.0.2.tar.bz2) = 77e9b964f32ca58a8484cce9e0823b1b6ad29b35027934aada0d4d33f4b56f39
 SHA512 (qore-zmq-module-1.0.2.tar.bz2) = dc589a3cc4a3d6a37577c3f3e46914d7e9b818196f679ec9da05e81f7baddce003b4d83f371c0d808b76ba1327a291379128cd6376a8ffdf9bdaa2526eced684
 Size (qore-zmq-module-1.0.2.tar.bz2) = 45734 bytes

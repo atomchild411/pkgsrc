@@ -1,5 +1,8 @@
 $NetBSD: distinfo,v 1.7 2023/08/08 19:34:14 nros Exp $
 
+BLAKE2s (qore-1.19.2.tar.bz2) = 1a31e08213226deaf11a5c0100737740890674dee3394762f0993d2a4af2697e
+SHA512 (qore-1.19.2.tar.bz2) = b66a3cab3fe6b9c5fb2e623207894a0079c02e6ab6f30416845547656ed17cd34f1517ab8c0d0941d6be1fcb2af0ea4a660731d026ace46142e45590261f3b2d
+Size (qore-1.19.2.tar.bz2) = 50739655 bytes
 BLAKE2s (qore-sybase-modules-1.2.tar.bz2) = c1cf211ec971f9de2b698ea7605959bb63905c4a7027069cdd258009083ba96b
 SHA512 (qore-sybase-modules-1.2.tar.bz2) = d1a5cadd4358da01d5bff7734bd97a632342c17fdf99d086a79b3f7142cd025b32e693613f7bfc96518fca8d38bd020967c54b9727f3c158d292a344fce9ff14
 Size (qore-sybase-modules-1.2.tar.bz2) = 483036 bytes
