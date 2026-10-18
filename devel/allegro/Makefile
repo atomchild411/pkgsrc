@@ -20,6 +20,33 @@ INFO_FILES=	yes
 CMAKE_CONFIGURE_ARGS+=	-DINFODIR=${PKGINFODIR:Q}
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
+.include "../../mk/bsd.fast.prefs.mk"
+# CMakeLists.txt runs a constructor-attribute test (check_c_source_runs),
+# which a cross build cannot; IRIX's runtime runs constructors.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && ${OPSYS} == "IRIX"
+CMAKE_CONFIGURE_ARGS+=	-DALLEGRO_USE_CONSTRUCTOR_EXITCODE=0
+.endif
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# docs/CMakeLists.txt skips the documentation when cross-compiling: it runs
+# makedoc, which it builds. Build makedoc (plain C) for the build host and
+# use it as an imported executable.
+SUBST_CLASSES+=		makedoc
+SUBST_STAGE.makedoc=	pre-configure
+SUBST_FILES.makedoc=	docs/CMakeLists.txt
+SUBST_SED.makedoc=	-e 's,^if(NOT WANT_DOCS OR CMAKE_CROSSCOMPILING)$$,if(NOT WANT_DOCS),'
+SUBST_SED.makedoc+=	-e 's,^add_executable(makedoc$$,add_executable(makedoc IMPORTED)\nset_property(TARGET makedoc PROPERTY IMPORTED_LOCATION ${WRKDIR}/makedoc)\nadd_executable(makedoc-target,'
+
+pre-configure: allegro-host-makedoc
+.PHONY: allegro-host-makedoc
+allegro-host-makedoc:
+	cd ${WRKSRC}/docs/src/makedoc && ${NATIVE_CC} -O -o ${WRKDIR}/makedoc *.c
+.endif
+.if ${OPSYS} == "IRIX"
+# No librt: clock_gettime is in libc. (A file: the build also lists
+# RT_LIBRARY as a dependency.)
+CMAKE_CONFIGURE_ARGS+=	-DRT_LIBRARY=${_CROSS_DESTDIR}/usr/lib${LIBABISUFFIX}/libc.so
+.endif
+
 PLIST_SUBST+=	ALLEG_VER=${PKGVERSION_NOREV:R}
 
 .include "../../mk/oss.buildlink3.mk"
@@ -51,6 +78,11 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/misc/allegro.m4 ${DESTDIR}${PREFIX}/share/aclocal
 
 .include "options.mk"
+
+# IRIX: the SGI audio library (AL) digital sound driver.
+.if ${OPSYS} == "IRIX"
+PLIST_SRC+=	PLIST.IRIX
+.endif
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
