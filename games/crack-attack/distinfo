@@ -5,3 +5,4 @@ SHA512 (crack-attack-1.1.14.tar.gz) = 765ddb2122657b6dab4f3b59a11e7b2a8a52c834f5
 Size (crack-attack-1.1.14.tar.gz) = 975066 bytes
 SHA1 (patch-aa) = 8fdb551045cbeb6789f8bb6c6c3f40bab0668500
 SHA1 (patch-ab) = 8d5469d698c4b46fd2aeb285e9c7ec2e7b1c4c6c
+SHA1 (patch-src_Communicator.cxx) = 2ce18cb3ae16a01c0804d1b27c64cb90caad4e6f
