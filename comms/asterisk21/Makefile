@@ -97,6 +97,29 @@ ASTDATADIR=		${PREFIX}/libdata/asterisk
 MAKE_FLAGS+=		ASTLIBDIR=${PREFIX}/lib/asterisk
 MAKE_FLAGS+=		ASTVARLIBDIR=${ASTDATADIR}
 MAKE_FLAGS+=		ASTKEYDIR=${ASTDATADIR}
+
+# IRIX's sysctl has no BSD memory statistics (<sys/vmmeter.h>).
+CONFIGURE_ENV.IRIX+=	ac_cv_func_sysctl=no ac_cv_func_swapctl=no
+
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# menuselect is built and run while configuring and building: build it for
+# the build host, with its libxml2 (the top makeopts.in says BUILD_CC=cc;
+# menuselect's own configure is the target's).
+TOOL_DEPENDS+=		libxml2>=2.9:../../textproc/libxml2
+SUBST_CLASSES+=		buildcc
+SUBST_STAGE.buildcc=	pre-configure
+SUBST_MESSAGE.buildcc=	Building menuselect for the build host.
+SUBST_FILES.buildcc=	makeopts.in
+SUBST_SED.buildcc=	-e 's,^BUILD_CC=cc$$,BUILD_CC=${NATIVE_CC},'
+SUBST_CLASSES+=		menusel
+SUBST_STAGE.menusel=	pre-configure
+SUBST_MESSAGE.menusel=	Building menuselect for the build host.
+SUBST_FILES.menusel=	menuselect/makeopts.in
+SUBST_SED.menusel=	-e 's,^CC=@CC@$$,CC=${NATIVE_CC},'
+SUBST_SED.menusel+=	-e 's,^LIBXML2_INCLUDE=@LIBXML2_INCLUDE@$$,LIBXML2_INCLUDE=-I${TOOLBASE}/include/libxml2,'
+SUBST_SED.menusel+=	-e 's|^LIBXML2_LIB=@LIBXML2_LIB@$$|LIBXML2_LIB=-L${TOOLBASE}/lib -Wl,-rpath,${TOOLBASE}/lib -lxml2|'
+.endif
+
 MAKE_FLAGS+=		ASTDATADIR=${ASTDATADIR}
 MAKE_FLAGS+=		ASTSPOOLDIR=${ASTSPOOLDIR}
 MAKE_FLAGS+=		ASTLOGDIR=${ASTLOGDIR}

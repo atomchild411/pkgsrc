@@ -293,7 +293,7 @@ lib/asterisk/modules/res_pjsip_sips_contact.so
 lib/asterisk/modules/res_pjsip_t38.so
 lib/asterisk/modules/res_pjsip_transport_websocket.so
 lib/asterisk/modules/res_pjsip_xpidf_body_generator.so
-lib/asterisk/modules/res_pktccops.so
+${PLIST.mgcp}lib/asterisk/modules/res_pktccops.so
 lib/asterisk/modules/res_prometheus.so
 lib/asterisk/modules/res_realtime.so
 ${PLIST.unbound}lib/asterisk/modules/res_resolver_unbound.so
