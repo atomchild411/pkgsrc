@@ -31,6 +31,14 @@ CONF_FILES+=	${XDG_EGDIR}/gnome-keyring-secrets.desktop \
 CONF_FILES+=	${XDG_EGDIR}/gnome-keyring-ssh.desktop \
 		${PKG_SYSCONFDIR}/xdg/autostart/gnome-keyring-ssh.desktop
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The paths of ssh-agent and ssh-add are compiled in: the target's, which
+# the build machine need not have (as security/gcr).
+CONFIGURE_ENV+=	ac_cv_path_SSH_AGENT=${PREFIX}/bin/ssh-agent
+CONFIGURE_ENV+=	ac_cv_path_SSH_ADD=${PREFIX}/bin/ssh-add
+.endif
+
 .include "../../devel/glib2/schemas.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../security/gcr/buildlink3.mk"
