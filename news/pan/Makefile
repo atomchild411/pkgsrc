@@ -23,6 +23,11 @@ FORCE_CXX_STD=		c++17
 USE_PKGLOCALEDIR=	YES
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# Whether strftime knows %l and %k: a run test; say no (pan then avoids them).
+CMAKE_CONFIGURE_ARGS+=	-DHAVE_LKSTRFTIME=1
+.endif
 .if ${OPSYS} != "Darwin" && ${OPSYS} != "SunOS" && ${OPSYS} != "Linux"
 LIBS+=			-lcompat
 .endif
