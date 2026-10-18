@@ -4,3 +4,5 @@ BLAKE2s (testdisk-7.2.tar.bz2) = 32ff713bc9ee2b358b1fc799a24eac5166420ca9908f8d2
 SHA512 (testdisk-7.2.tar.bz2) = f99dd1c8f547c3d06e5459ba072438192a49d76c569de7915994beb269645092522d8136a212999382f88ca1d29c50f6482306d47197dc0994d168bcd4141f26
 Size (testdisk-7.2.tar.bz2) = 855781 bytes
 SHA1 (patch-aa) = 64d1a22a041150fc7d265caa57aa29bb34591121
+SHA1 (patch-src_apfs__common.h) = 3bb7c4f24fe0c0d2cfc2960b2536ddd868a377ef
+SHA1 (patch-src_partgptw.c) = e71510ca6bdcf23e93a39b25810be49fac4abe6a
