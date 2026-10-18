@@ -13,4 +13,9 @@ PHP_VERSIONS_ACCEPTED=	56 74 82 83
 
 .include "../../lang/php/ext.mk"
 .include "../../textproc/aspell/buildlink3.mk"
+.if ${OPSYS} == "IRIX"
+# aspell gets snprintf from libnbcompat there (USE_FEATURES), and its
+# libtool archives, which this links through, name -lnbcompat.
+.include "../../pkgtools/libnbcompat/buildlink3.mk"
+.endif
 .include "../../mk/bsd.pkg.mk"
