@@ -19,7 +19,7 @@ PRINT_PLIST_AWK+=	/^man\// { $$0 = "$${PLIST.doc}" $$0 }
 PRINT_PLIST_AWK+=	/^share\/doc\/.*\.html$$/ { $$0 = "$${PLIST.doc}" $$0 }
 TOOL_DEPENDS+=		libxslt-[0-9]*:../../textproc/libxslt
 TOOL_DEPENDS+=		${RUBY_PKGPREFIX}-asciidoctor>=1.5:../../textproc/ruby-asciidoctor
-CMAKE_CONFIGURE_ARGS+=	-DASCIIDOCTOR_EXECUTABLE=${PREFIX}/bin/asciidoctor${RUBY_SUFFIX}
+CMAKE_CONFIGURE_ARGS+=	-DASCIIDOCTOR_EXECUTABLE=${TOOLBASE}/bin/asciidoctor${RUBY_SUFFIX}
 .else
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_DISABLE_FIND_PACKAGE_Asciidoctor=TRUE
 .endif

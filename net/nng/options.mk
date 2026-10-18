@@ -13,7 +13,7 @@ PLIST_VARS+=		doc shared static
 .include "../../lang/ruby/rubyversion.mk"
 TOOL_DEPENDS+=		${RUBY_PKGPREFIX}-asciidoctor-[0-9]*:../../textproc/ruby-asciidoctor
 CMAKE_CONFIGURE_ARGS+=		-DNNG_ENABLE_DOC=1
-CMAKE_CONFIGURE_ARGS+=		-DASCIIDOCTOR=${PREFIX}/bin/asciidoctor${RUBY_VER}
+CMAKE_CONFIGURE_ARGS+=		-DASCIIDOCTOR=${TOOLBASE}/bin/asciidoctor${RUBY_VER}
 PLIST.doc=		yes
 .endif
 

@@ -16,6 +16,9 @@ LICENSE=	mit
 USE_CMAKE=	yes
 USE_LANGUAGES=	c99 c++
 
+# Its CMakeLists.txt leaves the tools (nngcat) out of cross builds.
+CMAKE_CONFIGURE_ARGS+=	-DNNG_TOOLS=ON
+
 .include "options.mk"
 
 .include "../../mk/atomic64.mk"
