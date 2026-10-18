@@ -4,3 +4,6 @@ BLAKE2s (libretro-bsnes-mercury-20180803-4e221df676ffc7b46d083cf2ae100131eabe507
 SHA512 (libretro-bsnes-mercury-20180803-4e221df676ffc7b46d083cf2ae100131eabe5076.tar.gz) = c4b56d9bc4bbbb9e32a5d4923008e2e917a6db5d3ad92cb35333e389175593bf46a297dbe12eba21193881338cc79fe88ceecda8f32be0774ea9c5eac24a376e
 Size (libretro-bsnes-mercury-20180803-4e221df676ffc7b46d083cf2ae100131eabe5076.tar.gz) = 1337069 bytes
 SHA1 (patch-Makefile) = dca8b1f45f9d4ecc594563317ccf7609f1f8ab90
+SHA1 (patch-nall_directory.hpp) = 4746a891738347c4c5d27ba64542805f7400b6a3
+SHA1 (patch-nall_intrinsics.hpp) = 4fa3becf0dc0b50df229f7b3b700812d490be5ea
+SHA1 (patch-processor_r65816_registers.hpp) = 3fe08b03487de88248c4ef8b75da6e00e01f52ec
