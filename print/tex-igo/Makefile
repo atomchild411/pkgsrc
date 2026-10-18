@@ -19,7 +19,7 @@ TOOL_DEPENDS+=	tex-metafont-[0-9]*:../../fonts/tex-metafont
 
 do-configure:
 	${GREP} "^maketfm" ${WRKSRC}/fonts/makefonts.bat | \
-	${SED} -e 's,maketfm,${LOCALBASE}/bin/mktextfm,g' \
+	${SED} -e 's,maketfm,${TOOLBASE}/bin/mktextfm,g' \
 		> ${WRKSRC}/fonts/makefonts.sh
 
 do-build:

@@ -16,7 +16,7 @@ WRKSRC=		${WRKDIR}/jamjar
 JAM_COMMAND=	\
 	cd ${WRKSRC} &&							\
 		${SETENV} ${MAKE_ENV}					\
-		${LOCALBASE}/bin/jam					\
+		${TOOLBASE}/bin/jam					\
 			-sPREFIX="${DESTDIR}${PREFIX}"			\
 			-sCFLAGS="${CFLAGS}"
 

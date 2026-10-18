@@ -26,7 +26,7 @@ NO_BUILD=	YES
 
 post-extract:
 	cd ${WRKSRC} && ${CAT} resource.dat resource.1 > resource.exe
-	cd ${WRKDIR} && ${PREFIX}/bin/lha xfq resource.exe id1/pak0.pak
+	cd ${WRKDIR} && ${TOOLBASE}/bin/lha xfq resource.exe id1/pak0.pak
 
 do-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/quake/id1

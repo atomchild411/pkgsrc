@@ -36,7 +36,7 @@ WAF_REPLACE_EXECUTABLE?=	no
 TOOL_DEPENDS+=	waf-[0-9]*:../../devel/waf
 
 post-extract:
-	cp ${PREFIX}/bin/waf ${WRKSRC}
+	cp ${TOOLBASE}/bin/waf ${WRKSRC}
 .else
 .  include "../../lang/python/tool.mk"
 .endif

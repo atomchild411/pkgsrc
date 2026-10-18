@@ -23,7 +23,7 @@ NO_BIN_ON_FTP=		${RESTRICTED}
 NO_SRC_ON_CDROM=	${RESTRICTED}
 
 DIST_SUBDIR=	ms-ttf
-EXTRACT_CMD=	${LOCALBASE}/bin/cabextract -q $${extract_file}
+EXTRACT_CMD=	${TOOLBASE}/bin/cabextract -q $${extract_file}
 DOCDIR=		${PREFIX}/share/doc/ms-ttf
 
 NO_CONFIGURE=	yes

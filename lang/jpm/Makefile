@@ -19,7 +19,8 @@ NO_BUILD=	yes
 do-install:
 	cd ${WRKSRC} && DESTDIR=${DESTDIR} \
 	    PREFIX=${PREFIX} \
+	    JANET_PATH=${PREFIX}/lib/janet \
 	    JANET_MANPATH=${PREFIX}/${PKGMANDIR}/man1 \
-	    ${PREFIX}/bin/janet bootstrap.janet
+	    ${TOOLBASE}/bin/janet bootstrap.janet
 
 .include "../../mk/bsd.pkg.mk"

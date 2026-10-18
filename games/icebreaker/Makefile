@@ -32,8 +32,8 @@ INSTALLATION_DIRS+=	share/icons/hicolor/32x32/apps
 INSTALLATION_DIRS+=	share/icons/hicolor/48x48/apps
 
 post-build:
-	cd ${WRKSRC} && ${PREFIX}/bin/icotool -i 1 -x -o 32.png ${WRKSRC}/icebreaker_32.ico
-	cd ${WRKSRC} && ${PREFIX}/bin/icotool -i 2 -x -o 48.png ${WRKSRC}/icebreaker_32.ico
+	cd ${WRKSRC} && ${TOOLBASE}/bin/icotool -i 1 -x -o 32.png ${WRKSRC}/icebreaker_32.ico
+	cd ${WRKSRC} && ${TOOLBASE}/bin/icotool -i 2 -x -o 48.png ${WRKSRC}/icebreaker_32.ico
 
 do-install:
 	cd ${WRKSRC} && ${INSTALL_DATA} *.ibt *.wav *.bmp \

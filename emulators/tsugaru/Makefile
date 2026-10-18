@@ -30,7 +30,7 @@ INSTALLATION_DIRS+=	share/applications
 INSTALLATION_DIRS+=	share/pixmaps
 
 pre-build:
-	${PREFIX}/bin/magick ${WRKSRC}/src/resources/tsugaru_icon.ico \
+	${TOOLBASE}/bin/magick ${WRKSRC}/src/resources/tsugaru_icon.ico \
 		${WRKDIR}/${PKGBASE}.png
 
 .include "../../mk/bsd.fast.prefs.mk"

@@ -20,7 +20,8 @@ TOOL_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 
 .include "../../lang/ruby/rubyversion.mk"
 
-MAKE_FLAGS+=	RUBY=${RUBY:Q}
+# ruby is a TOOL_DEPENDS: the build machine's.
+MAKE_FLAGS+=	RUBY=${TOOLBASE}/bin/${RUBY_NAME}
 
 TOOL_DEPENDS+=	${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
 
