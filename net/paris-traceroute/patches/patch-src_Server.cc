@@ -1,8 +1,18 @@
 $NetBSD: patch-src_Server.cc,v 1.1 2020/03/27 20:52:19 joerg Exp $
+With using namespace std, bind() can resolve to std::bind; call ::bind().
 
---- src/Server.cc.orig	2007-06-07 12:32:28.000000000 +0000
+--- src/Server.cc.orig
 +++ src/Server.cc
-@@ -115,19 +115,19 @@ Server::Server (Options* opts, const cha
+@@ -101,7 +101,7 @@
+   saddr.sin_port        = htons(opts->src_port);
+   //printf("NO BIND\n");
+   
+-  res = bind(sock_server, (sockaddr*)&saddr, sizeof(sockaddr_in));
++  res = ::bind(sock_server, (sockaddr*)&saddr, sizeof(sockaddr_in));
+   if (res < 0) throw TrException(str_log(ERROR,		"Cannot bind the server : %s", strerror(errno)));
+ 
+ #endif // USEPCAP
+@@ -115,19 +115,19 @@
   * Stop the server.
   */
  Server::~Server () {
@@ -27,7 +37,7 @@ $NetBSD: patch-src_Server.cc,v 1.1 2020/03/27 20:52:19 joerg Exp $
  }
  
  /**
-@@ -191,7 +191,7 @@ Server::runThread () {
+@@ -191,7 +191,7 @@
    int packet_count = 0;
    fd_set sfd;
    
@@ -36,7 +46,7 @@ $NetBSD: patch-src_Server.cc,v 1.1 2020/03/27 20:52:19 joerg Exp $
    while (1) {
    	
    	pthread_mutex_lock(&lock);	
-@@ -209,12 +209,12 @@ Server::runThread () {
+@@ -209,12 +209,12 @@
  
  		if (ret < 0)
  		{
@@ -51,7 +61,7 @@ $NetBSD: patch-src_Server.cc,v 1.1 2020/03/27 20:52:19 joerg Exp $
  			continue;
  		}
  
-@@ -251,16 +251,16 @@ Server::runThread () {
+@@ -251,16 +251,16 @@
  
  		if (data_len > 0) {
  			if (packet_count == 0)
@@ -72,7 +82,7 @@ $NetBSD: patch-src_Server.cc,v 1.1 2020/03/27 20:52:19 joerg Exp $
  			reply->dump();
  			//printf("server locking...\n");
  			pthread_mutex_lock(&lock);
-@@ -297,7 +297,7 @@ Server::runThread () {
+@@ -297,7 +297,7 @@
  			//printf("client id = %d\n", id);
  			
  			if (id < 0 || id >= 32)

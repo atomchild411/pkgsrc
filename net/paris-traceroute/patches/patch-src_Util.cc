@@ -1,20 +1,22 @@
 $NetBSD: patch-src_Util.cc,v 1.2 2020/03/27 20:52:19 joerg Exp $
 
 SunOS needs strings.h for bzero().
+IRIX: bzero is in <strings.h>.
 
---- src/Util.cc.orig	2007-06-06 09:21:19.000000000 +0000
+--- src/Util.cc.orig
 +++ src/Util.cc
-@@ -5,6 +5,9 @@
+@@ -5,6 +5,10 @@
  
  #include <stdio.h>
  #include <string.h>
++#include <strings.h>
 +#ifdef __sun
 +#include <strings.h>
 +#endif
  #include <unistd.h>
  //#include <asm/types.h>
  #include <sys/ioctl.h>
-@@ -89,7 +92,7 @@ Util::getRoute (const char* dest) {
+@@ -89,7 +93,7 @@
    fscanf(fd, "%s", buff);
    pclose(fd);
  
@@ -23,7 +25,7 @@ SunOS needs strings.h for bzero().
  
    return strdup(buff);
  }
-@@ -243,7 +246,7 @@ Util::write32 (uint8* data, int ofs, uin
+@@ -243,7 +247,7 @@
  int
  Util::protocol2int (const char* protocol) {
    struct protoent* proto = getprotobyname(protocol);
@@ -32,7 +34,7 @@ SunOS needs strings.h for bzero().
    return proto->p_proto;
  }
  
-@@ -278,12 +281,12 @@ Util::my_gethostbyname(char* host) {
+@@ -278,12 +282,12 @@
     struct hostent* phost = gethostbyname(host);
     if (phost == NULL || phost->h_addrtype != AF_INET) {
       // Not a valid IP4 address

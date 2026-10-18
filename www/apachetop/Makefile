@@ -15,6 +15,8 @@ GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	--with-logfile=${VARBASE}/log/httpd/access_log
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		autoconf automake
+# IRIX has <fam.h> but the sysroot has no libfam.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_fam_h=no
 
 pre-configure:
 	(cd ${WRKSRC}; ./autogen.sh)
