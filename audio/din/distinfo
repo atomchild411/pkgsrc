@@ -6,3 +6,4 @@ Size (din-65.tar.gz) = 3717290 bytes
 SHA1 (patch-src_Makefile.am) = a6db4140657854fef11f8b1b512485974fc63e93
 SHA1 (patch-src_Makefile.in) = bc3021e082be0ed88c7679098a9361e4a5d893e1
 SHA1 (patch-src_RtMidi.h) = 526074e156deef377bd8daf95f799b6c0db32e0b
+SHA1 (patch-src_log.h) = 7ad70213899dda06df24a8657888ba04b1304a80
