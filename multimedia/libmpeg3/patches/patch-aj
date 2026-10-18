@@ -1,6 +1,6 @@
 $NetBSD: patch-aj,v 1.1 2008/05/21 19:21:33 tonio Exp $
 
-Deactivate oss output for darwin
+Deactivate oss output for darwin (and IRIX).
 
 --- a52dec-0.7.3/include/config.h.orig	2005-04-21 05:59:43.000000000 +0200
 +++ a52dec-0.7.3/include/config.h
@@ -8,7 +8,7 @@ Deactivate oss output for darwin
  /* #undef LIBAO_AL */
  
  /* libao OSS support */
-+#if !(defined(__APPLE__) && defined(__MACH__))
++#if !(defined(__APPLE__) && defined(__MACH__)) && !defined(__sgi)
  #define LIBAO_OSS 
 +#endif
  
