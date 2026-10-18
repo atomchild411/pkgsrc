@@ -1,0 +1,19 @@
+$NetBSD$
+
+Cross builds: abstract AF_UNIX socket names only if gamin_cv_abstract_sockets says so (they are Linux's).
+
+--- configure.orig
++++ configure
+@@ -23582,11 +23582,7 @@
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++  have_abstract_sockets=${gamin_cv_abstract_sockets:-no}
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */

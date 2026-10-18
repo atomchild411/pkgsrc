@@ -12,6 +12,7 @@ SHA1 (patch-af) = 7cda705d59206a1fad0c91b56206630f01717adc
 SHA1 (patch-ag) = 59b35394c29d0cbbf7905df24ef4ba913ebfec46
 SHA1 (patch-ah) = 79e132b615a6492587a10a550c421fcc91a27761
 SHA1 (patch-ai) = 54c6d347eef37a97e16c6f00870953fbdba41182
+SHA1 (patch-configure) = 714a37d837e19db3680bfe6e378487eac268270f
 SHA1 (patch-server_gam__eq.c) = 913e63d71bf3518b224a72ec415389a244f3d372
 SHA1 (patch-server_gam__node.c) = 286655e55996523d4ce5ea3df0ce6f9e12cf4278
 SHA1 (patch-server_gam__node.h) = 49a0d381b4900564c4f0ba7a654eb22e294c0a16
