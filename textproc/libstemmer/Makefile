@@ -27,4 +27,19 @@ do-install:
 	${LIBTOOL} --quiet --tag=CC --mode=install \
 	    ${INSTALL_LIB} ${WRKSRC}/libstemmer.la ${DESTDIR}${PREFIX}/lib
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build runs the snowball compiler it builds to write the stemmers' C:
+# build one for the build host too, and run that.
+SUBST_CLASSES+=		snowball
+SUBST_STAGE.snowball=	pre-build
+SUBST_MESSAGE.snowball=	Running a build-host snowball.
+SUBST_FILES.snowball=	GNUmakefile
+SUBST_SED.snowball=	-e 's,^\([[:space:]]*\)\./snowball ,\1${WRKDIR}/snowball-native ,'
+pre-build: snowball-native
+.PHONY: snowball-native
+snowball-native:
+	${RUN} cd ${WRKSRC} && ${NATIVE_CC} -O2 -o ${WRKDIR}/snowball-native compiler/*.c
+.endif
+
 .include "../../mk/bsd.pkg.mk"
