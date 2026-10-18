@@ -5,6 +5,7 @@ SHA512 (rspamd-4.1.5.tar.gz) = 6b6e7375025b0b72afc6260f41c55c39dc510b79df964383e
 Size (rspamd-4.1.5.tar.gz) = 7191230 bytes
 SHA1 (patch-CMakeLists.txt) = 25a1264b573d5a1f7ff9a1ac7b8453c5d9cb0a06
 SHA1 (patch-cmake_Toolset.cmake) = fbc4027fedb4261ce913701ebbb32d8395bc7783
+SHA1 (patch-contrib_backward-cpp_backward.hpp) = f601ea417b2227b53ecf96fc05b9bd16344328e2
 SHA1 (patch-contrib_fpconv_fpconv.c) = b1ec2b07570674458e69020ccbf25f0374d894f6
 SHA1 (patch-lualib_rspamadm_dmarc__report.lua) = 93ccb04512dd84ea83de44c394571ef2bebe6bd2
 SHA1 (patch-src_libserver_symcache_symcache__impl.cxx) = 8a5c69ab343409427619a9cbc0dc080d548b9c53

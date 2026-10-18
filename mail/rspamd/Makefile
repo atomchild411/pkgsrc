@@ -25,6 +25,13 @@ USE_CXX_FEATURES+=	c++20
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# Run tests a cross build cannot run: clang has the atomic builtins; IRIX's
+# shm_open takes its name as a file's path, which the test does not expect.
+CMAKE_CONFIGURE_ARGS+=	-DHAVE_ATOMIC_BUILTINS_EXITCODE=0
+CMAKE_CONFIGURE_ARGS+=	-DHAVE_SANE_SHMEM_EXITCODE=1
+.endif
+
 BUILDLINK_TRANSFORM.SunOS+=	rm:-liberty
 CPPFLAGS.SunOS+=		-D__EXTENSIONS__
 
