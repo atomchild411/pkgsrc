@@ -1,12 +1,16 @@
 $NetBSD: patch-lib_HTS__misc.c,v 1.1 2020/06/22 00:52:42 ryoon Exp $
 
 * Add NetBSD workaround.
+IRIX: fpos_t is a plain integer.
 
---- lib/HTS_misc.c.orig	2015-12-25 00:12:53.000000000 +0000
+--- lib/HTS_misc.c.orig
 +++ lib/HTS_misc.c
-@@ -247,6 +247,8 @@ size_t HTS_ftell(HTS_File * fp)
+@@ -245,8 +245,10 @@
+    } else if (fp->type == HTS_FILE) {
+       fpos_t pos;
        fgetpos((FILE *) fp->pointer, &pos);
- #if defined(_WIN32) || defined(__CYGWIN__) || defined(__APPLE__) || defined(__ANDROID__)
+-#if defined(_WIN32) || defined(__CYGWIN__) || defined(__APPLE__) || defined(__ANDROID__)
++#if defined(_WIN32) || defined(__CYGWIN__) || defined(__APPLE__) || defined(__ANDROID__) || defined(__sgi)
        return (size_t) pos;
 +#elif (__NetBSD__)
 +      return (size_t) pos._pos;
