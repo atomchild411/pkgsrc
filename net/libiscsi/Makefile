@@ -16,6 +16,7 @@ CONFIGURE_ARGS+=	--disable-werror
 PKGCONFIG_OVERRIDE+=	libiscsi.pc.in
 
 LIBS.NetBSD+=	-lpthread -lrt
+LIBS.IRIX+=	-lpthread
 
 pre-configure:
 	cd ${WRKSRC} && autoreconf -if
