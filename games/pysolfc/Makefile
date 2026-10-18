@@ -40,6 +40,11 @@ INSTALLATION_DIRS+=	${PKGMANDIR}/man6 share/PySolFC
 PLIST_SRC=	PLIST ${WRKDIR}/PLIST.CS
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 
+# py-setuptools-gettext, when installed, compiles po/ into PySolFC.mo files
+# that nothing uses: the program's gettext domain is pysol, shipped built.
+post-extract:
+	${RM} -rf ${WRKSRC}/po
+
 pre-install:
 	cd ${WRKDIR}/${CARDSETS_NAME} && \
 	${PAX} -rw . ${DESTDIR}${PREFIX}/share/PySolFC/ && \
