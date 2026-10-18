@@ -7,5 +7,6 @@ BLAKE2s (oorexx-5.2.0-13156.tar.gz) = f60a535d403f11d4eb3a7abf4d978533bf86a503c7
 SHA512 (oorexx-5.2.0-13156.tar.gz) = 2880d93f4a26044e670e1bc9697439d2362baf3c275d46ff233bf7db0e9085963370b99b270f4a8692f5feea1db657dddff5cad15094bee7993ff2df978744eb
 Size (oorexx-5.2.0-13156.tar.gz) = 6749614 bytes
 SHA1 (patch-CMakeLists.txt) = f0e93b60861cf48a0ce452bae0c2694af8fb5755
+SHA1 (patch-interpreter_platform_unix_SysActivity.cpp) = 7af8cf09f7ef35544c2a0fdec0b52042d319c629
 SHA1 (patch-rexxapi_server_APIServer.cpp) = 36d33ec3afc9488eba93cb7f0554da5329953a8f
 SHA1 (patch-rexxapi_server_platform_unix_APIService.cpp) = 8fa265a5acad03946aeb528c0d833536734c1b97
