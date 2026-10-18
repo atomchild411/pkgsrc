@@ -2,10 +2,20 @@ $NetBSD: patch-configure,v 1.2 2025/10/02 11:19:51 adam Exp $
 
 Detect asio.hpp from boost.
 Use GLEW for GL extensions, works around a linking problem on NetBSD.
+Install the MIME icons on IRIX too, as the PLIST expects.
 
---- configure.orig	2025-08-29 15:32:48.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -9927,7 +9927,7 @@ ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS
+@@ -9066,7 +9066,7 @@
+   *-*-netbsd*) :
+      CPPFLAGS="$CPPFLAGS -I/usr/pkg/include"
+           install_mime=true  ;; #(
+-  *linux*|*bsd*) :
++  *linux*|*bsd*|*irix*) :
+      install_mime=true  ;; #(
+   *) :
+      ;;
+@@ -9927,7 +9927,7 @@
  ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
  ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
  
@@ -14,7 +24,7 @@ Use GLEW for GL extensions, works around a linking problem on NetBSD.
  if test "x$ac_cv_header_asio_hpp" = xyes
  then :
  
-@@ -10670,9 +10670,9 @@ printf %s "checking for OpenGL support..
+@@ -10670,9 +10670,9 @@
       SYS_GL_LIBS="-F/System/Library/Frameworks -framework AGL -framework OpenGL"
                    CPPFLAGS="$CPPFLAGS -D__DARWIN__ -F/System/Library/Frameworks -I/System/Library/Frameworks/OpenGL.framework/Headers"  ;; #(
    *-*-linux*) :

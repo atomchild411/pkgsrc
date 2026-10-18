@@ -9,4 +9,4 @@ SHA1 (patch-Source__Files_RenderMain_OGL__Headers.h) = 814a90cc8b4998385eba04fb0
 SHA1 (patch-Source__Files_RenderMain_OGL__Render.cpp) = 79249e5a1756a71d214b0c54501868155dfa6d80
 SHA1 (patch-Source__Files_RenderMain_OGL__Setup.cpp) = e6feda9aa47ce52b9d46a31a1a96364f8a0ad540
 SHA1 (patch-Source__Files_RenderOther_screen.cpp) = aed5d2d222729d182f2e4dece08b5420beaa1229
-SHA1 (patch-configure) = b2bf45d4f97b3b2226ba458a006762357e859e6e
+SHA1 (patch-configure) = e3509fff9935c53f903be0e6a46041f17a641e43
