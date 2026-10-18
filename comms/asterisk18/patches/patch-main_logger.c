@@ -1,8 +1,19 @@
 $NetBSD: patch-main_logger.c,v 1.2 2021/06/13 07:57:53 jnemeth Exp $
+IRIX: getifaddrs EID, endian.h, db1 pgno_t, qlog, RLIMIT_MEMLOCK, TCP keepalive names; GNU sed needs [[:space:]].
 
---- main/logger.c.orig	2015-10-09 21:48:48.000000000 +0000
+--- main/logger.c.orig
 +++ main/logger.c
-@@ -674,7 +674,7 @@ void ast_queue_log(const char *queuename
+@@ -198,6 +198,9 @@
+ static ast_cond_t logcond;
+ static int close_logger_thread = 0;
+ 
++#ifdef qlog	/* IRIX <math.h>: qlog is logl */
++#undef qlog
++#endif
+ static FILE *qlog;
+ 
+ /*! \brief Logging channels used in the Asterisk logging system
+@@ -1030,7 +1033,7 @@
  
  	if (qlog) {
  		va_start(ap, fmt);
@@ -11,7 +22,7 @@ $NetBSD: patch-main_logger.c,v 1.2 2021/06/13 07:57:53 jnemeth Exp $
  		vsnprintf(qlog_msg + qlog_len, sizeof(qlog_msg) - qlog_len, fmt, ap);
  		va_end(ap);
  		AST_RWLIST_RDLOCK(&logchannels);
-@@ -714,7 +714,7 @@ static int rotate_file(const char *filen
+@@ -1070,7 +1073,7 @@
  		}
  		break;
  	case TIMESTAMP:

@@ -1,6 +1,7 @@
 $NetBSD: patch-main_utils.c,v 1.3 2024/03/25 03:36:33 jnemeth Exp $
+IRIX: getifaddrs EID, endian.h, db1 pgno_t, qlog, RLIMIT_MEMLOCK, TCP keepalive names; GNU sed needs [[:space:]].
 
---- main/utils.c.orig	2024-03-18 13:18:36.000000000 +0000
+--- main/utils.c.orig
 +++ main/utils.c
 @@ -41,6 +41,10 @@
  #elif defined(__NetBSD__)
@@ -13,7 +14,7 @@ $NetBSD: patch-main_utils.c,v 1.3 2024/03/25 03:36:33 jnemeth Exp $
  
  #include "asterisk/network.h"
  #include "asterisk/ast_version.h"
-@@ -213,7 +217,7 @@ struct hostent *ast_gethostbyname(const 
+@@ -213,7 +217,7 @@
  	while (s && *s) {
  		if (*s == '.')
  			dots++;
@@ -22,7 +23,7 @@ $NetBSD: patch-main_utils.c,v 1.3 2024/03/25 03:36:33 jnemeth Exp $
  			break;
  		s++;
  	}
-@@ -937,7 +941,7 @@ const char *ast_inet_ntoa(struct in_addr
+@@ -937,7 +941,7 @@
  
  static int dev_urandom_fd = -1;
  
@@ -31,7 +32,7 @@ $NetBSD: patch-main_utils.c,v 1.3 2024/03/25 03:36:33 jnemeth Exp $
  #undef pthread_create /* For ast_pthread_create function only */
  #endif /* !__linux__ */
  
-@@ -2238,13 +2242,13 @@ int ast_false(const char *s)
+@@ -2238,13 +2242,13 @@
  static struct timeval tvfix(struct timeval a)
  {
  	if (a.tv_usec >= ONE_MILLION) {
@@ -49,7 +50,7 @@ $NetBSD: patch-main_utils.c,v 1.3 2024/03/25 03:36:33 jnemeth Exp $
  		a.tv_usec = 0;
  	}
  	return a;
-@@ -2404,7 +2408,7 @@ char *ast_to_camel_case_delim(const char
+@@ -2404,7 +2408,7 @@
  
  	while (front) {
  		size = strlen(front);
@@ -58,3 +59,12 @@ $NetBSD: patch-main_utils.c,v 1.3 2024/03/25 03:36:33 jnemeth Exp $
  		ast_copy_string(buf, front, size + 1);
  		buf += size;
  		front = strtok_r(NULL, delim, &back);
+@@ -2854,7 +2858,7 @@
+ 	return os;
+ }
+ 
+-#if defined(__OpenBSD__) || defined(__NetBSD__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__Darwin__)
++#if defined(__OpenBSD__) || defined(__NetBSD__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__Darwin__) || defined(__sgi)
+ #include <ifaddrs.h>
+ #include <net/if_dl.h>
+ 

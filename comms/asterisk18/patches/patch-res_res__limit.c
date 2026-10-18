@@ -1,8 +1,18 @@
 $NetBSD: patch-res_res__limit.c,v 1.2 2021/06/13 07:57:53 jnemeth Exp $
+IRIX: getifaddrs EID, endian.h, db1 pgno_t, qlog, RLIMIT_MEMLOCK, TCP keepalive names; GNU sed needs [[:space:]].
 
---- res/res_limit.c.orig	2018-05-07 17:38:31.944908572 +0000
+--- res/res_limit.c.orig
 +++ res/res_limit.c
-@@ -191,7 +191,7 @@ static char *handle_cli_ulimit(struct as
+@@ -52,6 +52,8 @@
+ 	{ RLIMIT_CORE,    "-c", "core file size", "core" },
+ #ifdef RLIMIT_RSS
+ 	{ RLIMIT_RSS,     "-m", "resident memory", "memory" },
++#endif
++#ifdef RLIMIT_MEMLOCK
+ 	{ RLIMIT_MEMLOCK, "-l", "amount of memory locked into RAM", "locked" },
+ #endif
+ #ifdef RLIMIT_NPROC
+@@ -191,7 +193,7 @@
  				else
  					snprintf(printlimit, sizeof(printlimit), "limited to %d", (int) rlimit.rlim_cur);
  				desc = str2desc(a->argv[1]);

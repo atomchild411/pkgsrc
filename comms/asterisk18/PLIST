@@ -102,7 +102,7 @@ lib/asterisk/modules/chan_bridge_media.so
 lib/asterisk/modules/chan_iax2.so
 ${PLIST.mgcp}lib/asterisk/modules/chan_mgcp.so
 ${PLIST.jabber}lib/asterisk/modules/chan_motif.so
-lib/asterisk/modules/chan_oss.so
+${PLIST.oss}lib/asterisk/modules/chan_oss.so
 lib/asterisk/modules/chan_pjsip.so
 lib/asterisk/modules/chan_rtp.so
 lib/asterisk/modules/chan_sip.so
