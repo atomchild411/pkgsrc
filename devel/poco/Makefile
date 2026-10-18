@@ -27,4 +27,8 @@ CMAKE_CONFIGURE_ARGS+=	-DENABLE_ZIP=ON
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
+# Net installs its include directory whole, patch backups too.
+post-patch:
+	${RM} -f ${WRKSRC}/Net/include/Poco/Net/SocketDefs.h.orig
+
 .include "../../mk/bsd.pkg.mk"
