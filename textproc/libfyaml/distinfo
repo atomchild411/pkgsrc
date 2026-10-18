@@ -4,6 +4,7 @@ BLAKE2s (libfyaml-0.9.6.tar.gz) = a5b4c5ea3dc0935b45a71345ed7bb60998a9f062887b59
 SHA512 (libfyaml-0.9.6.tar.gz) = 71f01fdbfa8a3675bdd6697929bb8ee85672befa5ed815ef30813987c2f75f8ef0959e70d1b17d02ccadabc967f1dfd5b7f46a10a83fca7b1a9ed7455c52e344
 Size (libfyaml-0.9.6.tar.gz) = 1146628 bytes
 SHA1 (patch-CMakeLists.txt) = 1d1e466044e57d88611158c62146c0660b67b6aa
+SHA1 (patch-include_libfyaml_libfyaml-endian.h) = 1409ae4feae4da4223d6661554517ccf857279d0
 SHA1 (patch-include_libfyaml_libfyaml-util.h) = 4318fa32aad5ffd22541c90580d90173c6394742
 SHA1 (patch-include_libfyaml_libfyaml-vlsize.h) = 8ac53eeaeb1ca93dea87ff2adf998d515fb40ca3
 SHA1 (patch-src_lib_fy-walk.c) = 42156d0ec45256a8434ca2c95b97bf474553c02a

@@ -1,0 +1,15 @@
+$NetBSD$
+
+IRIX: <endian.h> (clang's IRIX wrappers).
+
+--- include/libfyaml/libfyaml-endian.h.orig
++++ include/libfyaml/libfyaml-endian.h
+@@ -42,7 +42,7 @@
+ extern "C" {
+ #endif
+ 
+-#if defined(__linux__) || defined(__CYGWIN__) || defined(__OpenBSD__) || defined(__GNU__) || defined(__EMSCRIPTEN__)
++#if defined(__linux__) || defined(__CYGWIN__) || defined(__OpenBSD__) || defined(__GNU__) || defined(__EMSCRIPTEN__) || defined(__sgi)
+ # include <endian.h>
+ #elif defined(__APPLE__)
+ # include <libkern/OSByteOrder.h>
