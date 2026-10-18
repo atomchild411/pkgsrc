@@ -16,6 +16,9 @@ TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
 TOOL_DEPENDS+=	${PYPKGPREFIX}-argparse-manpage>=0:../../devel/py-argparse-manpage
 DEPENDS+=	${PYPKGPREFIX}-puremagic>=1.26:../../sysutils/py-puremagic
 DEPENDS+=	${PYPKGPREFIX}-pdf>=4.3.0:../../textproc/py-pdf
+# argparse-manpage imports psutils, which imports these.
+TOOL_DEPENDS+=	${PYPKGPREFIX}-puremagic>=1.26:../../sysutils/py-puremagic
+TOOL_DEPENDS+=	${PYPKGPREFIX}-pdf>=4.3.0:../../textproc/py-pdf
 TEST_DEPENDS+=	${PYPKGPREFIX}-test-datafiles>=0:../../devel/py-test-datafiles
 TEST_DEPENDS+=	${PYPKGPREFIX}-testpath>=0:../../devel/py-testpath
 TEST_DEPENDS+=	${PYPKGPREFIX}-wand>=0:../../graphics/py-wand
