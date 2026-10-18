@@ -35,6 +35,15 @@ DISTFILES=	${DEFAULT_DISTFILES} ${CENSUS_DIST}
 
 PKGCONFIG_OVERRIDE=	cmake/pkg-config-template.pc.in
 
+.include "../../mk/bsd.prefs.mk"
+
+# A cross build generates its services' code with the build machine's
+# grpc_cpp_plugin, from a grpc built for it.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+TOOL_DEPENDS+=		grpc>=${PKGVERSION_NOREV}:../../net/grpc
+CMAKE_CONFIGURE_ARGS+=	-D_gRPC_CPP_PLUGIN=${TOOLBASE}/bin/grpc_cpp_plugin
+.endif
+
 post-extract:
 	${RMDIR} ${WRKSRC}/third_party/opencensus-proto
 	${LN} -s ${WRKDIR}/opencensus-proto-* ${WRKSRC}/third_party/opencensus-proto
