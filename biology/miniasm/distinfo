@@ -4,3 +4,4 @@ BLAKE2s (miniasm/v0.3.tar.gz) = 0a6cd0d9e5c1872f30cafd665a597744eacea7d04f002b63
 SHA512 (miniasm/v0.3.tar.gz) = e5f622e079283d69bb878cbb9768f7522d279f89fc11f86a2b1fdade9e09e681e742d9e4be46bed4c864e4fef3d0d6760348c85cf1d5e029a36d96c45f885160
 Size (miniasm/v0.3.tar.gz) = 204805 bytes
 SHA1 (patch-Makefile) = 34c4a68d7fd88659162e534a8a92a265a6982a4a
+SHA1 (patch-kdq.h) = 388cd64f76ef9123dcd5db6aed42a9ed497c6a99
