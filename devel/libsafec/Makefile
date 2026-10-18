@@ -12,6 +12,9 @@ LICENSE=	mit
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 
+# The build adds -Werror, and clang 21 warns about set-but-unused variables.
+CFLAGS.IRIX+=	-Wno-error
+
 AUTO_MKDIRS=	yes
 
 .include "../../mk/bsd.pkg.mk"
