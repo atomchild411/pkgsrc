@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - <sys/param.h> includes <limits.h>
+- <sched.h>: no MIN, MAX or TICK leaking into C++ from <sys/param.h>
 
 --- lib/Headers/irix_wrappers/sys/param.h.orig
 +++ lib/Headers/irix_wrappers/sys/param.h
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,33 @@
 +/*===---- sys/param.h - IRIX wrapper ----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -27,3 +28,16 @@ branch iris/main):
 +#include <limits.h>
 +
 +#endif /* __CLANG_IRIX_SYS_PARAM_H */
++
++/* On every inclusion, outside the guard: the macros the <sched.h> wrapper
++ * takes back in C++ when <sys/param.h> came in through it, with IRIX's
++ * definitions, for a program that then includes <sys/param.h> itself. */
++#ifndef MIN
++#define MIN(a,b) (((a)<(b))?(a):(b))
++#endif
++#ifndef MAX
++#define MAX(a,b) (((a)>(b))?(a):(b))
++#endif
++#ifndef TICK
++#define TICK    10000000	/* nanoseconds per tick */
++#endif

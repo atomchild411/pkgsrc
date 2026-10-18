@@ -55,10 +55,11 @@ branch iris/main):
 - <sys/param.h> includes <limits.h>
 - <arpa/nameser.h>: BIND 8's names and message parser
 - <net/ethernet.h>
+- <sched.h>: no MIN, MAX or TICK leaking into C++ from <sys/param.h>
 
 --- lib/Headers/CMakeLists.txt.orig
 +++ lib/Headers/CMakeLists.txt
-@@ -395,6 +395,109 @@ set(zos_wrapper_files
+@@ -395,6 +395,110 @@ set(zos_wrapper_files
    zos_wrappers/builtins.h
  )
  
@@ -72,6 +73,7 @@ branch iris/main):
 +  irix_wrappers/limits.h
 +  irix_wrappers/grp.h
 +  irix_wrappers/pwd.h
++  irix_wrappers/sched.h
 +  irix_wrappers/search.h
 +  irix_wrappers/semaphore.h
 +  irix_wrappers/signal.h
@@ -168,7 +170,7 @@ branch iris/main):
  include(GetClangResourceDir)
  get_clang_resource_dir(output_dir PREFIX ${LLVM_LIBRARY_OUTPUT_INTDIR}/.. SUBDIR include)
  set(out_files)
-@@ -443,7 +546,7 @@ endfunction(clang_generate_header)
+@@ -443,7 +547,7 @@ endfunction(clang_generate_header)
  
  # Copy header files from the source directory to the build directory
  foreach( f ${files} ${cuda_wrapper_files} ${cuda_wrapper_bits_files}
@@ -177,7 +179,7 @@ branch iris/main):
  	   ${llvm_libc_wrapper_files} ${llvm_offload_wrapper_files})
    copy_header_to_output_dir(${CMAKE_CURRENT_SOURCE_DIR} ${f})
  endforeach( f )
-@@ -557,7 +660,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
+@@ -557,7 +661,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
  add_header_target("hexagon-resource-headers" "${hexagon_files}")
  add_header_target("hip-resource-headers" "${hip_files}")
  add_header_target("loongarch-resource-headers" "${loongarch_files}")
@@ -186,7 +188,7 @@ branch iris/main):
  add_header_target("ppc-resource-headers" "${ppc_files};${ppc_wrapper_files}")
  add_header_target("ppc-htm-resource-headers" "${ppc_htm_files}")
  add_header_target("riscv-resource-headers" "${riscv_files};${riscv_generated_files}")
-@@ -625,6 +728,41 @@ install(
+@@ -625,6 +729,41 @@ install(
    DESTINATION ${header_install_dir}/zos_wrappers
    COMPONENT clang-resource-headers)
  
