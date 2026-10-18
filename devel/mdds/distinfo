@@ -4,3 +4,4 @@ BLAKE2s (mdds-3.1.0.tar.xz) = a9d2b0ad190c8a8ce891bf709820e75e7d9fe1b76ed505f7d0
 SHA512 (mdds-3.1.0.tar.xz) = 54620178c44f3bd10515c5f8ff765b252b04890682110a12098b4eb661a80a857d8c71ac2b2641866c4654efbf682578ab9262cc44f19c389c7332d176c6123b
 Size (mdds-3.1.0.tar.xz) = 638576 bytes
 SHA1 (patch-configure) = bfb7ed4b83292475972c09f660f5a4f28b043437
+SHA1 (patch-include_mdds_trie__map__itr.hpp) = 919af126bb3cc106f02d1fd3aca114da65b103bd
