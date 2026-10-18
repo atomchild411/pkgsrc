@@ -6,6 +6,11 @@ PKG_OPTIONS_VAR=	PKG_OPTIONS.squashfs
 PKG_SUPPORTED_OPTIONS=	zlib xz lzo lz4 zstd xattr reproducible
 PKG_SUGGESTED_OPTIONS=	zlib xz lzo lz4 zstd xattr reproducible
 
+# IRIX has no Linux-style extended attributes (<sys/xattr.h>).
+.if ${OPSYS} == "IRIX"
+PKG_SUGGESTED_OPTIONS:=	${PKG_SUGGESTED_OPTIONS:Nxattr}
+.endif
+
 .include "../../mk/bsd.options.mk"
 
 .if empty(PKG_OPTIONS:Mzlib) && \

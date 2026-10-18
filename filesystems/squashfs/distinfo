@@ -4,3 +4,5 @@ BLAKE2s (squashfs-tools-4.6.1.tar.gz) = f6cba60eaefba487281909c44a55265dc5869fc7
 SHA512 (squashfs-tools-4.6.1.tar.gz) = 10e8a4b1e2327e062aef4f85860e76ebcd7a29e4c19e152ff7edec4a38316982b5bcfde4ab69da6bcb931258d264c2b6cb40cb5f635f9e6f6eba1ed5976267cb
 Size (squashfs-tools-4.6.1.tar.gz) = 286848 bytes
 SHA1 (patch-Makefile) = 501a17abded8e066327f08a8c8b0773c897972f8
+SHA1 (patch-mksquashfs.c) = 9c864d0dbe5dcac85f9226d78344717448648fb9
+SHA1 (patch-unsquashfs.c) = 440bf905c074abc98a8707f230e814e60ffb3780
