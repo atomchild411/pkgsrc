@@ -57,7 +57,7 @@ CONFIGURE_ARGS+=	--localstatedir=${OPENLDAP_VARDIR}
 CONFIGURE_ARGS+=	--enable-dynamic
 CONFIGURE_ARGS+=	--with-tls=openssl
 
-.if ${USE_CROSS_COMPILE:U:tl} == yes && ${OPSYS} == "NetBSD"
+.if ${USE_CROSS_COMPILE:U:tl} == yes && (${OPSYS} == "NetBSD" || ${OPSYS} == "IRIX")
 # Probably true for more than just NetBSD.
 CONFIGURE_ARGS+=	--with-yielding_select=yes
 CONFIGURE_ENV+=		ac_cv_func_memcmp_working=yes
