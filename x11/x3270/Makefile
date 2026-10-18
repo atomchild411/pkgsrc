@@ -24,6 +24,14 @@ CONFIGURE_ARGS+=	--enable-b3270
 CONFIGURE_ARGS+=	--enable-pr3287
 CONFIGURE_ARGS+=	--enable-s3270
 
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# mkfb, built for the build machine, includes the generated conf.h: give it
+# the include directories the target compiles get.
+_X3270_BUILD_CFLAGS=	-I$$(THIS) -I$$(TOP)/include
+CONFIGURE_ENV+=		BUILD_CFLAGS=${_X3270_BUILD_CFLAGS:Q}
+.endif
+
 INSTALL_TARGET=		install install.man
 
 PKG_SYSCONFSUBDIR=	x3270
