@@ -5,7 +5,20 @@ CONFIGURE_ARGS+=	--disable-python
 CONFIGURE_ARGS+=	--disable-php5
 CONFIGURE_ARGS+=	--disable-php7
 CONFIGURE_ARGS+=	--disable-perl
+.include "../../mk/bsd.prefs.mk"
+PLIST_VARS+=		gtkdocgen
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# gtkdoc-scangobj runs a program built for the target: install the HTML
+# the release tarball has (less two indexes gtk-doc makes).
+CONFIGURE_ARGS+=	--disable-gtk-doc
+INSTALLATION_DIRS+=	share/gtk-doc/html/lasso
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/docs/reference/lasso/html/* \
+	    ${DESTDIR}${PREFIX}/share/gtk-doc/html/lasso
+.else
 CONFIGURE_ARGS+=	--enable-gtk-doc
+PLIST.gtkdocgen=	yes
+.endif
 
 EXTRACT_USING=		bsdtar
 

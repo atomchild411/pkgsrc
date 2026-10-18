@@ -305,10 +305,10 @@ share/gtk-doc/html/lasso/LassoSoapEnvelope.html
 share/gtk-doc/html/lasso/LassoSoapFault.html
 share/gtk-doc/html/lasso/LassoSoapHeader.html
 share/gtk-doc/html/lasso/annotation-glossary.html
-share/gtk-doc/html/lasso/api-index-2-3.html
+${PLIST.gtkdocgen}share/gtk-doc/html/lasso/api-index-2-3.html
 share/gtk-doc/html/lasso/api-index-full.html
 share/gtk-doc/html/lasso/architecture.html
-share/gtk-doc/html/lasso/deprecated-api-index.html
+${PLIST.gtkdocgen}share/gtk-doc/html/lasso/deprecated-api-index.html
 share/gtk-doc/html/lasso/home.png
 share/gtk-doc/html/lasso/idff.html
 share/gtk-doc/html/lasso/index.html
