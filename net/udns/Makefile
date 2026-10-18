@@ -20,6 +20,17 @@ INSTALLATION_DIRS=	bin lib include ${PKGMANDIR}/man1 ${PKGMANDIR}/man3
 
 .include "options.mk"
 
+.include "../../mk/bsd.fast.prefs.mk"
+# configure.lib runs a trivial program to see that the compiler works,
+# which a cross build cannot; the other checks only compile and link.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		cccheck
+SUBST_STAGE.cccheck=	pre-configure
+SUBST_FILES.cccheck=	configure.lib
+SUBST_SED.cccheck=	-e 's, && ac_run ./conftest; then$$,; then,'
+SUBST_SED.cccheck+=	-e 's,ac_compile_run <<EOF$$,ac_link <<EOF,'
+.endif
+
 do-install:
 	${LIBTOOL} --mode=install ${INSTALL_LIB} \
 		${WRKSRC}/libudns.la ${DESTDIR}${PREFIX}/lib
