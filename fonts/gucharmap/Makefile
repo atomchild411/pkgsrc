@@ -17,6 +17,15 @@ DEPENDS+=	unicode-character-database-[0-9]*:../../textproc/unicode-character-dat
 
 MESON_ARGS+=	-Ducd_path=${PREFIX}/share/unicode/ucd
 
+# gtk-doc runs a scanner built for the target: no reference or help when cross.
+PLIST_VARS+=	docs
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+MESON_ARGS+=	-Ddocs=false
+.else
+PLIST.docs=	yes
+.endif
+
 USE_TOOLS+=		itstool perl pkg-config
 
 PKGCONFIG_OVERRIDE+=		output/meson-private/gucharmap-2.90.pc
