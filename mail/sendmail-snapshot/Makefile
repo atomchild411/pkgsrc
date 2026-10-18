@@ -135,11 +135,13 @@ post-install:
 	cd ${WRKSRC}/cf && pax -rw -pp -pm -s',^.*\.orig$$,,' . ${DESTDIR}${PREFIX}/share/sendmail
 	cp ${FILESDIR}/netbsd-proto.mc ${DESTDIR}${PREFIX}/share/sendmail/cf
 
-	${INSTALL_DATA} ${WRKSRC}/obj.`${UNAME} -srm | tr \  . | tr \/ - | sed s/sun4./sun4/`/libsm/libsm.a \
+	# obj.* is the one directory Build made (named from the target's uname -srm,
+	# which a cross build's ${UNAME} is not).
+	${INSTALL_DATA} ${WRKSRC}/obj.*/libsm/libsm.a \
 		${DESTDIR}${PREFIX}/lib
 
 	${INSTALL_DATA} \
-		${WRKSRC}/obj.`${UNAME} -srm | tr \  . | tr \/ - | sed s/sun4./sun4/`/libsmutil/libsmutil.a \
+		${WRKSRC}/obj.*/libsmutil/libsmutil.a \
 		${DESTDIR}${PREFIX}/lib
 	${INSTALL_SCRIPT} ${WRKSRC}/contrib/socketmap*.pl \
 		${DESTDIR}${PREFIX}/share/examples/sendmail/

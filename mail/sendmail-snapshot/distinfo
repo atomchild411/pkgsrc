@@ -37,3 +37,4 @@ SHA1 (patch-bq) = 548bf6d373cb49958437548a65803b6f3c6b35d2
 SHA1 (patch-br) = 1f0b9716906b91ce2b867bf65e5c06ad16749e36
 SHA1 (patch-bs) = 2af257532fd837d9817b0b5572027947881b0396
 SHA1 (patch-bt) = 44a297b44071c5c84680af137ed00962f9ea35d4
+SHA1 (patch-include_sm_conf.h) = ec569bcfcef10ee3979cf0a0faa372bb7382147d

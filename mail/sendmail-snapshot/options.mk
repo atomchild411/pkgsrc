@@ -8,6 +8,12 @@ PKG_SUGGESTED_OPTIONS=	inet6 tcpwrappers tls
 
 .include "../../mk/bsd.prefs.mk"
 
+# IRIX's libc has no Berkeley DB (dbopen), which the OS file's NEWDB maps
+# assume: suggest db4.
+.if ${OPSYS} == "IRIX"
+PKG_SUGGESTED_OPTIONS+=	db4
+.endif
+
 .for dir in ${COMPILER_INCLUDE_DIRS}
 .  if exists(${dir}/blacklist.h)
 PKG_SUPPORTED_OPTIONS+=		blacklist
