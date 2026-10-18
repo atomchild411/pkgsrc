@@ -1,8 +1,9 @@
 $NetBSD: patch-libgambatte_SConstruct,v 1.4 2024/04/19 12:04:23 nia Exp $
 
 Copy environment to SCons environment.
+Pass the environment on to the commands (pkgsrc wrappers; cross compilers).
 
---- libgambatte/SConstruct.orig	2024-04-15 16:11:45.938327465 +0000
+--- libgambatte/SConstruct.orig
 +++ libgambatte/SConstruct
 @@ -1,14 +1,9 @@
 -global_cflags = ARGUMENTS.get('CFLAGS', '-Wall -Wextra -O2 -fomit-frame-pointer')
@@ -23,7 +24,7 @@ Copy environment to SCons environment.
  
  sourceFiles = Split('''
  			src/bitmap_font.cpp
-@@ -42,6 +37,24 @@ sourceFiles = Split('''
+@@ -42,6 +37,28 @@
  			src/video/sprite_mapper.cpp
  		   ''')
  
@@ -42,6 +43,10 @@ Copy environment to SCons environment.
 +		else:
 +			env[var] = SCons.Util.CLVar(os.environ[var])
 +		print("copying environment variable {0}={1!r}".format(var,os.environ[var]))
++
++# and the whole environment: pkgsrc's tool and compiler wrappers need
++# the PATH and their configuration (CWRAPPERS_CONFIG_DIR)
++env['ENV'] = os.environ
 +
 +env.Append(CXXFLAGS=['-fno-exceptions', '-fno-rtti'])
 +

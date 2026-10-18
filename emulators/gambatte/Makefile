@@ -21,11 +21,6 @@ SCONS_DO_INSTALL=	no
 
 MAKE_ENV+=		LINKFLAGS=${LDFLAGS:Q}
 
-SUBST_CLASSES+=		paths
-SUBST_STAGE.paths=	pre-configure
-SUBST_FILES.paths+=	gambatte_sdl/SConstruct
-SUBST_VARS.paths+=	PREFIX
-
 INSTALLATION_DIRS+=	bin
 INSTALLATION_DIRS+=	${PKGMANDIR}/man1
 

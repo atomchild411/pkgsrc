@@ -4,10 +4,11 @@ Copy environment to SCons environment.
 
 Use absolute path for sdl-config. I don't understand why this is necessary,
 since PATH is set properly, but life's too short for debugging scons.
+Pass the environment on to the commands (pkgsrc wrappers; cross compilers), and take sdl-config from the PATH.
 
---- gambatte_sdl/SConstruct.orig	2014-09-28 22:13:10.000000000 +0000
+--- gambatte_sdl/SConstruct.orig
 +++ gambatte_sdl/SConstruct
-@@ -1,17 +1,29 @@
+@@ -1,16 +1,32 @@
 +import SCons
  import subprocess
 -
@@ -23,7 +24,6 @@ since PATH is set properly, but life's too short for debugging scons.
 -                  CXXFLAGS = cxxflags,
 -                  CPPDEFINES = [ 'HAVE_STDINT_H', None ],
 -                  variables = vars)
--env.ParseConfig('sdl-config --cflags --libs')
 +                  CPPDEFINES = [ 'HAVE_STDINT_H', None ])
 +
 +
@@ -42,9 +42,12 @@ since PATH is set properly, but life's too short for debugging scons.
 +			env[var] = SCons.Util.CLVar(os.environ[var])
 +		print("copying environment variable {0}={1!r}".format(var,os.environ[var]))
 +
++# and the whole environment: pkgsrc's tool and compiler wrappers need
++# the PATH and their configuration (CWRAPPERS_CONFIG_DIR)
++env['ENV'] = os.environ
++
 +env.Append(CXXFLAGS=['-fno-exceptions', '-fno-rtti'])
 +
-+env.ParseConfig('@PREFIX@/bin/sdl-config --cflags --libs')
+ env.ParseConfig('sdl-config --cflags --libs')
  
  sourceFiles = Split('''
- 			src/audiosink.cpp

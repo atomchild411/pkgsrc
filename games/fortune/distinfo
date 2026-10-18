@@ -7,5 +7,5 @@ SHA1 (patch-Makefile) = b2429bba09ffdc7d571c5d98833a4ff5a6e2fb21
 SHA1 (patch-datfiles_Makefile) = fd0d1b87bd2532bada57517970cf7676ee678720
 SHA1 (patch-datfiles_html_Makefile) = aef5d7d6275943e94e4f79f2db64445605d329ce
 SHA1 (patch-datfiles_off_Makefile) = 31aa90703d86df0c1d50e5cadfb0ec92a5800199
-SHA1 (patch-fortune_fortune.c) = b19d3af94f2708012f36ca1739b85a7ce5c97ed0
+SHA1 (patch-fortune_fortune.c) = 5da5dbf4a4a531d096ed781c5552bbb0c4304ef6
 SHA1 (patch-util_strfile.h) = dd58d46bf13f5a7eeb245a3b747a26fa1e946113

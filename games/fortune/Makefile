@@ -11,11 +11,12 @@ COMMENT=	Fortune cookie generator
 LICENSE=	original-bsd
 
 DEPENDS+=	fortune-strfile>=0:../../games/fortune-strfile
+TOOL_DEPENDS+=	fortune-strfile>=0:../../games/fortune-strfile
 
 .include "options.mk"
 
 BUILD_TARGET=	fortune-bin cookies-z
-MAKE_ENV+=	STRFILE=${PREFIX}/bin/strfile
+MAKE_ENV+=	STRFILE=${TOOLBASE}/bin/strfile
 
 PRINT_PLIST_AWK+=	/fortune\/off\// { $$0 = "$${PLIST.off}" $$0; }
 
