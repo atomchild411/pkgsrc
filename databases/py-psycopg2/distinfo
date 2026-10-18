@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.52 2026/09/10 11:33:35 adam Exp $
 BLAKE2s (psycopg2-2.9.13.tar.gz) = 72891633fbc32279f97161bf3706fe402986e1f454e600794076dc497eeac444
 SHA512 (psycopg2-2.9.13.tar.gz) = 7aebcf55161b1ad60af4b64fef64f676cdf68ee1597c8c1107350c367f1eafafe37b736716d191e3a3ba4d4ea6d436d22cb606f44655b4aebc8613d4314dbc15
 Size (psycopg2-2.9.13.tar.gz) = 378068 bytes
+SHA1 (patch-psycopg_pqpath.c) = e8cbba51e5f89d197babbae34740eb4ac615be06
