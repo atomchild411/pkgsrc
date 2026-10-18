@@ -1,5 +1,8 @@
 # $NetBSD: options.mk,v 1.1 2026/02/03 16:00:33 taca Exp $
 
+# MACHINE_ARCH is the target's only after the prefs (cross-compiling).
+.include "../../mk/bsd.fast.prefs.mk"
+
 PKG_OPTIONS_VAR=	PKG_OPTIONS.ruby
 PKG_SUPPORTED_OPTIONS=	ruby-build-ri-db
 PKG_SUGGESTED_OPTIONS=	ruby-build-ri-db
