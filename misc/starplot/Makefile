@@ -23,4 +23,8 @@ FORCE_CXX_STD=		c++03
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+# system.h declares struct utimbuf unless told it exists; IRIX's headers
+# bring in <utime.h>, which has it.
+CPPFLAGS.IRIX+=	-DHAVE_STRUCT_UTIMBUF
+
 .include "../../mk/bsd.pkg.mk"

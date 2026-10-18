@@ -21,4 +21,8 @@ BUILDLINK_DEPMETHOD.libXt?=	build
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
+# system.h declares struct utimbuf unless told it exists; IRIX's headers
+# bring in <utime.h>, which has it.
+CPPFLAGS.IRIX+=	-DHAVE_STRUCT_UTIMBUF
+
 .include "../../mk/bsd.pkg.mk"
