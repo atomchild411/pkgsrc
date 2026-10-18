@@ -35,4 +35,18 @@ CFLAGS.NetBSD+=	-D_KMEMUSER
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# src/ runs tcl2cc, which the build makes, to embed the Tcl code: build one
+# for the build host too, and run that.
+SUBST_CLASSES+=		tcl2cc
+SUBST_STAGE.tcl2cc=	pre-build
+SUBST_MESSAGE.tcl2cc=	Running a build-host tcl2cc.
+SUBST_FILES.tcl2cc=	src/Makefile
+SUBST_SED.tcl2cc=	-e 's,\.\./tcl2cc/tcl2cc lava,${WRKDIR}/tcl2cc-native lava,'
+pre-build: lavaps-tcl2cc-native
+.PHONY: lavaps-tcl2cc-native
+lavaps-tcl2cc-native:
+	${RUN} ${NATIVE_CC} -O2 -include stdlib.h -o ${WRKDIR}/tcl2cc-native ${WRKSRC}/tcl2cc/tcl2cc.c
+.endif
+
 .include "../../mk/bsd.pkg.mk"
