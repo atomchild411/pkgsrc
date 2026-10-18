@@ -46,6 +46,20 @@ FILES_SUBST+=		GOACCESS_USER=${GOACCESS_USER:Q}
 
 .include "options.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build runs bin2c, which it builds, to embed the HTML report's files:
+# build one for the build host too, and run that.
+SUBST_CLASSES+=		bin2c
+SUBST_STAGE.bin2c=	pre-build
+SUBST_MESSAGE.bin2c=	Running a build-host bin2c.
+SUBST_FILES.bin2c=	Makefile
+SUBST_SED.bin2c=	-e 's,^\([[:space:]]*\)\./bin2c ,\1${WRKDIR}/bin2c-native ,'
+pre-build: goaccess-bin2c-native
+.PHONY: goaccess-bin2c-native
+goaccess-bin2c-native:
+	${RUN} ${NATIVE_CC} -O2 -o ${WRKDIR}/bin2c-native ${WRKSRC}/src/bin2c.c
+.endif
+
 pre-configure:
 	cd ${WRKSRC} && autoreconf -fiv
 

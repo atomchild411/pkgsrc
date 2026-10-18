@@ -5,4 +5,5 @@ SHA512 (goaccess-1.9.tar.gz) = 9bcde1bf84d80d5ee2c25f60d5530df29d61936362bc340c5
 Size (goaccess-1.9.tar.gz) = 743607 bytes
 SHA1 (patch-Makefile.am) = e72d4ac63fd2f9f236ce1feae9b021db2128b725
 SHA1 (patch-configure.ac) = 72bb96317458f27aa4549370d9ac99da9f59f1bd
-SHA1 (patch-src_util.c) = 23a46cde8088df4aaf2b77ea7519c25cda904e26
+SHA1 (patch-src_util.c) = 77f120faee84561ef64182524837dd2194e40fbb
+SHA1 (patch-src_websocket.h) = 6d3ab86a8fa8204a611e096d8d78be044426f335
