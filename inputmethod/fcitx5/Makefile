@@ -44,6 +44,18 @@ CMAKE_CONFIGURE_ARGS+=	-DLibIntl_INCLUDE_DIR=${BUILDLINK_PREFIX.gettext}/include
 CMAKE_CONFIGURE_ARGS+=	-DLIBUUID_INCLUDE_DIR=${BUILDLINK_PREFIX.libuuid}/include
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build runs comp-spell-dict to make en_dict.fscd; a perl copy runs
+# instead on the build host (it is handed the target's program first).
+USE_TOOLS+=		perl
+SUBST_CLASSES+=		spelldict
+SUBST_STAGE.spelldict=	pre-configure
+SUBST_MESSAGE.spelldict=	Making en_dict.fscd with a build-host comp-spell-dict.
+SUBST_FILES.spelldict=	src/modules/spell/CMakeLists.txt
+SUBST_SED.spelldict=	-e 's, \./comp-spell-dict --comp-dict, ${TOOLS_PATH.perl} ${FILESDIR}/comp-spell-dict.pl &,'
+.endif
+
 CXXFLAGS.NetBSD+=	-DLIBKVM_FOUND
 
 BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,--as-needed
