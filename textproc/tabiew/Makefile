@@ -15,5 +15,8 @@ USE_TOOLS+=	gmake perl
 
 .include "cargo-depends.mk"
 
+MAKE_ENV+=	OPENSSL_DIR=${BUILDLINK_PREFIX.openssl:Q}
+
+.include "../../security/openssl/buildlink3.mk"
 .include "../../lang/rust/cargo.mk"
 .include "../../mk/bsd.pkg.mk"
