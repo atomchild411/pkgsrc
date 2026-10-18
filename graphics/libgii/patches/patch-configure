@@ -1,0 +1,23 @@
+$NetBSD$
+
+Cross builds: assume the first thread library works (IRIX: -lpthread).
+
+--- configure.orig
++++ configure
+@@ -21422,11 +21422,11 @@
+ 		LIBS="$TMP_SAVE_LIBS $pthreadlib"
+ 
+ 		if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++			echo "$as_me:$LINENO: result: yes (cross)" >&5
++echo "${ECHO_T}yes (cross)" >&6
++			have_pthread=yes
++			THREADLIBS="$pthreadlib"
++			break
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
