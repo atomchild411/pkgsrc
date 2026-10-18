@@ -21,6 +21,8 @@ USE_LANGUAGES=		c c++
 USE_CXX_FEATURES+=	c++11
 USE_TOOLS+=		bash gmake pkg-config perl flex yacc
 GNU_CONFIGURE=		yes
+# configure rejects --with-libiconv-prefix (added where iconv is pkgsrc's).
+GNU_CONFIGURE_ICONV=	no
 CONFIGURE_ARGS+=	--enable-ethernet
 CONFIGURE_ARGS+=	--enable-ipv6
 CONFIGURE_ARGS+=	--enable-new8580filter
@@ -55,7 +57,8 @@ CONFIGURE_ENV+=		ac_cv_prog_SVNVERSION=no
 CONFIGURE_ARGS+=	--disable-pdf-docs
 CONFIGURE_ARGS+=	--enable-html-docs
 
-MAKE_ENV+=		BASH_SHELL=${PREFIX}/bin/bash
+# For build-time scripts: the tools bash.
+MAKE_ENV+=		BASH_SHELL=${TOOLS_PATH.bash}
 
 REQD_DIRS+=		${PREFIX}/share/vice
 
@@ -69,6 +72,16 @@ SUBST_SED.prefix=	-e 's|/usr/local|${PREFIX}|g'
 
 INSTALLATION_DIRS+=	share/doc/vice/html
 INSTALLATION_DIRS+=	share/doc/vice/html/fonts
+
+.include "../../mk/bsd.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# data/common runs desktop-file-install without --dir: the build
+# machine's would put the files under its own prefix.
+TOOLS_CREATE+=			desktop-file-install
+TOOLS_SCRIPT.desktop-file-install=	\
+	exec ${TOOLBASE}/bin/desktop-file-install \
+	    --dir=${DESTDIR}${PREFIX}/share/applications "$$@"
+.endif
 
 # Mess created by xdg-utils; clean it up.
 # Install html equivalent of vice.pdf.

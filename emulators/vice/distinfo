@@ -7,4 +7,5 @@ SHA1 (patch-Makefile.in) = f9c411fb2f4a8d5cf40c7cccdd36a6e4bc18529b
 SHA1 (patch-configure) = 136475ca14acc6fe9fe1eb44cf0f5308e5fc7c0a
 SHA1 (patch-src_arch_gtk3_actions-help.c) = 136fa108e999dbb98362a2e80a5389710f60290e
 SHA1 (patch-src_arch_gtk3_joystickdrv_joystick_bsd.c) = 835726091dde5b6759e7a5e0f9c0d41024de4d3e
+SHA1 (patch-src_joyport_joystick.c) = fdf0a34de76d3faa8886dedd9269d49670eb5db4
 SHA1 (patch-src_lib_libusbsiddrv_USBSID.cpp) = 94782f0a04d856b604d9144b9ca619b8c2364e6f
