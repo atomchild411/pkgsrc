@@ -24,6 +24,14 @@ LDFLAGS+= 		-L${PREFIX}/lib -lomp -lm
 .include "../../parallel/openmp/buildlink3.mk"
 .endif
 
+# No OpenMP runtime on IRIX.
+.if ${OPSYS} == IRIX
+SUBST_CLASSES+=		noomp
+SUBST_SED.noomp=	-e 's|-DOPENMP -fopenmp||'
+SUBST_STAGE.noomp=	pre-configure
+SUBST_FILES.noomp=	Makefile
+.endif
+
 do-extract:
 	${CP} ${DISTDIR}/${DISTFILES} ${WRKSRC}
 	${CP} ${FILESDIR}/Makefile ${WRKSRC}

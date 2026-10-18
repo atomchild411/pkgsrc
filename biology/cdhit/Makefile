@@ -34,7 +34,8 @@ MAKE_FLAGS+=		PREFIX=${DESTDIR}${PREFIX}/bin
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Darwin"
+# No OpenMP runtime on IRIX.
+.if ${OPSYS} == "Darwin" || ${OPSYS} == "IRIX"
 MAKE_FLAGS+=		openmp=no
 .endif
 
