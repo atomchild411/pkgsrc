@@ -17,4 +17,18 @@ GNU_CONFIGURE=	yes
 BUILDLINK_TRANSFORM.Darwin+=	rm:-Wl,-O1
 BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,-O1
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The build runs gfshare_maketable to write libgfshare_tables.h (GF(2^8)
+# log tables, printed as C): run a copy built for the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		maketable
+SUBST_STAGE.maketable=	pre-configure
+SUBST_FILES.maketable=	Makefile.in
+SUBST_SED.maketable=	-e 's,\./gfshare_maketable$$(EXEEXT) >,./gfshare_maketable_host >,'
+pre-build: gfshare-host-maketable
+.PHONY: gfshare-host-maketable
+gfshare-host-maketable:
+	cd ${WRKSRC} && ${NATIVE_CC} -o gfshare_maketable_host src/gfshare_maketable.c
+.endif
+
 .include "../../mk/bsd.pkg.mk"
