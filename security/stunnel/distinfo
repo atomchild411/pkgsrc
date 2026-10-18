@@ -5,4 +5,5 @@ SHA512 (stunnel-5.78.tar.gz) = e88abb4a7f39a7ebc4f5d9b8979514659304dac443e192d6c
 Size (stunnel-5.78.tar.gz) = 929224 bytes
 SHA1 (patch-aa) = 80c2fef87fa42e46c7baa0b317e2639308f7387c
 SHA1 (patch-configure) = 92ac2abab05f7c9a3a074a10dd0d9206e7547a78
+SHA1 (patch-src_env.c) = b97cb0287957edfbf6ba0df7990251c02e0e3221
 SHA1 (patch-stunnel.conf-sample.in) = 9edaabd1bc15d3ff8524178f4a6aba4a7963b015
