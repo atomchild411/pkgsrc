@@ -121,7 +121,11 @@ _CBBH_CHECKS+=		nunpriv
 _CBBH_MSGS.nunpriv=	"This package is not available in unprivileged mode."
 
 _CBBH.nunpriv=		yes
-.if defined(NOT_FOR_UNPRIVILEGED) && !empty(NOT_FOR_UNPRIVILEGED:M[Yy][Ee][Ss])
+# A cross build only makes the package: ownership comes from REAL_ROOT_USER
+# and SPECIAL_PERMS in its metadata, and pkg_add creates the users on the
+# target, so unprivileged cross builds are allowed.
+.if defined(NOT_FOR_UNPRIVILEGED) && !empty(NOT_FOR_UNPRIVILEGED:M[Yy][Ee][Ss]) && \
+    ${USE_CROSS_COMPILE:U:tl} != "yes"
 .  if !empty(UNPRIVILEGED:M[Yy][Ee][Ss])
 _CBBH.nunpriv=		no
 .  endif
