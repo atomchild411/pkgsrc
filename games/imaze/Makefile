@@ -18,6 +18,15 @@ USE_TOOLS+=		pax
 
 INSTALLATION_DIRS=	bin lib/X11/app-defaults ${PKGMANDIR}/man6
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# gentrigtab, run at build time to write trigtab.c, is for the build host.
+SUBST_CLASSES+=		gentrig
+SUBST_STAGE.gentrig=	pre-configure
+SUBST_FILES.gentrig=	source/Makefile
+SUBST_SED.gentrig=	-e 's|^	\$$(LD) \$$(LDFLAGS) \$$(GENTRIGOBJS) .*|	${NATIVE_CC} -o gentrigtab gentrigtab.c global.c -lm|'
+.endif
+
 post-build:
 	cd ${WRKSRC} && pax -O -rf ${DISTDIR}/imaze-sounds.tar
 
