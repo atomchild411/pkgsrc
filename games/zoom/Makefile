@@ -18,6 +18,12 @@ AUTO_MKDIRS=		yes
 
 UNLIMIT_RESOURCES+=	datasize
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# builder generates the interpreter headers during the build.
+CONFIGURE_ENV+=		BUILDERCC=${NATIVE_CC:Q}
+.endif
+
 post-install:
 	cd ${WRKSRC}/manual \
 	&& ${INSTALL_DATA} idx *.html *.gif *.png ${DESTDIR}${PREFIX}/share/doc/zoom
