@@ -11,6 +11,12 @@ MAKE_FLAGS+=	SUBDIRS="build oawk nawk"
 NEED_LIBUXRE=	1
 USE_TOOLS=	yacc lex
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# oawk's proc and nawk's maketab write C tables during the build.
+MAKE_FLAGS+=	HOSTCC=${NATIVE_CC:Q}
+.endif
+
 .include "../../sysutils/heirloom-doc/Makefile.common"
 
 DESCR_SRC+=	${.CURDIR}/DESCR

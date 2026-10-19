@@ -8,6 +8,7 @@ SHA1 (patch-an) = 59ea0b44627039774c9d8054120a9069c86e35bb
 SHA1 (patch-ao) = 0d5651b0cea34ed9d5eca903e24c78e403085976
 SHA1 (patch-ax) = 74949080460cb2f7c16dd22f24fb650f0ad94817
 SHA1 (patch-libcommon_Makefile.mk) = a78061c36c4351a0059a37eb4e62976cbf2df763
+SHA1 (patch-libcommon_pfmt.h) = f623346393eeb3cd2d05d892089141a77d91bb8d
 SHA1 (patch-nawk_Makefile.mk) = a09833bec6a235f68888f73907dcda829cf4beb9
 SHA1 (patch-oawk_Makefile.mk) = 97e2d121103c65c41dc8cee2d9c05bb412fd0af5
 SHA1 (patch-tar_tar.c) = ca5c2422f99c192d0f3c9e81fb6229dbf60d5233
