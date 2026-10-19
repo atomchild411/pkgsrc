@@ -28,6 +28,9 @@ CONFIGURE_ARGS+=	--with-secure-path-value=${SUDO_SECURE_PATH_DIRS:ts:}
 CONFIGURE_ENV+=		NROFFPROG=${CAT:Q}
 CONFIGURE_ENV+=		mansectsu=8
 CONFIGURE_ENV+=		mansectform=5
+# IRIX has a <sys/sysctl.h> but no sysctl(3) or KERN_BOOTTIME: without it,
+# boottime.c takes its utmpx path with <utmpx.h> included.
+CONFIGURE_ENV.IRIX+=	ac_cv_header_sys_sysctl_h=no
 TEST_TARGET=		check
 
 LDFLAGS+=		${COMPILER_RPATH_FLAG}${PREFIX}/lib/sudo

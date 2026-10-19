@@ -9,5 +9,6 @@ SHA1 (patch-examples_Makefile.in) = a20967ecd88eb5e4a8b47e6a3b80bc18be713409
 SHA1 (patch-lib_logsrv_Makefile.in) = 301c317c806edeee8ce7b44a5431cd38defb3a54
 SHA1 (patch-lib_protobuf-c_Makefile.in) = 122e432fb0da36b998778a1b71130f0c3785f575
 SHA1 (patch-lib_ssl__compat_Makefile.in) = 7cf0bf38005ddefc6158e69a88d106388e714555
+SHA1 (patch-lib_util_utimens.c) = 0bf65af9f9b033dbeaa7accaf6f0719b93b1f13f
 SHA1 (patch-plugins_sudoers_Makefile.in) = d2981bb9841f6bb4b1c80f5c2f2727fbf9579501
 SHA1 (patch-src_Makefile.in) = 0642684c2d4b3a89259f7d27908f5ec8070969ec
