@@ -1,12 +1,14 @@
 $NetBSD: patch-aa,v 1.4 2022/04/25 16:17:48 tnn Exp $
 
---- socket++/local.h.orig	2003-03-14 18:02:40.000000000 +0000
+IRIX: gethostname takes a size_t, EAGAIN equals EWOULDBLOCK, FIOCLEX is in <sys/filio.h>, no SA_INTERRUPT.
+
+--- socket++/local.h.orig
 +++ socket++/local.h
-@@ -90,8 +90,10 @@ extern "C" unsigned long inet_addr (cons
+@@ -90,8 +90,10 @@
  extern "C" char* inet_ntoa (in_addr ina);
  
  #if !defined (__linux__)
-+#if !defined (__NetBSD__) && !defined (__DragonFly__) && !defined(__sun)
++#if !defined (__NetBSD__) && !defined (__DragonFly__) && !defined(__sun) && !defined(__sgi)
    extern "C" int gethostname (char* hostname, int len);
 -#if !(defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__APPLE__))
 +#endif
