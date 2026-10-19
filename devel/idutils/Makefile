@@ -24,6 +24,13 @@ MAKE_ENV+=		BSD_SETENV=${SETENV:Q}
 # Don't byte-compile the .el file.
 MAKE_FLAGS+=		elc_SCRIPTS=
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The man pages ship in the tarball; regenerating them runs the programs
+# (help2man), which a cross build cannot.
+MAKE_FLAGS+=		HELP2MAN=true
+.endif
+
 LISPDIR=		${PREFIX}/share/emacs/site-lisp
 INSTALLATION_DIRS=	${LISPDIR}
 
