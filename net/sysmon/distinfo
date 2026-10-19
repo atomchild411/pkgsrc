@@ -5,4 +5,6 @@ SHA512 (sysmon-0.93.tar.gz) = 367ec53cf5253a1fd83eee4837206d9551ea2b2d8e62cd910f
 Size (sysmon-0.93.tar.gz) = 519522 bytes
 SHA1 (patch-aa) = ed38753f2298875032593e780cbac3266b875031
 SHA1 (patch-configure) = 42cf75b0a2c8eb1c1e3f48978b9c963be4627e51
+SHA1 (patch-src_config.h) = 50e9af7dbcdd8c3c6336aef69ced43bea5f1a7ac
+SHA1 (patch-src_parser.c) = 69a15c9ff6ae569391b036b93b9c9470476652d8
 SHA1 (patch-syswatch.c) = 29cd30bbc4c8c3f436f37cf481a096b36a982a4c

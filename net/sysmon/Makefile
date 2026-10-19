@@ -22,6 +22,8 @@ CFLAGS+=		-Wno-implicit-function-declaration
 BUILD_DEFS+=		IPV6_READY
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+# configure looks for sendmail on the build host; IRIX's is /usr/lib/sendmail.
+CONFIGURE_ENV.IRIX+=	ac_cv_path_SENDMAIL=/usr/lib/sendmail
 
 EGDIR=			${PREFIX}/share/examples/sysmon
 SMDOC=			${PREFIX}/share/doc/sysmon
