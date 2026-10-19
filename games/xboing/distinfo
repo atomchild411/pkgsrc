@@ -12,3 +12,4 @@ SHA1 (patch-af) = 3abd5e5eabbaac9eeb6496529038f67aac176b76
 SHA1 (patch-ag) = 0488a63bdac3074c0305b05456468c266232f81c
 SHA1 (patch-ah) = ba161ff2b28359e9406b7f104fd58bad4c234a6f
 SHA1 (patch-ai) = 1a87732ac9cf06fa107060bd07488a22108da193
+SHA1 (patch-audio_SGIaudio.c) = 52d0d9d2059ff5308d506958f01f127720a14b17
