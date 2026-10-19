@@ -19,5 +19,15 @@ CFLAGS+=	-Wno-error=unknown-pragmas
 CMAKE_GENERATORS_INCOMPATIBLE=	ninja
 MAKE_JOBS_SAFE=	no
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# tbasm assembles the VM program into a header during the build: build it
+# for the build host instead of as an ExternalProject.
+CMAKE_CONFIGURE_ARGS+=	-DTbasm_FOUND=1 -DTbasm_EXECUTABLE=${WRKDIR}/tbasm-host
+
+pre-configure:
+	${NATIVE_CC} -o ${WRKDIR}/tbasm-host ${WRKSRC}/tbasm/tbasm.c
+.endif
+
 .include "../../devel/cmake/build.mk"
 .include "../../mk/bsd.pkg.mk"

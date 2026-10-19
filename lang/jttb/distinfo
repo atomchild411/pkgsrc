@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.2 2025/05/01 00:55:34 thorpej Exp $
 BLAKE2s (JTTB-0.6.tar.gz) = d2657e8010fb468d82b4786d78a36a77ea6444b967eacd717ab71239b484f343
 SHA512 (JTTB-0.6.tar.gz) = 22bc817ce2472473a7bf5dd1b6f428e1a729ed2adcc4199d9c052a213c85d93478f3e05748d7d0497158283925931b2aab6445aeaf31d8cf993fc24baceca266
 Size (JTTB-0.6.tar.gz) = 49956 bytes
+SHA1 (patch-jttb_jttb.c) = db14d150989f53bf6a1b1e21fe1051410bba1016
