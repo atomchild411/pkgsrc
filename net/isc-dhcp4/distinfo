@@ -6,4 +6,5 @@ Size (dhcp-4.4.3-P1.tar.gz) = 10081055 bytes
 SHA1 (patch-aa) = da090b3b824f5d437f8d05ce00e2ac4dfc65d6af
 SHA1 (patch-ab) = 0683dd2259e48184713559aa0356ee352aa52c39
 SHA1 (patch-ac) = a7e6808a6e1e93c520eb085f31259f6c142750f4
+SHA1 (patch-common_discover.c) = 2a53525edf92e68dbb58cc81482dd6171b9df4a2
 SHA1 (patch-common_dlpi.c) = a4258a6bc7a2b12fab45a10054bca83e235acfbd

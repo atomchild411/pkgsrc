@@ -36,6 +36,8 @@ EGDIR=			${PREFIX}/share/examples/${PKGBASE}
 BUILD_DEFS+=		VARBASE DHCP_HOME DHCP_PID
 
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
+# configure cannot look for the entropy device when cross-compiling.
+CONFIGURE_ARGS.IRIX+=	--with-randomdev=/dev/urandom
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-srv-lease-file=${DHCP_HOME}/dhcpd.leases
 CONFIGURE_ARGS+=	--with-cli-lease-file=${DHCP_HOME}/dhclient.leases
