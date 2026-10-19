@@ -69,6 +69,14 @@ PERL5_PACKLIST= \
 	auto/Cyrus/IMAP/.packlist			\
 	auto/Cyrus/SIEVE/managesieve/.packlist
 
+# "make depend" truncates the old dependencies with ed, which is not a
+# pkgsrc tool (and not in the bulk sandbox): the same with sed.
+SUBST_CLASSES+=		noed
+SUBST_STAGE.noed=	pre-configure
+SUBST_FILES.noed=	Makefile.in perl/Makefile.in perl/sieve/Makefile.in
+SUBST_SED.noed=		-e 's,ed -s Makefile < eddep,sed -e "/^\# DO NOT DELETE THIS LINE/{n;q;}" Makefile.bak > Makefile,'
+SUBST_MESSAGE.noed=	Using sed instead of ed for make depend.
+
 pre-build:
 	${RUN}${_ULIMIT_CMD} \
 	cd ${WRKSRC} && ${BUILD_MAKE_CMD} depend
