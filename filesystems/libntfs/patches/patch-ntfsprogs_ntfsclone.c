@@ -1,8 +1,9 @@
 $NetBSD: patch-ntfsprogs_ntfsclone.c,v 1.3 2026/04/26 04:29:44 wiz Exp $
 
 Fix for NetBSD's statvfs(2).
+IRIX: statfs takes four arguments and has no f_type: as on Solaris.
 
---- ntfsprogs/ntfsclone.c.orig	2021-09-13 07:34:39.000000000 +0000
+--- ntfsprogs/ntfsclone.c.orig
 +++ ntfsprogs/ntfsclone.c
 @@ -71,6 +71,14 @@
   */
@@ -24,11 +25,11 @@ Fix for NetBSD's statvfs(2).
  #endif
  
 -#if defined(__sun) | defined(HAVE_WINDOWS_H)
-+#if defined(__sun) || defined(HAVE_WINDOWS_H)
++#if defined(__sun) || defined(__sgi) || defined(HAVE_WINDOWS_H)
  #define NO_STATFS 1	/* statfs(2) and f_type are not universal */
  #endif
  
-@@ -166,8 +174,12 @@ static struct {
+@@ -167,8 +175,12 @@
  	char *output;
  	char *volume;
  #ifndef NO_STATFS
@@ -41,7 +42,7 @@ Fix for NetBSD's statvfs(2).
  } opt;
  
  struct bitmap {
-@@ -852,7 +864,7 @@ static void copy_cluster(int rescue, u64 rescue_lcn, u
+@@ -859,7 +871,7 @@
  #ifndef NO_STATFS
  		int err = errno;
  		perr_printf("Write failed");
@@ -50,7 +51,7 @@ Fix for NetBSD's statvfs(2).
  			Printf("Apparently you tried to clone to a remote "
  			       "Windows computer but they don't\nhave "
  			       "efficient sparse file handling by default. "
-@@ -2312,7 +2324,7 @@ static void set_filesize(s64 filesize)
+@@ -2319,7 +2331,7 @@
  		Printf("WARNING: Couldn't get filesystem type: "
  		       "%s\n", strerror(errno));
  	else
