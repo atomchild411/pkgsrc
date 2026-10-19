@@ -11,6 +11,13 @@ COMMENT=		Simulates the display from "The Matrix" in your console
 
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
+
+# AC_CHECK_FILE cannot look when cross-compiling: IRIX has none of these.
+CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_lib_kbd_consolefonts=no
+CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_share_consolefonts=no
+CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_lib_X11_fonts_misc=no
+CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_X11R6_lib_X11_fonts_misc=no
+
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 
 do-install:
