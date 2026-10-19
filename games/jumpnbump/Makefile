@@ -15,6 +15,24 @@ USE_TOOLS+=	gmake
 
 CHECK_PORTABILITY_SKIP+=	build-mingw.sh
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# gobpack and jnbpack build the game data (written byte by byte, so
+# portable): use copies built for the build host.
+SUBST_CLASSES+=		hostpack
+SUBST_STAGE.hostpack=	pre-build
+SUBST_FILES.hostpack=	data/Makefile
+SUBST_SED.hostpack=	-e 's,^GOBPACK = .*,GOBPACK = ${WRKDIR}/host/gobpack,'
+SUBST_SED.hostpack+=	-e 's,^JNBPACK = .*,JNBPACK = ${WRKDIR}/host/jnbpack,'
+SUBST_MESSAGE.hostpack=	Using gobpack and jnbpack built for the build host.
+
+pre-build:
+	${MKDIR} ${WRKDIR}/host
+.  for t in gobpack jnbpack
+	${NATIVE_CC} -o ${WRKDIR}/host/${t} ${WRKSRC}/modify/${t}.c
+.  endfor
+.endif
+
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../audio/SDL2_mixer/buildlink3.mk"
 .include "../../devel/SDL2/buildlink3.mk"
