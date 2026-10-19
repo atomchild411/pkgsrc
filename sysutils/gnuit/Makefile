@@ -15,6 +15,12 @@ CONFIGURE_ARGS+=	--htmldir=${PREFIX}/share/doc/gnuit
 CONFIGURE_ARGS+=	--disable-transition
 INFO_FILES=		YES
 
+# gnulib's putenv replacement loses its rpl_putenv name to the IRIX
+# <stdlib.h> wrapper (nested through IRIX's <getopt.h> include, see
+# toolchain-ideas 45); gnuit only adds variables with putenv, which IRIX's
+# does.
+CONFIGURE_ENV.IRIX+=	gl_cv_func_svid_putenv=yes
+
 post-extract:
 	${CP} ${WRKSRC}/term/gnuitrc.ansi.in ${WRKSRC}/term/gnuitrc.cons25.in
 
