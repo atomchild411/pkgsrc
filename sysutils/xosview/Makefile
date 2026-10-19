@@ -37,6 +37,8 @@ MAKE_ENV+=		MANDIR=${PREFIX}/${PKGMANDIR}
 LIBS.NetBSD+=		-lkvm -lprop
 LIBS.FreeBSD+=		-lkvm -ldevstat
 LIBS.SunOS+=		-lsocket -lnsl
+# rstat(3) for the remote load meter
+LIBS.IRIX+=		-lrpcsvc
 CPPFLAGS.SunOS+=	-I${X11BASE}/include
 ICON_THEMES=		yes
 

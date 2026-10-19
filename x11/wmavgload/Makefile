@@ -12,6 +12,9 @@ USE_IMAKE=	YES
 
 NO_INSTALL_MANPAGES=	YES
 
+# get_load.c reads the load average with rstat(3), in IRIX's librpcsvc.
+MAKE_FLAGS.IRIX+=	EXTRA_LIBRARIES=-lrpcsvc
+
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
