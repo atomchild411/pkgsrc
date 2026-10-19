@@ -1,0 +1,18 @@
+$NetBSD$
+
+IRIX has putc_unlocked but no fwrite_unlocked.
+
+--- configure.orig
++++ configure
+@@ -153,6 +153,11 @@
+     cc="clang"
+     host_cc="clang"
+     ;;
++  IRIX*)
++    # putc_unlocked, but no fwrite_unlocked
++    extralibs="-lm"
++    unlockio="no"
++    ;;
+   Haiku)
+     prefix="`finddir B_COMMON_DIRECTORY`"
+     # no need for libm, but the network stuff

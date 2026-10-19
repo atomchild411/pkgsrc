@@ -21,7 +21,9 @@ USE_TOOLS+=		gmake
 .include "../../mk/bsd.prefs.mk"
 # Its build tools (csstoqe, ...) run while building.
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
-MAKE_FLAGS+=	HOST_CC=${NATIVE_CC:Q} HOST_CFLAGS=
+# Not the target's CFLAGS; the include directories the tools need.
+QEMACS_HOST_CFLAGS=	-I. -I./libqhtml
+MAKE_FLAGS+=	HOST_CC=${NATIVE_CC:Q} HOST_CFLAGS=${QEMACS_HOST_CFLAGS:Q}
 .endif
 
 .include "../../mk/bsd.pkg.mk"
