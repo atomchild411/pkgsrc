@@ -28,8 +28,18 @@ INSTALLATION_DIRS+=	${PKGMANDIR}/man3
 
 .include "options.mk"
 
+.include "../../mk/bsd.fast.prefs.mk"
+
 post-build:
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# leapsecs.dat is portable (tai_pack is big-endian): make it with a
+# leapsecs built for the build host.
+	cd ${WRKSRC} && ${NATIVE_CC} -std=gnu89 -o leapsecs.host leapsecs.c \
+		caldate_scan.c caldate_mjd.c tai_pack.c && \
+		./leapsecs.host < leapsecs.txt > leapsecs.dat
+.else
 	cd ${WRKSRC} && ./leapsecs < leapsecs.txt > leapsecs.dat
+.endif
 
 do-install:
 	set -e; cd ${WRKSRC};						\
