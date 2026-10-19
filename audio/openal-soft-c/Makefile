@@ -33,6 +33,16 @@ CONF_FILES+=	${PREFIX}/share/openal/alsoftrc.sample ${PKG_SYSCONFDIR}/alsoft.con
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# bin2h and bsincgen (native-tools) generate headers during the build: give
+# their sub-build the native compiler, not CC.
+SUBST_CLASSES+=		native
+SUBST_STAGE.native=	pre-configure
+SUBST_FILES.native=	CMakeLists.txt
+SUBST_SED.native=	-e 's,COMMAND $${CMAKE_COMMAND} -G "$${CMAKE_GENERATOR}" "$${NATIVE_SRC_DIR}",COMMAND $${CMAKE_COMMAND} -G "$${CMAKE_GENERATOR}" -DCMAKE_C_COMPILER=${NATIVE_CC} "$${NATIVE_SRC_DIR}",'
+SUBST_MESSAGE.native=	Building native-tools for the build host.
+.endif
+
 .if ${OPSYS} == "SunOS" || ${OPSYS} == "NetBSD"
 CMAKE_CONFIGURE_ARGS+=	-DALSOFT_BACKEND_SOLARIS=ON
 CMAKE_CONFIGURE_ARGS+=	-DALSOFT_REQUIRE_SOLARIS=ON
