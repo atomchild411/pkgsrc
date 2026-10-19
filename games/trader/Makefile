@@ -12,6 +12,11 @@ LICENSE=	gnu-gpl-v3
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
 
+# IRIX's struct lconv has the C89 fields only, all trader uses: gnulib's
+# replacement struct would need its localeconv module, which trader does
+# not import.
+CONFIGURE_ENV.IRIX+=	gl_cv_sys_struct_lconv_ok=yes
+
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
