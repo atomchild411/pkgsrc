@@ -30,5 +30,14 @@ post-install:
 	${INSTALL_DATA} docs/en/CALIBRATION.txt	docs/en/COLOR.txt	\
 		${DESTDIR}${PREFIX}/share/doc/pnm2ppa
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# make_hash_ink, run at build time to write hash_ink.c, is for the build host.
+SUBST_CLASSES+=		hashink
+SUBST_STAGE.hashink=	pre-configure
+SUBST_FILES.hashink=	Makefile
+SUBST_SED.hashink=	-e 's|^	\$$(CC) \$$(CFLAGS) -o make_hash_ink make_hash_ink.c|	${NATIVE_CC} -std=gnu89 -o make_hash_ink make_hash_ink.c|'
+.endif
+
 .include "../../devel/libgetopt/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
