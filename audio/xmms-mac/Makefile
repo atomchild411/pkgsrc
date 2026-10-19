@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	xmms-mac-0.3.1
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	audio
 MASTER_SITES=	# http://bsd.cenkes.org/myports/
 

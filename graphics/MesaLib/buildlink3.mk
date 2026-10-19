@@ -53,6 +53,9 @@ BUILDLINK_TREE+=	-MesaLib
 # they would make the builtin MesaLib one built from pkgsrc.
 .if ${OPSYS} == "IRIX"
 .  include "../../graphics/khronos-gl-headers/buildlink3.mk"
+# IRIX's libGL is an X11 library, and the programs that use it look for
+# x11.pc (glmark2): libX11 too, as MesaLib's own x11 option gives it.
+.  include "../../x11/libX11/buildlink3.mk"
 # Mesa's <GL/gl.h> defines APIENTRY (empty but on Windows), and code written
 # for it uses it without including <GL/glext.h>; IRIX's does not.
 CWRAPPERS_PREPEND.cc+=		-DAPIENTRY=
@@ -67,6 +70,9 @@ CWRAPPERS_PREPEND.cxx+=		-DAPIENTRY=
 .  if empty(DEPENDS:Mirix-gl-compat*)
 DEPENDS+=	irix-gl-compat>=20261017nb1:../../graphics/irix-gl-compat
 BUILDLINK_TRANSFORM+=	l:GL:GL:GLcompat
-LDFLAGS+=	-Wl,--as-needed -lGLcompat -Wl,--no-as-needed
+# One -Wl, argument: libtool would record a bare -lGLcompat in the
+# dependency_libs of every .la built here, and consumers without GL in
+# their buildlink tree (print/libppd) could not find it.
+LDFLAGS+=	-Wl,--as-needed,-lGLcompat,--no-as-needed
 .  endif
 .endif

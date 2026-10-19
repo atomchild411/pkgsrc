@@ -3,7 +3,7 @@
 
 PLUGIN_NAME=    vcalendar
 
-PKGREVISION= 16
+PKGREVISION= 17
 .include "../../mail/claws-mail/plugins.mk"
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.19 2025/03/11 07:52:38 wiz Exp $
 
 DISTNAME=	ode-0.16.5
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://bitbucket.org/odedevs/ode/downloads/
 
