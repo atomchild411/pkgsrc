@@ -44,8 +44,9 @@ MAKE_ENV+=	DEFAULTCONFIG='-DDEF_SEQ_PATH="\"${MAILINGLIST_DIR}\"" \
 
 .include "../../mk/bsd.prefs.mk"
 
-# Reported against Irix 5; assume all versions until proven otherwise
-.if ${OPSYS} == "IRIX"
+# Reported against Irix 5; assume all versions until proven otherwise.
+# (clang's IRIX headers declare strsep, and its runtime has one.)
+.if ${OPSYS} == "IRIX" && !empty(PKGSRC_COMPILER:Mmipspro*)
 MAKE_ENV+=	MOREOPTIONS=-DSTRSEP_MISSING
 .endif
 
