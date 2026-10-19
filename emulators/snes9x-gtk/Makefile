@@ -43,6 +43,21 @@ CMAKE_CONFIGURE_ARGS+=		-DUSE_OSS=OFF
 
 LDFLAGS.SunOS+=		-lsocket -lnsl
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# sourcify turns the UI file and icon into C++ during the build: build it
+# for the build host.
+SUBST_CLASSES+=		sourcify
+SUBST_STAGE.sourcify=	pre-configure
+SUBST_FILES.sourcify=	gtk/CMakeLists.txt
+SUBST_SED.sourcify=	-e 's,COMMAND sourcify ,COMMAND ${WRKDIR}/sourcify ,'
+SUBST_SED.sourcify+=	-e 's,DEPENDS sourcify),),'
+SUBST_MESSAGE.sourcify=	Using a sourcify built for the build host.
+
+pre-configure:
+	${NATIVE_CC} -o ${WRKDIR}/sourcify ${WRKSRC}/gtk/src/sourcify.c
+.endif
+
 .include "options.mk"
 .include "../../devel/cmake/build.mk"
 .include "../../archivers/minizip/buildlink3.mk"
