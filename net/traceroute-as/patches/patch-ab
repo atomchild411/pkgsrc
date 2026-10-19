@@ -1,8 +1,20 @@
 $NetBSD: patch-ab,v 1.2 2024/06/25 16:24:31 ryoon Exp $
 
---- traceroute.c.orig	2000-04-03 14:06:53.000000000 +0000
+IRIX has no IPPROTO_IPV4 (its IPPROTO_IPIP).
+
+--- traceroute.c.orig
 +++ traceroute.c
-@@ -297,7 +297,6 @@ static char Version[] = "@(#)traceroute.
+@@ -265,6 +265,9 @@
+ 
+ #include <netinet/in_systm.h>
+ #include <netinet/in.h>
++#ifndef IPPROTO_IPV4	/* IRIX calls it IPPROTO_IPIP */
++#define IPPROTO_IPV4 4
++#endif
+ #include <netinet/ip.h>
+ #if 0
+ #include <netinet/ip_var.h>	/* only needed for MAX_IPOPTLEN */
+@@ -297,7 +300,6 @@
  #define EXTERN extern
  #endif
  
@@ -10,7 +22,7 @@ $NetBSD: patch-ab,v 1.2 2024/06/25 16:24:31 ryoon Exp $
  EXTERN res_state_t _res;	/* defined in res_init.c */
  extern char *version;		/* program version number */
  
-@@ -982,16 +981,16 @@ check_proto()
+@@ -982,16 +984,16 @@
  {
  	struct protoent *proto;
  
