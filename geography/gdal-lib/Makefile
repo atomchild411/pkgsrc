@@ -47,6 +47,12 @@ CMAKE_CONFIGURE_ARGS+=	-DGDAL_USE_PARQUET=OFF
 # on numpy and hence the need for blas and fortran from the base gdal
 # package.
 CMAKE_CONFIGURE_ARGS+=		-DBUILD_PYTHON_BINDINGS=OFF
+# Without the bindings Python is only looked for, and CMake 4 refuses to
+# search for an interpreter when cross-compiling (policy CMP0190).
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+CMAKE_CONFIGURE_ARGS+=		-DCMAKE_DISABLE_FIND_PACKAGE_Python=ON
+.endif
 
 # Disable things that we don't want to build, more as documentation
 # than them needing to be forced off.
