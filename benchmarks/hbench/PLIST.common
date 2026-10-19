@@ -9,7 +9,7 @@ libexec/hbench/${PLATFORM}/bw_mmap_rd
 libexec/hbench/${PLATFORM}/bw_pipe
 libexec/hbench/${PLATFORM}/bw_tcp
 libexec/hbench/${PLATFORM}/hello
-libexec/hbench/${PLATFORM}/hello-s
+${PLIST.hellos}libexec/hbench/${PLATFORM}/hello-s
 libexec/hbench/${PLATFORM}/lat_connect
 libexec/hbench/${PLATFORM}/lat_ctx
 libexec/hbench/${PLATFORM}/lat_ctx2

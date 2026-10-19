@@ -18,6 +18,8 @@ DEPENDS+=		gnuplot>=3.7:../../graphics/gnuplot
 WRKSRC=				${WRKDIR}/HBenchOS
 OSVERSION_SPECIFIC=		YES
 BUILD_TARGET=			build
+# Its IRIX target adds MIPSpro's -32 (o32); clang builds n32.
+BUILDLINK_TRANSFORM.IRIX+=	rm:-32
 USE_TOOLS+=			perl:run
 OVERRIDE_GNU_CONFIG_SCRIPTS=	yes
 MAKE_JOBS_SAFE=			no
@@ -25,8 +27,14 @@ MAKE_JOBS_SAFE=			no
 GET_ARCH_CMD=		${PKGSRCDIR:Q}/mk/gnu-config/config.guess | ${SED} -e 's/-.*-.*$$//'
 GET_OS_CMD=		${PKGSRCDIR:Q}/mk/gnu-config/config.guess | ${SED} -e 's/^[^-]*-[^-]*-//;s/-.*$$//'
 PLIST_SUBST+=		PLATFORM=${GET_OS_CMD:sh:Q}-${GET_ARCH_CMD:sh:Q}
+# hello-s is built only where static linking works (not on IRIX).
+PLIST_VARS+=		hellos
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} != "IRIX"
+PLIST.hellos=		yes
+.endif
 
 BUILDLINK_TRANSFORM.SunOS+=	rm:-static
 

@@ -15,7 +15,14 @@ mkdir -p $PREFIX/share/hbench/Results
 for basedir in $DIRS; do
 	OSDIR=`basename $basedir`
 	mkdir -p $PREFIX/bin/hbench/$OSDIR
-	$BSD_INSTALL_PROGRAM bin/$OSDIR/* $PREFIX/bin/hbench/$OSDIR
+	# mhz is a shell script on IRIX (mhz.irix): install it unstripped.
+	for f in bin/$OSDIR/*; do
+		if [ -n "`sed -n '1{/^#!/p;q;}' $f`" ]; then
+			$BSD_INSTALL_SCRIPT $f $PREFIX/bin/hbench/$OSDIR
+		else
+			$BSD_INSTALL_PROGRAM $f $PREFIX/bin/hbench/$OSDIR
+		fi
+	done
 done
 
 for files in $SCRIPTS; do
