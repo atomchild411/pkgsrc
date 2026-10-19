@@ -7,3 +7,5 @@ BLAKE2s (znc-palaver-1.2.2.tar.gz) = 4b5a222eb3aa298dbb783a53f81ded4699da1976a26
 SHA512 (znc-palaver-1.2.2.tar.gz) = b91ba7200cac393557252874293f131c83a4cea83203457e8f6f91a129d8207c16951b983e52848ce4f54750752f69765ca26b8e3f50e74da2a11138eaf2bdce
 Size (znc-palaver-1.2.2.tar.gz) = 14649 bytes
 SHA1 (patch-src_ZNCString.cpp) = e5ac2422ce28712e34a0e43d799ca7e929f988f7
+SHA1 (patch-third__party_cctz_src_time__zone__format.cc) = 8584c16b88d0a73641a752f79aee63af73974108
+SHA1 (patch-third__party_cctz_src_time__zone__libc.cc) = e6ef801b61c25c2ee58df8d9f5425580e11908b2

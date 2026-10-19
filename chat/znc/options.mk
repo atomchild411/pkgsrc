@@ -2,7 +2,13 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.znc
 PKG_SUPPORTED_OPTIONS=	icu inet6 nls perl python sasl-cyrus tcl
-PKG_SUGGESTED_OPTIONS=	icu inet6 nls
+PKG_SUGGESTED_OPTIONS=	icu inet6
+
+.include "../../mk/bsd.fast.prefs.mk"
+# nls needs Boost.Locale, which devel/boost-libs leaves out on IRIX.
+.if ${OPSYS} != "IRIX"
+PKG_SUGGESTED_OPTIONS+=	nls
+.endif
 
 PKG_OPTIONS_LEGACY_OPTS+=	sasl:sasl-cyrus
 
