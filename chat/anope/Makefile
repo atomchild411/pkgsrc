@@ -72,6 +72,22 @@ CONF_FILES+=	${EGDIR}/modules.conf ${PKG_SYSCONFDIR}/modules.conf
 CONF_FILES+=	${EGDIR}/nickserv.conf ${PKG_SYSCONFDIR}/nickserv.conf
 CONF_FILES+=	${EGDIR}/operserv.conf ${PKG_SYSCONFDIR}/operserv.conf
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# version-bin writes version.h and build.h during the build: build it for
+# the build host.
+SUBST_CLASSES+=		versionbin
+SUBST_STAGE.versionbin=	pre-configure
+SUBST_FILES.versionbin=	include/CMakeLists.txt
+SUBST_SED.versionbin=	-e 's,COMMAND version-bin ,COMMAND ${WRKDIR}/version-bin ,'
+SUBST_SED.versionbin+=	-e 's,DEPENDS version-bin ,DEPENDS ,'
+SUBST_MESSAGE.versionbin=	Using a version-bin built for the build host.
+
+.PHONY: anope-host-version-bin
+pre-configure: anope-host-version-bin
+anope-host-version-bin:
+	${NATIVE_CXX} -o ${WRKDIR}/version-bin ${WRKSRC}/include/version.cpp
+.endif
+
 .include "options.mk"
 
 pre-configure:

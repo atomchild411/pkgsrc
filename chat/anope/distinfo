@@ -6,3 +6,4 @@ Size (anope-2.0.18.tar.gz) = 1656281 bytes
 SHA1 (patch-CMakeLists.txt) = 698034091457fb58de32a43fd701c7ce716f898e
 SHA1 (patch-data_CMakeLists.txt) = e0d762da4345ded9a080ea6cf216db510c4c1665
 SHA1 (patch-data_example.conf) = 6866b154f464ed6072b267f589ee67056bea73ac
+SHA1 (patch-src_siphash.cpp) = 8e1c9ea4a3202ae68f07b39780b895e7ef6976a8
