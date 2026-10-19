@@ -32,6 +32,17 @@ SUBST_FILES.conf+=	src/context.cpp
 SUBST_SED.conf+=	-e "s|@CONFDIR@|${PKG_SYSCONFDIR}|g"
 SUBST_MESSAGE.conf=	Fixing paths for configuration
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${OPSYS} == "IRIX"
+# The resolver is in libc: no libresolv.a for configure to find (its test
+# looks at the build machine's /usr/lib).
+SUBST_CLASSES+=		resolv
+SUBST_STAGE.resolv=	pre-configure
+SUBST_FILES.resolv=	src/Makefile.in
+SUBST_SED.resolv=	-e 's, @LIBRESOLVDIR@/libresolv\.a,,'
+SUBST_MESSAGE.resolv=	Not linking libresolv.a.
+.endif
+
 EGDIR=		share/examples/dnsbl-milter
 
 CONFS=		dnsbl.conf hosts-ignore.conf tld.conf html-tags.conf
