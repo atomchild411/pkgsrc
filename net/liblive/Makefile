@@ -35,6 +35,10 @@ do-configure:
 	${CP} ${FILESDIR}/config.netbsd ${WRKSRC}
 	${CP} ${FILESDIR}/config.netbsd ${WRKSRC}/config.dragonfly
 	${CP} ${FILESDIR}/config.netbsd ${WRKSRC}/config.darwin
+	# IRIX: the same (libtool), with its own -DIRIX and no sa_len.
+	${RM} -f ${WRKSRC}/config.irix
+	${SED} -e 's/-DBSD=1/-DIRIX/' -e 's/ -DHAVE_SOCKADDR_LEN=1//' \
+		${FILESDIR}/config.netbsd > ${WRKSRC}/config.irix
 	cd ${WRKSRC} && ${SH} ./genMakefiles ${LOWER_OPSYS}${LIVE_BITNESS}
 
 do-install:
