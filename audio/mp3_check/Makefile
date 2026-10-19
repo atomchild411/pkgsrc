@@ -14,4 +14,7 @@ INSTALLATION_DIRS=	bin
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/mp3_check ${DESTDIR}${PREFIX}/bin
 
+# -Wall -Werror: K&R definitions are warnings in clang (-Wdeprecated-non-prototype).
+BUILDLINK_TRANSFORM+=	rm:-Werror
+
 .include "../../mk/bsd.pkg.mk"
