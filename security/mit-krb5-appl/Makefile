@@ -54,6 +54,9 @@ MIT_KRB5_TRANSFORM=	s/^ftp/k&/
 PLIST_SUBST+=		KRB5_PREFIX=${KRB5_PREFIX:Q}
 CONFIGURE_ARGS+=	--program-transform-name=${MIT_KRB5_TRANSFORM:Q}
 
+# AC_CHECK_FILES cannot look when cross-compiling: IRIX has /etc/TIMEZONE.
+CONFIGURE_ENV.IRIX+=	ac_cv_file__etc_environment=no ac_cv_file__etc_TIMEZONE=yes
+
 INSTALLATION_DIRS=	bin sbin ${PKGMANDIR}/man1 ${PKGMANDIR}/man8
 
 # The MIT krb5 distribution is actually a tar file that contains the
