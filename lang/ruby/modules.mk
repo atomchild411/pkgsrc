@@ -147,7 +147,7 @@ ruby-setup-configure:
 .      if defined(USE_RUBY_SETUP_PKG) && empty(USE_RUBY_SETUP_PKG:M[nN][oO])
 	@${ECHO_MSG} "===>  Use pkgsrc's ruby-setup"
 	${RUN}cd ${WRKSRC}/${d}; \
-		${CP} ${PREFIX}/${RUBY_VENDORLIB}/setup.rb ${RUBY_SETUP}
+		${CP} ${TOOLBASE}/${RUBY_VENDORLIB}/setup.rb ${RUBY_SETUP}
 .      endif
 	@${ECHO_MSG} "===>  Running ${RUBY_SETUP} to configure"
 	${RUN}cd ${WRKSRC}/${d}; \
