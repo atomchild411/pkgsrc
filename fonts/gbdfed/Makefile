@@ -11,6 +11,10 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	GTK-based BDF font editor
 
 GNU_CONFIGURE=	yes
+
+# hbf.c ships in the tarball (AC_CHECK_FILE cannot look when cross-compiling).
+CONFIGURE_ENV+=		ac_cv_file_hbf_c=yes
+
 USE_TOOLS+=	pkg-config
 USE_LIBTOOL=	yes
 
