@@ -20,7 +20,18 @@ LICENSE=	mit
 USE_TOOLS+=	gmake
 USE_LANGUAGES=	c c++
 
-MAKE_ENV+=	TARGET_OS=NetBSD VERSION=${VERSION}
+# do-install looks in directories named after TARGET_OS.
+MAKE_ENV+=	TARGET_OS=${OPSYS} VERSION=${VERSION}
+
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# "dist" runs the self-test, which runs the program just built.
+SUBST_CLASSES+=		disttest
+SUBST_STAGE.disttest=	pre-build
+SUBST_FILES.disttest=	Makefile
+SUBST_SED.disttest=	-e '/^dist: test$$/d'
+SUBST_MESSAGE.disttest=	Not running the self-test when cross-compiling.
+.endif
 
 INSTALLATION_DIRS=	bin
 
