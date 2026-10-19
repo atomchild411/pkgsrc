@@ -1,6 +1,8 @@
 $NetBSD: patch-aa,v 1.1.1.1 2004/02/24 21:47:25 jmmv Exp $
 
---- Makefile.orig	Thu Aug 17 00:16:56 1995
+Do not make the program depend on -ljpeg (GNU make looks for it in the build machine's library directories).
+
+--- Makefile.orig
 +++ Makefile
 @@ -36,9 +36,9 @@
  ##############
@@ -24,11 +26,13 @@ $NetBSD: patch-aa,v 1.1.1.1 2004/02/24 21:47:25 jmmv Exp $
  
  ############################################################################
  # LIBRARIES # specify library directories; need jpg lib and maybe pbm	   #
-@@ -203,7 +203,7 @@
+@@ -202,8 +202,8 @@
+ # BINARIES #
  ############
  
- mpeg_encode: $(MP_ALL_OBJS) $(JPEG_LIB)
+-mpeg_encode: $(MP_ALL_OBJS) $(JPEG_LIB)
 -	$(PURIFY) $(CC) $(CFLAGS) -o $@ $(MP_ALL_OBJS) $(LIBDIRS) $(LIBS)
++mpeg_encode: $(MP_ALL_OBJS)
 +	$(PURIFY) $(CC) $(LDFLAGS) -o $@ $(MP_ALL_OBJS) $(LIBDIRS) $(LIBS)
  	strip mpeg_encode
  

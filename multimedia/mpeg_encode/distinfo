@@ -3,7 +3,7 @@ $NetBSD: distinfo,v 1.13 2021/10/26 11:01:13 nia Exp $
 BLAKE2s (mpeg_encode-1.5b-src.tar.gz) = 709512af317353565306675afea1c1f65fc0e8c186877f4691112c9ba46d8a2b
 SHA512 (mpeg_encode-1.5b-src.tar.gz) = df6f9def3ba05c752ebdc5311c512688d6fae380480009dad55b4183a378685eca79943c075166b21ed3bfd0cce7697761abc6ec795f57c0ed1c60c2a5cba469
 Size (mpeg_encode-1.5b-src.tar.gz) = 2028724 bytes
-SHA1 (patch-aa) = 04221eb3d4cf85b206d27a2f425719ed7c4a5ec1
+SHA1 (patch-aa) = 7a32401f9c51819db3880e98ff3958a5c288ea76
 SHA1 (patch-ab) = 19fcf1b6ef88f3cdba29a71eb619e467fa621f4f
 SHA1 (patch-ac) = fe4bcb9082ed830020e3c0e8993664a7dc04af90
 SHA1 (patch-ad) = 670a244680d09cb9f558a8777ec8f189145342f8
