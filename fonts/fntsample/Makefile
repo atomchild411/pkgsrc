@@ -24,6 +24,22 @@ REPLACE_PERL=	scripts/pdfoutline.pl scripts/pdf-extract-outline.pl
 
 CMAKE_CONFIGURE_ARGS+=	-DUNICODE_BLOCKS=${WRKDIR}/${BLOCKS_TXT}
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# gen-unicode-blocks turns Blocks.txt into C source: build it for the
+# build host.
+SUBST_CLASSES+=		genblocks
+SUBST_STAGE.genblocks=	pre-configure
+SUBST_FILES.genblocks=	src/CMakeLists.txt
+SUBST_SED.genblocks=	-e 's,"$$<TARGET_FILE:gen-unicode-blocks>","${WRKDIR}/gen-unicode-blocks",'
+SUBST_SED.genblocks+=	-e 's,DEPENDS gen-unicode-blocks,,'
+SUBST_MESSAGE.genblocks=	Using a gen-unicode-blocks built for the build host.
+
+pre-configure:
+	cd ${WRKSRC}/src && ${NATIVE_CC} -std=gnu99 \
+		-o ${WRKDIR}/gen-unicode-blocks gen_unicode_blocks.c read_blocks.c
+.endif
+
 .include "../../devel/pango/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
