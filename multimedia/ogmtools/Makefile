@@ -16,6 +16,10 @@ FORCE_CXX_STD=	c++11
 GNU_CONFIGURE=	YES
 
 CONFIGURE_ARGS+=	--with-dvdread-includes=${BUILDLINK_DIR:Q}
+
+# AC_CHECK_FILE cannot look when cross-compiling: the header is in buildlink.
+CONFIGURE_ENV+=		ac_cv_file_${BUILDLINK_DIR:C/[^A-Za-z0-9]/_/g}_include_dvdread_dvd_reader_h=yes
+
 CPPFLAGS.SunOS+=	-Du_int16_t=uint16_t -Du_int32_t=uint32_t -Du_int64_t=uint64_t
 
 .include "../../audio/libvorbis/buildlink3.mk"
