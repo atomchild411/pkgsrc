@@ -17,6 +17,15 @@ TOOLS_BROKEN+=	perl
 
 MAKE_JOBS_SAFE=		no
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# makephrases, run at build time to write phrases.h, is for the build host.
+SUBST_CLASSES+=		makephr
+SUBST_STAGE.makephr=	pre-configure
+SUBST_FILES.makephr=	Makefile.in
+SUBST_SED.makephr=	-e 's|^	\$$(CC) \$$(LDFLAGS) -o makephrases \$$(makepobjs) \$$(LIBS)|	${NATIVE_CC} $$(DEFS) -I. -o makephrases makephrases.c suck_phrases.c rpost_phrases.c test_phrases.c both_phrases.c lmove_phrases.c|'
+.endif
+
 .include "options.mk"
 
 post-patch:
