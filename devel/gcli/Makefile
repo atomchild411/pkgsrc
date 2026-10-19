@@ -17,5 +17,15 @@ USE_TOOLS+=	pkg-config
 
 PKGCONFIG_OVERRIDE+=	libgcli.pc.in
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# pgen, run at build time to write the JSON parsers (C source), is for the
+# build host.
+SUBST_CLASSES+=		pgen
+SUBST_STAGE.pgen=	pre-configure
+SUBST_FILES.pgen=	Makefile.in
+SUBST_SED.pgen=		-e 's|^	\$$(AM_V_CCLD)\$$(LINK) \$$(pgen_OBJECTS) .*|	${NATIVE_CC} -I. -I$$(srcdir)/include -Isrc/pgen -o $$@ $$(srcdir)/src/pgen/dump_c.c $$(srcdir)/src/pgen/dump_h.c $$(srcdir)/src/pgen/dump_plain.c src/pgen/parser.c src/pgen/lexer.c|'
+.endif
+
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
