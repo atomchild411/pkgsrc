@@ -22,6 +22,7 @@ SHA1 (patch-ap) = 65b770be063e7047813ad465a471ec6a85e214f6
 SHA1 (patch-ar) = 36db7e4c656bf083ff773d3bebffcf9118b81050
 SHA1 (patch-as) = 009a65a80db52ca873b88240ee87dc5d3737f9c9
 SHA1 (patch-at) = 488e6d5f90a76e2f97f93cee20097adead550f7b
+SHA1 (patch-configure) = 03ca4aced3f1ceb92c8f1aaf60fd93befb7231fa
 SHA1 (patch-lib_ftfil.c) = 8d8f901a63af1d19f38ac74c63b32c92844c2809
 SHA1 (patch-lib_ftstat.c) = 80944177b1d90784dda7815eae627a317bfd66db
 SHA1 (patch-src_flow-print.c) = 142ab6afaf8ebb2bc7fe18fcdc3c7243c4ea2ad1

@@ -1,0 +1,19 @@
+$NetBSD$
+
+Cross-compiling (IRIX n32): strtoul does not return 64 bits.
+
+--- configure.orig
++++ configure
+@@ -6304,11 +6304,7 @@
+ echo "$as_me:$LINENO: checking strtoul returns 64 bits" >&5
+ echo $ECHO_N "checking strtoul returns 64 bits... $ECHO_C" >&6
+ if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++  echo "${ECHO_T}no (assumed: cross-compiling, 32-bit long)" >&6
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ #line $LINENO "configure"
