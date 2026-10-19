@@ -17,6 +17,12 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--without-bind
 # XXX: https://github.com/wojtekka/libgadu/issues/25
 CONFIGURE_ARGS+=	--without-pthread
+
+# IRIX: vsnprintf is C99 (the runtime's __irix_vsnprintf); the test cannot run when cross-compiling.
+CONFIGURE_ARGS.IRIX+=	--with-c99-vsnprintf
+# IRIX's gethostbyname_r has the Solaris (5-argument) form.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_gethostbyname_r=no
+
 PKGCONFIG_OVERRIDE+=	pkgconfig/libgadu.pc.in
 TEST_TARGET=		check
 
