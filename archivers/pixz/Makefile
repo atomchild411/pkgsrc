@@ -13,6 +13,10 @@ COMMENT=	Parallel, indexed xz compressor
 LICENSE=	2-clause-bsd
 
 GNU_CONFIGURE=	yes
+
+# The man page ships in the tarball (AC_CHECK_FILE cannot look when cross-compiling).
+CONFIGURE_ENV+=		ac_cv_file_src_pixz_1=yes
+
 USE_TOOLS+=	pkg-config
 
 INSTALLATION_DIRS=	${PKGMANDIR}/man1
