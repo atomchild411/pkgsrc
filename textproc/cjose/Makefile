@@ -14,6 +14,9 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
 
+# clang's -Wsometimes-uninitialized (jwk.c d_buflen) under the package's -Werror.
+BUILDLINK_TRANSFORM+=	rm:-Werror
+
 PKGCONFIG_OVERRIDE+=	cjose.pc.in
 
 .include "../../security/openssl/buildlink3.mk"
