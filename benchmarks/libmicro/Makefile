@@ -33,6 +33,9 @@ SUBST_SED.fix-arch=	-e 's|@@MACHINE_ARCH@@|${MACHINE_ARCH}|'
 post-patch:
 	cd ${WRKSRC} && ${LN} -s Makefile.NetBSD Makefile.OpenBSD
 	cd ${WRKSRC} && ${LN} -s Makefile.DragonFly Makefile.FreeBSD
+	# IRIX: as NetBSD, without the atomic benchmark (no <atomic.h>).
+	cd ${WRKSRC} && ${SED} -e 's/^		cachetocache$$/		cachetocache atomic/' \
+		Makefile.NetBSD > Makefile.IRIX
 
 post-build:
 	${SED}  -e 's|@@DESTDIR@@|${DESTDIR}|'		\
