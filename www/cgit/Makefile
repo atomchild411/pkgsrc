@@ -32,6 +32,9 @@ BUILD_MAKE_FLAGS+=	CGIT_CONFIG=${PKG_SYSCONFDIR}/cgitrc
 
 MAKE_ENV+=		CGIT_LIBS=${LIBNBCOMPAT_LIBNAME}
 MAKE_ENV.SunOS+=	NEEDS_LIBICONV=YesPlease
+# git's config.mak.uname has SHELL_PATH=/usr/gnu/bin/bash for IRIX, which
+# the (cross) build runs; cgit installs none of git's scripts.
+MAKE_FLAGS.IRIX+=	SHELL_PATH=${SH:Q}
 
 BUILD_TARGET=	all doc-man
 INSTALL_TARGET=	install install-man
