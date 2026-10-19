@@ -27,4 +27,14 @@ _WRAP_EXTRA_ARGS.CXX+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cc+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# mkdata, run at build time to write the compiler's headers, is for the build
+# host.
+SUBST_CLASSES+=		mkdata
+SUBST_STAGE.mkdata=	pre-configure
+SUBST_FILES.mkdata=	Makefile
+SUBST_SED.mkdata=	-e 's|^	\$$(LD) -o bin/mkdata |	${NATIVE_CXX} -o bin/mkdata |'
+.endif
+
 .include "../../mk/bsd.pkg.mk"
