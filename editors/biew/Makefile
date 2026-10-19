@@ -22,9 +22,12 @@ USE_TOOLS+=	gmake
 MAKE_FILE=	makefile
 
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
+# biewlib has machine-dependent code for x86 and ppc only; configure
+# picks mips (no such directory) on IRIX.
+CONFIGURE_ARGS.IRIX+=	--target-arch=generic
 
 .include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
+.if !empty(PKGSRC_COMPILER:Mclang) && ${OPSYS} != "IRIX"
 CFLAGS+=	-no-integrated-as
 .endif
 
