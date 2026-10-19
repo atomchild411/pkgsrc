@@ -11,6 +11,16 @@ COMMENT=	TRS-80 Model I/III/4 Emulator for Unix
 
 BUILD_TARGET=	default
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# compile_rom, run at build time to write the ROM images (C source), is for
+# the build host.
+SUBST_CLASSES+=		comprom
+SUBST_STAGE.comprom=	pre-configure
+SUBST_FILES.comprom=	Makefile
+SUBST_SED.comprom=	-e 's|^		\$$(CC) -o compile_rom \$$(CR_OBJECTS)|		${NATIVE_CC} -I. -o compile_rom compile_rom.c error.c load_cmd.c load_hex.c|'
+.endif
+
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/readline.buildlink3.mk"
 
