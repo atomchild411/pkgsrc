@@ -24,7 +24,7 @@ post-patch:
 			-e "s| -Dsun -DSVR4||" \
 			-e "s| -lsocket -lnsl -lw||" \
 			-e "s| -Xc||" \
-			-e "s|/usr/include/sys/feature_tests.h||" \
+			-e "s|/usr/include/[a-z/_]*\.h||g" \
 			-e "s|/usr/tmp|/tmp|g" \
 			-e "s|/usr/local|${PREFIX}|g" \
 			-e "s|/usr/local/man|${PREFIX}/man|" ;\
