@@ -9,6 +9,16 @@ BUILTIN_FIND_GREP.H_GETOPT=	int.*getopt_long
 
 .include "../../mk/buildlink3/bsd.builtin.mk"
 
+# IRIX's <getopt.h> has getopt only, but clang's IRIX wrapper for it declares
+# getopt_long and getopt_long_only, and compiler-rt provides them; always
+# use those (as with GL in MesaLib/builtin.mk).  With pkgsrc's getopt.h in
+# the buildlink tree, IRIX's <stdlib.h>, which includes <getopt.h>, gives
+# every source file a struct option.
+.if ${OPSYS} == "IRIX"
+IS_BUILTIN.getopt=	yes
+USE_BUILTIN.getopt=	yes
+.endif
+
 ###
 ### Determine if there is a built-in implementation of the package and
 ### set IS_BUILTIN.<pkg> appropriately ("yes" or "no").
