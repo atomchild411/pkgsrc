@@ -34,6 +34,12 @@ pre-configure: buildlink-Xaw3d-inc-hack
 buildlink-Xaw3d-inc-hack: buildlink-directories
 	cd ${BUILDLINK_DIR}/include/X11 && ln -s Xaw3d Xaw
 
+# The top Makefile reruns "./configure --quiet" (no --enable-global, so
+# the programs go to tools/bin/<host>) when Makefile.def looks older than
+# configure.
+post-configure:
+	cd ${WRKSRC} && touch Makefile.def config.h
+
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/help.hdoc ${DESTDIR}${XGUILOADPATH}
 	${INSTALL_DATA} ${WRKSRC}/default.cfg ${DESTDIR}${XGUILOADPATH}
@@ -55,4 +61,11 @@ CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 .include "../../x11/libXaw3d/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${OPSYS} == "IRIX"
+# IRIX has no lex library: flex's libfl has the same yywrap and main.
+BUILDLINK_TRANSFORM+=	l:l:fl
+.  include "../../devel/flex/buildlink3.mk"
+.endif
+
 .include "../../mk/bsd.pkg.mk"
