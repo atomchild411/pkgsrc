@@ -23,5 +23,16 @@ post-install:
 	${INSTALL_MAN} ${WRKSRC}/phone.1 \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/phone.1
 
+# The makefiles name headers under /usr/include as dependencies; a cross
+# build host need not have them there (make then tries RCS co).
+SUBST_CLASSES+=		incdeps
+SUBST_STAGE.incdeps=	post-patch
+SUBST_MESSAGE.incdeps=	Removing dependencies on /usr/include headers.
+SUBST_FILES.incdeps=	master/Makefile conv/Makefile
+SUBST_SED.incdeps=	-e 's,/usr/include/[a-z/]*\.h,,g'
+
+# IRIX: the termcap functions are in ncurses (no libtermlib).
+BUILDLINK_TRANSFORM.IRIX+=	rm:-ltermlib
+
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

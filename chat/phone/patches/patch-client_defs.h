@@ -3,11 +3,17 @@ $NetBSD: patch-client_defs.h,v 1.2 2015/11/07 22:19:46 dholland Exp $
 - Don't rely on __unused from netbsd's <cdefs.h> existing.
 - Use a more portable username size symbol for the sake of Solaris.
 - Also include limits.h to make sure that symbol is defined.
+IRIX: <poll.h> has no INFTIM, childpid is a pid_t (long), TIOCNOTTY is in <sys/termios.h>.
 
---- client/defs.h.orig	2013-01-02 23:00:42.000000000 +0000
+--- client/defs.h.orig
 +++ client/defs.h
-@@ -24,6 +24,11 @@
+@@ -22,8 +22,16 @@
+ #include <stdarg.h>
+ #include <errno.h>
  #include <poll.h>
++#ifndef INFTIM
++#define INFTIM (-1)
++#endif
  #include <curses.h>
  #include <netdb.h>
 +#include <limits.h>
@@ -18,7 +24,7 @@ $NetBSD: patch-client_defs.h,v 1.2 2015/11/07 22:19:46 dholland Exp $
  
  int	msgpending;
  int	killedchild;
-@@ -38,7 +43,7 @@ char	*mytty;			    /* tty he's on	      
+@@ -38,7 +46,7 @@
  char	*home;			    /* home directory	       */
  const char *shell;		    /* preferred shell	       */
  char	myhost[MAXHOSTNAMELEN];	    /* local host name	       */

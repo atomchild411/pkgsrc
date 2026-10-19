@@ -4,10 +4,21 @@ $NetBSD: patch-conv_convd.c,v 1.3 2017/02/07 23:55:05 joerg Exp $
 - Remove unused variable that causes build failure with gcc48.
 - Add explicit casts if the constants are not value preserved
   on signed char platforms.
+IRIX: <poll.h> has no INFTIM, childpid is a pid_t (long), TIOCNOTTY is in <sys/termios.h>.
 
---- conv/convd.c.orig	2013-01-02 23:00:43.000000000 +0000
+--- conv/convd.c.orig
 +++ conv/convd.c
-@@ -48,6 +48,10 @@
+@@ -38,6 +38,9 @@
+ #include <stdlib.h>
+ #include <err.h>
+ #include <poll.h>
++#ifndef INFTIM
++#define INFTIM (-1)
++#endif
+ #include <stdarg.h>
+ #include <string.h>
+ #include <fcntl.h>
+@@ -48,6 +51,10 @@
  
  #include "../common.h"
  
@@ -18,7 +29,7 @@ $NetBSD: patch-conv_convd.c,v 1.3 2017/02/07 23:55:05 joerg Exp $
  #ifndef lint
  #if 0
  static char __unused char RCSid[] = "Header: convd.c,v 1.1 85/10/29 14:20:06 broome Exp ";
-@@ -98,7 +102,6 @@ main(int argc, char *argv[])
+@@ -98,7 +105,6 @@
      int	 sl;
      int	 fds;
      int	 r;
@@ -26,7 +37,7 @@ $NetBSD: patch-conv_convd.c,v 1.3 2017/02/07 23:55:05 joerg Exp $
      static	int  new, old;
      struct	iovec iov[2];
      char	recvbuf[BUFSIZ];
-@@ -113,7 +116,6 @@ main(int argc, char *argv[])
+@@ -113,7 +119,6 @@
      stayaround = 1;
      currslot = -1;
      highslot = -1;
@@ -34,7 +45,7 @@ $NetBSD: patch-conv_convd.c,v 1.3 2017/02/07 23:55:05 joerg Exp $
  
      signal(SIGPIPE, SIG_IGN);  /* we'll find out soon enough */
      signal(SIGALRM, sigalrm);  /* to handle timeout */
-@@ -357,7 +359,7 @@ intro(int fd)
+@@ -357,7 +362,7 @@
      char     sc;		/* used for slot number selection */
  
      /* tell user not to update screen until done with intro */
@@ -43,7 +54,7 @@ $NetBSD: patch-conv_convd.c,v 1.3 2017/02/07 23:55:05 joerg Exp $
      write(fd, &sc, 1);
  
      /* first go through and add all the windows */
-@@ -404,7 +406,7 @@ intro(int fd)
+@@ -404,7 +409,7 @@
      }
  
      /* now he can update the screen */
