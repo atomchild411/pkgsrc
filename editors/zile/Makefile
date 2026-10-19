@@ -21,6 +21,17 @@ CONFIGURE_ARGS+=	--disable-silent-rules
 
 INFO_FILES=		yes
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# doc/zile.1.in is made by running zile through help2man; keep the one in
+# the distribution.
+SUBST_CLASSES+=		zileman
+SUBST_STAGE.zileman=	pre-configure
+SUBST_FILES.zileman=	Makefile.in
+SUBST_SED.zileman=	-e '/^$$(srcdir)\/doc\/zile\.1\.in:/s, $$(builddir)/src/zile$$(EXEEXT),,'
+SUBST_MESSAGE.zileman=	Keeping the distributed zile.1.in.
+.endif
+
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/libgee/buildlink3.mk"
 .include "../../devel/libgetopt/buildlink3.mk"
