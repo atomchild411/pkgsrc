@@ -16,4 +16,7 @@ INSTALL_MAKE_FLAGS+=	MANDIR=${PREFIX:Q}/${PKGMANDIR:Q}
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/cat1 ${PKGMANDIR}/man1 \
 			share/examples/spegla
 
+# IRIX has no libcompat.
+BUILDLINK_TRANSFORM.IRIX+=	rm:-lcompat
+
 .include "../../mk/bsd.pkg.mk"
