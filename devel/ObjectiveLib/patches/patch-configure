@@ -1,0 +1,37 @@
+$NetBSD$
+
+Cross-compiling: assume realpath() fails for a missing file, as POSIX says (IRIX, glibc).
+Cross-compiling: assume a maximum path length of 1023 (IRIX PATH_MAX 1024).
+
+--- configure.orig
++++ configure
+@@ -21552,11 +21552,10 @@
+ echo "$as_me:$LINENO: checking whether realpath sucks" >&5
+ echo $ECHO_N "checking whether realpath sucks... $ECHO_C" >&6
+ if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++  cat >>confdefs.h <<\_ACEOF
++#define OL_REALPATH_SUCKS 1
++_ACEOF
++echo "${ECHO_T}yes (assumed: cross-compiling)" >&6
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -23356,11 +23355,8 @@
+ echo "$as_me:$LINENO: checking maximum path name length" >&5
+ echo $ECHO_N "checking maximum path name length... $ECHO_C" >&6
+ if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++  OL_PATH_MAX=1023	# assumed: cross-compiling (IRIX PATH_MAX 1024)
++echo "${ECHO_T}${OL_PATH_MAX}" >&6
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */

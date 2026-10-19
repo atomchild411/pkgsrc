@@ -5,3 +5,4 @@ SHA512 (objectivelib-1.0.0.tar.gz) = 1d9c53703600f7ad795bb6cbfee81d3f4e90a01a3b6
 Size (objectivelib-1.0.0.tar.gz) = 833390 bytes
 SHA1 (patch-aa) = 252731ba467f93dcadf796b65f6d993704ac6e22
 SHA1 (patch-ab) = bceb865ac5c72d47dfa219411836c047bfae1510
+SHA1 (patch-configure) = 4417de7a3cf4b37cc306aab652ecb5ac8e64eb4a
