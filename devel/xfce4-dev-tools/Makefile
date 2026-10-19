@@ -28,5 +28,15 @@ GNU_CONFIGURE=	yes
 
 MAKE_DIRS+=	${PREFIX}/share/xfce4
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The tests run the xdt-csource just built.
+SUBST_CLASSES+=		notests
+SUBST_STAGE.notests=	pre-configure
+SUBST_FILES.notests=	Makefile.in
+SUBST_SED.notests=	-e 's,^  tests$$,,'
+SUBST_MESSAGE.notests=	Not building the tests.
+.endif
+
 .include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"
