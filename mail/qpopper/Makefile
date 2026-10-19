@@ -13,6 +13,18 @@ MAINTAINER=		mellon@fugue.com
 HOMEPAGE=		${QPOPPER_HOMEPAGE}
 COMMENT=		Qualcomm's POP server for Eudora
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && ${OPSYS} == "IRIX"
+# configure looks for sendmail with test -f on the build host; IRIX's is
+# /usr/lib/sendmail.
+SUBST_CLASSES+=		sendmail
+SUBST_STAGE.sendmail=	pre-configure
+SUBST_FILES.sendmail=	configure
+SUBST_SED.sendmail=	-e 's|^if test -f \$${sbindir}/sendmail$$|if false|'
+SUBST_SED.sendmail+=	-e 's|^elif test -f /usr/sbin/sendmail$$|elif false|'
+SUBST_SED.sendmail+=	-e 's|^elif test -f /usr/lib/sendmail$$|elif true|'
+.endif
+
 .include "Makefile.common"
 
 CONFIGURE_ARGS+=	--enable-apop=${QPOPPER_APOP_AUTH:Q} \
