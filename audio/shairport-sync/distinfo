@@ -8,4 +8,5 @@ SHA1 (patch-audio.c) = 1f17b80f0f5eaab05f76b6b825d69d09835b88de
 SHA1 (patch-audio__sun.c) = b48b166b557bb61e89b7f91ba812ef9f3f76ff01
 SHA1 (patch-common.c) = 495e6e7cdf243daf18c695e052eef1bf0174c880
 SHA1 (patch-configure.ac) = ea06a77574022542263fab5affef5722a6a31b7c
+SHA1 (patch-rtsp.c) = 93628d1471404cda56047d9eb2ea361e9a86f1c7
 SHA1 (patch-shairport.c) = 729a32616bf71a4cfa3ba26110160c0bea43de61
