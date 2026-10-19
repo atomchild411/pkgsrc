@@ -22,6 +22,16 @@ _WRAP_EXTRA_ARGS.CXX+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cc+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 
+.include "../../mk/bsd.fast.prefs.mk"
+# The build runs wavegen to write the wave tables (C source): build it for
+# the build host.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+SUBST_CLASSES+=		wavegen
+SUBST_STAGE.wavegen=	pre-configure
+SUBST_FILES.wavegen=	src/Makefile.in
+SUBST_SED.wavegen=	-e 's|^	\$$(wavegen_LINK) .*|	${NATIVE_CC} -I${BUILDLINK_DIR}/include -Iinclude -I. -I.. -o $$@ wavegen.c wdatutil.c -lm|'
+.endif
+
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../audio/ladspa/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
