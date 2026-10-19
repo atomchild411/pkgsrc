@@ -35,5 +35,11 @@ SPECIAL_PERMS+=		bin/multicheckpw ${QMAIL_ROOT_USER} ${QMAIL_NOFILES_GROUP} 4510
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# "check" runs the test program just built.
+INSTALL_TARGET=		setup
+.endif
+
 .include "../../mk/djbware.mk"
 .include "../../mk/bsd.pkg.mk"
