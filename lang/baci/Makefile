@@ -15,6 +15,15 @@ USE_TOOLS+=	flex bison:run
 
 INSTALLATION_DIRS=	bin
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# makedate, run at build time to write the build date, is for the build host.
+SUBST_CLASSES+=		makedate
+SUBST_STAGE.makedate=	pre-configure
+SUBST_FILES.makedate=	lib/Makefile
+SUBST_SED.makedate=	-e 's|^	\$$(CC) \$$(CFLAGS) -o makedate makedate.c|	${NATIVE_CC} -o makedate makedate.c|'
+.endif
+
 do-build:
 	cd ${WRKSRC}/ccomp && ${MAKE}
 	cd ${WRKSRC}/disasm && ${MAKE}
