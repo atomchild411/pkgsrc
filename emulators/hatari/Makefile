@@ -35,6 +35,23 @@ INSTALLATION_DIRS+=	share/doc/hatari
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# build68k and gencpu generate the CPU core during the build; the cross
+# branch compiles them with "cc", which is the target's here.
+SUBST_CLASSES+=		hostcc
+SUBST_STAGE.hostcc=	pre-configure
+SUBST_FILES.hostcc=	src/cpu/CMakeLists.txt
+SUBST_SED.hostcc=	-e 's,COMMAND cc -I,COMMAND ${NATIVE_CC} -I,'
+SUBST_MESSAGE.hostcc=	Building the CPU generators for the build host.
+# The Python GTK probe would find the build machine's PyGObject and add
+# hatariui, which the PLIST leaves out (no py-gobject dependency).
+SUBST_CLASSES+=		nopyui
+SUBST_STAGE.nopyui=	pre-configure
+SUBST_FILES.nopyui=	CMakeLists.txt
+SUBST_SED.nopyui=	-e 's,^if(Python_Interpreter_FOUND)$$,if(FALSE),'
+SUBST_MESSAGE.nopyui=	Not installing the Python UI.
+.endif
+
 .include "../../audio/portaudio/buildlink3.mk"
 .include "../../devel/SDL2/buildlink3.mk"
 .include "../../devel/cmake/build.mk"
