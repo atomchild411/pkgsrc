@@ -21,6 +21,18 @@ USE_CC_FEATURES+=	c11
 # pkgsrc passes in its own LDFLAGS, and this part is lost (as of 0.7)
 LDFLAGS+=		-L$$(LIBDIR)
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# bin2cstr, emojigen and xtc run during the build (zimk's HOSTBUILD):
+# without the target's CFLAGS and LDFLAGS (-L${PREFIX}/lib -lintl).
+MAKE_FLAGS+=		HOSTCC=${NATIVE_CC:Q}
+SUBST_CLASSES+=		hostbuild
+SUBST_STAGE.hostbuild=	pre-build
+SUBST_FILES.hostbuild=	GNUmakefile
+SUBST_SED.hostbuild=	-e 's,HOSTBUILD=1,HOSTBUILD=1 CFLAGS=-O2 LDFLAGS=,'
+SUBST_MESSAGE.hostbuild=	Not passing target flags to the build-host tools.
+.endif
+
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
