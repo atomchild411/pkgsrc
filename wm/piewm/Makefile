@@ -11,6 +11,10 @@ COMMENT=	Minimalist window manager based on tvtwm with pie menus
 USE_IMAKE=	yes
 USE_TOOLS+=	lex:run yacc
 
+# imake's sgi.cf defines SVR4, and <X11/Xthreads.h> then wants UI threads
+# (<thread.h>), which IRIX lacks: its pthread branch is right.
+BUILDLINK_TRANSFORM.IRIX+=	rm:-DSVR4
+
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXmu/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"
