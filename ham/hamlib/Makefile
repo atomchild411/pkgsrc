@@ -23,6 +23,11 @@ USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 
+# IRIX's <unistd.h> has _POSIX_TIMERS but no _POSIX_MONOTONIC_CLOCK, though
+# clang's IRIX <time.h> provides CLOCK_MONOTONIC; without it precise_time.c
+# falls back to x86 rdtscp assembly.
+CPPFLAGS.IRIX+=		-D_POSIX_MONOTONIC_CLOCK=200112L
+
 # \todo Consider language bindings.
 CONFIGURE_ARGS+=	--without-tcl-binding \
 			--without-perl-binding \

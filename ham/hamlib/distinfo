@@ -3,5 +3,6 @@ $NetBSD: distinfo,v 1.40 2026/06/21 21:21:47 gdt Exp $
 BLAKE2s (hamlib-4.7.2.tar.gz) = 6e40f8798dbc172eac87c0943886dfa0cf1af9309c3866b045b11b8b4fb962fb
 SHA512 (hamlib-4.7.2.tar.gz) = 62063cfa5bc87efe735243d8776ac2bf942000e890824b241c32b329b0bd2f40ec708c89ee59a56f24a3988a30bb4dec463a467223dbc06d64665f72c15ff625
 Size (hamlib-4.7.2.tar.gz) = 3107379 bytes
+SHA1 (patch-src_misc.c) = 3c69fd10a59af62daad1ad82568087d810c4a847
 SHA1 (patch-src_network.c) = ca55437ace4576abfbeb5693b400d5a85179e17d
 SHA1 (patch-src_snapshot__data.c) = d53e926368320a0d81aea8ac1f772d99c09ad9e1
