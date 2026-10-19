@@ -35,4 +35,19 @@ INSTALL_MAKE_FLAGS+=	DOCDIR=${DESTDIR}${PREFIX}/share/doc/elvis
 
 INSTALLATION_DIRS=	${PKGMANDIR}/man1
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# Installing runs elvtags (ctags) on the stubs to make share/elvis/tags:
+# use one built for the build host.
+SUBST_CLASSES+=		elvtags
+SUBST_STAGE.elvtags=	post-build
+SUBST_FILES.elvtags=	Makefile
+SUBST_SED.elvtags=	-e 's,$$(BINDIR)/elvtags -gitv,${WRKDIR}/elvtags-host -gitv,'
+SUBST_MESSAGE.elvtags=	Using an elvtags built for the build host.
+
+post-build:
+	cd ${WRKSRC} && ${NATIVE_CC} -Iosunix -o ${WRKDIR}/elvtags-host \
+		ctags.c tag.c safe.c
+.endif
+
 .include "../../mk/termcap.buildlink3.mk"
