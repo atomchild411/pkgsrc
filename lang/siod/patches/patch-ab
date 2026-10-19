@@ -7,9 +7,10 @@ Add *BSD defs
 Work around lchmod function and syscall clash.
 
 Work around missing putpwent on NetBSD.
+IRIX 6.5 has usleep: do not define one.
 
---- slibu.c	1999/08/06 09:27:05	1.1
-+++ slibu.c	1999/08/06 09:28:11
+--- slibu.c.orig
++++ slibu.c
 @@ -29,6 +29,7 @@
  #include <sys/stat.h>
  #include <sys/time.h>
@@ -66,7 +67,7 @@ Work around missing putpwent on NetBSD.
  #endif
  
 -#if defined(sun) || defined(sgi)
-+#if (defined(sun) && !defined(__svr4__)) || defined(sgi)
++#if (defined(sun) && !defined(__svr4__))	/* IRIX 6.5 has usleep */
  long usleep(unsigned int winks)
  {struct timespec x;
   x.tv_sec = winks / 1000000;
