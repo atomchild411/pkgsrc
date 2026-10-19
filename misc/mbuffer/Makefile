@@ -34,6 +34,10 @@ CONF_FILES+=		share/examples/mbuffer/mbuffer.rc \
 
 CHECK_PORTABILITY_SKIP+=	configure.in
 
+# idev.so and tapetest.so are LD_PRELOAD shims for the tests; they need
+# RTLD_NEXT, which IRIX lacks.
+BUILD_TARGET.IRIX=	mbuffer
+
 TEST_TARGET=		test0 test1 test2 test3 test4 test5 test6 test7
 
 .include "../../security/openssl/buildlink3.mk"
