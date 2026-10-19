@@ -1,7 +1,9 @@
 $NetBSD: patch-ab,v 1.2 2005/05/01 10:34:49 jdc Exp $
 
---- config.h.dist	Fri Apr 15 21:51:44 1994
-+++ config.h	Tue Feb 29 14:28:44 2000
+Select the IRIX configuration from __sgi.
+
+--- config.h.orig
++++ config.h
 @@ -4,12 +4,20 @@
   */
  
@@ -24,16 +26,20 @@ $NetBSD: patch-ab,v 1.2 2005/05/01 10:34:49 jdc Exp $
  /* #define USE_SOUND 1 */
  
  /* set the paths, according to your environment: */
-@@ -20,7 +28,7 @@
+@@ -20,7 +28,11 @@
   * Setup machinedepend configuration
   */
  
 -#if (IRIX || SunOS4 || HPUX || Linux || RS6000 || NeXT)
++#if defined(__sgi) && !defined(IRIX)	/* the IRIX port, without imake's -DIRIX */
++#  define IRIX 1
++#endif
++
 +#if (IRIX || SunOS4 || HPUX || Linux || RS6000 || NeXT || BSD || Solaris2)
  #  define ITIMERVAL
  #else
  #  undef ITIMERVAL  /* not on all machines available */
-@@ -39,7 +47,7 @@
+@@ -39,7 +51,7 @@
  #  define HAVE_FDSET
  #  define USE_IPC
  #else
