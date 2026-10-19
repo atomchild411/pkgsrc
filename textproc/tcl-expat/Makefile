@@ -19,6 +19,9 @@ INSTALLATION_DIRS=	share/doc/tcl/TclExpat
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/tcl/TclExpat
 
+# patch-aa hard-codes libtcl85; lang/tcl is 8.6.
+BUILDLINK_TRANSFORM+=	l:tcl85:tcl86
+
 .include "../../lang/tcl/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
