@@ -1,0 +1,20 @@
+$NetBSD$
+
+Cross-compiling: assume %llu prints unsigned long long (IRIX's printf does).
+
+--- configure.orig
++++ configure
+@@ -5086,9 +5086,10 @@
+ echo $ECHO_N "checking how to print unsigned long long... $ECHO_C" >&6
+ 
+ if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:5089: error: can not run test program while cross compiling" >&5
+-echo "$as_me: error: can not run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
++  cat >>confdefs.h <<\EOF
++#define USE_LLU 1
++EOF
++echo "${ECHO_T}%llu (assumed: cross-compiling)" >&6
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ #line 5094 "configure"
