@@ -19,6 +19,16 @@ MAKE_JOBS_SAFE=		no
 WRKSRC=		${WRKDIR}
 BUILD_TARGET=	all doc
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The build runs abstime to write abstime.h (the build time): use a copy
+# built for the build host; the target's is still installed.
+SUBST_CLASSES+=		abstime
+SUBST_STAGE.abstime=	pre-configure
+SUBST_FILES.abstime=	Makefile
+SUBST_SED.abstime=	-e 's|^	./abstime > abstime.h|	${NATIVE_CC} -std=gnu89 -o abstime-host abstime.c \&\& ./abstime-host > abstime.h|'
+.endif
+
 INSTALLATION_DIRS=	bin
 
 do-install:
