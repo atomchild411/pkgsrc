@@ -7,10 +7,11 @@ branch iris/main):
 - Runtime shims: stack protector, daemon, strlcpy/strlcat, memrchr, _Exit, vfork, __progname
 - [Headers][IRIX] struct timeval and itimerval in every mode
 - Headers: sys/time.h, TIMEVAL_TO_TIMESPEC and TIMESPEC_TO_TIMEVAL
+- htons & co. in every mode, a working timercmp, lgamma_r
 
 --- lib/Headers/irix_wrappers/sys/time.h.orig
 +++ lib/Headers/irix_wrappers/sys/time.h
-@@ -0,0 +1,120 @@
+@@ -0,0 +1,140 @@
 +/*===---- sys/time.h - IRIX wrapper -----------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -28,6 +29,9 @@ branch iris/main):
 +#ifndef __CLANG_IRIX_SYS_TIME_H
 +#define __CLANG_IRIX_SYS_TIME_H
 +
++#ifdef timercmp
++#define __IRIX_TIMERCMP_OWN
++#endif
 +#include_next <sys/time.h>
 +#include <sys/select.h>
 +
@@ -87,6 +91,23 @@ branch iris/main):
 +#ifdef __cplusplus
 +}
 +#endif
++#endif
++
++/* timercmp, timerisset and timerclear: IRIX defines them only in SGI or BSD
++ * mode, and its timercmp is wrong for >= and <= (it compares the
++ * microseconds only when the seconds are equal for == and !=). The BSDs'
++ * and glibc's, unless the program had its own before including this. */
++#ifndef __IRIX_TIMERCMP_OWN
++#undef timercmp
++#define timercmp(a, b, CMP)                                                    \
++  (((a)->tv_sec == (b)->tv_sec) ? ((a)->tv_usec CMP (b)->tv_usec)              \
++                                : ((a)->tv_sec CMP (b)->tv_sec))
++#endif
++#ifndef timerisset
++#define timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
++#endif
++#ifndef timerclear
++#define timerclear(tvp) ((tvp)->tv_sec = 0, (tvp)->tv_usec = 0)
 +#endif
 +
 +/* timeradd and timersub, the BSD and glibc macros IRIX lacks. */

@@ -5,10 +5,11 @@ branch iris/main):
 - dladdr() over the runtime linker's dladdr service
 - dlfcn.h: __CLANG_IRIX_DLADDR says dladdr is declared
 - RTLD_DEFAULT
+- BSD and glibc names: <paths.h>, <poll.h>, <arpa/telnet.h>, <sys/cdefs.h>, <dlfcn.h>
 
 --- lib/Headers/irix_wrappers/dlfcn.h.orig
 +++ lib/Headers/irix_wrappers/dlfcn.h
-@@ -0,0 +1,60 @@
+@@ -0,0 +1,68 @@
 +/*===---- dlfcn.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -66,6 +67,14 @@ branch iris/main):
 +#ifdef __cplusplus
 +}
 +#endif
++#endif
++
++/* RTLD_NODELETE (glibc, the BSDs): IRIX dlopen has no such flag. As 0 it
++ * asks for nothing extra: a library is still unloaded at its last dlclose.
++ * (glmark2). RTLD_NOLOAD stays undefined, so code probing for it sees it
++ * is unsupported. */
++#ifndef RTLD_NODELETE
++#define RTLD_NODELETE 0
 +#endif
 +
 +#endif /* __CLANG_IRIX_DLFCN_H */

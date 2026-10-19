@@ -23,10 +23,11 @@ branch iris/main):
 - [IRIX] mkstemps, mkostemps and wait4
 - [IRIX] posix_openpt
 - getloadavg; fnmatch with FNM_CASEFOLD and FNM_LEADING_DIR
+- <stdlib.h>: keep a gnulib putenv = rpl_putenv made during the include
 
 --- lib/Headers/irix_wrappers/stdlib.h.orig
 +++ lib/Headers/irix_wrappers/stdlib.h
-@@ -0,0 +1,196 @@
+@@ -0,0 +1,207 @@
 +/*===---- stdlib.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -70,7 +71,18 @@ branch iris/main):
 +#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
 +#include <alloca.h>
 +#endif
++/* Only while putenv is still ours: a gnulib <stdlib.h> reached during the
++ * include_next (IRIX's includes <getopt.h>, gnulib's getopt.h includes
++ * <stdlib.h>) may have made it `rpl_putenv', which must stay (gnuit). */
++#define __IRIX_PUTENV_IS___irix_putenv_declaration 1
++#define __IRIX_PUTENV_CAT(a, b) a##b
++#define __IRIX_PUTENV_XCAT(a, b) __IRIX_PUTENV_CAT(a, b)
++#if __IRIX_PUTENV_XCAT(__IRIX_PUTENV_IS_, putenv)
 +#undef putenv
++#endif
++#undef __IRIX_PUTENV_IS___irix_putenv_declaration
++#undef __IRIX_PUTENV_CAT
++#undef __IRIX_PUTENV_XCAT
 +#ifdef __IRIX_GETOPT_INDIRECT_STDLIB
 +#undef __IRIX_GETOPT_INDIRECT
 +#undef __IRIX_GETOPT_INDIRECT_STDLIB

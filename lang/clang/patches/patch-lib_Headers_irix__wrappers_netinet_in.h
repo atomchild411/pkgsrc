@@ -10,10 +10,11 @@ branch iris/main):
 - Wrapper <netinet/in.h>: struct ip_mreq in every mode
 - [Headers][IRIX] in6_pktinfo and IPV6_PKTINFO outside INET6
 - <netinet/in.h>: IPV6_HOPLIMIT without INET6
+- htons & co. in every mode, a working timercmp, lgamma_r
 
 --- lib/Headers/irix_wrappers/netinet/in.h.orig
 +++ lib/Headers/irix_wrappers/netinet/in.h
-@@ -0,0 +1,164 @@
+@@ -0,0 +1,172 @@
 +/*===---- netinet/in.h - IRIX wrapper ---------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -39,6 +40,14 @@ branch iris/main):
 +#define __CLANG_IRIX_NETINET_IN_H
 +
 +#include_next <netinet/in.h>
++
++/* htonl, htons, ntohl and ntohs: POSIX has <netinet/in.h> provide them in
++ * every mode; IRIX's includes <sys/endian.h>, where they are, only in SGI
++ * mode, so code built with _XOPEN_SOURCE (every Python extension) or
++ * _POSIX_C_SOURCE found them undeclared. */
++#if !_SGIAPI
++#include <sys/endian.h>
++#endif
 +
 +/* POSIX's IPv4 constant, which IRIX defines only under INET6. */
 +#ifndef INET_ADDRSTRLEN

@@ -13,10 +13,11 @@ branch iris/main):
 - Wrapper <math.h>: C89's struct cabs and cabsl under other names
 - Headers: math.h hides SVID's enum version from C++
 - <math.h>: M_PI and the rest with the glibc feature macros
+- htons & co. in every mode, a working timercmp, lgamma_r
 
 --- lib/Headers/irix_wrappers/math.h.orig
 +++ lib/Headers/irix_wrappers/math.h
-@@ -0,0 +1,281 @@
+@@ -0,0 +1,287 @@
 +/*===---- math.h - IRIX wrapper ---------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -189,6 +190,12 @@ branch iris/main):
 +float truncf(float);
 +/* No IRIX has it: irix/math_c99.c. */
 +float nexttowardf(float, long double);
++/* glibc's and the BSDs' reentrant lgamma (sign through the pointer), in
++ * compiler-rt (irix/lgamma_r.c); libc++'s binomial_distribution uses it. */
++#if !defined(__STRICT_ANSI__) || defined(_GNU_SOURCE) || defined(_DEFAULT_SOURCE) || defined(_BSD_SOURCE)
++double lgamma_r(double, int *);
++float lgammaf_r(float, int *);
++#endif
 +#ifdef __cplusplus
 +}
 +#endif
