@@ -19,6 +19,17 @@ CONFIGURE_ENV+=		config_TARGET_READLINE_INC="-I${BUILDLINK_PREFIX.editlinereadli
 
 .include "../../mk/bsd.prefs.mk"
 
+# Its configure takes the compiler for its build tools (lemon) from
+# config_BUILD_CC, and looks for a gcc or cc on PATH without it; given
+# that, it uses it for the target too unless config_TARGET_CC says.
+.if ${USE_CROSS_COMPILE:tl} == "yes"
+CONFIGURE_ENV+=		config_BUILD_CC=${NATIVE_CC:Q}
+CONFIGURE_ENV+=		config_TARGET_CC=${CC:Q}
+# lemon.c is old C (access() without <unistd.h>), which current host
+# compilers reject by default.
+CONFIGURE_ENV+=		config_BUILD_CFLAGS="-O2 -Wno-error=implicit-function-declaration -Wno-error=implicit-int"
+.endif
+
 .if (${OPSYS} == "SunOS")
 CFLAGS+=		-DUINT32_TYPE=uint32_t -DUINT16_TYPE=uint16_t \
 			-DUINT8_TYPE=uint8_t -DINTPTR_TYPE=long
