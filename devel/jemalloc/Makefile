@@ -15,7 +15,10 @@ USE_LANGUAGES=		c
 USE_TOOLS+=		autoconf automake aclocal gmake perl:run
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-xmalloc
-CONFIGURE_ARGS+=	--with-xslroot=${PREFIX}/share/xsl/docbook/
+# The stylesheets are a tool: the build host's.
+CONFIGURE_ARGS+=	--with-xslroot=${TOOLBASE}/share/xsl/docbook/
+# IRIX's memcntl is not Solaris's (no MHA large-page advice).
+CONFIGURE_ENV.IRIX+=	ac_cv_func_memcntl=no
 PKGCONFIG_OVERRIDE=	jemalloc.pc.in
 BUILD_MAKE_FLAGS+=	SHELL=${CONFIG_SHELL:Q}
 

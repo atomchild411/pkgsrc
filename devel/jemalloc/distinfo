@@ -5,3 +5,4 @@ SHA512 (jemalloc-5.3.1.tar.bz2) = 46e4829c88078618860cb75aff074f281306eeb9fa624b
 Size (jemalloc-5.3.1.tar.bz2) = 920181 bytes
 SHA1 (patch-configure) = 5dec3fb5b2ece549e40743780db3057dd83cc17e
 SHA1 (patch-include_jemalloc_internal_quantum.h) = 78be39875a93294989f6f22c61fa0950a28e8c4a
+SHA1 (patch-src_background__thread.c) = b4d3d345844ccdf18c4c74b2cdced75fce07b2a8
