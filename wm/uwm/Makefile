@@ -13,6 +13,9 @@ COMMENT=	X11R3 window manager
 WRKSRC=		${WRKDIR}/X.V11R3/clients/uwm
 USE_IMAKE=	yes
 USE_TOOLS+=	lex yacc
+# lex.o needs the y.tab.h that making gram.o writes; the Imakefile does
+# not say so.
+MAKE_JOBS_SAFE=	no
 
 post-patch:
 	if [ ! -f ${WRKSRC}/uwm.man.src ]; then			\
@@ -25,6 +28,13 @@ INSTALLATION_DIRS=	lib/X11/uwm
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/default.uwmrc ${DESTDIR}${PREFIX}/lib/X11/uwm/system.uwmrc
+
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${OPSYS} == "IRIX"
+# IRIX has no lex library: flex's libfl has the same yywrap and main.
+BUILDLINK_TRANSFORM+=	l:l:fl
+.  include "../../devel/flex/buildlink3.mk"
+.endif
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
