@@ -2,7 +2,11 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.help2man
 PKG_SUPPORTED_OPTIONS=	nls
+# nls builds bindtextdomain.so, an LD_PRELOAD shim that needs RTLD_NEXT
+# (IRIX has none).
+.if ${OPSYS} != "IRIX"
 PKG_SUGGESTED_OPTIONS+=	nls
+.endif
 PLIST_VARS+=		nls
 
 .include "../../mk/bsd.options.mk"
