@@ -10,6 +10,11 @@ HOMEPAGE=		http://www.kitchenlab.org/www/bmah/Software/pchar/
 COMMENT=		Tool for measuring Internet path characteristics
 
 GNU_CONFIGURE=		yes
+# A run test (C++ bool is one byte).
+CONFIGURE_ENV.IRIX+=	ac_cv_sizeof_bool=1
+# IRIX has struct in6_addr, configure's whole IPv6 test, but no ICMPv6
+# filter API (struct icmp6_filter), which the IPv6 probes use.
+CONFIGURE_ENV.IRIX+=	pchar_cv_sys_ipv6=no
 USE_LANGUAGES=		c c++
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.pchar
