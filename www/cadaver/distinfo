@@ -8,3 +8,4 @@ SHA1 (patch-lib_neon_ne__auth.c) = b3be23038af390d52830e1c00c8313606e79ba96
 SHA1 (patch-lib_neon_ne__gnutls.c) = ab502c65db85b2e2db100dcbaad3f51de3e9e895
 SHA1 (patch-lib_neon_ne__privssl.h) = 83431345d2333423c664ce4f764683b1ee48b571
 SHA1 (patch-lib_neon_ne__socket.c) = effeded3caa19853b1845fdeea4754491f11e009
+SHA1 (patch-src_options.c) = 800acff1a69b8977b16bc852e349c0fb96fd2a87
