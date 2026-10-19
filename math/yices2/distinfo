@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.5 2026/09/17 13:45:03 wiz Exp $
 BLAKE2s (yices2-2.7.0.tar.gz) = 31ca6fcee6b8d8669ed4ae8c226d674c3cca257e49b6d53660e34c7b70a4b146
 SHA512 (yices2-2.7.0.tar.gz) = 0ed9811bfc505793078aa87afd86177a79bb5b9a4ec579fa0c43076cc997ff432d66588e996c1303d91bfb2163110312f30f1fc75a4d2f60d5786499bdd26b92
 Size (yices2-2.7.0.tar.gz) = 10461165 bytes
+SHA1 (patch-src_utils_indexed__table.h) = e84cf2f2737b540c006a7c78d11a27aed91aedc4
