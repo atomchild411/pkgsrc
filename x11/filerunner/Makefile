@@ -30,6 +30,8 @@ do-install:
 .endfor
 
 CPPFLAGS+=	-DUSE_INTERP_RESULT
+# ext.c has an IRIX port (four-argument statfs).
+CPPFLAGS.IRIX+=	-DIRIX
 
 .include "../../x11/tk/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
