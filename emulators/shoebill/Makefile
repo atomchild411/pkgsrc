@@ -30,6 +30,15 @@ LDFLAGS+=		-lGL
 
 CFLAGS.SunOS+=		-D_POSIX_PTHREAD_SEMANTICS
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# decoder_gen writes the instruction decoders (C) during the build.
+SUBST_CLASSES+=		decgen
+SUBST_STAGE.decgen=	pre-build
+SUBST_FILES.decgen=	sdl-gui/lin_build.sh
+SUBST_SED.decgen=	-e 's,^\$$CC -O1 \.\./core/decoder_gen,${NATIVE_CC} -O1 ../core/decoder_gen,'
+SUBST_MESSAGE.decgen=	Building decoder_gen for the build host.
+.endif
+
 do-build:
 	( cd ${WRKSRC}/sdl-gui && \
 		${PKGSRC_SETENV} CC=${CC:Q} CFLAGS=${CFLAGS:Q} LDFLAGS=${LDFLAGS:Q} \
