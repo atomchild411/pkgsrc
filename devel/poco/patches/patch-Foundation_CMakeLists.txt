@@ -1,11 +1,13 @@
 $NetBSD: patch-Foundation_CMakeLists.txt,v 1.1 2026/07/24 12:15:52 adam Exp $
 
 Support NetBSD
-IRIX: poll(), as AIX and GNU/Hurd (no epoll).
+IRIX: poll() (no epoll), and pthread linked by name as in the other Unix
+branches (Threads::Threads in Poco::Foundation's link interface would make
+every consumer find_package(Threads) first: poco-data).
 
 --- Foundation/CMakeLists.txt.orig
 +++ Foundation/CMakeLists.txt
-@@ -176,10 +176,10 @@
+@@ -176,9 +176,12 @@
  			if("${CMAKE_SYSTEM_NAME}" STREQUAL "QNX")
  				target_compile_definitions(Foundation PUBLIC _QNX_SOURCE=1 POCO_HAVE_FD_POLL)
  				target_link_libraries(Foundation PUBLIC m socket)
@@ -13,8 +15,9 @@ IRIX: poll(), as AIX and GNU/Hurd (no epoll).
 +			elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeBSD" OR "${CMAKE_SYSTEM_NAME}" STREQUAL "NetBSD")
  				target_compile_definitions(Foundation PUBLIC POCO_HAVE_FD_POLL)
  				target_link_libraries(Foundation PUBLIC pthread ${CMAKE_DL_LIBS} rt)
--			elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "AIX"  OR "${CMAKE_SYSTEM_NAME}" STREQUAL "GNU")
-+			elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "AIX"  OR "${CMAKE_SYSTEM_NAME}" STREQUAL "GNU" OR "${CMAKE_SYSTEM_NAME}" STREQUAL "IRIX")
++			elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "IRIX")
++				target_compile_definitions(Foundation PUBLIC _XOPEN_SOURCE=500 POCO_HAVE_FD_POLL)
++				target_link_libraries(Foundation PUBLIC pthread ${CMAKE_DL_LIBS} rt)
+ 			elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "AIX"  OR "${CMAKE_SYSTEM_NAME}" STREQUAL "GNU")
  				set(THREADS_PREFER_PTHREAD_FLAG ON)
  				find_package(Threads REQUIRED)
- 				target_compile_definitions(Foundation PUBLIC _XOPEN_SOURCE=500 POCO_HAVE_FD_POLL)
