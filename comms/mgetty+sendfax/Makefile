@@ -42,6 +42,12 @@ CFLAGS.SunOS+=		-Dsolaris2
 CFLAGS+=		-DDEVICE_GROUP=\"${REAL_ROOT_GROUP}\"
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# mksed, run at build time to write a sed script, is built with HOSTCC.
+BUILD_MAKE_FLAGS+=	HOSTCC=${NATIVE_CC:Q}
+.endif
+
 .if ${OPSYS} != "SunOS"
 LIBS+=			-lutil
 .endif
