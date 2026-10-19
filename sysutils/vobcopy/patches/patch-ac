@@ -1,6 +1,8 @@
 $NetBSD: patch-ac,v 1.5 2014/02/02 20:20:50 wiz Exp $
 
---- vobcopy.h.orig	2009-06-08 20:15:39.000000000 +0000
+IRIX: use statvfs (its statfs takes four arguments).
+
+--- vobcopy.h.orig
 +++ vobcopy.h
 @@ -54,7 +54,11 @@
  #include <sys/mnttab.h>
@@ -14,15 +16,18 @@ $NetBSD: patch-ac,v 1.5 2014/02/02 20:20:50 wiz Exp $
  
  #  if ( _FILE_OFFSET_BITS == 64 )
  #define HAS_LARGEFILE 1
-@@ -67,7 +71,6 @@ typedef enum  { FALSE=0, TRUE=1 }  bool;
+@@ -67,9 +71,8 @@
  /*#define off_t __off64_t  THIS HERE BREAKS OSX 10.5 */
  
  /* //////////  *BSD //////////  */
 -#if ( defined( BSD ) && ( BSD >= 199306 ) )
  
- #if !defined( __NetBSD__ ) || \
+-#if !defined( __NetBSD__ ) || \
++#if !defined( __NetBSD__ ) && !defined( __sgi ) || \
         ( defined( __NetBSD__) && ( __NetBSD_Version__ < 200040000 ) )
-@@ -100,20 +103,27 @@ typedef enum  { FALSE=0, TRUE=1 }  bool;
+ #include <sys/mount.h>
+ #define USE_STATFS 1
+@@ -100,20 +103,27 @@
  #define GETMNTINFO_USES_STATVFS
  
  #    endif
@@ -53,7 +58,7 @@ $NetBSD: patch-ac,v 1.5 2014/02/02 20:20:50 wiz Exp $
  
  #else /* *BSD */
  
-@@ -134,8 +144,10 @@ typedef enum  { FALSE=0, TRUE=1 }  bool;
+@@ -134,8 +144,10 @@
  #define GETMNTINFO_USES_STATFS 1
  #define USE_GETMNTINFO 1
  
@@ -64,7 +69,7 @@ $NetBSD: patch-ac,v 1.5 2014/02/02 20:20:50 wiz Exp $
  typedef int bool;
  
  #  endif
-@@ -163,7 +175,11 @@ typedef int bool;
+@@ -163,7 +175,11 @@
  #define HAVE_GETOPT_LONG 1
  #define HAS_LARGEFILE    1
  
@@ -76,7 +81,7 @@ $NetBSD: patch-ac,v 1.5 2014/02/02 20:20:50 wiz Exp $
  
  #elif defined( __GLIBC__ )
  
-@@ -174,13 +190,21 @@ typedef int bool;
+@@ -174,13 +190,21 @@
  #define HAVE_GETOPT_LONG 1
  #define HAS_LARGEFILE    1
  
@@ -98,7 +103,7 @@ $NetBSD: patch-ac,v 1.5 2014/02/02 20:20:50 wiz Exp $
  
  #if defined( __USE_FILE_OFFSET64 )
  #  define HAS_LARGEFILE 1
-@@ -232,6 +256,6 @@ char *safestrncpy(char *dest, const char
+@@ -232,6 +256,6 @@
  int check_progress( void ); /* this can be removed because the one below supersedes it */
  int progressUpdate( int starttime, int cur, int tot, int force );
  
