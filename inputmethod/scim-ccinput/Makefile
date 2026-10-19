@@ -13,6 +13,11 @@ COMMENT=		SCIM IMEngine module for CCInput
 LICENSE=		gnu-gpl-v2
 
 GNU_CONFIGURE=		yes
+
+# AC_CHECK_FILE cannot look when cross-compiling (only used for the docs).
+CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_share_sgml_docbook_xsl_stylesheets_html_docbook_xsl=no
+CONFIGURE_ENV.IRIX+=	ac_cv_file__usr_share_sgml_docbook_xsl_stylesheets_html_tldp_html_xsl=no
+
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++
