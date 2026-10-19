@@ -13,6 +13,16 @@ LICENSE=	mit
 USE_TOOLS+=	pkg-config
 GNU_CONFIGURE=	yes
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# makeheaders and gendoc, run at build time, are for the build host.
+SUBST_CLASSES+=		gendoc
+SUBST_STAGE.gendoc=	pre-configure
+SUBST_FILES.gendoc=	Makefile.in
+SUBST_SED.gendoc=	-e 's|^	\$$(AM_V_CCLD)\$$(LINK) \$$(gendoc_OBJECTS) .*|	${NATIVE_CC} -I. -o $$@ $$(srcdir)/doc/gendoc.c|'
+SUBST_SED.gendoc+=	-e 's|^	\$$(AM_V_CCLD)\$$(LINK) \$$(makeheaders_OBJECTS) .*|	${NATIVE_CC} -o $$@ $$(srcdir)/deps/makeheaders.c|'
+.endif
+
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.32
