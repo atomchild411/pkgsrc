@@ -3,7 +3,7 @@ $NetBSD: distinfo,v 1.11 2021/10/26 10:54:02 nia Exp $
 BLAKE2s (hypermail-2.3.0.tar.gz) = 694b7684dedcb4adf652ee1e7bbaf331347c2cd689d0a6a566cf0befec36447e
 SHA512 (hypermail-2.3.0.tar.gz) = 6f4db2613a53f27e88a9827057be57df49b1dfff6dfcc7b531fdb983b03e64818f5845411f9eb42fc7ae8829281c67773d16fcb3b9d3fa2a7c92d5100fa9bb57
 Size (hypermail-2.3.0.tar.gz) = 1280010 bytes
-SHA1 (patch-aa) = 732a169bf1d9b77a9309bf5186e11a78ded404d3
+SHA1 (patch-aa) = f222b4c3023a2d9a08552ca2c6517870fdb15070
 SHA1 (patch-ac) = 838800f64acfd524156bfa37d32ed9c47b42f020
 SHA1 (patch-ad) = d429ea0077d229ae03f20fe287b2ff84fe3a756c
 SHA1 (patch-ae) = 9ee94990ef630ccf7377a3d7ce7bed3cffa3f895

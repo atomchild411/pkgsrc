@@ -1,8 +1,10 @@
 $NetBSD: patch-aa,v 1.4 2012/08/13 12:41:10 obache Exp $
 
---- configure.orig	2005-10-25 05:59:46.000000000 +0000
+A cross build cannot run the trivial program: assume the compiler works.
+
+--- configure.orig
 +++ configure
-@@ -546,14 +546,6 @@ fi
+@@ -546,14 +546,6 @@
  
  
  
@@ -17,3 +19,12 @@ $NetBSD: patch-aa,v 1.4 2012/08/13 12:41:10 obache Exp $
  
  
  ac_aux_dir=
+@@ -1230,7 +1222,7 @@
+ echo $ac_n "checking that the compiler works""... $ac_c" 1>&6
+ echo "configure:1232: checking that the compiler works" >&5
+ if test "$cross_compiling" = yes; then
+-  { echo "configure: error: Could not compile and run even a trivial ANSI C program - check CC." 1>&2; exit 1; }
++  echo "$ac_t""cross-compiling: assumed" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+ #line 1237 "configure"
