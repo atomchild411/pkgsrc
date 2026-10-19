@@ -39,6 +39,24 @@ SUBST_SED.ssl-certs=		-e 's,/etc/ssl/certs,${SSLCERTS},'
 # Avoid possible problems with already often defined HOST
 MAKE_ENV+=	BUILD="${MACHINE_GNU_ARCH}--${LOWER_OPSYS}"
 MAKE_ENV+=	HOST="${MACHINE_GNU_ARCH}--${LOWER_OPSYS}"
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The buildsystem compiles its generators (libcss's gen_parser, ...) with
+# BUILD_CC, "cc" by default: the target's here. The build tools it
+# installs first (nsgenbind) are made with CC: give them BUILD_CC, and
+# none of the target's CFLAGS and LDFLAGS.
+MAKE_FLAGS+=	BUILD_CC=${NATIVE_CC:Q}	# netsurf/Makefile sets it with :=
+# netsurf's own tools (split-messages, convert_image) use zlib and libpng:
+# the build machine's.
+NETSURF_BUILD_LDFLAGS=	-L${TOOLBASE}/lib -Wl,-rpath,${TOOLBASE}/lib
+MAKE_FLAGS+=	BUILD_CFLAGS=-I${TOOLBASE}/include
+MAKE_FLAGS+=	BUILD_LDFLAGS=${NETSURF_BUILD_LDFLAGS:Q}
+SUBST_CLASSES+=		buildtool
+SUBST_STAGE.buildtool=	pre-build
+SUBST_FILES.buildtool=	Makefile
+SUBST_SED.buildtool=	-e 's,$$(MAKE) install --directory=$$1 HOST=$$(BUILD) PREFIX,CFLAGS=-O2 LDFLAGS= $$(MAKE) install --directory=$$1 HOST=$$(BUILD) CC=$$(BUILD_CC) PREFIX,'
+SUBST_MESSAGE.buildtool=	Building nsgenbind for the build host.
+.endif
 
 INSTALLATION_DIRS+=	bin
 INSTALLATION_DIRS+=	share/applications
