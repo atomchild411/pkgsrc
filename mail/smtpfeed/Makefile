@@ -18,6 +18,9 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--libexecdir=${PREFIX:Q}/libexec
 # configure tries to be clever, so force our setting
 CONFIGURE_ENV+=		my_cv_path_lib_exec=${PREFIX:Q}/libexec
+# configure greps <netinet/in.h> for sin_len; IRIX's mentions it in a block
+# its struct sockaddr_in does not use.
+CFLAGS.IRIX+=		-DMISSING_SIN_LEN	# its Makefile ignores CPPFLAGS
 # use bind8?
 #CONFIGURE_ARGS+=	--with-bind8
 
@@ -31,6 +34,10 @@ DOCS=	COPYRIGHT FEATURES FEATURES.j FYI FYI.j INSTALL INSTALL.j \
 PKG_OPTIONS_VAR=	PKG_OPTIONS.smtpfeed
 PKG_SUPPORTED_OPTIONS=	inet6
 PKG_SUGGESTED_OPTIONS=	inet6
+
+# The distfile ships the author's config.cache (setproctitle in -lutil, ...).
+post-extract:
+	${RM} -f ${WRKSRC}/config.cache
 
 .include "../../mk/bsd.options.mk"
 
