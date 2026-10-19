@@ -39,6 +39,8 @@ CONFIGURE_ARGS+=	--datadir=${PREFIX}/${EGDIR}
 MAKE_FILE=	GNUmakefile
 
 BUILDLINK_TRANSFORM+=	rm:-Werror
+# IRIX's <limits.h> has UID_MAX, "max value for a user or group ID", and no GID_MAX.
+CPPFLAGS.IRIX+=		-DGID_MAX=UID_MAX
 
 SPECIAL_PERMS+=		bin/doas ${SETUID_ROOT_PERMS}
 NOT_FOR_UNPRIVILEGED=	yes
