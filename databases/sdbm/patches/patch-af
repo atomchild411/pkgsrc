@@ -1,7 +1,8 @@
 $NetBSD: patch-af,v 1.6 2026/08/04 14:59:11 ryoon Exp $
 
 - Use standard headers.
-- Don't provide own getopt on BSD platforms, or on Solaris.
+- Don't provide own getopt on BSD platforms, on Solaris or on IRIX.
+- Keep getopt's int result in an int (char is unsigned on some platforms).
 - Use <ctype.h> functions correctly.
 - Avoid signed bitwise operations.
 - Use the modern regexp library interface.
@@ -27,7 +28,7 @@ $NetBSD: patch-af,v 1.6 2026/08/04 14:59:11 ryoon Exp $
  #define index  strchr
  #endif
  
-+#if !(defined(BSD) && BSD >= 199506) && !defined(__sun)
++#if !(defined(BSD) && BSD >= 199506) && !defined(__sun) && !defined(__sgi)
  char
  getopt(argc, argv, optstring)
  int argc;
@@ -90,7 +91,8 @@ $NetBSD: patch-af,v 1.6 2026/08/04 14:59:11 ryoon Exp $
  	} commands;
 +	regex_t	r;
 +	regmatch_t	matchv[10];
- 	char opt;
+-	char opt;
++	int opt;
  	int flags;
  	int giveusage = 0;
 @@ -333,7 +350,8 @@ char **argv;
