@@ -28,6 +28,14 @@ post-patch:
 
 INSTALLATION_DIRS=	lib/X11/ja_JP.eucJP/app-defaults
 
+# The IRIX sound code plays AIFF: the Imakefile installs myu.aiff there.
+PLIST_VARS+=	au aiff
+.if ${OPSYS} == "IRIX"
+PLIST.aiff=	yes
+.else
+PLIST.au=	yes
+.endif
+
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/resources/R6/EUC/EmiClock.ad \
 		${DESTDIR}${PREFIX}/lib/X11/ja_JP.eucJP/app-defaults/EmiClock

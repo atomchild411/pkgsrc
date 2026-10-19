@@ -1,8 +1,21 @@
 $NetBSD: patch-aa,v 1.2 2011/03/23 14:09:31 obache Exp $
 
---- include/sound.h.orig	1999-09-02 14:34:10.000000000 +0000
+IRIX 6.5: the audio headers are in <dmedia/>.
+
+--- include/sound.h.orig
 +++ include/sound.h
-@@ -215,7 +215,7 @@ struct SoundCacheBufferTag {
+@@ -82,8 +82,8 @@
+ #if defined(sgi) && defined(USE_SOUND)
+ 
+ #include <fcntl.h>
+-#include <audio.h>
+-#include <audiofile.h>
++#include <dmedia/audio.h>	/* IRIX 6.5 */
++#include <dmedia/audiofile.h>
+ #include <invent.h>
+ 
+ /* サウンドキャッシュバッファ構造体 */
+@@ -215,7 +215,7 @@
   *  FreeBSD
   */
  
@@ -11,7 +24,7 @@ $NetBSD: patch-aa,v 1.2 2011/03/23 14:09:31 obache Exp $
  
  /* FreeBSD with SoundBlaster Pro */
  
-@@ -233,10 +233,50 @@ struct SoundCacheBufferTag {
+@@ -233,10 +233,50 @@
  };
  
  #define	SoundCacheBuffer	struct SoundCacheBufferTag
