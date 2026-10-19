@@ -22,6 +22,9 @@ INSTALLATION_DIRS+=	bin
 INSTALLATION_DIRS+=	${PKGMANDIR}/man1
 INSTALLATION_DIRS+=	${PKGMANDIR}/man5
 
+# IRIX's <limits.h> shows LLONG_MIN only in C99 mode.
+BUILDLINK_TRANSFORM.IRIX+=	rm:-ansi
+
 .include "../../mk/bsd.prefs.mk"
 .if ${OPSYS} == "Linux"
 .  include "../../devel/libbsd/buildlink3.mk"
