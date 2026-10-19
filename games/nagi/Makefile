@@ -27,6 +27,9 @@ do-install:
 	${INSTALL_DATA} ${WRKDIR}/bin/*.nbf ${WRKDIR}/bin/*.ini ${DESTDIR}${NAGILIB}
 	${INSTALL_SCRIPT} ${WRKDIR}/nagi.sh ${DESTDIR}${PREFIX}/bin/nagi
 
+# IRIX has no libcompat.
+BUILDLINK_TRANSFORM.IRIX+=	rm:-lcompat
+
 .include "../../devel/SDL/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
