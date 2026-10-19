@@ -4,3 +4,4 @@ BLAKE2s (xdkcal-0.9d.tar.gz) = 411030540955930168916e8363a098570afa94556c6111928
 SHA512 (xdkcal-0.9d.tar.gz) = 77b2a29db3feb20884d5f197a9f1bb43e4e67a2b0800e9ddd5c3ddb720f643694ef496c94a873f34bff93b52febd908b8b2bf9c1c45bc09a7dc8cce3da63bb5e
 Size (xdkcal-0.9d.tar.gz) = 48533 bytes
 SHA1 (patch-aa) = d497a13d636b54ad779ad1aceb2a3e97a3ac5b61
+SHA1 (patch-configure) = 7c870cfad88795dc4c0887ea78135f53e28c140c

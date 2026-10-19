@@ -1,0 +1,15 @@
+$NetBSD$
+
+Cross-compiling: assume the C library's setlocale (no -DX_LOCALE).
+
+--- configure.orig
++++ configure
+@@ -2212,7 +2212,7 @@
+ echo "configure:2213: checking need -DX_LOCALE" >&5
+ 
+ if test "$cross_compiling" = yes; then
+-    { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
++  need_x_locale=no
+ else
+   cat > conftest.$ac_ext <<EOF
+ #line 2219 "configure"
