@@ -84,6 +84,10 @@ MAKE_ENV+=		CC_FOR_BUILD=${NATIVE_CC:Q}
 .  if defined(NATIVE_CXX)
 MAKE_ENV+=		CXX_FOR_BUILD=${NATIVE_CXX:Q}
 .  endif
+# and their libraries: `dependency(..., native: true)' looks for the build
+# machine's .pc files (wayland-scanner's), which pkg-config would otherwise
+# search for in the target's buildlink tree only.
+MAKE_ENV+=		PKG_CONFIG_PATH_FOR_BUILD=${TOOLBASE}/lib/pkgconfig:${TOOLBASE}/share/pkgconfig
 
 
 # The cross file turns these off (see above); the packages' own settings
