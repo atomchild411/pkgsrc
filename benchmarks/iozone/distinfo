@@ -3,4 +3,4 @@ $NetBSD: distinfo,v 1.27 2022/05/28 11:39:57 adam Exp $
 BLAKE2s (iozone3_493.tgz) = 61a972bf5a47566dbfd085480699960b59c3c91650aec1daccfee9a79400b8fa
 SHA512 (iozone3_493.tgz) = 8d132a5840e55ef57e77c889e15dc7095e1d778baec00626355bc6c228d5fb7985f30bbe24f4172f8811ab38f763ac33e9506f9b3e0e8d9b22f2224227022953
 Size (iozone3_493.tgz) = 831743 bytes
-SHA1 (patch-iozone.c) = ddc23f2bbf6ff1e084affc29917abcd6bf79be8d
+SHA1 (patch-iozone.c) = db9d49f7bc6b9f70f5598f735a620f06b2a31246

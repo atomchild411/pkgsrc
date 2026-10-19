@@ -32,8 +32,8 @@ BUILD_TARGET=		${LOWER_OPSYS}
 BUILD_TARGET=		Solaris
 .elif (${OPSYS} == "Darwin")
 BUILD_TARGET=		macosx
-.elif (${OPSYS} == "IRIX")
-BUILD_TARGET=		${OPSYS}${ABI:M64}
+.elif (${OPSYS} == "IRIX") && !empty(PKGSRC_COMPILER:Mmipspro*)
+BUILD_TARGET=		${OPSYS}${ABI:M64}	# MIPSpro flags (-32/-64)
 .elif (${OPSYS} == "AIX")
 BUILD_TARGET=		${OPSYS}
 .else
@@ -52,6 +52,13 @@ INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${EGDIR} ${DOCDIR}
 IOZONE_TEST_ARGS=		-Ea
 .if !empty(PKG_OPTIONS:Mthreads)
 IOZONE_TEST_ARGS+=		-T -t4
+.endif
+
+.if ${OPSYS} == "IRIX" && empty(PKGSRC_COMPILER:Mmipspro*)
+# The generic target builds iozone only.
+post-build:
+	cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o fileop fileop.c
+	cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o pit_server pit_server.c
 .endif
 
 do-install:
