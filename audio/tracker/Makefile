@@ -17,7 +17,9 @@ NO_SRC_ON_CDROM=	${RESTRICTED}
 MAKE_JOBS_SAFE=		no
 
 WRKSRC=			${WRKDIR}/tracker
-MAKE_FLAGS+=		MACHINE=${LOWER_OPSYS:Q} INSTALL=${INSTALL:Q} \
+# The makefile calls its SGI port (Arch/Sgi, the AL) "sgi".
+TRACKER_MACHINE=	${LOWER_OPSYS:S/^irix$/sgi/}
+MAKE_FLAGS+=		MACHINE=${TRACKER_MACHINE:Q} INSTALL=${INSTALL:Q} \
 			COMPRESSION_FILE=${PKG_SYSCONFDIR}/compression_methods \
 			COMPRESSION_FILE_EG=${EGDIR}/compression_methods
 
