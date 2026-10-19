@@ -10,6 +10,8 @@ COMMENT=	Folding editor
 LICENSE=	gnu-gpl-v1
 
 GNU_CONFIGURE=	yes
+# IRIX's sendmail (configure looks on the build machine).
+CONFIGURE_ENV.IRIX+=	ac_cv_path_SENDMAIL=/usr/lib/sendmail
 USE_TOOLS+=	msgfmt
 BROKEN_GETTEXT_DETECTION=	yes
 
