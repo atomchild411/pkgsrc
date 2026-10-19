@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2026/01/20 08:30:56 wiz Exp $
 
 PKGNAME=	heirloom-libcommon-${HEIRLOOM_VER}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 
 DEPENDS+=	heirloom-doc-${HEIRLOOM_VER}:../../sysutils/heirloom-doc
