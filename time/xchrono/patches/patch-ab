@@ -2,8 +2,9 @@ $NetBSD: patch-ab,v 1.2 2006/11/28 23:04:55 agc Exp $
 
 the time stuff is needed to compile on alpha, the other stuff kills
 compiler warnings
+IRIX has no tzsetwall.
 
---- MultiClock.c.orig	Sat Jun 15 16:09:44 2002
+--- MultiClock.c.orig
 +++ MultiClock.c
 @@ -33,9 +33,10 @@
  #include <X11/Xaw/XawInit.h>
@@ -59,7 +60,7 @@ compiler warnings
  	    putenv (tzEnviron);
  	    tzset ();
  	  }
-@@ -433,7 +434,7 @@
+@@ -433,11 +434,15 @@
  
    if (tzenv)
      {
@@ -68,7 +69,15 @@ compiler warnings
        putenv (tzEnviron);
      }
  #ifndef SYSV
-@@ -525,7 +526,7 @@
++#ifdef __sgi	/* no tzsetwall; IRIX logins set TZ (/etc/TIMEZONE), so rarely reached */
++  else tzset();
++#else
+   else tzsetwall();
++#endif
+ #endif /* not SYSV */
+ }
+ 
+@@ -525,7 +530,7 @@
  			  }
  			else am_pm = "AM";
  
@@ -77,7 +86,7 @@ compiler warnings
  			{
  			  int len = strlen (time_string);
  			  int x = w->core.width -
-@@ -760,14 +761,14 @@
+@@ -760,14 +765,14 @@
  	wc = width * cosangle;
  	ws = width * sinangle;
  	SetSeg(w,
@@ -98,7 +107,7 @@ compiler warnings
  
  	SetSeg(w, x2, y2, x, y);	/* 3 ----- 1(4) */
  }
-@@ -834,14 +835,14 @@
+@@ -834,14 +839,14 @@
  	ws = width * sinangle;
  	/*1 ---- 2 */
  	SetSeg(w,
@@ -121,7 +130,7 @@ compiler warnings
  	w->clock.segbuffptr->x = x;
  	w->clock.segbuffptr++->y = y;
  	w->clock.numseg ++;
-@@ -886,7 +887,7 @@
+@@ -886,7 +891,7 @@
  	w->clock.numseg = 0;
  }
  
