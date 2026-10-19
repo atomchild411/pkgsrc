@@ -8,10 +8,11 @@ this will install fvwm2/fvwm.
 
 (2)
 Fixes for C99 compatibility from Fedora
+A cross build cannot run the keysym and libstroke tests: assume current X11 and libstroke. IRIX declares an m_sync().
 
---- configure.orig	2022-10-20 19:05:33.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -609,7 +609,7 @@ MFLAGS=
+@@ -609,7 +609,7 @@
  MAKEFLAGS=
  
  # Identity of this package.
@@ -20,7 +21,7 @@ Fixes for C99 compatibility from Fedora
  PACKAGE_TARNAME='fvwm'
  PACKAGE_VERSION='2.7.0'
  PACKAGE_STRING='fvwm 2.7.0'
-@@ -3698,7 +3698,7 @@ fi
+@@ -3698,7 +3698,7 @@
  
  
  # Define the identity of the package.
@@ -29,7 +30,7 @@ Fixes for C99 compatibility from Fedora
   VERSION='2.7.0'
  
  
-@@ -7643,9 +7643,8 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
+@@ -7643,9 +7643,8 @@
  int
  main (void)
  {
@@ -41,7 +42,7 @@ Fixes for C99 compatibility from Fedora
    while (1 || (unsigned int)3 >= 0 || ((int)-1) == ((unsigned int)1));
  
    ;
-@@ -13512,7 +13511,7 @@ else $as_nop
+@@ -13512,7 +13511,7 @@
  int
  main (void)
  {
@@ -50,7 +51,7 @@ Fixes for C99 compatibility from Fedora
   $ac_cv_type_fd_set *,	$ac_cv_type_fd_set *, $ac_cv_type_fd_set *,
   $ac_type_timeval *);
    ;
-@@ -13615,6 +13614,9 @@ else $as_nop
+@@ -13615,6 +13614,9 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
@@ -60,3 +61,23 @@ Fixes for C99 compatibility from Fedora
  int main(void)
  {
    char template[128];
+@@ -13940,6 +13942,9 @@
+ 
+ if test "$cross_compiling" = yes
+ then :
++  : # cross: assume X11 has XK_Page_Up (no COMPAT_OLD_KEYSYMDEF)
++elif false
++then :
+   { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+ printf "%s\n" "$as_me: error: in \`$ac_pwd':" >&2;}
+ as_fn_error $? "cannot run test program while cross compiling
+@@ -13983,6 +13988,9 @@
+ 
+ if test "$cross_compiling" = yes
+ then :
++  : # cross: assume a current libstroke (no COMPAT_OLD_LIBSTROKE)
++elif false
++then :
+   { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+ printf "%s\n" "$as_me: error: in \`$ac_pwd':" >&2;}
+ as_fn_error $? "cannot run test program while cross compiling

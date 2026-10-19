@@ -34,6 +34,12 @@ CONFIGURE_ARGS+=	--with-xpm-includes=${BUILDLINK_PREFIX.libXpm}/include
 CONFIGURE_ARGS+=	--with-imagepath=${PREFIX}/lib/X11/fvwm2/pixmaps:${X11BASE}/include/X11/bitmaps:${X11BASE}/include/X11/pixmaps
 CONFIGURE_ARGS+=	--without-rplay-library
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The GDK Imlib check runs a test program (and pkgsrc does not provide it).
+CONFIGURE_ARGS+=	--without-gdkimlib --disable-imlibtest
+.endif
+
 # We don't want to have CPP from the buildlink directory
 CONFIGURE_ENV+=		ac_cv_path_FVWM_CPP=${CPP:Q}
 # To avoid ${WRKDIR} is included in perl script
