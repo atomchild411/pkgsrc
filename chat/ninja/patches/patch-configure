@@ -1,0 +1,18 @@
+$NetBSD$
+
+Cross-compiling: assume POSIX non-blocking I/O (O_NONBLOCK).
+
+--- configure.orig
++++ configure
+@@ -6242,7 +6242,10 @@
+ code="$precode O_NONBLOCK $postcode"
+ 
+ if test "$cross_compiling" = yes; then
+-  :
++  cat >>confdefs.h <<\EOF
++#define NBLOCK_POSIX 1
++EOF
++  echo "${ECHO_T}posix (assumed: cross-compiling)" >&6
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ #line 6248 "configure"
