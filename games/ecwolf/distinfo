@@ -4,4 +4,7 @@ BLAKE2s (ecwolf/1.4.1.tar.gz) = 3250c844c9fea13b79327ea7fea783ae69fda4e0034800ad
 SHA512 (ecwolf/1.4.1.tar.gz) = cfe9d6e7a6c01ace0c10e1b068cedbaae17a4c0f79451c85b2149389d1c95112226a15aca95a5a7b09319c61dcad89831697dd63b94d0f4b8134a5006bd74e28
 Size (ecwolf/1.4.1.tar.gz) = 3139795 bytes
 SHA1 (patch-docs_ecwolf.6) = 981208f925e285f3e21fdbefd2c5c0e42251069b
+SHA1 (patch-src_id__sd__n3dmus.cpp) = 23bbdf333e35ddf2d5ad6bd3d0c45261fbcdd75b
+SHA1 (patch-src_m__alloc.cpp) = be982f31bbd6eb38162fefaeeec28867d194195f
+SHA1 (patch-src_tmemory.h) = a21b84d86ea28e1c35669e326f25693831c7f0cf
 SHA1 (patch-src_wl__iwad__picker.cpp) = 786978d4e5a23154713166af914a55c0b45f60d2

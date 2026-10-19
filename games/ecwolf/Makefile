@@ -62,6 +62,37 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/android-libs/launcher/res/drawable-xhdpi/ic_launcher.png \
 		${DESTDIR}${PREFIX}/share/icons/hicolor/96x96/apps/ecwolf.png
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# A cross build imports zipdir (it packs ecwolf.pk3, a zip file) from a
+# native build: build it for the build host (the bundled LZMA SDK with it,
+# the build machine's zlib and bzip2) and hand cmake an import file for it.
+ECWOLF_LZMA_SRCS=	7zArcIn.c 7zBuf.c 7zCrc.c 7zCrcOpt.c 7zDec.c 7zStream.c \
+			Bcj2.c Bra.c Bra86.c BraIA64.c CpuArch.c Delta.c LzFind.c \
+			Lzma2Dec.c LzmaDec.c LzmaEnc.c Ppmd7.c Ppmd7Dec.c
+CMAKE_CONFIGURE_ARGS+=	-DIMPORT_EXECUTABLES=${WRKDIR}/ImportExecutables.cmake
+.PHONY: ecwolf-host-zipdir
+pre-configure: ecwolf-host-zipdir
+ecwolf-host-zipdir:
+	${PRINTF} 'add_executable(zipdir IMPORTED)\nset_property(TARGET zipdir PROPERTY IMPORTED_LOCATION %s)\n' \
+		${WRKDIR}/zipdir > ${WRKDIR}/ImportExecutables.cmake
+	cd ${WRKSRC}/deps/lzma/C && ${NATIVE_CC} -D_7ZIP_PPMD_SUPPPORT -D_7ZIP_ST \
+		-I. -I${TOOLBASE}/include -o ${WRKDIR}/zipdir \
+		${WRKSRC}/tools/zipdir/zipdir.c ${ECWOLF_LZMA_SRCS} \
+		-L${TOOLBASE}/lib -Wl,-rpath,${TOOLBASE}/lib -lz -lbz2
+
+# gdtoa's arith.h and gd_qnan.h come from programs run on the target; a
+# cross build has to supply them: big-endian IEEE, and MIPS's (pre-R6)
+# quiet NaNs, which have the top mantissa bit clear.
+.PHONY: ecwolf-gdtoa-headers
+post-configure: ecwolf-gdtoa-headers
+ecwolf-gdtoa-headers:
+	${PRINTF} '#define IEEE_MC68k\n#define Arith_Kind_ASL 2\n#define Double_Align\n' \
+		> ${WRKSRC}/${CMAKE_BUILD_DIR}/deps/gdtoa/arith.h
+	${PRINTF} '#define f_QNAN 0x7fbfffff\n#define d_QNAN0 0x7ff7ffff\n#define d_QNAN1 0xffffffff\n' \
+		> ${WRKSRC}/${CMAKE_BUILD_DIR}/deps/gdtoa/gd_qnan.h
+.endif
+
 .include "../../devel/cmake/build.mk"
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../audio/SDL2_mixer/buildlink3.mk"
