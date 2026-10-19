@@ -32,6 +32,16 @@ CFLAGS+=	-DBYTES_HIGHFIRST
 
 INSTALLATION_DIRS=	bin
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# def68k and gen68k, run at build time to write the 68000 core (C source),
+# are built for the build host.
+SUBST_CLASSES+=		gen68k
+SUBST_STAGE.gen68k=	pre-configure
+SUBST_FILES.gen68k=	cpu68k/Makefile.in
+SUBST_SED.gen68k=	-e 's|^	\$$(LINK) \$$(def68k_LDFLAGS) .*|	${NATIVE_CC} -DHAVE_CONFIG_H -I. -I.. -I../hdr -o $$@ def68k.c tab68k.c|'
+SUBST_SED.gen68k+=	-e 's|^	\$$(LINK) \$$(gen68k_LDFLAGS) .*|	${NATIVE_CC} -DHAVE_CONFIG_H -I. -I.. -I../hdr -o $$@ gen68k.c tab68k.c|'
+.endif
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/main/generator-gtk \
 		${DESTDIR}${PREFIX}/bin/generator-cbiere-gtk
