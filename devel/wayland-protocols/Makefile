@@ -29,8 +29,15 @@ TOOL_DEPENDS+=				wayland>=0:../../devel/wayland
 MESON_BINARIES+=			wayland_scanner
 MESON_BINARY_KEY.wayland_scanner=	${PREFIX}/bin/wayland-scanner
 MESON_BINARY.wayland_scanner=		${TOOLBASE}/bin/wayland-scanner
+# The wayland-scanner dependency is a build-machine (native) one, looked
+# up with pkg-config: point meson at the build machine's .pc files.
+MAKE_ENV+=	PKG_CONFIG_PATH_FOR_BUILD=${TOOLBASE}/lib/pkgconfig
 .endif
 
 .include "../../devel/meson/build.mk"
+# Without the tests only the (build machine's) wayland-scanner is used;
+# IRIX has no wayland (no epoll, no kqueue for epoll-shim).
+.if ${OPSYS} != "IRIX"
 .include "../../devel/wayland/buildlink3.mk"
+.endif
 .include "../../mk/bsd.pkg.mk"
