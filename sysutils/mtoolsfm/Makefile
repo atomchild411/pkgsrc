@@ -16,6 +16,12 @@ DEPENDS+=	mtools>=3.9.7:../../sysutils/mtools
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		msgfmt
+
+# fr.po names its charset iso-8559-1 (a typo); msgfmt refuses it.
+SUBST_CLASSES+=		charset
+SUBST_STAGE.charset=	pre-configure
+SUBST_FILES.charset=	po/fr.po
+SUBST_SED.charset=	-e 's,iso-8559-1,iso-8859-1,'
 CONFIGURE_ARGS+=	--with-conffile=${PKG_SYSCONFDIR}/mtoolsfm.conf
 
 post-extract:
