@@ -15,6 +15,15 @@ TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools_scm>=3.4.3:../../devel/py-setuptools_sc
 
 USE_LANGUAGES=	c c++
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# setup.py imports cppy (for its headers' location) with the build
+# machine's python, which names the build machine's copy: use the
+# target's (the same headers) instead.
+TOOL_DEPENDS+=	${PYPKGPREFIX}-cppy>=1.3.0:../../devel/py-cppy
+CPPFLAGS+=	-I${BUILDLINK_DIR}/${PYSITELIB}/cppy/include
+.endif
+
 post-install:
 	${RM} -f ${DESTDIR}${PREFIX}/${PYSITELIB}/src/version.h
 	${RMDIR} ${DESTDIR}${PREFIX}/${PYSITELIB}/src || ${TRUE}
