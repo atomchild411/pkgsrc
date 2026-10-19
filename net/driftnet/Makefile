@@ -24,6 +24,16 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/driftnet ${DESTDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/driftnet.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+.include "../../mk/endian.mk"
+# The build runs ./endian to write the byte-order flag: give the target's.
+SUBST_CLASSES+=		endian
+SUBST_STAGE.endian=	pre-configure
+SUBST_FILES.endian=	Makefile
+SUBST_SED.endian=	-e 's|^	./endian > endianness|	echo -DDRIFTNET_${MACHINE_ENDIAN:tu}_ENDIAN > endianness|'
+.endif
+
 .include "../../graphics/giflib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
