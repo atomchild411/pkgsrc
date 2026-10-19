@@ -9,3 +9,4 @@ Size (xemeraldia-0.3to0.31.patch.gz) = 2400 bytes
 SHA1 (patch-aa) = 6ee848301fde9da8da98fcd30d66a566bcfe7993
 SHA1 (patch-ab) = dd8d2cca732bd3dbd0598e0484067a8c8aba306f
 SHA1 (patch-ac) = 8488955229bcf85472c424e503e7f09c7cb7785c
+SHA1 (patch-graphics.h) = 5e8326a105accbf3d4676c5b39157510257c28fa

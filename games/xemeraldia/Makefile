@@ -25,6 +25,10 @@ SPECIAL_PERMS+=		bin/xemeraldia ${SETGID_GAMES_PERMS}
 CONF_FILES_PERMS+=	/dev/null ${PREFIX}/${GAMES_DIR}/xemeraldia/xemeraldia.scores \
 			${GAMES_USER} ${GAMES_GROUP} ${GAMEMODE}
 
+# imake's sgi.cf defines SVR4, and <X11/Xthreads.h> then wants UI threads
+# (<thread.h>), which IRIX lacks: its pthread branch is right.
+BUILDLINK_TRANSFORM.IRIX+=	rm:-DSVR4
+
 .include "../../x11/libXaw/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
