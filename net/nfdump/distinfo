@@ -7,6 +7,7 @@ SHA1 (patch-bin_exporter.c) = 1cf6542a71a798ece69dcd9ef572093ffbd8c081
 SHA1 (patch-bin_netflow__v1.c) = 712be153222b405bb3e9939c79d413dfa6297c6f
 SHA1 (patch-bin_netflow__v5__v7.c) = 28cfde5f3c649e6ca4a20a13572ba12973a687a8
 SHA1 (patch-bin_nfcapd.c) = 9604827ef1d61727bb8c43dfa9554d777f72d78b
+SHA1 (patch-bin_nfreplay.c) = f23764deb6357bf0168ec92c85d2051f4b69c7d4
 SHA1 (patch-bin_sfcapd.c) = 14d9cbef9c059629606d38df5a4cfa5aa082942a
 SHA1 (patch-configure) = 02ddab9c6ee4d862b0e8f006ab3432b07923bf0b
 SHA1 (patch-configure.in) = 98d3e0db6f81cfc12b7d719189adf5f7ee8c6594
