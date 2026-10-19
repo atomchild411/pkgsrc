@@ -7,6 +7,11 @@ PKGNAME=	lib${DISTNAME}
 COMMENT=	Highly reliable distributed coordination C lib
 
 GNU_CONFIGURE=	yes
+
+# generated/zookeeper.jute.c ships in the tarball (AC_CHECK_FILE cannot look when cross-compiling).
+CONFIGURE_ENV+=		ac_cv_file_generated_zookeeper_jute_c=yes
+CONFIGURE_ENV+=		ac_cv_file_generated_zookeeper_jute_h=yes
+
 USE_LANGUAGES=	c c99
 USE_LIBTOOL=	yes
 
