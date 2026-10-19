@@ -29,6 +29,16 @@ CFLAGS+=	-Wno-error=implicit-int
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# osdep's includer generates the os-*.c sources during the build: build it
+# for the build host.
+SUBST_CLASSES+=		includer
+SUBST_STAGE.includer=	pre-build
+SUBST_FILES.includer=	pico/osdep/makefile
+SUBST_SED.includer=	-e 's,$$(LDCC) $$(CFLAGS) -o includer,${NATIVE_CC} -std=gnu89 -o includer,'
+SUBST_MESSAGE.includer=	Building includer for the build host.
+.endif
+
 OPSYSVARS+=		BUILDNAME
 BUILDNAME.Darwin=	osx
 .if ${OPSYS} == "IRIX"
