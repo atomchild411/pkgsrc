@@ -11,5 +11,8 @@ COMMENT=	Parallel URL fetcher
 LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	YES
+# Run tests: IRIX has a 64-bit off_t and printf knows %lli.
+CONFIGURE_ENV.IRIX+=	ob_cv_type_off_t_ll=yes
+CONFIGURE_ENV.IRIX+=	ob_cv_func_printf_ok=yes
 
 .include "../../mk/bsd.pkg.mk"
