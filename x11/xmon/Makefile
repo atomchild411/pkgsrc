@@ -21,4 +21,7 @@ FORCE_C_STD=	gnu99
 
 .include "../../x11/libXaw/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
+# IRIX has FIOCLEX in <sys/filio.h>, which main.c does not include.
+CPPFLAGS.IRIX+=	-include sys/filio.h
+
 .include "../../mk/bsd.pkg.mk"
