@@ -20,6 +20,17 @@ MAKE_ENV+=		LANGUAGE="en"
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/man5 \
 			${PKGMANDIR}/man8 sbin share/examples
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# RandomPrime and make_32bit_tables, run at build time to write headers,
+# are for the build host.
+SUBST_CLASSES+=		randprime
+SUBST_STAGE.randprime=	pre-configure
+SUBST_FILES.randprime=	deadwood-*/src/Makefile rng/Makefile
+SUBST_SED.randprime=	-e 's|^	\$$(CC) -O3 -o RandomPrime RandomPrime.c|	${NATIVE_CC} -O3 -o RandomPrime RandomPrime.c|'
+SUBST_SED.randprime+=	-e 's|^	\$$(CC) -o make_32bit_tables make_32bit_tables.c|	${NATIVE_CC} -o make_32bit_tables make_32bit_tables.c|'
+.endif
+
 .include "../../mk/pthread.buildlink3.mk"
 LDFLAGS+=	${PTHREAD_LIBS}
 
