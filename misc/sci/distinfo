@@ -5,3 +5,4 @@ SHA512 (sci-0.5.6.tar.gz) = 531b9b293f20aa2f502f26b4da63d17488c9c944f4753098443b
 Size (sci-0.5.6.tar.gz) = 84440 bytes
 SHA1 (patch-aa) = ea6b39d891712d498c9f2d6e33cd45a51385a9fd
 SHA1 (patch-ab) = cf2d6f5f8766f9aaae8133b56ff72230c3dcc81d
+SHA1 (patch-sci.c) = 2173f2583f08ca6e8c87045b9e1b03f414730095

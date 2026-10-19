@@ -14,6 +14,17 @@ GNU_CONFIGURE=	yes
 
 INSTALLATION_DIRS+=	share/doc/sci share/examples/sci
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# keys.x is made from the curses header, looked for in /usr/include: use
+# the target's (pkgsrc ncurses) instead of the build machine's.
+SUBST_CLASSES+=		cursesh
+SUBST_STAGE.cursesh=	pre-configure
+SUBST_FILES.cursesh=	Makefile.in
+SUBST_SED.cursesh=	-e 's,CURSESH="/usr/include/ncurses\.h",CURSESH="${BUILDLINK_DIR}/include/ncurses/ncurses.h",'
+SUBST_MESSAGE.cursesh=	Making keys.x from the target's curses header.
+.endif
+
 post-install:
 	for i in COPYING README INSTALL NEWS ; do \
 		${INSTALL_DATA} ${WRKSRC}/$$i ${DESTDIR}${PREFIX}/share/doc/sci ; \
