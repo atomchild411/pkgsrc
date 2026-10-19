@@ -4,3 +4,4 @@ BLAKE2s (palmpower-1.0.2.tar.gz) = e7f56502e3e988b95a23aa487457261606998169896bd
 SHA512 (palmpower-1.0.2.tar.gz) = 867a9a64901dd7a85c6a6ee73c03ec4e9bd31ca481b7f82cb1d515bc1ab1cd12dd0480c1e447c462d33aa4590e5ec8973a57e0fafc9b0cc670088502e69c146a
 Size (palmpower-1.0.2.tar.gz) = 184976 bytes
 SHA1 (patch-aa) = 4f31296add310fb9882e9fb232fd224fd7334385
+SHA1 (patch-src_pila_proto.h) = 1048cf4f7a80862bd45e39f8bb66cbea9bc6ac5c
