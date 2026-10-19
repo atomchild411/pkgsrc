@@ -1,8 +1,19 @@
 $NetBSD: patch-configure.ac,v 1.1 2018/06/02 12:53:10 jmcneill Exp $
 
---- configure.ac.orig	2018-05-04 23:11:25.000000000 +0000
+Link the darwin sendfile test: it compiles anywhere with implicit declarations allowed (IRIX: undefined sendfile).
+
+--- configure.ac.orig
 +++ configure.ac
-@@ -638,6 +638,9 @@ case "$target_os" in
+@@ -326,7 +326,7 @@
+      ])
+ 
+ AC_MSG_CHECKING([for darwin sendfile support])
+-AC_COMPILE_IFELSE(
++AC_LINK_IFELSE(
+      [AC_LANG_PROGRAM(
+          [
+              #include <stdlib.h>
+@@ -649,6 +649,9 @@
  		;;
          linux*)
  		;;
