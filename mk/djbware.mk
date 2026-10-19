@@ -77,8 +77,8 @@ SUBST_MESSAGE.djberrno=	Correcting definition of errno.
 
 # A cross build cannot run the programs it compiles: chkshsgr, which only
 # makes sure getgroups() and setgroups() take gid_t arrays rather than short
-# ones, is skipped; auto-str's strings and ./install's work come from
-# scripts instead.
+# ones, is skipped; auto-str's strings, auto-int's and auto-int8's numbers
+# and ./install's work come from scripts instead.
 .include "../../mk/bsd.fast.prefs.mk"
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
 SUBST_CLASSES+=		djbshsgr
@@ -86,10 +86,12 @@ SUBST_STAGE.djbshsgr=	pre-build
 SUBST_FILES.djbshsgr=	Makefile src/Makefile
 SUBST_SED.djbshsgr=	-e 's,\./chkshsgr ||,true ||,'
 SUBST_SED.djbshsgr+=	-e 's,\./auto-str ,${SH} ${PKGSRCDIR}/mk/djbware-auto-str.sh ,'
+SUBST_SED.djbshsgr+=	-e 's,\./auto-int ,${SH} ${PKGSRCDIR}/mk/djbware-auto-int.sh ,'
+SUBST_SED.djbshsgr+=	-e 's,\./auto-int8 ,${SH} ${PKGSRCDIR}/mk/djbware-auto-int.sh -8 ,'
 SUBST_SED.djbshsgr+=	-e 's,^\(	*\)\./install$$,\1${SH} ${PKGSRCDIR}/mk/djbware-install.sh,'
 SUBST_SED.djbshsgr+=	-e 's,^\(	*\)\./instcheck$$,\1true,'
 SUBST_NOOP_OK.djbshsgr=	yes
-SUBST_MESSAGE.djbshsgr=	Skipping chkshsgr; auto-str and install as scripts.
+SUBST_MESSAGE.djbshsgr=	Skipping chkshsgr; auto-str, auto-int and install as scripts.
 .endif
 
 .endif	# DJBWARE_MK
