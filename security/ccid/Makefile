@@ -29,7 +29,11 @@ PLIST_SUBST+=		OSNAME=${OPSYS}
 # PTHREAD vars.  Not yet reported upstream.
 PTHREAD_AUTO_VARS=	yes
 
+# Build-time scripts (not installed): in a cross build REPLACE_PERL would
+# point them at the target's perl; their #!/usr/bin/env perl finds the tool.
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
 REPLACE_PERL=		src/convert_version.pl src/create_Info_plist.pl
+.endif
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/man8
 INSTALLATION_DIRS+=	sbin share/doc/ccid
