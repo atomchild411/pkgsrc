@@ -43,6 +43,27 @@ pre-configure:
 	cd ${WRKSRC}; mkdir build
 	${CP} ${FILESDIR}/INSTALL.pkgsrc ${WRKDIR}
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# A cross build imports rdatawad (it makes prboom-plus.wad, a little-endian
+# format) from a native build: build it for the build host, with a config.h
+# of its own (the target's says WORDS_BIGENDIAN, all rdatawad takes from it),
+# and hand cmake an import file for it.
+CMAKE_CONFIGURE_ARGS+=	-DIMPORT_EXECUTABLES=${WRKDIR}/ImportExecutables.cmake
+.PHONY: prboom-import-file prboom-host-rdatawad
+pre-configure: prboom-import-file
+prboom-import-file:
+	${PRINTF} 'add_executable(rdatawad IMPORTED)\nset_property(TARGET rdatawad PROPERTY IMPORTED_LOCATION %s)\n' \
+		${WRKDIR}/rdatawad > ${WRKDIR}/ImportExecutables.cmake
+pre-configure: prboom-host-rdatawad
+prboom-host-rdatawad:
+	${MKDIR} ${WRKDIR}/rdatawad-inc
+	${TOUCH} ${WRKDIR}/rdatawad-inc/config.h
+	cd ${WRKSRC}/data && ${NATIVE_CC} -I${WRKDIR}/rdatawad-inc \
+		-o ${WRKDIR}/rdatawad rd_main.c rd_util.c rd_output.c \
+		rd_sound.c rd_palette.c rd_graphic.c
+.endif
+
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/ICONS/prboom-plus.desktop \
 		${DESTDIR}${PREFIX}/share/applications/prboom-plus.desktop
