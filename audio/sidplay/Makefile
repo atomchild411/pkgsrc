@@ -16,5 +16,8 @@ GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake
 USE_LANGUAGES=		c c++
 
+# configure picks the SGI audio driver but leaves LIBAUDIO empty.
+MAKE_FLAGS.IRIX+=	LIBAUDIO=-laudio
+
 .include "../../audio/libsidplay/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

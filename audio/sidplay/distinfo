@@ -7,3 +7,4 @@ SHA1 (patch-aa) = 19152c74918debf52578407b3b08331f969ad8d8
 SHA1 (patch-ab) = cd683bc6a822b10a9c54db3b70390b7dc00fd404
 SHA1 (patch-ac) = c48b67b9f07e237d010ba1de48d6ecc275261744
 SHA1 (patch-ad) = 5baac8b814adb7f86cf49147df5ab0a3f914db45
+SHA1 (patch-audio_sgi_audiodrv.cpp) = 82d962d85373dc9d260526fcc82f6e6087c7e65d
