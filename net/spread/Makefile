@@ -20,6 +20,12 @@ USE_TOOLS+=		perl
 GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	--includedir=${PREFIX:Q}/include/spread
 CONFIGURE_ARGS+=	--with-pid-dir=${RUNTIME_DIR:Q}
+# The PLIST has the man sources; without an nroff configure picks
+# formatted pages.
+CONFIGURE_ARGS+=	--with-catman=man
+# spuser calls pthread_join but links without the threads library (which
+# is libc on glibc); configure resets LIBS.
+LDFLAGS.IRIX+=		-lpthread
 MAKE_FLAGS+=		LD=${CC:Q}
 
 BUILD_DEFS+=	SPREAD_DIR
