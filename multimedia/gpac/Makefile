@@ -18,6 +18,8 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-opt
 CONFIGURE_ARGS+=	--disable-wx
 CONFIGURE_ARGS+=	--enable-pic
+# Remotery (a profiler server) knows Linux, the BSDs and macOS only.
+CONFIGURE_ARGS.IRIX+=	--disable-remotery
 CONFIGURE_ARGS+=	--extra-cflags="${CFLAGS}"
 CONFIGURE_ARGS+=	--extra-ldflags="${LDFLAGS}"
 CFLAGS+=		-I${BUILDLINK_PREFIX.faad2}/${BUILDLINK_INCDIRS.faad2}
