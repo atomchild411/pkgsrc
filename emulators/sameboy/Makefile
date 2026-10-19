@@ -13,6 +13,11 @@ MAKE_FLAGS+=	FREEDESKTOP=true
 
 .include "../../mk/bsd.fast.prefs.mk"
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# pb12 compresses the boot ROM logo during the build.
+MAKE_FLAGS+=	NATIVE_CC=${NATIVE_CC:Q}
+.endif
+
 .if ${OPSYS} != "Darwin"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .endif
