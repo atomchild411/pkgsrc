@@ -20,6 +20,16 @@ MAKE_FILE=		makefile
 
 INSTALLATION_DIRS=	bin
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# help/ builds txt2hlp and txt2html and runs them to write the help text
+# (C source): build them for the build host.
+SUBST_CLASSES+=		helpcc
+SUBST_STAGE.helpcc=	pre-configure
+SUBST_FILES.helpcc=	help/makefile
+SUBST_SED.helpcc=	-e 's|^include ../ENVIRONMENT$$|&\nCC = ${NATIVE_CC} -std=gnu89|'
+.endif
+
 PROGFILES=	azara bin2asc combine connect contours deflate \
 	extract float2int int2float look_at look_byte look_for mat2par \
 	par2mat peak_find peak_fit plot1 plot2 process project reflate \
