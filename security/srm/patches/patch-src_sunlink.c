@@ -1,10 +1,11 @@
 $NetBSD: patch-src_sunlink.c,v 1.1 2016/10/27 19:49:44 kamil Exp $
 
 Add NetBSD support.
+IRIX: signal handlers are void (*)(), and statvfs (its statfs takes four arguments).
 
---- src/sunlink.c.orig	2015-02-26 16:12:02.000000000 +0000
+--- src/sunlink.c.orig
 +++ src/sunlink.c
-@@ -105,7 +105,7 @@ static volatile int SIGINT_received = 0;
+@@ -105,9 +105,13 @@
  #if defined(__linux__) && !defined(__USE_GNU)
  typedef __sighandler_t sighandler_t;
  #endif
@@ -12,12 +13,18 @@ Add NetBSD support.
 +#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
  typedef sig_t sighandler_t;
  #endif
++#if defined(__sgi)
++typedef void (*sighandler_t)();
++#include <sys/statvfs.h>
++#endif
  
-@@ -837,8 +837,13 @@ next_ads:
+ static void sigint_handler(int signo)
+ {
+@@ -837,8 +841,13 @@
  
  #if defined(HAVE_SYS_VFS_H) || (defined(HAVE_SYS_PARAM_H) && defined(HAVE_SYS_MOUNT_H))
    {
-+#if defined(__NetBSD__)
++#if defined(__NetBSD__) || defined(__sgi)
 +    struct statvfs fs_stats;
 +    if (fstatvfs(srm.fd, &fs_stats) < 0 && errno != ENOSYS)
 +#else
@@ -27,16 +34,19 @@ Add NetBSD support.
        {
  	int e=errno;
  	close(srm.fd);
-@@ -848,7 +853,7 @@ next_ads:
+@@ -846,9 +855,9 @@
+ 	return -1;
+       }
  
- #if defined(__linux__)
+-#if defined(__linux__)
++#if defined(__linux__) || defined(__sgi)
      srm.buffer_size = fs_stats.f_bsize;
 -#elif defined(__FreeBSD__) || defined(__APPLE__)
 +#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__APPLE__)
      srm.buffer_size = fs_stats.f_iosize;
  #else
  #error Please define your platform.
-@@ -907,6 +912,7 @@ next_ads:
+@@ -907,6 +916,7 @@
     and catch only platforms supporting NOUNLINK here.
  
     OpenBSD - doesn't support nounlink (As of 3.1)
