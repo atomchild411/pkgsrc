@@ -1,10 +1,11 @@
 $NetBSD: patch-ac,v 1.1 2016/05/24 09:20:07 leot Exp $
 
-Use curses(3) in NetBSD instead of ncursesw.
+Use curses(3) in NetBSD instead of ncursesw, and pkgsrc ncurses
+(include/ncurses) on IRIX.
 
---- stfl_internals.h.orig	2015-01-05 10:47:32.000000000 +0000
+--- stfl_internals.h.orig
 +++ stfl_internals.h
-@@ -28,7 +28,12 @@ extern "C" {
+@@ -28,7 +28,15 @@
  #endif
  
  #include "stfl.h"
@@ -12,6 +13,9 @@ Use curses(3) in NetBSD instead of ncursesw.
 +#ifdef __NetBSD__
 +# include <curses.h>
 +# include <stdarg.h>
++#elif defined(__sgi)	/* pkgsrc ncurses, wide */
++# define NCURSES_WIDECHAR 1
++# include <ncurses/ncurses.h>
 +#else
 +# include <ncursesw/ncurses.h>
 +#endif
