@@ -11,12 +11,16 @@ COMMENT=		Rescue hard disk helper
 GNU_CONFIGURE=		yes
 
 USE_TOOLS+=		bash:run
+# The script needs bash; configure falls back to /bin/sh when it finds
+# none on the build machine's PATH (cross builds).
+CONFIGURE_ENV+=		ac_cv_path_BASH=${TOOLS_PATH.bash}
 
 # can't use REPLACE_INTERPRETER because it happens too early
 SUBST_CLASSES+=		bash
 SUBST_STAGE.bash=	post-build
 SUBST_FILES.bash=	dd_rhelp
 SUBST_SED.bash=		-e 's,^\#!.*/bash,\#!${TOOLS_PATH.bash},'
+SUBST_NOOP_OK.bash=	yes	# configure wrote that path already
 
 DEPENDS+=		dd_rescue>=1.03:../../sysutils/dd_rescue
 
