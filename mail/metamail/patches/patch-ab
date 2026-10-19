@@ -1,8 +1,10 @@
 $NetBSD: patch-ab,v 1.8 2005/11/21 09:47:45 rillig Exp $
 
---- config.h.orig	1993-11-24 09:36:07.000000000 -0600
+IRIX has initstate and random: do not map them to srand and rand.
+
+--- config.h.orig
 +++ config.h
-@@ -40,7 +40,7 @@ WITHOUT ANY EXPRESS OR IMPLIED WARRANTIE
+@@ -40,7 +40,7 @@
  #define SYSV /* Linux is SysV */
  #endif
  
@@ -11,7 +13,7 @@ $NetBSD: patch-ab,v 1.8 2005/11/21 09:47:45 rillig Exp $
  #ifndef SYSV
  /* Stupid SGI machines define SVR3 but not SYSV */
  #define SYSV
-@@ -65,6 +65,12 @@ WITHOUT ANY EXPRESS OR IMPLIED WARRANTIE
+@@ -65,6 +65,12 @@
  #endif
  #endif
  
@@ -24,7 +26,7 @@ $NetBSD: patch-ab,v 1.8 2005/11/21 09:47:45 rillig Exp $
  /* NOTE:  The RESET_PROGRAM resets the terminal to a "normal" state 
     If you comment out the definition, all will be well except that metamail's
     -R switch won't work, and metamail-called programs might be more likely
-@@ -100,9 +106,13 @@ WITHOUT ANY EXPRESS OR IMPLIED WARRANTIE
+@@ -100,14 +106,20 @@
  #endif
  
  #ifdef SYSV
@@ -38,7 +40,14 @@ $NetBSD: patch-ab,v 1.8 2005/11/21 09:47:45 rillig Exp $
  #define bcmp memcmp
  #define index strchr
  #define rindex strrchr
-@@ -155,9 +165,13 @@ WITHOUT ANY EXPRESS OR IMPLIED WARRANTIE
++#ifndef __sgi	/* IRIX has initstate and random */
+ #define initstate srand
+ #define random rand
++#endif
+ #define NO_RLIMITS 1
+ #define sigtype void
+ #endif
+@@ -155,9 +167,13 @@
  #ifdef NeXT
  #define sigtype void
  #else
@@ -52,7 +61,7 @@ $NetBSD: patch-ab,v 1.8 2005/11/21 09:47:45 rillig Exp $
  
  #ifdef MSDOS
  #define PATH_SEPARATOR ';'
-@@ -173,7 +187,7 @@ WITHOUT ANY EXPRESS OR IMPLIED WARRANTIE
+@@ -173,7 +189,7 @@
  #else
  #define PATH_SEPARATOR ':'
  #ifndef STDPATH
