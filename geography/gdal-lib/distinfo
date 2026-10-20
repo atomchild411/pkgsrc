@@ -4,4 +4,6 @@ BLAKE2s (gdal-3.13.3.tar.xz) = bda0bd2fcd013cefa13d65766f73716ef24cba1b505decce5
 SHA512 (gdal-3.13.3.tar.xz) = e557a38a8bc0f2f1e40c0ca980db00ed22137a610dfdb16d19b18ce12100916bfa5c1fa75d702eb2e26a4e98cf868c2229551bfe2784d6e1131451f758b205dd
 Size (gdal-3.13.3.tar.xz) = 9982976 bytes
 SHA1 (patch-frmts_grib_degrib_degrib_myutil.c) = 0e046afa236d7e0d6186fe392cb2da05fa5b42c5
+SHA1 (patch-ogr_ogrutils.cpp) = 9addb5889433d33a244b985625b12ccb35ba57fe
 SHA1 (patch-port_cpl__port.h) = 1a8e90085b4390edb4ec2b40b68f83093fbe164d
+SHA1 (patch-port_cpl__vsil__unix__stdio__64.cpp) = cd439d464243093532b57daeb677bc3cd452d59c

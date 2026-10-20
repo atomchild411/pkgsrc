@@ -53,6 +53,11 @@ CMAKE_CONFIGURE_ARGS+=		-DBUILD_PYTHON_BINDINGS=OFF
 .if ${USE_CROSS_COMPILE:U:tl} == "yes"
 CMAKE_CONFIGURE_ARGS+=		-DCMAKE_DISABLE_FIND_PACKAGE_Python=ON
 .endif
+# IRIX n32's off_t is 64 bits already; its stat64 & co. exist in libc but
+# their structs are declared only in the large-file API mode, which GDAL
+# does not ask for.
+CMAKE_CONFIGURE_ARGS.IRIX+=	-DHAVE_STAT64=OFF -DHAVE_STATVFS64=OFF
+CMAKE_CONFIGURE_ARGS.IRIX+=	-DHAVE_OPEN64=OFF -DHAVE_LSEEK64=OFF
 
 # Disable things that we don't want to build, more as documentation
 # than them needing to be forced off.
