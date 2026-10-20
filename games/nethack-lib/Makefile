@@ -19,6 +19,14 @@ SUBST_STAGE.nroff=	pre-configure
 SUBST_MESSAGE.nroff=	Fixing Guidebook format command.
 SUBST_FILES.nroff=	sys/unix/Makefile.doc
 SUBST_SED.nroff=	-e '/^GUIDECMD/s,nroff .*$$,nroff -Tascii,'
+# The IRIX cross build formats the Guidebook on the build machine, with
+# pkgsrc's groff tools (tbl, nroff) and no col; makedefs runs on the
+# target (mk/irix-exec-bridge.mk).
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${OPSYS} == "IRIX"
+USE_TOOLS+=		tbl nroff
+SUBST_CLASSES+=		nroff
+.endif
 
 # Special handling for the scorefiles: we do not want to delete
 # them between package installations and deinstallations.
@@ -62,4 +70,5 @@ _WRAP_EXTRA_ARGS.CXX+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cc+=	${_RELRO_LDFLAGS}
 CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
