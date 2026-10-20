@@ -28,4 +28,5 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/${i} ${DESTDIR}${DOCDIR}
 .endfor
 
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -14,4 +14,5 @@ LICENSE=	${PERL5_LICENSE}
 PERL5_PACKLIST=		auto/Term/Size/Perl/.packlist
 
 .include "../../lang/perl5/module.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
