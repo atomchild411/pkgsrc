@@ -9,10 +9,11 @@ branch iris/main):
 - timespec in wrapper prototypes: the tag IRIX uses in the mode
 - sys/stat.h: st_blocks a plain member in POSIX and XPG4 modes
 - openat64 and fstatat64; open64 takes O_CLOEXEC
+- strerror_l, strtod_l & co., AT_* in <sys/stat.h>, GID_MAX, _POSIX_MONOTONIC_CLOCK
 
 --- lib/Headers/irix_wrappers/sys/stat.h.orig
 +++ lib/Headers/irix_wrappers/sys/stat.h
-@@ -0,0 +1,90 @@
+@@ -0,0 +1,99 @@
 +/*===---- sys/stat.h - IRIX wrapper ------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -51,6 +52,15 @@ branch iris/main):
 +#pragma pop_macro("_XOPEN5")
 +#else
 +#include_next <sys/stat.h>
++#endif
++/* POSIX has <sys/stat.h> define AT_FDCWD and AT_SYMLINK_NOFOLLOW (for
++ * fstatat and utimensat), as glibc's does through <fcntl.h>'s bits; IRIX's
++ * has neither (sudo's utimens.c). The <fcntl.h> wrapper's values. */
++#ifndef AT_FDCWD
++#define AT_FDCWD (-100)
++#endif
++#ifndef AT_SYMLINK_NOFOLLOW
++#define AT_SYMLINK_NOFOLLOW 0x100
 +#endif
 +#ifndef UTIME_NOW
 +#define UTIME_NOW ((1L << 30) - 1)

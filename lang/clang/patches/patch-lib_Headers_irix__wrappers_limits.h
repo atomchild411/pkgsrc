@@ -8,10 +8,11 @@ branch iris/main):
 - Wrappers: O_ASYNC and LOGIN_NAME_MAX
 - <limits.h>: IOV_MAX in plain XPG4 mode too
 - <limits.h>: LLONG_MIN, LLONG_MAX, ULLONG_MAX in GNU C89 and C++98
+- strerror_l, strtod_l & co., AT_* in <sys/stat.h>, GID_MAX, _POSIX_MONOTONIC_CLOCK
 
 --- lib/Headers/irix_wrappers/limits.h.orig
 +++ lib/Headers/irix_wrappers/limits.h
-@@ -0,0 +1,89 @@
+@@ -0,0 +1,95 @@
 +/*===---- limits.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -98,6 +99,12 @@ branch iris/main):
 +#ifndef ULLONG_MAX
 +#define ULLONG_MAX (__LONG_LONG_MAX__ * 2ULL + 1ULL)
 +#endif
++#endif
++
++/* GID_MAX: IRIX's UID_MAX is the "max value for a user or group ID"; the
++ * BSDs name both (opendoas). */
++#if defined(UID_MAX) && !defined(GID_MAX)
++#define GID_MAX UID_MAX
 +#endif
 +
 +#endif /* __CLANG_IRIX_LIMITS_H */

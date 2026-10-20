@@ -12,10 +12,11 @@ branch iris/main):
 - POSIX 2008 *_l functions: ctype, wctype and collation
 - [IRIX] strchrnul
 - compiler-rt: wcstoimax/wcstoumax before 6.5.22, ffsl, ffsll, cfsetspeed
+- strerror_l, strtod_l & co., AT_* in <sys/stat.h>, GID_MAX, _POSIX_MONOTONIC_CLOCK
 
 --- lib/Headers/irix_wrappers/string.h.orig
 +++ lib/Headers/irix_wrappers/string.h
-@@ -0,0 +1,88 @@
+@@ -0,0 +1,89 @@
 +/*===---- string.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -99,6 +100,7 @@ branch iris/main):
 +#endif
 +int strcoll_l(const char *, const char *, locale_t);
 +size_t strxfrm_l(char *__restrict, const char *__restrict, size_t, locale_t);
++char *strerror_l(int, locale_t);
 +#ifdef __cplusplus
 +}
 +#endif

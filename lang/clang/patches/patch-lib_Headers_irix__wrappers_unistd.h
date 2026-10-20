@@ -16,11 +16,12 @@ branch iris/main):
 - getentropy and arc4random
 - Wrapper <unistd.h>: setgroups as IRIX declares it under _BSD_COMPAT
 - issetugid() in compiler-rt's libc stand-ins, declared in <unistd.h>
-- pipe2 and dup3
+- [IRIX] pipe2 and dup3
+- strerror_l, strtod_l & co., AT_* in <sys/stat.h>, GID_MAX, _POSIX_MONOTONIC_CLOCK
 
 --- lib/Headers/irix_wrappers/unistd.h.orig
 +++ lib/Headers/irix_wrappers/unistd.h
-@@ -0,0 +1,339 @@
+@@ -0,0 +1,347 @@
 +/*===---- unistd.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -357,6 +358,14 @@ branch iris/main):
 +extern "C" char **environ;
 +#else
 +extern char **environ;
++#endif
++
++/* _POSIX_MONOTONIC_CLOCK: IRIX's <unistd.h> has _POSIX_TIMERS but not
++ * this, while clang's IRIX <time.h> provides CLOCK_MONOTONIC (compiler-rt,
++ * from times()). Code that gates clock_gettime(CLOCK_MONOTONIC) on it took
++ * other paths (hamlib's precise_time.c: x86 assembly). */
++#if defined(_POSIX_TIMERS) && !defined(_POSIX_MONOTONIC_CLOCK)
++#define _POSIX_MONOTONIC_CLOCK 200112L
 +#endif
 +
 +#endif /* __CLANG_IRIX_UNISTD_H */

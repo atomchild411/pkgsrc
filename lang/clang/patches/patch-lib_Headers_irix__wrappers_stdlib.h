@@ -24,10 +24,11 @@ branch iris/main):
 - [IRIX] posix_openpt
 - getloadavg; fnmatch with FNM_CASEFOLD and FNM_LEADING_DIR
 - <stdlib.h>: keep a gnulib putenv = rpl_putenv made during the include
+- strerror_l, strtod_l & co., AT_* in <sys/stat.h>, GID_MAX, _POSIX_MONOTONIC_CLOCK
 
 --- lib/Headers/irix_wrappers/stdlib.h.orig
 +++ lib/Headers/irix_wrappers/stdlib.h
-@@ -0,0 +1,207 @@
+@@ -0,0 +1,226 @@
 +/*===---- stdlib.h - IRIX wrapper -------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -230,6 +231,25 @@ branch iris/main):
 +extern "C" {
 +#endif
 +void _Exit(int) __attribute__((__noreturn__));
++#ifdef __cplusplus
++}
++#endif
++
++
++/* The locale-taking strtod and friends (glibc's and the BSDs'), which
++ * compiler-rt's IRIX builtins define (irix/locale_l.c): with a newlocale()
++ * locale, which is always the C locale, a '.' is the decimal point
++ * whatever setlocale() set. */
++#include <__irix_locale_t.h>
++#ifdef __cplusplus
++extern "C" {
++#endif
++double strtod_l(const char *__restrict, char **__restrict, locale_t);
++float strtof_l(const char *__restrict, char **__restrict, locale_t);
++long strtol_l(const char *__restrict, char **__restrict, int, locale_t);
++unsigned long strtoul_l(const char *__restrict, char **__restrict, int, locale_t);
++long long strtoll_l(const char *__restrict, char **__restrict, int, locale_t);
++unsigned long long strtoull_l(const char *__restrict, char **__restrict, int, locale_t);
 +#ifdef __cplusplus
 +}
 +#endif
