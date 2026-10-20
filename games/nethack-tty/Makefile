@@ -29,4 +29,5 @@ PATCHDIR=		${.CURDIR}/../../games/nethack-lib/patches
 SPECIAL_PERMS+=		${PREFIX}/bin/nethack-tty			\
 			    ${GAMEPERM}
 
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
