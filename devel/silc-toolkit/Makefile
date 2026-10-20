@@ -38,4 +38,6 @@ NOT_FOR_COMPILER=	xlc
 .include "options.mk"
 
 .include "../../devel/libgetopt/buildlink3.mk"
+# configure runs test programs (pthread, sizes): on the target.
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

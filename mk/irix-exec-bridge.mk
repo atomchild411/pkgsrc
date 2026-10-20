@@ -25,6 +25,10 @@ IRIX_EXEC_BRIDGE_MK=	defined
 CONFIGURE_ENV+=		IRIX_EXEC_BRIDGE=yes
 MAKE_ENV+=		IRIX_EXEC_BRIDGE=yes
 INSTALL_ENV+=		IRIX_EXEC_BRIDGE=yes
+# GNU configure scripts given --build and --host decide they are cross-
+# compiling without trying; without --build they try a test program, find
+# it runs, and run their tests on the target as in a native build.
+GNU_CONFIGURE_BUILD_ARG?=	no
 # meson and CMake run target programs only through a wrapper they are
 # told about (binfmt_misc would run them, but they will not try): the
 # bridge's handler, which takes the program and its arguments.

@@ -89,8 +89,13 @@ CONFIGURE_ARGS+=	--libdir=${GNU_CONFIGURE_LIBDIR}
 
 USE_GNU_CONFIGURE_HOST?=	yes
 USE_GNU_CONFIGURE_TARGET?=	no # enable for toolchain packages
+# GNU_CONFIGURE_BUILD_ARG=no leaves out --build, so that a configure script
+# that can run what it compiles (mk/irix-exec-bridge.mk) finds it is not
+# cross-compiling and runs its tests.
+GNU_CONFIGURE_BUILD_ARG?=	yes
 .if !empty(USE_GNU_CONFIGURE_HOST:M[yY][eE][sS])
-.  if !empty(TOOLS_USE_CROSS_COMPILE:M[yY][eE][sS])
+.  if ${GNU_CONFIGURE_BUILD_ARG:tl} == "no"
+.  elif !empty(TOOLS_USE_CROSS_COMPILE:M[yY][eE][sS])
 CONFIGURE_ARGS+=	--build=${NATIVE_MACHINE_GNU_PLATFORM:Q}
 .  else
 CONFIGURE_ARGS+=	--build=${MACHINE_GNU_PLATFORM:Q}
