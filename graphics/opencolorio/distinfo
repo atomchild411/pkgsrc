@@ -7,4 +7,4 @@ SHA1 (patch-share_cmake_modules_Findyaml-cpp.cmake) = 678bcf94b1443abc1fb6dda961
 SHA1 (patch-share_cmake_utils_CheckSupportGL.cmake) = f259440166689f7fd8970a61456f111981083733
 SHA1 (patch-src_OpenColorIO_CMakeLists.txt) = 1d54608673f2cd04fd7382f7f513e4abb41ab65b
 SHA1 (patch-src_apputils_argparse.cpp) = 2c0948e891ad340a36f728070ac57b55691cece0
-SHA1 (patch-src_utils_NumberUtils.h) = 35cd321b9759144a16e8a376f83a119a6f7e4719
+SHA1 (patch-src_utils_NumberUtils.h) = 3dce24ca6bd9a6ebd8d1c1f1fb461e2a3c62d809
