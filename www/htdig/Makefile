@@ -48,4 +48,5 @@ CONF_FILES+=	${PREFIX}/share/examples/htdig/mime.types \
 		${PKG_SYSCONFDIR}/mime.types
 
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

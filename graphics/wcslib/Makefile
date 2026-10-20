@@ -26,4 +26,5 @@ CONFIGURE_ARGS+=	--with-cfitsiolib=${BUILDLINK_PREFIX.cfitsio}/lib
 CONFIGURE_ARGS+=	--with-cfitsioinc=${BUILDLINK_PREFIX.cfitsio}/include
 
 .include "../../devel/cfitsio/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
