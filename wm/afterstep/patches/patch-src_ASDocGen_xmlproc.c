@@ -1,10 +1,12 @@
 $NetBSD: patch-src_ASDocGen_xmlproc.c,v 1.1 2025/09/11 21:35:01 gutteridge Exp $
 
 Use ctype.h correctly.
+Drop a comparison with a UTF-8 multi-character constant, which clang rejects
+(never true with gcc).
 
---- src/ASDocGen/xmlproc.c.orig	2013-05-01 13:34:11.000000000 +0000
+--- src/ASDocGen/xmlproc.c.orig
 +++ src/ASDocGen/xmlproc.c
-@@ -111,7 +111,7 @@ write_doc_cdata( const char *cdata, int 
+@@ -111,7 +111,7 @@
  		Bool special = False ;
  		for( i = 0 ; i < len ; ++i ) 
  		{
@@ -13,7 +15,16 @@ Use ctype.h correctly.
  			{
  				if( token_start < i )
  				{	
-@@ -243,7 +243,7 @@ convert_xml_tag( xml_elem_t *doc, xml_el
+@@ -179,7 +179,7 @@
+ 				fputs( "\\&", state->dest_fp );	
+ 			else if ( c == '\\' && state->doc_type == DocType_NROFF ) 
+ 				fputc( '\\', state->dest_fp );	
+-			else if ( c == '' && state->doc_type == DocType_NROFF ) 
++			else if ( 0 /* c == U+0098 in UTF-8: a multi-character constant no char equals (gcc); clang rejects it */ && state->doc_type == DocType_NROFF ) 
+ 				c = '~';
+ 			fputc( c, state->dest_fp );
+ 		}		   
+@@ -243,7 +243,7 @@
  					--len ;
  				/* we want to skip as much whitespace as possible in NROFF */
  				for( i = 0 ; i < len ; ++i ) 
@@ -22,7 +33,7 @@ Use ctype.h correctly.
  						break;
  				if( i == len ) 
  					len = 0 ;
-@@ -253,9 +253,9 @@ convert_xml_tag( xml_elem_t *doc, xml_el
+@@ -253,9 +253,9 @@
  					Bool written = 0 ;
  					for( i = 0 ; i < len ; ++i ) 
  					{
@@ -34,7 +45,7 @@ Use ctype.h correctly.
  						to = i ; 
  						if( to > from  ) 
  						{	
-@@ -501,12 +501,12 @@ add_glossary_item( xml_elem_t* doc, ASXM
+@@ -501,12 +501,12 @@
  	LOCAL_DEBUG_OUT( "term_text = \"%s\"", term_text );
  	while(*term_text)
  	{	

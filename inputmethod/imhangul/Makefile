@@ -22,4 +22,5 @@ BUILDLINK_API_DEPENDS.libhangul+=	libhangul>=0.0.12
 
 .include "../../inputmethod/libhangul/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

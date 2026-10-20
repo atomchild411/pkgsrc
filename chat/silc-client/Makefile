@@ -60,4 +60,5 @@ post-install:
 .include "../../devel/glib/buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"
 
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

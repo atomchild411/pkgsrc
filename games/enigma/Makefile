@@ -43,4 +43,5 @@ BUILDLINK_API_DEPENDS.xerces-c+=	xerces-c>=2.7.0
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/xerces-c/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

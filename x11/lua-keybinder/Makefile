@@ -24,4 +24,5 @@ BUILDLINK_DEPMETHOD.gobject-introspection=	build
 .include "../../x11/keybinder/buildlink3.mk"
 .include "../../lang/lua/luaversion.mk"
 .include "../../lang/lua/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

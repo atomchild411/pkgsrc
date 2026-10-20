@@ -44,4 +44,5 @@ MAKE_ENV+=	EXTRA_LIBRARIES=-lexecinfo
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXinerama/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
