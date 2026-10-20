@@ -47,4 +47,5 @@ CWRAPPERS_PREPEND.cxx+=	${_RELRO_LDFLAGS}
 
 # rl_save_prompt()
 .include "../../devel/readline/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

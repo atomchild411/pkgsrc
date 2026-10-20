@@ -5,6 +5,12 @@ PKG_SUPPORTED_OPTIONS=	doc gmp x11
 # x11 is not suggested because it's not reasonable to include a GUI in
 # a foundation library.
 PKG_SUGGESTED_OPTIONS=	doc gmp
+# IRIX n32: GMP's limb is 64 bits and a pointer 32, which pari's GMP kernel
+# does not support (its configure checks): the portable kernel.
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${OPSYS} == "IRIX"
+PKG_SUGGESTED_OPTIONS:=	${PKG_SUGGESTED_OPTIONS:Ngmp}
+.endif
 
 .include "../../mk/bsd.options.mk"
 
