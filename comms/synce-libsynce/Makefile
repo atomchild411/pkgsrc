@@ -15,4 +15,7 @@ GNU_CONFIGURE=		yes
 CFLAGS.SunOS+=		-D__EXTENSIONS__
 
 .include "../../converters/libiconv/buildlink3.mk"
+# It builds with -Werror -ansi, and clang warns about its K&R prototypes.
+BUILDLINK_TRANSFORM+=	rm:-Werror
+
 .include "../../mk/bsd.pkg.mk"
