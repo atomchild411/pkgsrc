@@ -220,9 +220,37 @@ pre-install:
 	${LN} -s ${DESTDIR}/tmp${QMAIL_QUEUE_DIR} ${DESTDIR}${QMAILDIR}/queue
 	${LN} -s ${DESTDIR}${EGDIR}/users	${DESTDIR}${QMAILDIR}/users
 
+# instpackage copies the built files into DESTDIR. In a cross build the
+# one built for the target cannot run here: build a copy for this machine
+# (with the target's -D options, without the target-only link flags the
+# syncdir option adds).
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+QMAIL_HOST_DIR=		${WRKDIR}/host-instpackage
+QMAIL_INSTPACKAGE=	${QMAIL_HOST_DIR}/instpackage
+pre-install: qmail-host-instpackage
+.PHONY: qmail-host-instpackage
+qmail-host-instpackage:
+	${RM} -rf ${QMAIL_HOST_DIR}
+	${MKDIR} ${QMAIL_HOST_DIR}
+	cd ${WRKSRC} && ${TAR} cf - . | (cd ${QMAIL_HOST_DIR} && ${TAR} xf -)
+	cd ${QMAIL_HOST_DIR} &&						\
+	${RM} -f *.o *.a compile load makelib &&			\
+	${SED} -e '$$s| -Wl,-R.*$$||' make-load.sh > make-load.sh.host && \
+	${MV} make-load.sh.host make-load.sh &&				\
+	for f in *; do							\
+		[ -f "$$f" ] && head -c 4 "$$f" | grep -q ELF && ${RM} -f "$$f"; \
+	done;								\
+	${ECHO} ${NATIVE_CC:Q} -O2 -fpermissive `grep -o -- '-D[^ ]*' conf-cc` \
+		> conf-cc.host && ${MV} conf-cc.host conf-cc &&		\
+	${ECHO} ${NATIVE_CC:Q} > conf-ld &&				\
+	${MAKE_PROGRAM} instpackage
+.else
+QMAIL_INSTPACKAGE=	./instpackage
+.endif
+
 do-install:
 	cd ${WRKSRC}; \
-	DESTDIR=${DESTDIR:Q} ./instpackage
+	DESTDIR=${DESTDIR:Q} ${QMAIL_INSTPACKAGE}
 
 post-install:
 	for i in ${READMES}; do						\
@@ -240,4 +268,10 @@ post-install:
 	done
 
 .include "../../mk/djbware.mk"
+# spawn.o's recipe runs ./chkspawn before compiling spawn.c, and the
+# links that need spawn.o do not wait for it under make -j: with
+# chkspawn run on the target (seconds), qmail-lspawn and qmail-rspawn
+# were linked before spawn.o existed.
+MAKE_JOBS_SAFE=		no
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
