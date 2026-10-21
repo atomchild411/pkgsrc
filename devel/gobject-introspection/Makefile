@@ -46,6 +46,14 @@ BUILDLINK_API_DEPENDS.glib2+= glib2>=2.82
 .include "../../devel/glib2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libffi+= libffi>=3.0.0
 .include "../../devel/libffi/buildlink3.mk"
+# meson.build skips tests/ (whose sources are installed) in cross builds.
+.include "../../mk/bsd.fast.prefs.mk"
+PLIST_VARS+=		tests
+.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+PLIST.tests=		yes
+.endif
+# Before meson: its cross file takes the bridge as exe_wrapper.
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../devel/meson/build.mk"
 .include "../../lang/python/batteries-included.mk"
 .include "../../lang/python/application.mk"
