@@ -14,4 +14,5 @@ LICENSE=	gnu-gpl-v2
 HAS_CONFIGURE=	yes
 
 .include "../../textproc/aspell/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
