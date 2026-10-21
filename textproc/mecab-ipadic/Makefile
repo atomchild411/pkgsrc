@@ -10,7 +10,16 @@ PKGREVISION=	1
 COMMENT=	Japanese Morphological Dictionary for MeCab
 #LICENSE=	# See ${WRKSRC}/COPYING
 
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# The compiled dictionary depends on the byte order: build it with the
+# target's mecab-dict-index, run through the irix-exec bridge (the
+# mecab-config from the target's mecab-base names it).
+BUILD_DEPENDS+=	mecab-base-[0-9]*:../../textproc/mecab-base
+.include "../../mk/irix-exec-bridge.mk"
+.else
 TOOL_DEPENDS+=	mecab-base-[0-9]*:../../textproc/mecab-base
+.endif
 
 GNU_CONFIGURE=	yes
 
