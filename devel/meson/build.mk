@@ -91,11 +91,17 @@ MAKE_ENV+=		PKG_CONFIG_PATH_FOR_BUILD=${TOOLBASE}/lib/pkgconfig:${TOOLBASE}/shar
 
 
 # The cross file turns these off (see above); the packages' own settings
-# would override it.
+# would override it. Not when CROSS_INTROSPECTION is yes (the build
+# can run target programs: an exe_wrapper, such as the IRIX irix-exec
+# bridge's).
+.  if ${CROSS_INTROSPECTION:Uno:tl} == "yes"
+_MESON_ARGS=		${MESON_ARGS}
+.  else
 _MESON_CROSS_NO_GIR=	introspection gir vapi gobject_introspection \
 			enable-introspection enable_introspection \
 			with_introspection enable-vala enable_vala with_vapi
 _MESON_ARGS=		${MESON_ARGS:${_MESON_CROSS_NO_GIR:@o@N-D${o}=*@:ts:}}
+.  endif
 .endif				# ${USE_CROSS_COMPILE:U:tl} == yes
 
 .if defined(USE_PKGLOCALEDIR) && ${USE_PKGLOCALEDIR:tl} != "no"

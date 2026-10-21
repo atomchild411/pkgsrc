@@ -35,6 +35,16 @@ GNU_CONFIGURE_BUILD_ARG?=	no
 IRIX_EXEC_WRAPPER?=	${IRIX_SCRATCH}/iris/irix-exec
 MESON_BINARIES+=	exe_wrapper
 MESON_BINARY.exe_wrapper=	${IRIX_EXEC_WRAPPER}
+# With it, a cross build can run what introspection needs (the GIR
+# dumpers): devel/gobject-introspection/buildlink3.mk adds its dependency
+# and devel/meson leaves the packages' introspection options alone.
+# Include this file before gobject-introspection's buildlink3.mk.
+CROSS_INTROSPECTION=	yes
+# meson's gnome module takes g-ir-scanner from the cross file first: the
+# build machine's (a Python program with a C extension); the dumper it
+# compiles for the target then runs through binfmt_misc and the bridge.
+MESON_BINARIES+=	g-ir-scanner
+MESON_BINARY.g-ir-scanner=	${TOOLBASE}/bin/g-ir-scanner
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_CROSSCOMPILING_EMULATOR=${IRIX_EXEC_WRAPPER}
 # An ldd that reads IRIX binaries (the bridge's WORK/iris/bin/ldd), for
 # g-ir-scanner, which asks ldd what its dumper program links.

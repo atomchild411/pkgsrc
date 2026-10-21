@@ -99,6 +99,9 @@ ${MESON_CROSS_FILE}:
 	${RUN}${ECHO} ${MESON_BINARY_KEY.${_v_}:U${_v_}} = \'${MESON_BINARY.${_v_}:Q}\' \
 		>>${.TARGET}.tmp
 .  endfor
+# CROSS_INTROSPECTION=yes: the build can run target programs (an
+# exe_wrapper), so introspection stays as the package sets it.
+.  if ${CROSS_INTROSPECTION:Uno:tl} != "yes"
 	${RUN}${ECHO} '[project options]' >>${.TARGET}.tmp
 	${RUN}for d in ${CONFIGURE_DIRS:U.}; do				\
 		for f in meson_options.txt meson.options; do		\
@@ -107,6 +110,7 @@ ${MESON_CROSS_FILE}:
 				${WRKSRC}/$$d/$$f;			\
 		done;							\
 	done | ${SORT} -u >>${.TARGET}.tmp
+.  endif
 	${RUN}${MV} -f ${.TARGET}.tmp ${.TARGET}
 
 .endif	# MESON_CROSS_MK

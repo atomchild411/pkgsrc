@@ -5,7 +5,9 @@
 # Cross builds cannot make introspection data (g-ir-scanner runs programs
 # built for the target): add no dependency, so that configure leaves
 # introspection out. mk/plist/plist-introspection.awk drops the files.
-.if ${USE_CROSS_COMPILE:U:tl} != "yes"
+# Unless CROSS_INTROSPECTION is yes: the build can run target programs
+# (IRIX: mk/irix-exec-bridge.mk, included before this file).
+.if ${USE_CROSS_COMPILE:U:tl} != "yes" || ${CROSS_INTROSPECTION:Uno:tl} == "yes"
 BUILDLINK_TREE+=	gobject-introspection
 
 .if !defined(GOBJECT_INTROSPECTION_BUILDLINK3_MK)

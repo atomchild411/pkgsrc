@@ -83,6 +83,9 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/output/${f} ${DESTDIR}${PREFIX}/lib/girepository-1.0/
 .endfor
 
+# Before gobject-introspection and meson: the bridge runs the GIR dumper on
+# the target (meson's exe_wrapper), so introspection stays on.
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=1.86.0nb3
