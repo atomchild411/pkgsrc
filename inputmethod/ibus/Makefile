@@ -39,9 +39,9 @@ CONFIGURE_ARGS+=	--enable-surrounding-text
 CONFIGURE_ARGS+=	--enable-introspection=yes
 CONFIGURE_ARGS+=	--disable-systemd-services
 CONFIGURE_ARGS+=	--with-python=${PYTHONBIN}
-CONFIGURE_ARGS+=	--with-unicode-emoji-dir=${PREFIX}/share/unicode/emoji
-CONFIGURE_ARGS+=	--with-emoji-annotation-dir=${PREFIX}/share/unicode/cldr/common/annotations
-CONFIGURE_ARGS+=	--with-ucd-dir=${PREFIX}/share/unicode/ucd
+CONFIGURE_ARGS+=	--with-unicode-emoji-dir=${TOOLBASE}/share/unicode/emoji
+CONFIGURE_ARGS+=	--with-emoji-annotation-dir=${TOOLBASE}/share/unicode/cldr/common/annotations
+CONFIGURE_ARGS+=	--with-ucd-dir=${TOOLBASE}/share/unicode/ucd
 
 # XXX lack of dbusmenu-glib
 CONFIGURE_ARGS+=	--disable-appindicator
@@ -122,4 +122,16 @@ BUILDLINK_API_DEPENDS.gtk3+=		gtk3+>=3.12.0
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../lang/python/extension.mk"
+.include "../../mk/bsd.fast.prefs.mk"
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# src/gen-internal-compose-table is built for the build machine, with the
+# glib PKG_CONFIG_FOR_BUILD finds: the build machine's pkg-config and glib,
+# not the target's (whose libraries ld skipped as incompatible).
+TOOL_DEPENDS+=		glib2>=2.0:../../devel/glib2
+IBUS_PKG_CONFIG_FOR_BUILD=	env PKG_CONFIG_LIBDIR=${TOOLBASE}/lib/pkgconfig:${TOOLBASE}/share/pkgconfig \
+			PKG_CONFIG_PATH= PKG_CONFIG_SYSROOT_DIR= ${TOOLBASE}/bin/pkg-config
+CONFIGURE_ENV+=		PKG_CONFIG_FOR_BUILD=${IBUS_PKG_CONFIG_FOR_BUILD:Q}
+# It links through libtool, whose pkgsrc wrapper drops -L outside buildlink.
+BUILDLINK_PASSTHRU_DIRS+=	${TOOLBASE}/lib
+.endif
 .include "../../mk/bsd.pkg.mk"
