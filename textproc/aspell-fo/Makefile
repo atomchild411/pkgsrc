@@ -22,4 +22,5 @@ BROKEN=	"Non-ASCII PLIST and thus problem with libarchive on glibc systems."
 .endif
 
 .include "../../textproc/aspell/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

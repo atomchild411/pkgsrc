@@ -24,4 +24,5 @@ SUBST_STAGE.avoid_patch=	pre-patch
 SUBST_SED.avoid_patch+=		-e 's/${PKGVERSION_NOREV}/@@PKGVERSION_NOREV@@/'
 
 .include "../../textproc/aspell/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
