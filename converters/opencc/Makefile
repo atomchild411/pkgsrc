@@ -41,4 +41,5 @@ PYTHON_FOR_BUILD_ONLY=	tool
 .include "../../textproc/marisa/buildlink3.mk"
 .include "../../textproc/rapidjson/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
