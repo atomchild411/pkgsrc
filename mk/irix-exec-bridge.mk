@@ -22,6 +22,8 @@ IRIX_EXEC_BRIDGE_MK=	defined
 .include "../../mk/bsd.fast.prefs.mk"
 
 .if ${OPSYS} == "IRIX" && ${USE_CROSS_COMPILE:U:tl} == "yes"
+# Also for xbulk, which runs few such packages at once (--bridge-slots).
+IRIX_EXEC_BRIDGE=	yes
 CONFIGURE_ENV+=		IRIX_EXEC_BRIDGE=yes
 MAKE_ENV+=		IRIX_EXEC_BRIDGE=yes
 INSTALL_ENV+=		IRIX_EXEC_BRIDGE=yes
