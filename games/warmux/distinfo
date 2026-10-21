@@ -8,4 +8,5 @@ SHA1 (patch-ab) = 48893791c36ae88b3fc5f565a39d3de786bc88d4
 SHA1 (patch-ac) = 24179b2ccdc2dc2dc6c95c33f12b7e55bb6f5a6e
 SHA1 (patch-lib_warmux_action_action.cpp) = da8b2164a6fda5e890c5297a16235b5e29f47dc2
 SHA1 (patch-lib_warmux_base_i18n.cpp) = 130fa3617f5549e9c47dcd907c33a54f0b19fcda
+SHA1 (patch-lib_warmux_tools_file__tools.cpp) = e1e5dde181c7d48c4247966ea083a8d24f233ecc
 SHA1 (patch-tools_list__games_main.cpp) = 0577d2e2cc073ba7d8efdce567138eb43bc535f4

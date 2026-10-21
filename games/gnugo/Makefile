@@ -17,4 +17,5 @@ INFO_FILES=	yes
 TEST_TARGET=	check
 
 .include "../../mk/termcap.buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -33,4 +33,5 @@ post-extract:
 .include "../../graphics/SDL_image/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

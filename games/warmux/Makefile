@@ -40,4 +40,5 @@ CHECK_PORTABILITY_SKIP+=	build/win32_setup/create_setup.sh.in
 .include "../../textproc/libxml++/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
