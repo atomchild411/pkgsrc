@@ -65,6 +65,9 @@ post-patch:
 	${ECHO} "(load-from-path \"slib/guile.init\")" >> ${WRKSRC}/ice-9/slib.scm
 
 CONFIGURE_ARGS.DragonFly+=	ac_cv_type_complex_double=no
+# IRIX declares hstrerror() in <netdb.h>, returning char *; configure looks
+# without that header, and libguile/net_db.c then declares a const one.
+CONFIGURE_ENV.IRIX+=		ac_cv_have_decl_hstrerror=yes
 
 .if ${OPSYS} == "Darwin"
 #This define has been reported to break builds on 10.8.
@@ -86,4 +89,5 @@ post-patch-darwin: .PHONY
 .include "../../devel/libltdl/buildlink3.mk"
 .include "../../devel/readline/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
