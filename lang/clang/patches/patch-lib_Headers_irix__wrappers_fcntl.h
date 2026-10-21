@@ -11,10 +11,11 @@ branch iris/main):
 - compiler-rt: posix_fallocate
 - openat64 and fstatat64; open64 takes O_CLOEXEC
 - <fcntl.h>: flock and the LOCK_ operations
+- <fcntl.h>: each AT_ constant on its own; <sys/capability.h> wrapper
 
 --- lib/Headers/irix_wrappers/fcntl.h.orig
 +++ lib/Headers/irix_wrappers/fcntl.h
-@@ -0,0 +1,125 @@
+@@ -0,0 +1,135 @@
 +/*===---- fcntl.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -91,11 +92,21 @@ branch iris/main):
 + * rest are declared by <sys/stat.h>, <unistd.h>, <stdio.h> and <dirent.h>.
 + * The values are Linux's: AT_FDCWD is no descriptor, and AT_EACCESS and
 + * AT_REMOVEDIR go to different calls. */
++/* Each on its own: the <sys/stat.h> wrapper defines AT_FDCWD and
++ * AT_SYMLINK_NOFOLLOW too, and may come first (glib's glocalfile.c). */
 +#ifndef AT_FDCWD
 +#define AT_FDCWD (-100)
++#endif
++#ifndef AT_SYMLINK_NOFOLLOW
 +#define AT_SYMLINK_NOFOLLOW 0x100
++#endif
++#ifndef AT_REMOVEDIR
 +#define AT_REMOVEDIR 0x200
++#endif
++#ifndef AT_EACCESS
 +#define AT_EACCESS 0x200
++#endif
++#ifndef AT_SYMLINK_FOLLOW
 +#define AT_SYMLINK_FOLLOW 0x400
 +#endif
 +#ifdef __cplusplus

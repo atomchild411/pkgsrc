@@ -57,10 +57,11 @@ branch iris/main):
 - <net/ethernet.h>
 - <sched.h>: no MIN, MAX or TICK leaking into C++ from <sys/param.h>
 - BSD and glibc names: <paths.h>, <poll.h>, <arpa/telnet.h>, <sys/cdefs.h>, <dlfcn.h>
+- <fcntl.h>: each AT_ constant on its own; <sys/capability.h> wrapper
 
 --- lib/Headers/CMakeLists.txt.orig
 +++ lib/Headers/CMakeLists.txt
-@@ -395,6 +395,115 @@ set(zos_wrapper_files
+@@ -395,6 +395,116 @@ set(zos_wrapper_files
    zos_wrappers/builtins.h
  )
  
@@ -124,6 +125,7 @@ branch iris/main):
 +# Installed under irix_wrappers/sys/.
 +set(irix_wrapper_sys_files
 +  irix_wrappers/sys/bitypes.h
++  irix_wrappers/sys/capability.h
 +  irix_wrappers/sys/cdefs.h
 +  irix_wrappers/sys/poll.h
 +  irix_wrappers/sys/endian.h
@@ -176,7 +178,7 @@ branch iris/main):
  include(GetClangResourceDir)
  get_clang_resource_dir(output_dir PREFIX ${LLVM_LIBRARY_OUTPUT_INTDIR}/.. SUBDIR include)
  set(out_files)
-@@ -443,7 +552,7 @@ endfunction(clang_generate_header)
+@@ -443,7 +553,7 @@ endfunction(clang_generate_header)
  
  # Copy header files from the source directory to the build directory
  foreach( f ${files} ${cuda_wrapper_files} ${cuda_wrapper_bits_files}
@@ -185,7 +187,7 @@ branch iris/main):
  	   ${llvm_libc_wrapper_files} ${llvm_offload_wrapper_files})
    copy_header_to_output_dir(${CMAKE_CURRENT_SOURCE_DIR} ${f})
  endforeach( f )
-@@ -557,7 +666,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
+@@ -557,7 +667,7 @@ add_header_target("cuda-resource-headers" "${cuda_files};${cuda_wrapper_files};$
  add_header_target("hexagon-resource-headers" "${hexagon_files}")
  add_header_target("hip-resource-headers" "${hip_files}")
  add_header_target("loongarch-resource-headers" "${loongarch_files}")
@@ -194,7 +196,7 @@ branch iris/main):
  add_header_target("ppc-resource-headers" "${ppc_files};${ppc_wrapper_files}")
  add_header_target("ppc-htm-resource-headers" "${ppc_htm_files}")
  add_header_target("riscv-resource-headers" "${riscv_files};${riscv_generated_files}")
-@@ -625,6 +734,41 @@ install(
+@@ -625,6 +735,41 @@ install(
    DESTINATION ${header_install_dir}/zos_wrappers
    COMPONENT clang-resource-headers)
  

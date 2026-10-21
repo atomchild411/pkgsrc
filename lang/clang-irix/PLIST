@@ -1899,6 +1899,7 @@ lib/clang/21/include/irix_wrappers/stdio.h
 lib/clang/21/include/irix_wrappers/stdlib.h
 lib/clang/21/include/irix_wrappers/string.h
 lib/clang/21/include/irix_wrappers/sys/bitypes.h
+lib/clang/21/include/irix_wrappers/sys/capability.h
 lib/clang/21/include/irix_wrappers/sys/cdefs.h
 lib/clang/21/include/irix_wrappers/sys/endian.h
 lib/clang/21/include/irix_wrappers/sys/file.h
