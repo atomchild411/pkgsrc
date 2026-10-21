@@ -3,10 +3,24 @@ $NetBSD: patch-include_violite.h,v 1.1 2022/11/27 22:12:25 nia Exp $
 pthread_t on NetBSD is a pointer to a struct. To account for the
 C++ type system we need to use an actual NULL pointer rather than
 an incompatible integer type.
+Build comp_err also in a cross build that has an emulator to run it
+(CMAKE_CROSSCOMPILING_EMULATOR, the IRIX irix-exec bridge).
+IRIX has neither ppoll nor kqueue: poll() in vio, as on Windows.
+The bundled boost's MIPSpro workaround is not for clang, which defines
+_COMPILER_VERSION on IRIX too.
 
---- include/violite.h.orig	2022-09-13 16:15:16.000000000 +0000
+--- include/violite.h.orig
 +++ include/violite.h
-@@ -343,7 +343,11 @@ struct Vio {
+@@ -52,7 +52,7 @@
+ 
+ /* Simple vio interface in C;  The functions are implemented in violite.c */
+ 
+-#if !defined(_WIN32) && !defined(HAVE_KQUEUE)
++#if !defined(_WIN32) && !defined(HAVE_KQUEUE) && !defined(__sgi)
+ #define USE_PPOLL_IN_VIO
+ #endif
+ 
+@@ -344,7 +344,11 @@
      It is initialized to 0 here, meaning don't attempt to send a signal, to
      keep non-server code unaffected.
    */

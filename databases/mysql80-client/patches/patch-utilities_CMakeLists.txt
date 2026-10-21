@@ -1,20 +1,26 @@
 $NetBSD: patch-utilities_CMakeLists.txt,v 1.1 2023/05/23 21:01:12 adam Exp $
 
 Split configuration between mysql-client and mysql-server.
+Build comp_err also in a cross build that has an emulator to run it
+(CMAKE_CROSSCOMPILING_EMULATOR, the IRIX irix-exec bridge).
+IRIX has neither ppoll nor kqueue: poll() in vio, as on Windows.
+The bundled boost's MIPSpro workaround is not for clang, which defines
+_COMPILER_VERSION on IRIX too.
 
---- utilities/CMakeLists.txt.orig	2023-03-16 17:22:37.000000000 +0000
+--- utilities/CMakeLists.txt.orig
 +++ utilities/CMakeLists.txt
-@@ -24,11 +24,18 @@ ADD_WSHADOW_WARNING()
+@@ -25,11 +25,18 @@
  DISABLE_MISSING_PROFILE_WARNING()
  MSVC_CPPCHECK_DISABLE()
  
+-IF(NOT CMAKE_CROSSCOMPILING)
 +IF(WITHOUT_SERVER)
 +  SET(CLIENT_SKIP_INSTALL SKIP_INSTALL)
 +ELSE()
 +  SET(CLIENT_SKIP_INSTALL "")
 +ENDIF()
 +
- IF(NOT CMAKE_CROSSCOMPILING)
++IF(NOT CMAKE_CROSSCOMPILING OR CMAKE_CROSSCOMPILING_EMULATOR)
    MYSQL_ADD_EXECUTABLE(comp_err
      comp_err.cc
      COMPONENT Test
@@ -23,7 +29,7 @@ Split configuration between mysql-client and mysql-server.
      )
  ENDIF()
  
-@@ -117,12 +124,14 @@ MYSQL_ADD_EXECUTABLE(my_print_defaults
+@@ -118,12 +125,14 @@
    my_print_defaults.cc
    COMPONENT Server
    LINK_LIBRARIES mysys
@@ -38,7 +44,7 @@ Split configuration between mysql-client and mysql-server.
    )
  IF(WITH_LZ4 STREQUAL "bundled")
    MYSQL_ADD_EXECUTABLE(lz4_decompress
-@@ -136,6 +145,7 @@ MYSQL_ADD_EXECUTABLE(zlib_decompress
+@@ -137,6 +146,7 @@
    zlib_decompress.cc
    COMPONENT Server
    LINK_LIBRARIES ext::zlib mysys

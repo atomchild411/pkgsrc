@@ -11,4 +11,5 @@ CMAKE_CONFIGURE_ARGS+=	-DWITHOUT_SERVER=ON
 UNWRAP_FILES+=		scripts/mysql_config
 INFO_FILES=		yes
 
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
