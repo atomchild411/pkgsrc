@@ -27,4 +27,5 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/manual.pdf ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}/manual.pdf
 	${INSTALL_DATA} ${WRKSRC}/doc/html/manual.htm ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}/manual.html
 
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

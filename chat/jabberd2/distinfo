@@ -5,3 +5,4 @@ SHA512 (jabberd-2.7.0.tar.xz) = 2a5d134572330a38366a17cf8b3fc6fadf56eddf604003d7
 Size (jabberd-2.7.0.tar.xz) = 1560872 bytes
 SHA1 (patch-Makefile.in) = 31d8dc4a5446e96079e1016afb45dc7a602b98c9
 SHA1 (patch-sx_websocket.c) = 112f5fb6efc3254548b77cd46b310ce984288748
+SHA1 (patch-util_jid.h) = f3d611a397d81a497bbf148ac1215f8d439b8c1e
