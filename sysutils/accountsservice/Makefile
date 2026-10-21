@@ -27,6 +27,8 @@ CONFIGURE_ARGS+=	--disable-systemd \
 
 CONFIGURE_ENV.SunOS+=	ac_cv_have_decl_WTMPX_FILENAME=yes
 CPPFLAGS.SunOS+=	-DWTMPX_FILENAME=WTMPX_FILE
+CONFIGURE_ENV.IRIX+=	ac_cv_have_decl_WTMPX_FILENAME=yes
+CPPFLAGS.IRIX+=		-DWTMPX_FILENAME=WTMPX_FILE
 
 LDFLAGS.NetBSD+=	-lutil -lcrypt # pw_getpwconf & pw_gensalt
 
@@ -47,4 +49,5 @@ SUBST_SED.gdm=		-e 's,/etc/gdm/custom.conf,${PKG_SYSCONFDIR}/gdm/custom.conf,g'
 .include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../security/polkit/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
