@@ -16,6 +16,12 @@ GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 
 CONFIGURE_ARGS+=	--disable-silent-rules
+# configure looks for init.d, logrotate.d and default under the build
+# machine's /etc and for pkg-config there: a cross build to IRIX gets the
+# Linux layout. Say what a native non-Linux build finds.
+CONFIGURE_ARGS.IRIX+=	--without-sysvinitddir --without-logrotateddir
+CONFIGURE_ARGS.IRIX+=	--without-sysconfigdir
+CONFIGURE_ARGS.IRIX+=	--with-pkgconfigdir=${PREFIX}/lib/pkgconfig
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -69,4 +75,5 @@ post-install:
 .include "../../security/libgcrypt/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

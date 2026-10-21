@@ -73,4 +73,5 @@ BUILDLINK_TRANSFORM+=	l:execinfo:execinfo:elf
 .include "../../security/openssl/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"

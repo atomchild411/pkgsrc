@@ -7,5 +7,7 @@ SHA1 (patch-configure) = 3a7eae879c2d15011455c98a9d02933a80ee178e
 SHA1 (patch-doc_Makefile.in) = bc34aaaaa3415eaf012664718eeec0a081acbd43
 SHA1 (patch-doc_man_Makefile.in) = b3d0474581b480876e2e16d08f20c99559dd6e68
 SHA1 (patch-doc_mini-howto_Makefile.in) = ce9f9b4cd867d818ab7b8aa8bdf658038aea08b9
+SHA1 (patch-src_dar__suite_line__tools.cpp) = 18179159eb4424fff95d9614acb960eb166c88d5
+SHA1 (patch-src_libdar_etage.cpp) = cb34c273318898db5ee4c665841175c50c91d413
 SHA1 (patch-src_libdar_secu__string.hpp) = d07190e5330a1c05c91970aa4ed6f4a4f5ba344d
 SHA1 (patch-src_testing_test__truncate.cpp) = 53da28caf35627d1094dd2795ebf853973d9e288
