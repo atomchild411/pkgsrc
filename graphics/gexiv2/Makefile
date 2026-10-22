@@ -30,6 +30,7 @@ PYTHON_VERSIONS_INCOMPATIBLE=	27
 PLIST_SUBST+=	PYSITELIB=${PYSITELIB}
 
 MESON_REQD=	1.2.0
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../devel/meson/build.mk"
 .include "../../devel/glib2/buildlink3.mk"
 BUILDLINK_DEPMETHOD.gobject-introspection=	build
