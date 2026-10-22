@@ -82,5 +82,10 @@ screen-terminfo:
 	${SETENV} TERMINFO=${DESTDIR}${PREFIX}/share/lib/terminfo	\
 		/usr/bin/tic screeninfo.src
 
+.if ${OPSYS} == "IRIX"
+# No PAM on IRIX; the lock screen checks the password itself.
+CONFIGURE_ARGS+=	--disable-pam
+.endif
+
 .include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
