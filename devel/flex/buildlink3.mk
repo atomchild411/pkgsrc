@@ -9,6 +9,9 @@ FLEX_BUILDLINK3_MK:=
 BUILDLINK_API_DEPENDS.flex+=	flex>=2.5.4a
 BUILDLINK_PKGSRCDIR.flex?=	../../devel/flex
 BUILDLINK_DEPMETHOD.flex?=	build
+
+# libfl.la lists -lintl where libintl is not part of libc (IRIX).
+.include "../../devel/gettext-lib/buildlink3.mk"
 .endif # FLEX_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-flex
