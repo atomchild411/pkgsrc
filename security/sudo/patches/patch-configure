@@ -6,10 +6,13 @@ $NetBSD: patch-configure,v 1.12 2025/03/03 21:51:40 nia Exp $
   functions (HAVE_KRB5_*).
 * Remove setting sysconfdir to "/etc".
 * Do not create links to localedir on SunOS.
+Export sudo_setusershell and sudo_endusershell too when the getusershell
+family is replaced (IRIX has none of it): libsudo_util only exported
+sudo_getusershell, and visudo and friends failed to link.
 
---- configure.orig	2024-11-25 15:34:25.000000000 +0000
+--- configure.orig
 +++ configure
-@@ -942,6 +942,7 @@ with_incpath
+@@ -945,6 +945,7 @@
  with_libpath
  with_libraries
  with_csops
@@ -17,7 +20,7 @@ $NetBSD: patch-configure,v 1.12 2025/03/03 21:51:40 nia Exp $
  with_passwd
  with_skey
  with_opie
-@@ -1682,7 +1683,7 @@ Fine tuning of the installation director
+@@ -1688,7 +1689,7 @@
    --bindir=DIR            user executables [EPREFIX/bin]
    --sbindir=DIR           system admin executables [EPREFIX/sbin]
    --libexecdir=DIR        program executables [EPREFIX/libexec]
@@ -26,7 +29,7 @@ $NetBSD: patch-configure,v 1.12 2025/03/03 21:51:40 nia Exp $
    --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
    --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
    --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
-@@ -1812,6 +1813,7 @@ Optional Packages:
+@@ -1824,6 +1825,7 @@
    --with-libpath          additional places to look for libraries
    --with-libraries        additional libraries to link with
    --with-csops            add CSOps standard options
@@ -34,7 +37,7 @@ $NetBSD: patch-configure,v 1.12 2025/03/03 21:51:40 nia Exp $
    --without-passwd        don't use passwd/shadow file for authentication
    --with-skey[=DIR]       enable S/Key support
    --with-opie[=DIR]       enable OPIE support
-@@ -5321,6 +5323,23 @@ fi
+@@ -5326,6 +5328,23 @@
  
  
  
@@ -58,7 +61,7 @@ $NetBSD: patch-configure,v 1.12 2025/03/03 21:51:40 nia Exp $
  # Check whether --with-passwd was given.
  if test ${with_passwd+y}
  then :
-@@ -18312,7 +18331,7 @@ fi
+@@ -18493,7 +18512,7 @@
  		: ${mansectform='4'}
  		: ${mansectmisc='5'}
  		;;
@@ -67,7 +70,16 @@ $NetBSD: patch-configure,v 1.12 2025/03/03 21:51:40 nia Exp $
  		shadow_funcs="getspnam"
  		test -z "$with_pam" && AUTH_EXCL_DEF="PAM"
  		# Check for SECCOMP_MODE_FILTER in linux/seccomp.h
-@@ -28316,10 +28335,6 @@ fi
+@@ -23028,7 +23047,7 @@
+ esac
+ 
+ 
+-    for _sym in sudo_getusershell; do
++    for _sym in sudo_getusershell sudo_setusershell sudo_endusershell; do
+ 	COMPAT_EXP="${COMPAT_EXP}${_sym}
+ "
+     done
+@@ -28613,10 +28632,6 @@
  
  	if test "$sudo_cv_gettext" = "yes"; then
  	    SUDO_NLS=enabled
@@ -78,7 +90,7 @@ $NetBSD: patch-configure,v 1.12 2025/03/03 21:51:40 nia Exp $
  	elif test "$sudo_cv_gettext_lintl" = "yes"; then
  	    SUDO_NLS=enabled
  	    LIBINTL="-lintl"
-@@ -30049,6 +30064,8 @@ rm -f core conftest.err conftest.$ac_obj
+@@ -30346,6 +30361,8 @@
       ;;
  esac
  fi
@@ -87,7 +99,7 @@ $NetBSD: patch-configure,v 1.12 2025/03/03 21:51:40 nia Exp $
      _LIBS="$LIBS"
      LIBS="${LIBS} ${SUDOERS_LIBS}"
      ac_fn_c_check_func "$LINENO" "krb5_verify_user" "ac_cv_func_krb5_verify_user"
-@@ -36021,7 +36038,6 @@ test X"$localedir" = X'${datarootdir}/lo
+@@ -36318,7 +36335,6 @@
  test X"$localstatedir" = X'${prefix}/var' && localstatedir='$(prefix)/var'
  test X"$runstatedir" = X'${localstatedir}/run' && runstatedir='$(localstatedir)/run'
  test X"$adminconfdir" = X'${prefix}/etc' && adminconfdir='$(prefix)/etc'
