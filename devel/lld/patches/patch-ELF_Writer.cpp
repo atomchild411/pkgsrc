@@ -5,10 +5,25 @@ branch iris/main):
 - lld: output IRIX's runtime linker, rld, accepts
 - lld: R_MIPS_LITERAL, R_MIPS_PJUMP, and .sbss before .bss
 - lld: _ftext, _fdata and _fbss, as IRIX's ld defines them
+- IRIX executables define _DYNAMIC_LINK (absolute 2), so it makes no library NEEDED
 
 --- ELF/Writer.cpp.orig
 +++ ELF/Writer.cpp
-@@ -258,6 +258,11 @@
+@@ -188,6 +188,13 @@
+     // https://sourceware.org/ml/binutils/2004-12/msg00094.html
+     if (ctx.symtab->find("__gnu_local_gp"))
+       ctx.sym.mipsLocalGp = addAbsolute("__gnu_local_gp");
++
++    // IRIX: crt1.o refers to _DYNAMIC_LINK, an absolute symbol (2) that libc
++    // and libpthread both define. Resolved to a library, it makes that one
++    // NEEDED under --as-needed: with libpthread linked before libc, every
++    // program would need libpthread. Defined here, with the same value.
++    if (ctx.arg.osabi == ELFOSABI_IRIX && !ctx.arg.shared)
++      addOptionalRegular(ctx, "_DYNAMIC_LINK", nullptr, 2, STV_HIDDEN);
+   } else if (ctx.arg.emachine == EM_PPC) {
+     // glibc *crt1.o has a undefined reference to _SDA_BASE_. Since we don't
+     // support Small Data Area, define it arbitrarily as 0.
+@@ -258,6 +265,11 @@
    ctx.sym.etext2 = add("_etext", -1);
    ctx.sym.edata1 = add("edata", -1);
    ctx.sym.edata2 = add("_edata", -1);
@@ -20,7 +35,7 @@ branch iris/main):
  }
  
  static void demoteDefined(Defined &sym, DenseMap<SectionBase *, size_t> &map) {
-@@ -777,6 +782,12 @@
+@@ -777,6 +789,12 @@
      // because data in these sections is addressable with a gp relative address.
      if (osec.flags & SHF_MIPS_GPREL)
        rank |= 2;
@@ -33,7 +48,7 @@ branch iris/main):
    }
  
    if (ctx.arg.emachine == EM_RISCV) {
-@@ -907,6 +918,29 @@
+@@ -907,6 +925,29 @@
        ctx.sym.end2->section = last->lastSec;
    }
  
@@ -63,7 +78,7 @@ branch iris/main):
    if (ctx.sym.bss) {
      // On RISC-V, set __bss_start to the start of .sbss if present.
      OutputSection *sbss =
-@@ -1936,6 +1970,17 @@
+@@ -1936,6 +1977,17 @@
          for (Symbol *sym : file->requiredSymbols) {
            if (sym->dsoDefined)
              continue;
@@ -81,7 +96,7 @@ branch iris/main):
            if (sym->isUndefined() && !sym->isWeak()) {
              ELFSyncStream(ctx, diag)
                  << "undefined reference: " << sym << "\n>>> referenced by "
-@@ -2010,6 +2055,18 @@
+@@ -2010,6 +2062,18 @@
          osec->shName = ctx.in.shStrTab->addString(osec->name);
      }
  
@@ -100,7 +115,7 @@ branch iris/main):
    // Prefer command line supplied address over other constraints.
    for (OutputSection *sec : ctx.outputSections) {
      auto i = ctx.arg.sectionStartMap.find(sec->name);
-@@ -2047,9 +2104,17 @@
+@@ -2047,9 +2111,17 @@
        }
        if (ctx.arg.emachine == EM_MIPS) {
          // Add separate segments for MIPS-specific sections.
@@ -121,7 +136,7 @@ branch iris/main):
        }
        if (ctx.arg.emachine == EM_RISCV)
          addPhdrForSection(part, SHT_RISCV_ATTRIBUTES, PT_RISCV_ATTRIBUTES,
-@@ -2316,8 +2381,10 @@
+@@ -2316,8 +2388,10 @@
    unsigned partNo = part.getNumber(ctx);
    bool isMain = partNo == 1;
  
@@ -134,7 +149,7 @@ branch iris/main):
    PhdrEntry *load = nullptr;
  
    // nmagic or omagic output does not have PT_PHDR, PT_INTERP, or the readonly
-@@ -2439,8 +2506,18 @@
+@@ -2439,8 +2513,18 @@
      ret.push_back(std::move(tlsHdr));
  
    // Add an entry for .dynamic.
@@ -155,7 +170,7 @@ branch iris/main):
  
    if (relRo->firstSec)
      ret.push_back(std::move(relRo));
-@@ -2523,7 +2600,11 @@
+@@ -2523,7 +2607,11 @@
  
    auto entry = std::make_unique<PhdrEntry>(ctx, pType, pFlags);
    entry->add(*i);
@@ -168,7 +183,7 @@ branch iris/main):
  }
  
  // Place the first section of each PT_LOAD to a different page (of maxPageSize).
-@@ -3011,6 +3092,14 @@
+@@ -3011,6 +3099,14 @@
          sec->writeTo<ELFT>(ctx, ctx.bufferStart + sec->offset, tg);
    }
  

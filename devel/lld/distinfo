@@ -20,4 +20,4 @@ SHA1 (patch-ELF_SyntheticSections.cpp) = 380731a56c98693db8ed30bda124c712ce49d1b
 SHA1 (patch-ELF_SyntheticSections.h) = 531c0121e2eb3933a07404397ab976c481c1cc4f
 SHA1 (patch-ELF_Target.cpp) = 7c80732f0ccce51eab00f3ce759c127c5a823f47
 SHA1 (patch-ELF_Target.h) = 0dd4f9b4379f658000c12e403a513782103546a0
-SHA1 (patch-ELF_Writer.cpp) = 4e1339fdcddf0de76957bffc5025bb61ec72dc31
+SHA1 (patch-ELF_Writer.cpp) = b989daa60a03228241da8f62d758737a95e0748b
