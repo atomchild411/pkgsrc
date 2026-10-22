@@ -1,0 +1,17 @@
+$NetBSD$
+
+A cross build with an exe wrapper (the irix-exec bridge) can run the
+appstreamcli it builds; only without one does it need a native appstream.
+
+--- data/meson.build.orig
++++ data/meson.build
+@@ -8,7 +8,8 @@
+               install_dir: join_paths(get_option('datadir'), 'gettext', 'its'))
+ 
+ # Do not rely on an exe wrapper for rel-info, use the system one in that case
+-if meson.is_cross_build()
++# (unless there is a wrapper: then the appstreamcli just built runs through it)
++if meson.is_cross_build() and not meson.can_run_host_binaries()
+     dependency('appstream', version: '>=' + as_version, native: true,
+                not_found_message: 'Native appstream required for cross-building')
+     ascli_exe = find_program('appstreamcli', native: true)

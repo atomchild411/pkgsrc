@@ -39,11 +39,24 @@ SUBST_MESSAGE.paths=	Fixing absolute paths.
 SUBST_FILES.paths=	meson.build
 SUBST_SED.paths=	-e 's,/usr/include,${PREFIX}/include,g'
 
+# docbook-xsl is a tool dependency: its stylesheets are under TOOLBASE (the
+# same as PREFIX unless cross-compiling).
+SUBST_CLASSES+=		xsl
+SUBST_STAGE.xsl=	pre-configure
+SUBST_MESSAGE.xsl=	Finding the DocBook stylesheets in TOOLBASE.
+SUBST_FILES.xsl=	docs/meson.build
+SUBST_SED.xsl=		-e "s|join_paths(get_option(.prefix.), .share/xsl/docbook/manpages/docbook.xsl.)|'${TOOLBASE}/share/xsl/docbook/manpages/docbook.xsl'|"
+
 .include "../../devel/wayland/platform.mk"
 .if !empty(PLATFORM_SUPPORTS_WAYLAND:Myes)
 .include "../../devel/wayland/buildlink3.mk"
+.elif ${OPSYS} != "Darwin"
+MESON_ARGS+=	-Ddisplay-detection=none
 .endif
 
+# data/ runs the appstreamcli it builds (and introspection), on IRIX through
+# the irix-exec bridge.
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../archivers/zstd/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"
