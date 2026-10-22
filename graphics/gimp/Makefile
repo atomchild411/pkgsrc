@@ -94,6 +94,7 @@ PLIST_VARS+=	xmc
 .include "../../archivers/libarchive/buildlink3.mk"
 .include "../../archivers/xz/buildlink3.mk"
 .include "../../databases/shared-mime-info/mimedb.mk"
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../devel/appstream/buildlink3.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
