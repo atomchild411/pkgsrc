@@ -25,6 +25,7 @@ SHA1 (patch-boost_test_impl_execution__monitor.ipp) = ffd449576d00b7e6ea3081421e
 SHA1 (patch-boost_thread_detail_config.hpp) = 85441054abe26403adb1981b03f1864cd4a61679
 SHA1 (patch-boost_thread_pthread_thread__data.hpp) = d048867f0ed98720cc375e949e5c92b92f3ce1ac
 SHA1 (patch-boostcpp.jam) = c545980fc72ce5a9fd2463899280927b495771b9
+SHA1 (patch-libs_atomic_src_lock__pool.cpp) = 46dc624b6cd07d51523f737856ce51f3e3df0182
 SHA1 (patch-libs_config_configure) = e2f204d4fa4f1bd9b4131d28f9be0a1ac22bf711
 SHA1 (patch-libs_config_test_boost__no__range__based__for.ipp) = d9936c472fc2c696d86522b36eb12813ae91bee4
 SHA1 (patch-libs_context_src_asm_jump_arm_aapcs_elf_gas.S) = f442dfcad2f6e4caba29f75017dc826c5417b335
