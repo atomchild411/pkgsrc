@@ -6,10 +6,11 @@ branch iris/main):
 - clang: wrapper headers for what IRIX's lack, and _WCHAR_T in C++
 - clang: __IRIX_VERSION__, char * va_list, and C99 gaps in the headers
 - clang: _LANGUAGE_ASSEMBLY for preprocessed assembly
+- _COMPILER_VERSION and _SGI_COMPILER_VERSION 750, above MIPSpro 7.4.4
 
 --- lib/Basic/Targets/OSTargets.h.orig
 +++ lib/Basic/Targets/OSTargets.h
-@@ -428,6 +428,107 @@ public:
+@@ -428,6 +428,111 @@
    }
  };
  
@@ -37,8 +38,12 @@ branch iris/main):
 +    Builder.defineMacro("_SYSTYPE_SVR4");
 +    Builder.defineMacro("_MODERN_C");
 +    Builder.defineMacro("_LONGLONG");
-+    Builder.defineMacro("_COMPILER_VERSION", "740");
-+    Builder.defineMacro("_SGI_COMPILER_VERSION", "740");
++    // MIPSpro's version macros, which IRIX's headers test (every test is
++    // against 740 or less). Above MIPSpro's last release, 7.4.4: portable
++    // sources keep their "MIPSpro 7.4.4 or older" workarounds (boost's
++    // `_COMPILER_VERSION <= 744`, for its EDG front end) to that compiler.
++    Builder.defineMacro("_COMPILER_VERSION", "750");
++    Builder.defineMacro("_SGI_COMPILER_VERSION", "750");
 +
 +    // The IRIX release built for, from the triple (mips64-sgi-irix6.5.22),
 +    // as 60522. With none given, 6.5.7, the oldest supported: what builds
