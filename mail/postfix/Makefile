@@ -64,7 +64,7 @@ do-install:
 .if !empty(PKG_OPTIONS:Msasl)
 	${INSTALL_DATA} ${WRKDIR}/smtpd.conf ${DESTDIR}${EXAMPLEDIR}
 .endif
-	cd ${WRKSRC} && ${SETENV} LD_LIBRARY_PATH=${WRKSRC}/lib \
+	cd ${WRKSRC} && ${SETENV} ${INSTALL_ENV} LD_LIBRARY_PATH=${WRKSRC}/lib \
 		DYLD_LIBRARY_PATH=${WRKSRC}/lib \
 		${SH} ./postfix-install -non-interactive \
 		${DESTDIR_INSTALLOPTIONS} config_directory="${EXAMPLEDIR}"
@@ -92,4 +92,6 @@ do-install:
 	done
 .endif
 
+# postfix-install runs bin/postconf (INSTALL_ENV carries the bridge).
+.include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
