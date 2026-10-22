@@ -35,6 +35,16 @@ PLIST_SRC+=	${WRKDIR}/PLIST-local PLIST
 
 .include "../../mk/bsd.prefs.mk"
 
+# The documentation is made by running groff. A cross build cannot run
+# the one it builds: it uses the build machine's, the same version.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+TOOL_DEPENDS+=	groff-${PKGVERSION_NOREV}{,nb*}:../../textproc/groff
+# Its gnu/bin has the unprefixed names (soelim, tbl, pic, ...) groff runs.
+MAKE_FLAGS+=	GROFFBIN=${TOOLBASE}/bin/groff
+MAKE_FLAGS+=	GROFF_BIN_PATH=${TOOLBASE}/gnu/bin:${TOOLBASE}/bin
+MAKE_FLAGS+=	PDFMOMBIN=${TOOLBASE}/bin/pdfmom
+.endif
+
 BUILD_DEFS+=	PAPERSIZE
 .if defined(PAPERSIZE)
 CONFIGURE_ENV+=	PAGE=${PAPERSIZE}
