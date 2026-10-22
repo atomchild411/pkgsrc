@@ -7,6 +7,7 @@ SHA1 (patch-Makefile.in) = 9a536678040bb6a47e5c7fbeedfecc0aa5c870e2
 SHA1 (patch-doc_screen.1) = 858df8ed65c8fa8044075f4066832f79ba77b3a2
 SHA1 (patch-doc_screen.texinfo) = c4d3461b1195939b8f6639bd80d0b23d7f54072f
 SHA1 (patch-etc_etcscreenrc) = a45ae3186cd9bddeb915bad890f1be5abc315dd3
+SHA1 (patch-socket.c) = 239529e7f65cbee96ae3160ba642b78c85200b42
 SHA1 (patch-termcap.c) = f06432d06405daac0064296d2cfa3246a2621e4f
 SHA1 (patch-tty.c) = d2b00f51aa01c355faff2b7580d939c5f716d9d7
 SHA1 (patch-utmp-netbsd.c) = a721e311e7dde7938de0e9546a7892bfd104ebd1
