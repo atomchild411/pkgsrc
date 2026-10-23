@@ -3,4 +3,5 @@ $NetBSD: distinfo,v 1.11 2026/07/21 09:56:27 adam Exp $
 BLAKE2s (jimtcl-0.84.tar.gz) = fb400562a4214ddeb6df72443391a6c66713feedc7a77f2314733df4ff5bea66
 SHA512 (jimtcl-0.84.tar.gz) = 915b17f22422f4178f23b12e0b0b56d43d2ec62cc579d6f3098099981523f826aa72da98aa077de693a7dbc3209c2ca31153492ee0b6223df132a586515eb697
 Size (jimtcl-0.84.tar.gz) = 4457403 bytes
+SHA1 (patch-auto.def) = 3dfabdb2c9a83de642fb41cea4a9dbef937df846
 SHA1 (patch-jim-aio.c) = 0da49b824d60e5d6303dd69922f5953272434925

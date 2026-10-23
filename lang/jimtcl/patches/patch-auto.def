@@ -1,0 +1,15 @@
+$NetBSD$
+
+Use the system's openpty when there is one (on IRIX, where the compiler runtime has both openpty and posix_openpt, jim's own openpty.c clashed with it).
+
+--- auto.def.orig
++++ auto.def
+@@ -579,7 +579,7 @@
+ if {[have-feature termios.h]} {
+     lappend extra_objs jim-tty.o
+ }
+-if {[have-feature termios.h] && [cc-check-functions posix_openpt]} {
++if {[have-feature termios.h] && ![cc-check-functions openpty] && [cc-check-functions posix_openpt]} {
+     define-append AS_CFLAGS -DHAVE_OPENPTY
+     lappend extra_objs openpty.o
+ } elseif {[have-feature util.h]} {
