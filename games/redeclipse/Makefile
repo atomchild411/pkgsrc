@@ -28,6 +28,9 @@ INSTALL_TARGET=	system-install
 MAKE_FLAGS+=	prefix=${PREFIX}
 MAKE_FLAGS+=	mandir=${DESTDIR}${PREFIX}/${PKGMANDIR}
 MAKE_FLAGS+=	ED=ged
+# No precompiled headers: pkgsrc's compiler wrapper takes the header
+# precompile (no -c) for a link and appends link libraries.
+MAKE_FLAGS+=	CLIENT_PCH=
 
 # GCC precompiled headers...
 RELRO_SUPPORTED=	no

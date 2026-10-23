@@ -1,6 +1,9 @@
 # $NetBSD: Makefile,v 1.18 2026/09/02 19:02:22 wiz Exp $
 
 BUILD_TARGET=	client master server
+# No precompiled headers: pkgsrc's compiler wrapper takes the header
+# precompile (no -c) for a link and appends link libraries.
+MAKE_FLAGS+=	CLIENT_PCH=
 
 .include "Makefile.common"
 
