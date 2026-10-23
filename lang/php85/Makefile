@@ -4,7 +4,6 @@
 # We can't omit PKGNAME here to handle PKG_OPTIONS.
 #
 PKGNAME=		${PHP_PKG_PREFIX}-${PHP_VERSION}
-PKGREVISION=		1
 CATEGORIES=		lang
 
 COMMENT=		PHP Hypertext Preprocessor version 8.5
@@ -25,6 +24,15 @@ CONFIGURE_ENV+=		lt_cv_path_SED=${SED:Q}
 MAKE_ENV+=		INSTALL_ROOT=${DESTDIR}
 
 CONF_FILES=		${PHP_EGDIR}/php.ini-production ${PKG_SYSCONFDIR}/php.ini
+
+# CVE-2026-115560 (2026-10-23): until PHP fixes it, its advice is to turn
+# session upload progress off; the php.ini examples (and so the installed
+# php.ini) do so.
+SUBST_CLASSES+=		uploadprog
+SUBST_STAGE.uploadprog=	pre-configure
+SUBST_MESSAGE.uploadprog=	Turning session upload progress off (CVE-2026-115560).
+SUBST_FILES.uploadprog=	php.ini-production php.ini-development
+SUBST_SED.uploadprog=	-e 's/^;session.upload_progress.enabled = On$$/session.upload_progress.enabled = Off/'
 PLIST_SUBST+=		PHPEXTDIR="${PHP_EXTENSION_DIR}"
 
 # taken from devel/pkgconf/Makefile
