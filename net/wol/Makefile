@@ -16,4 +16,14 @@ USE_PKGLOCALEDIR=	yes
 INFO_FILES=		yes
 
 .include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX's struct ether_addr (<net/ethernet.h>, with ether_addr_octet), which
+# configure misses: it tests three headers under one cache variable.
+.if ${OPSYS} == "IRIX"
+CONFIGURE_ENV+=	ac_cv_type_struct_ether_addr=yes
+CONFIGURE_ENV+=	ac_cv_member_struct_ether_addr_ether_addr_octet=yes
+CONFIGURE_ENV+=	ac_cv_member_struct_ether_addr_octet=no
+.endif
+
 .include "../../mk/bsd.pkg.mk"
