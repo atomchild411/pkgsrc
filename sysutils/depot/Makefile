@@ -23,4 +23,11 @@ INSTALL_DIRS=		src/cmd man/man1 man/man5
 INSTALL_MAKE_FLAGS+=	BINDIR=${DESTDIR}${PREFIX}/bin
 INSTALL_MAKE_FLAGS+=	MANDIR=${DESTDIR}${PREFIX}/${PKGMANDIR}
 
+# Its own libutil.a by path: the IRIX compiler drops -lutil from links.
+SUBST_CLASSES+=		libutil
+SUBST_STAGE.libutil=	pre-configure
+SUBST_MESSAGE.libutil=	Linking depot's own libutil.a by path.
+SUBST_FILES.libutil=	src/cmd/depot_collectioninfo/Makefile.in src/cmd/hintservice/Makefile.in
+SUBST_SED.libutil=	-e 's,-lutil,../../lib/build-lib/libutil.a,'
+
 .include "../../mk/bsd.pkg.mk"
