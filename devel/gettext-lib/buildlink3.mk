@@ -41,8 +41,19 @@ CONFIGURE_ENV+=			INTLLIBS="${BUILDLINK_LDADD.gettext}"
 # libraries need to be pulled in but we do not want to expose them by default.
 #
 .if ${OPSYS_EXPLICIT_LIBDEPS:Uno:tl} == "yes" && ${USE_EXPLICIT_LIBDEPS:Uyes:tl} != "no"
+.  if ${OPSYS} == "IRIX"
+# On IRIX through the compiler wrappers, at link time only: in LDFLAGS
+# the library leaks into what packages record (libtool archives,
+# *-config scripts, python's LDFLAGS) and is then demanded of packages
+# that do not depend on it.
+.    for _w_ in cc cxx
+CWRAPPERS_APPEND_EXECUTABLE.${_w_}+=	${BUILDLINK_LDADD.gettext}
+CWRAPPERS_APPEND_SHARED.${_w_}+=		${BUILDLINK_LDADD.gettext}
+.    endfor
+.  else
 BUILDLINK_LDFLAGS.gettext+=	${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.gettext}/lib
 BUILDLINK_LDFLAGS.gettext+=	${BUILDLINK_LDADD.gettext}
+.  endif
 .endif
 
 CHECK_BUILTIN.gettext:=	yes
