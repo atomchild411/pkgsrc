@@ -49,4 +49,6 @@ PYTHON_VERSIONS_INCOMPATIBLE=	310 311
 MAKE_ENV+=	${r}_ROOT=${BUILDLINK_DIR}
 .  endfor
 .endif
+# Python's LDFLAGS name -lintl and -liconv where libintl is not in libc.
+.include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
