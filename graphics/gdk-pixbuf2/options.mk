@@ -2,7 +2,7 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gdk-pixbuf2
 PKG_SUPPORTED_OPTIONS=	introspection tests
-PKG_SUGGESTED_OPTIONS=	${${USE_CROSS_COMPILE:tl} == "yes":?:introspection}
+PKG_SUGGESTED_OPTIONS=	${${USE_CROSS_COMPILE:tl} == "yes" && ${CROSS_INTROSPECTION:Uno:tl} != "yes":?:introspection}
 
 .include "../../mk/bsd.options.mk"
 

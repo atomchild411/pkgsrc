@@ -2,7 +2,7 @@
 
 DISTNAME=	gdk-pixbuf-2.44.8
 PKGNAME=	${DISTNAME:S/pixbuf/pixbuf2/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	graphics gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gdk-pixbuf/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -29,6 +29,10 @@ post-extract:
 	${CHMOD} a+x ${WRKSRC}/build-aux/gen-thumbnailer.py
 
 .include "../../mk/bsd.prefs.mk"
+
+# GObject introspection in cross builds: g-ir-scanner runs the target's
+# programs on the IRIS clones (CROSS_INTROSPECTION).
+.include "../../mk/irix-exec-bridge.mk"
 
 SUBST_CLASSES+=		dyld
 SUBST_STAGE.dyld=	pre-configure

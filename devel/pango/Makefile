@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.283 2026/09/02 19:01:41 wiz Exp $
 
 DISTNAME=	pango-1.58.2
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel fonts
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pango/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -22,6 +22,10 @@ SUBST_FILES.wrksrc=	output/utils/pango-view.sh
 SUBST_VARS.wrksrc=	WRKSRC
 
 .include "../../mk/bsd.prefs.mk"
+
+# GObject introspection in cross builds: g-ir-scanner runs the target's
+# programs on the IRIS clones (CROSS_INTROSPECTION).
+.include "../../mk/irix-exec-bridge.mk"
 
 MESON_REQD+=		1.2.0
 MESON_ARGS+=		-Dcairo=enabled

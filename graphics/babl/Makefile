@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.77 2026/09/13 10:10:10 tnn Exp $
 
 DISTNAME=	babl-0.1.128
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	https://download.gimp.org/pub/babl/${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar.xz
@@ -20,6 +21,14 @@ PKGCONFIG_OVERRIDE+=	babl.pc.in
 PYTHON_FOR_BUILD_ONLY=	tool
 
 .include "../../mk/bsd.prefs.mk"
+
+# GObject introspection in cross builds: g-ir-scanner runs the target's
+# programs on the IRIS clones (CROSS_INTROSPECTION).
+.include "../../mk/irix-exec-bridge.mk"
+.if ${CROSS_INTROSPECTION:Uno:tl} == "yes"
+# Its auto setting is off in cross builds.
+MESON_ARGS+=	-Denable-gir=true
+.endif
 
 PLIST_VARS+=		Darwin not_Darwin
 .if ${OPSYS} == "Darwin"

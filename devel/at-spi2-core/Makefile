@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.72 2026/09/02 19:01:22 wiz Exp $
 
 DISTNAME=	at-spi2-core-2.60.6
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/at-spi2-core/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -33,6 +33,10 @@ SUBST_MESSAGE.eg=	Fixing path to examples directory.
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/xdg/autostart
 
 .include "../../mk/bsd.prefs.mk"
+
+# GObject introspection in cross builds: g-ir-scanner runs the target's
+# programs on the IRIS clones (CROSS_INTROSPECTION).
+.include "../../mk/irix-exec-bridge.mk"
 
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 TOOL_DEPENDS+=			glib2-tools>=0:../../devel/glib2-tools

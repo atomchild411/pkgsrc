@@ -14,7 +14,7 @@ PKG_SUGGESTED_OPTIONS+=	x11
 PKG_SUGGESTED_OPTIONS+=	wayland
 .endif
 PKG_SUGGESTED_OPTIONS+=	gtk3-atk-bridge cups
-PKG_SUGGESTED_OPTIONS+=	${${USE_CROSS_COMPILE:tl} == "yes":?:introspection}
+PKG_SUGGESTED_OPTIONS+=	${${USE_CROSS_COMPILE:tl} == "yes" && ${CROSS_INTROSPECTION:Uno:tl} != "yes":?:introspection}
 
 .include "../../mk/bsd.options.mk"
 

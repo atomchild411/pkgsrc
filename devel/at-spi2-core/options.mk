@@ -14,7 +14,7 @@ PKG_OPTIONS_VAR=	PKG_OPTIONS.at-spi2-core
 # dbus turned off, and probably not build either.
 #
 PKG_SUPPORTED_OPTIONS=	dbus introspection
-PKG_SUGGESTED_OPTIONS=	dbus ${${USE_CROSS_COMPILE:tl} == "yes":?:introspection}
+PKG_SUGGESTED_OPTIONS=	dbus ${${USE_CROSS_COMPILE:tl} == "yes" && ${CROSS_INTROSPECTION:Uno:tl} != "yes":?:introspection}
 
 .include "../../mk/bsd.options.mk"
 
@@ -53,6 +53,8 @@ MESON_ARGS+=	-Datk_only=true
 
 .if ${PKG_OPTIONS:Mintrospection}
 PLIST.introspection=	yes
+# Its auto setting is off in cross builds.
+MESON_ARGS+=		-Dintrospection=enabled
 TOOL_DEPENDS+=		glib2-introspection-[0-9]*:../../devel/glib2-introspection
 
 BUILDLINK_DEPMETHOD.gobject-introspection=	build

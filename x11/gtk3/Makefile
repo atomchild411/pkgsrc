@@ -2,7 +2,7 @@
 
 DISTNAME=	gtk-3.24.52
 PKGNAME=	${DISTNAME:S/gtk/gtk3+/}
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtk/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -50,6 +50,10 @@ INSTALLATION_DIRS+=	lib/gtk-3.0/modules
 INSTALLATION_DIRS+=	lib/gtk-3.0/3.0.0/filesystems
 
 .include "../../mk/bsd.prefs.mk"
+
+# GObject introspection in cross builds: g-ir-scanner runs the target's
+# programs on the IRIS clones (CROSS_INTROSPECTION).
+.include "../../mk/irix-exec-bridge.mk"
 
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 
