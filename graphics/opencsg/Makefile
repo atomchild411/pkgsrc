@@ -29,4 +29,11 @@ do-install:
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../graphics/freeglut/buildlink3.mk"
 .include "../../x11/libXmu/buildlink3.mk"
+# The bundled GLEW provides the GL extensions; keep khronos-gl-headers'
+# <GL/glext.h> (guard __gl_glext_h_, which GLEW 1.x does not know) out.
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "IRIX"
+CXXFLAGS+=	-D__gl_glext_h_
+.endif
+
 .include "../../mk/bsd.pkg.mk"

@@ -37,4 +37,8 @@ CONFIGURE_ARGS+=	--with-apple-opengl-framework
 #.include "../../converters/fribidi/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
+# The bundled GLEW provides the GL extensions; keep khronos-gl-headers'
+# <GL/glext.h> (guard __gl_glext_h_, which GLEW 1.x does not know) out.
+CPPFLAGS.IRIX+=	-D__gl_glext_h_
+
 .include "../../mk/bsd.pkg.mk"
