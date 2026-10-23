@@ -11,6 +11,8 @@ BUILDLINK_PKGSRCDIR.scim?=	../../inputmethod/scim
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"
+# libscim-1.0.la lists -lXext and -lX11.
+.include "../../x11/libXext/buildlink3.mk"
 
 .if defined(USE_SCIM_GTKUTILS) && !empty(USE_SCIM_GTKUTILS:M[Yy][Ee][Ss])
 pkgbase := scim
