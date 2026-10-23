@@ -1,0 +1,16 @@
+$NetBSD$
+
+Cross builds: the build machine's Python cannot import the target's GExiv2; skip that check.
+
+--- meson.build.orig
++++ meson.build
+@@ -1218,7 +1218,8 @@
+                                   check: false)
+     #Check if PyGObject installation have gexiv2 (#15179)
+     #(This is specially important on MacPorts where gexiv2 have many python variants)
+-    pygobject_gexiv2_found = run_command(python_tmp, '-c',
++    # A cross build's Python is the build machine's: GExiv2 is the target's.
++    pygobject_gexiv2_found = meson.is_cross_build() or run_command(python_tmp, '-c',
+                                         '\n'.join([
+                                         '''import sys, gi''',
+                                         '''try:''',

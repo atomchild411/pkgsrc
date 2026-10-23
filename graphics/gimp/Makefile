@@ -66,6 +66,23 @@ INSTALLATION_DIRS=	share/examples
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${OPSYS} == "IRIX"
+# The IRIX compiler has no OpenMP runtime (libomp).
+MESON_ARGS+=	-Dopenmp=disabled
+.endif
+
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# libgimp's introspection data (and the build's runs of GIMP itself, which
+# need it) through the irix-exec bridge's exe_wrapper.
+MESON_ARGS+=	-Dcan-crosscompile-gir=true
+# No Vala in cross builds: valac is the build machine's and does not see
+# babl's and GEGL's bindings in the target tree.
+MESON_ARGS+=	-Dvala=disabled
+.else
+PLIST.vala=	yes
+.endif
+PLIST_VARS+=	vala
+
 .if ${OPSYS} == "Darwin"
 # libgimpwidgets/gimppickbutton-quartz.c: error: 'CGWindowListCreateImage' is unavailable: obsoleted in macOS 15.0
 .  if ${OPSYS_VERSION} >= 150000

@@ -5,3 +5,6 @@ SHA512 (gimp-3.2.6.tar.xz) = 3f2076055bc42c18725c53564190fd5783c0d95984df90e2484
 Size (gimp-3.2.6.tar.xz) = 35004888 bytes
 SHA1 (patch-app-tools_meson.build) = 490d76d6c9f51c1fffbb0710683e35ac9cf5a267
 SHA1 (patch-libgimp_meson.build) = aa3698e67ac867a2dcfea7ad88a664d583137df0
+SHA1 (patch-meson.build) = 11098cd9ac222c2c9f1f17fde7fedd204e8145a1
+SHA1 (patch-plug-ins_file-sgi_sgi.c) = 968716f2e1771ac93cd6d892742cda65c3a079a5
+SHA1 (patch-plug-ins_flame_rect.c) = 4511c56f822cd9762979fa36ab705cf43f1288d3

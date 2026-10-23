@@ -268,8 +268,8 @@ lib/gimp/3.0/environ/default.env
 lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/goat-exercise-c
 lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/goat-exercise-c.c
 lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/goat-exercise-py3.py
-lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/goat-exercise-vala
-lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/goat-exercise-vala.vala
+${PLIST.vala}lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/goat-exercise-vala
+${PLIST.vala}lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/goat-exercise-vala.vala
 lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/locale/ar/LC_MESSAGES/org.gimp.extension.goat-exercises.mo
 lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/locale/be/LC_MESSAGES/org.gimp.extension.goat-exercises.mo
 lib/gimp/3.0/extensions/org.gimp.extension.goat-exercises/locale/bg/LC_MESSAGES/org.gimp.extension.goat-exercises.mo
