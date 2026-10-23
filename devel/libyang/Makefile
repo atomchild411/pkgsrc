@@ -34,6 +34,10 @@ pre-configure:
 CMAKE_CONFIGURE_ARGS?=	-DCMAKE_BUILD_TYPE:String="Release"
 CMAKE_CONFIGURE_ARGS+=	-DENABLE_LYD_PRIV=ON
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# cmocka (TOOL_DEPENDS) is the build machine's: no target tests.
+CMAKE_CONFIGURE_ARGS+=	-DENABLE_BUILD_TESTS=OFF
+.endif
 
 .include "../../devel/pcre/buildlink3.mk"
 
