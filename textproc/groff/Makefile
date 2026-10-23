@@ -45,6 +45,17 @@ MAKE_FLAGS+=	GROFF_BIN_PATH=${TOOLBASE}/gnu/bin:${TOOLBASE}/bin
 MAKE_FLAGS+=	PDFMOMBIN=${TOOLBASE}/bin/pdfmom
 .endif
 
+.if ${USE_CROSS_COMPILE:U:tl} == "yes"
+# pdfmom runs GROFF_COMMAND=test-groff (the build tree's wrapper for the
+# groff it built) from PATH: the build machine's groff instead.
+post-configure: cross-test-groff
+.PHONY: cross-test-groff
+cross-test-groff:
+	${MKDIR} ${TOOLS_DIR}/bin
+	printf '#!/bin/sh\nexec %s "$$@"\n' ${TOOLBASE}/bin/groff > ${TOOLS_DIR}/bin/test-groff
+	${CHMOD} +x ${TOOLS_DIR}/bin/test-groff
+.endif
+
 BUILD_DEFS+=	PAPERSIZE
 .if defined(PAPERSIZE)
 CONFIGURE_ENV+=	PAGE=${PAPERSIZE}
