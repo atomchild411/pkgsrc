@@ -5,6 +5,11 @@
 #       to find out the current sound file versions
 #       Also look in ${WRKSRC}/third-party/versions.mak for pjproject
 
+# Its embedded XML/XSLT objects are made by a relocatable link through the
+# compiler (-Wl,-b,binary); the explicit -lintl the compiler wrappers add
+# to links (OPSYS_EXPLICIT_LIBDEPS) went in there as data, twice.
+USE_EXPLICIT_LIBDEPS=	no
+
 DISTNAME=	asterisk-19.8.1
 PKGREVISION=	21
 CATEGORIES=	comms net audio
