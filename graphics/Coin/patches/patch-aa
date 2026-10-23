@@ -1,8 +1,28 @@
 $NetBSD: patch-aa,v 1.2 2013/06/11 15:22:47 ryoon Exp $
 
---- configure.orig	2010-03-02 13:20:09.000000000 +0000
+Find struct timeval by its definition: IRIX's <sys/select.h> names it in select's prototype first.
+
+--- configure.orig
 +++ configure
-@@ -24066,7 +24066,7 @@ fi
+@@ -23557,7 +23557,7 @@
+ 
+ int main(int argc, char **argv) { return 0; }
+ _ACEOF
+-sim_ac_struct_contents="`$CXXCPP $CPPFLAGS conftest.cpp 2>/dev/null | sed -e '1,/struct[ \t]*timeval/ d' | sed -e '/}/,\$ d'`"
++sim_ac_struct_contents="`$CXXCPP $CPPFLAGS conftest.cpp 2>/dev/null | sed -e '1,/struct[ \t]*timeval[ \t]*{/ d' | sed -e '/}/,\$ d'`"
+ rm conftest.cpp
+ # canonicalize contents:
+ sim_ac_struct_contents="`echo { \$sim_ac_struct_contents }`"
+@@ -23597,7 +23597,7 @@
+ 
+ int main(int argc, char **argv) { return 0; }
+ _ACEOF
+-sim_ac_struct_contents="`$CXXCPP $CPPFLAGS conftest.cpp 2>/dev/null | sed -e '1,/struct[ \t]*timeval/ d' | sed -e '/}/,\$ d'`"
++sim_ac_struct_contents="`$CXXCPP $CPPFLAGS conftest.cpp 2>/dev/null | sed -e '1,/struct[ \t]*timeval[ \t]*{/ d' | sed -e '/}/,\$ d'`"
+ rm conftest.cpp
+ # canonicalize contents:
+ sim_ac_struct_contents="`echo { \$sim_ac_struct_contents }`"
+@@ -24066,7 +24066,7 @@
  
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking if user is simian" >&5
  $as_echo_n "checking if user is simian... " >&6; }
