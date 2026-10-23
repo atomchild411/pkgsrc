@@ -21,6 +21,7 @@ BUILDLINK_TRANSFORM+=	rm:-DGTK_DISABLE_DEPRECATED
 MAKE_FLAGS+=		bindir=${PREFIX}/bin
 MAKE_FLAGS+=		datadir=${PREFIX}/share
 MAKE_FLAGS+=		LOCALEDIR=${PREFIX}/${PKGLOCALEDIR}/locale
+MAKE_ENV+=		LIBS=${BUILDLINK_LDADD.gettext:Q}
 BUILD_TARGET=		gperiodic
 
 # FIXME: replace by proper LDFLAGS handling
