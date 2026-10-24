@@ -16,7 +16,7 @@ LDFLAGS.SunOS+=	-lgcc
 CONFIGURE_ENV.IRIX+=	php_cv_shm_ipc=yes
 
 # PHP 8.5 bundles opcache extension.
-PHP_VERSIONS_ACCEPTED=	84 83 82 74 56
+PHP_VERSIONS_ACCEPTED=	83 82 84 74 56
 
 # PHP 8.4's opcache depends on gmake.
 .include "../../lang/php/phpversion.mk"

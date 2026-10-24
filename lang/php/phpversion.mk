@@ -13,6 +13,14 @@
 #	Possible: 56 74 82 83 84 85
 #	Default: 84
 #
+# PHP_VERSIONS_PREFERRED
+#	The PHP versions to choose from, in order, when the package does
+#	not accept PHP_VERSION_DEFAULT. When none of them is accepted
+#	either, the package's first accepted version is chosen.
+#
+#	Possible: 56 74 82 83 84 85
+#	Default: (empty)
+#
 # === Infrastructure variables ===
 #
 # PHP_VERSION_REQD
@@ -116,7 +124,7 @@ PHP84_VERSION=	8.4.27
 PHP85_VERSION=	8.5.12
 
 _VARGROUPS+=	php
-_USER_VARS.php=	PHP_VERSION_DEFAULT
+_USER_VARS.php=	PHP_VERSION_DEFAULT PHP_VERSIONS_PREFERRED
 _PKG_VARS.php=	PHP_VERSIONS_ACCEPTED PHP_VERSION_REQD
 _SYS_VARS.php=	PHP_VERSION_PHP PHPPKGSRCDIR PHP_PKG_PREFIX PHP_VER PHP_MAJOR_VERS
 
@@ -151,6 +159,14 @@ _PHP_VERSION_FIRSTACCEPTED?=	${pv}
 .if defined(_PHP_VERSION_${PHP_VERSION_DEFAULT}_OK)
 _PHP_VERSION=	${PHP_VERSION_DEFAULT}
 .endif
+.endif
+# if not, the first of the user's preferred versions the package accepts
+.if !defined(_PHP_VERSION)
+.for pv in ${PHP_VERSIONS_PREFERRED}
+.  if !defined(_PHP_VERSION) && defined(_PHP_VERSION_${pv}_OK)
+_PHP_VERSION=	${pv}
+.  endif
+.endfor
 .endif
 # take the first one accepted by the package
 .if !defined(_PHP_VERSION)
