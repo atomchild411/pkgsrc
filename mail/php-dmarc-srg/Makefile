@@ -19,7 +19,7 @@ DEPENDS+=	${PHP_PKG_PREFIX}-pdo_mysql>=${PHP_BASE_VERS}:../../databases/php-pdo_
 DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=${PHP_BASE_VERS}:../../converters/php-mbstring
 DEPENDS+=	${PHP_PKG_PREFIX}-zip>=${PHP_BASE_VERS}:../../archivers/php-zip
 
-PHP_VERSIONS_ACCEPTED=	82 83 84
+PHP_VERSIONS_ACCEPTED=	84 83 82
 
 USE_LANGUAGES=	# none
 USE_TOOLS+=	pax
