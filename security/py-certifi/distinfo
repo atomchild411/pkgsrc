@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.50 2026/07/22 08:27:23 adam Exp $
+$NetBSD: distinfo,v 1.53 2026/10/24 09:01:57 adam Exp $
 
-BLAKE2s (certifi-2026.7.22.tar.gz) = daa6535e4702a31b04ce4da9a77a74e41b8d1eaeb9344e53084d33c054399a4b
-SHA512 (certifi-2026.7.22.tar.gz) = af77649ac6e9d67e161e64d18022ce28a79f483bb19e1f8abac4dccc329777e9aeace405293961fd62d6873153c6b912142f3ddb1efe2bbfa0a5aa693120498f
-Size (certifi-2026.7.22.tar.gz) = 138112 bytes
+BLAKE2s (certifi-2026.10.23.tar.gz) = 6494ef0a040ca803a4f979a96092e157c4a320179e56354bf9e7626ac64da00d
+SHA512 (certifi-2026.10.23.tar.gz) = 0ea25800d79530c297a9bcea5febfb4e790baacaf19283aa66e5272ce947ab464670328eb3cbb8c49dfecbc31074534d7136bc79bb55e2e857819c032d9bf9d7
+Size (certifi-2026.10.23.tar.gz) = 136225 bytes

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.40 2026/08/16 06:21:06 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2026/10/21 05:03:40 wiz Exp $
 
-DISTNAME=		Mozilla-CA-20260813
+DISTNAME=		Mozilla-CA-20261020
 PKGNAME=		p5-${DISTNAME}
+PKGREVISION=		1
 CATEGORIES=		security perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=../../authors/id/L/LW/LWP/}
 
@@ -12,6 +13,10 @@ LICENSE=		mpl-2.0
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Mozilla/CA/.packlist
+
+# The patch's backup would be installed beside the patched bundle.
+post-patch:
+	${RM} -f ${WRKSRC}/lib/Mozilla/CA/cacert.pem.orig
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"
