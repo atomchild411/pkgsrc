@@ -207,6 +207,9 @@ fetch_default_port(const char *scheme)
 		return (FTP_DEFAULT_PORT);
 	if (strcasecmp(scheme, SCHEME_HTTP) == 0)
 		return (HTTP_DEFAULT_PORT);
+	/* Not in every services(5): IRIX 6.5 lists http but not https. */
+	if (strcasecmp(scheme, SCHEME_HTTPS) == 0)
+		return (HTTPS_DEFAULT_PORT);
 	return (0);
 }
 
