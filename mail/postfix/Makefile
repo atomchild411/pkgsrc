@@ -93,5 +93,12 @@ do-install:
 .endif
 
 # postfix-install runs bin/postconf (INSTALL_ENV carries the bridge).
+# Not yet: postconf -e creates main.cf.tmp 0600, checks the mode and, on
+# the IRIS share, which ignores file modes (IRIS-ISSUES #9), finds 0644,
+# takes it for a race and retries forever, silent until the bulk build
+# gives up. Fail at once until iris honours modes.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && ${OPSYS} == "IRIX"
+PKG_FAIL_REASON+=	"postfix-install loops on the IRIS share: it ignores file modes (IRIS-ISSUES 9)"
+.endif
 .include "../../mk/irix-exec-bridge.mk"
 .include "../../mk/bsd.pkg.mk"
