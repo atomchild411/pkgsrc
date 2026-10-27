@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.294 2026/08/11 07:16:40 wiz Exp $
 
 DISTNAME=		openssh-10.5p1
+PKGREVISION=		1
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_OPENBSD:=OpenSSH/portable/}
 
@@ -120,6 +121,13 @@ RCD_SCRIPT_SRC.sshd=	${WRKDIR}/sshd.sh
 SMF_METHODS=		sshd
 
 FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR}
+
+# IRIX: libintl and the driver's -lpthread load libpthread, and then the main
+# thread's errno is *__oserror(), not the global errno that files built
+# without _SGI_MP_SOURCE use. atomicio's EPIPE at end of file was not seen
+# by sshbuf_load_fd, so every key failed to load ("Broken pipe"): sshd had
+# no host keys and ssh -i no identity.
+CPPFLAGS.IRIX+=		-D_SGI_MP_SOURCE
 
 # IRIX: a SysV init script instead of the rc.d one.  It is installed as a
 # config file outside PREFIX (CONF_FILES_PERMS: copied from the example if
