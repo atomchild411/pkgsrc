@@ -8,10 +8,11 @@ branch iris/main):
 - [IRIX] The last 22 libc stand-ins are weak too
 - if_nameindex and friends over SIOCGIFCONF
 - <netdb.h>: gethostbyname2
+- errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
 
 --- lib/builtins/irix/netdb.c.orig
 +++ lib/builtins/irix/netdb.c
-@@ -0,0 +1,370 @@
+@@ -0,0 +1,374 @@
 +//===-- irix/netdb.c - getaddrinfo and friends for IRIX -------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -20,11 +21,13 @@ branch iris/main):
 +//
 +//===----------------------------------------------------------------------===//
 +//
-+// RFC 3493's getaddrinfo, freeaddrinfo, getnameinfo and gai_strerror, which
-+// no IRIX release has, and the rest of that RFC's names the IRIX wrapper
-+// headers declare (<netdb.h>, <netinet/in.h>): in6addr_any and
-+// in6addr_loopback. (Its interface indexes: irix/ifnameindex.c.) And BIND's
-+// gethostbyname2, which the wrapper <netdb.h> declares too.
++// RFC 3493's getaddrinfo, freeaddrinfo, getnameinfo and gai_strerror, as
++// __irix_getaddrinfo and so on (the wrapper <netdb.h> renames every call:
++// libc has its own, which a dlopen'd module would otherwise bind to), and
++// the rest of that RFC's names the IRIX wrapper headers declare
++// (<netdb.h>, <netinet/in.h>): in6addr_any and in6addr_loopback. (Its
++// interface indexes: irix/ifnameindex.c.) And BIND's gethostbyname2, which
++// the wrapper <netdb.h> declares too.
 +//
 +// Names resolve over IRIX's reentrant gethostbyname_r and gethostbyaddr_r,
 +// services over getservbyname_r and getservbyport_r: IPv4 only, as IRIX
@@ -52,10 +55,10 @@ branch iris/main):
 +
 +// Weak: a program that brings its own copy (a compat/ directory) keeps it,
 +// while still getting the rest of this file.
-+#pragma weak freeaddrinfo
-+#pragma weak getaddrinfo
-+#pragma weak gai_strerror
-+#pragma weak getnameinfo
++#pragma weak __irix_freeaddrinfo
++#pragma weak __irix_getaddrinfo
++#pragma weak __irix_gai_strerror
++#pragma weak __irix_getnameinfo
 +#pragma weak gethostbyname2
 +
 +
@@ -119,7 +122,7 @@ branch iris/main):
 +  return ai;
 +}
 +
-+void freeaddrinfo(struct addrinfo *ai) {
++void __irix_freeaddrinfo(struct addrinfo *ai) {
 +  while (ai) {
 +    struct addrinfo *next = ai->ai_next;
 +    free(ai);
@@ -157,8 +160,8 @@ branch iris/main):
 +  return 0;
 +}
 +
-+int getaddrinfo(const char *node, const char *serv,
-+                const struct addrinfo *hints, struct addrinfo **res) {
++int __irix_getaddrinfo(const char *node, const char *serv,
++                        const struct addrinfo *hints, struct addrinfo **res) {
 +  int flags = 0, family = AF_UNSPEC, socktype = 0, protocol = 0;
 +  int types[2], protos[2], ntypes, naddrs = 0, i, j, err;
 +  unsigned short port;
@@ -249,7 +252,7 @@ branch iris/main):
 +      struct addrinfo *ai = new_addrinfo(addr_family, types[j], protos[j],
 +                                         addrs[i], port, canon);
 +      if (!ai) {
-+        freeaddrinfo(head);
++        __irix_freeaddrinfo(head);
 +        return EAI_MEMORY;
 +      }
 +      canon = 0; // the first result carries it
@@ -260,7 +263,7 @@ branch iris/main):
 +  return 0;
 +}
 +
-+const char *gai_strerror(int code) {
++const char *__irix_gai_strerror(int code) {
 +  switch (code) {
 +  case 0:
 +    return "Success";
@@ -284,6 +287,8 @@ branch iris/main):
 +    return "Socket type not supported";
 +  case EAI_SYSTEM:
 +    return "System error";
++  case EAI_BADHINTS:
++    return "Invalid value for hints";
 +  case EAI_OVERFLOW:
 +    return "Argument buffer overflow";
 +  default:
@@ -299,7 +304,7 @@ branch iris/main):
 +  return 0;
 +}
 +
-+int getnameinfo(const struct sockaddr *sa, socklen_t salen, char *host,
++int __irix_getnameinfo(const struct sockaddr *sa, socklen_t salen, char *host,
 +                socklen_t hostlen, char *serv, socklen_t servlen, int flags) {
 +  const void *addr;
 +  unsigned short port;
@@ -375,7 +380,7 @@ branch iris/main):
 +  if (af == AF_INET6)
 +    h_errno = HOST_NOT_FOUND;
 +  else {
-+    errno = EAFNOSUPPORT;
++    __irix_seterrno(EAFNOSUPPORT);
 +    h_errno = NETDB_INTERNAL;
 +  }
 +  return NULL;

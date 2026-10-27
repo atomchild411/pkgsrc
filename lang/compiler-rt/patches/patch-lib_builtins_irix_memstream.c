@@ -2,11 +2,12 @@ $NetBSD$
 
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
-- fmemopen and open_memstream, tmpfile-backed
+- fmemopen and open_memstream
+- errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
 
 --- lib/builtins/irix/memstream.c.orig
 +++ lib/builtins/irix/memstream.c
-@@ -0,0 +1,216 @@
+@@ -0,0 +1,217 @@
 +//===-- irix/memstream.c - fmemopen and open_memstream for IRIX -----------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -40,6 +41,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <pthread.h>
 +#include <stddef.h>
 +#include <stdlib.h>
@@ -126,7 +128,7 @@ branch iris/main):
 +FILE *open_memstream(char **bufp, size_t *sizep) {
 +  struct memstream m = {0};
 +  if (bufp == NULL || sizep == NULL) {
-+    errno = EINVAL;
++    __irix_seterrno(EINVAL);
 +    return NULL;
 +  }
 +  if ((m.f = __irix_libc_tmpfile()) == NULL)
@@ -149,7 +151,7 @@ branch iris/main):
 +FILE *fmemopen(void *buf, size_t size, const char *mode) {
 +  struct memstream m = {0};
 +  if (size == 0 || mode == NULL || strchr("rwa", mode[0]) == NULL) {
-+    errno = EINVAL;
++    __irix_seterrno(EINVAL);
 +    return NULL;
 +  }
 +  m.buf = buf;

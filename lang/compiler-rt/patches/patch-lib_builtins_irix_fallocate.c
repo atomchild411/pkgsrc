@@ -3,10 +3,11 @@ $NetBSD$
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
 - compiler-rt: posix_fallocate
+- errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
 
 --- lib/builtins/irix/fallocate.c.orig
 +++ lib/builtins/irix/fallocate.c
-@@ -0,0 +1,74 @@
+@@ -0,0 +1,75 @@
 +//===-- irix/fallocate.c - posix_fallocate for IRIX -----------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -28,6 +29,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <fcntl.h>
 +#include <sys/stat.h>
 +#include <sys/types.h>
@@ -47,7 +49,7 @@ branch iris/main):
 +    return EFBIG;
 +  if (fstat(fd, &st) != 0) {
 +    err = errno;
-+    errno = saved;
++    __irix_seterrno(saved);
 +    return err;
 +  }
 +  if (S_ISFIFO(st.st_mode))
@@ -76,7 +78,7 @@ branch iris/main):
 +  if (!err && fstat(fd, &st) == 0 && st.st_size < end &&
 +      ftruncate(fd, end) != 0)
 +    err = errno;
-+  errno = saved;
++  __irix_seterrno(saved);
 +  return err;
 +}
 +

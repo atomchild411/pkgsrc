@@ -2,12 +2,13 @@ $NetBSD$
 
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
-- openpty, forkpty and login_tty, on _getpty()
-- posix_openpt, on _getpty()
+- openpty, forkpty and login_tty; <pty.h>, <util.h>; no -lutil
+- [IRIX] posix_openpt
+- errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
 
 --- lib/builtins/irix/pty.c.orig
 +++ lib/builtins/irix/pty.c
-@@ -0,0 +1,111 @@
+@@ -0,0 +1,112 @@
 +//===-- irix/pty.c - openpty, forkpty and login_tty for IRIX --------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -37,6 +38,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <fcntl.h>
 +#include <string.h>
 +#include <sys/ioctl.h>
@@ -56,7 +58,7 @@ branch iris/main):
 +  if (slave < 0) {
 +    e = errno;
 +    close(master);
-+    errno = e;
++    __irix_seterrno(e);
 +    return -1;
 +  }
 +  if (name != NULL)
@@ -104,7 +106,7 @@ branch iris/main):
 +    e = errno;
 +    close(master);
 +    close(slave);
-+    errno = e;
++    __irix_seterrno(e);
 +    return -1;
 +  }
 +  if (pid == 0) {

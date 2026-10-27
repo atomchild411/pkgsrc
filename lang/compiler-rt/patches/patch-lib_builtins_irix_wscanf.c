@@ -2,11 +2,12 @@ $NetBSD$
 
 IRIX support (from the IRIX port of LLVM, atomchild411/llvm-project
 branch iris/main):
-- swscanf, fwscanf, wscanf and their v forms, through the C99 scanf
+- swscanf, fwscanf, wscanf and their v forms
+- errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
 
 --- lib/builtins/irix/wscanf.c.orig
 +++ lib/builtins/irix/wscanf.c
-@@ -0,0 +1,102 @@
+@@ -0,0 +1,103 @@
 +//===-- irix/wscanf.c - C95's wide scanf for IRIX -------------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -31,6 +32,7 @@ branch iris/main):
 +#if defined(__sgi)
 +
 +#include <errno.h>
++#include "irix_errno.h"
 +#include <stdarg.h>
 +#include <stdio.h>
 +#include <stdlib.h>
@@ -48,7 +50,7 @@ branch iris/main):
 +  size_t n = wcstombs(NULL, ws, 0);
 +  char *s;
 +  if (n == (size_t)-1) {
-+    errno = EILSEQ;
++    __irix_seterrno(EILSEQ);
 +    return NULL;
 +  }
 +  if ((s = malloc(n + 1)) != NULL)
