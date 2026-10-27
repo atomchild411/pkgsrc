@@ -14,10 +14,11 @@ branch iris/main):
 - [IRIX] mbsnrtowcs and wcsnrtombs
 - <wchar.h>: wcsncasecmp
 - <wchar.h>: wcpcpy and wcpncpy
+- errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
 
 --- lib/Headers/irix_wrappers/wchar.h.orig
 +++ lib/Headers/irix_wrappers/wchar.h
-@@ -0,0 +1,199 @@
+@@ -0,0 +1,212 @@
 +/*===---- wchar.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -73,6 +74,19 @@ branch iris/main):
 +#endif
 +wchar_t *wcstok(wchar_t *__restrict, const wchar_t *__restrict,
 +                wchar_t **__restrict) __asm__("wcstok_r");
++
++/* Outside X/Open 5 mode IRIX's wcsftime is XPG4's, with a char * format;
++ * C95's is _xpg5_wcsftime, which X/Open 5 mode reaches through an inline.
++ * Python's time.strftime passed it a wide format and got "" back. */
++#if _NO_XOPEN5 && (_MIPS_SIM == _ABIN32 || _MIPS_SIM == _ABI64)
++struct tm;
++#ifdef __cplusplus
++extern "C"
++#endif
++size_t _xpg5_wcsftime(wchar_t *__restrict, size_t, const wchar_t *__restrict,
++                      const struct tm *__restrict);
++#define wcsftime _xpg5_wcsftime
++#endif
 +
 +#if defined(__cplusplus) && defined(_E1)
 +#undef _ISwprint

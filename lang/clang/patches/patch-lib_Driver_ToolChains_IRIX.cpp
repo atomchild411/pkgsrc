@@ -11,15 +11,16 @@ branch iris/main):
 - Driver: --unwindlib is no unused argument
 - Driver: no DT_RPATH to libc++ when it is linked statically
 - Driver: the builtins ahead of a link's inputs too
-- Driver: MIPSpro's options accepted and ignored
-- Driver: no -lutil (openpty and friends are in the builtins)
-- Driver: -lstdc++ links libc++
-- Driver: DT_RPATH to libc++ for links that name it themselves
-- Driver: libpthread before libc on every link, as needed
+- Accept and ignore MIPSpro's options
+- openpty, forkpty and login_tty; <pty.h>, <util.h>; no -lutil
+- -lstdc++ links libc++
+- DT_RPATH to libc++ for links that name it themselves
+- _COMPILER_VERSION 750; libpthread before libc on every link, as needed
+- errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
 
 --- lib/Driver/ToolChains/IRIX.cpp.orig
 +++ lib/Driver/ToolChains/IRIX.cpp
-@@ -0,0 +1,431 @@
+@@ -0,0 +1,433 @@
 +//===--- IRIX.cpp - IRIX ToolChain Implementations --------------*- C++ -*-===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -262,8 +263,6 @@ branch iris/main):
 +  // IRIX has no RELRO.
 +  CmdArgs.push_back("-z");
 +  CmdArgs.push_back("norelro");
-+  // rld (6.5.7 at least) reads DT_RPATH and ignores DT_RUNPATH.
-+  CmdArgs.push_back("--disable-new-dtags");
 +  // RPM's debuginfo tooling wants a build ID.
 +  CmdArgs.push_back("--build-id");
 +  CmdArgs.push_back("--eh-frame-hdr");
@@ -333,6 +332,10 @@ branch iris/main):
 +
 +  size_t InputsBegin = CmdArgs.size();
 +  AddLinkerInputs(TC, Inputs, Args, CmdArgs, JA);
++  // rld (6.5.7 at least) reads DT_RPATH and ignores DT_RUNPATH. After the
++  // inputs, so that it overrides a -Wl,--enable-new-dtags there (sudo's
++  // configure adds one): lld takes the last of the two.
++  CmdArgs.push_back("--disable-new-dtags");
 +
 +  // IRIX has no libutil: its pseudo-terminal functions (openpty, forkpty,
 +  // login_tty) are in the builtins library (irix/pty.c). Links that ask for

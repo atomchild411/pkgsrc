@@ -6,10 +6,11 @@ branch iris/main):
 - Declare the BSD functions IRIX hides outside SGI mode
 - Wrapper <netdb.h>: EAI_ADDRFAMILY
 - <netdb.h>: gethostbyname2
+- errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
 
 --- lib/Headers/irix_wrappers/netdb.h.orig
 +++ lib/Headers/irix_wrappers/netdb.h
-@@ -0,0 +1,112 @@
+@@ -0,0 +1,127 @@
 +/*===---- netdb.h - IRIX wrapper --------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -18,12 +19,20 @@ branch iris/main):
 + *
 + *===-----------------------------------------------------------------------===
 + *
-+ * RFC 3493's getaddrinfo, freeaddrinfo, getnameinfo and gai_strerror, with
-+ * struct addrinfo and the AI_, NI_ and EAI_ names, which no IRIX release has
-+ * (it has gethostbyname and friends). compiler-rt's IRIX builtins define
-+ * them (irix/netdb.c) for IPv4, over IRIX's reentrant gethostbyname_r,
-+ * gethostbyaddr_r and getservbyname_r; IPv6 addresses are handled only as
-+ * numbers (parsed and printed), since IRIX has no IPv6 networking.
++ * RFC 3493's getaddrinfo, freeaddrinfo, getnameinfo and gai_strerror.
++ * IRIX 6.5.22's libc has them, but <netdb.h> declares them, struct addrinfo
++ * and the AI_, NI_ and EAI_ names only outside X/Open modes: here they are
++ * otherwise, with IRIX's own layout and values, so that code built in
++ * either mode agrees.
++ *
++ * The functions every object calls are compiler-rt's (irix/netdb.c: IPv4
++ * over IRIX's reentrant gethostbyname_r, gethostbyaddr_r and
++ * getservbyname_r, IPv6 addresses as numbers only), under their own names.
++ * libc's reject a numeric service with no socket type, and they cannot be
++ * mixed with a stand-in of the same name: rld binds a module loaded with
++ * dlopen (Python's _socket, Perl's Socket) to libc's copy, loaded first,
++ * not its own, so a program took libc's getaddrinfo and the stand-in's
++ * freeaddrinfo, or the other way round.
 + */
 +
 +#ifndef __CLANG_IRIX_NETDB_H
@@ -40,29 +49,29 @@ branch iris/main):
 +  int ai_socktype;
 +  int ai_protocol;
 +  socklen_t ai_addrlen;
-+  struct sockaddr *ai_addr;
 +  char *ai_canonname;
++  struct sockaddr *ai_addr;
 +  struct addrinfo *ai_next;
 +};
 +
-+#define AI_PASSIVE 0x0001
-+#define AI_CANONNAME 0x0002
-+#define AI_NUMERICHOST 0x0004
-+#define AI_NUMERICSERV 0x0008
-+#define AI_V4MAPPED 0x0010
-+#define AI_ALL 0x0020
-+#define AI_ADDRCONFIG 0x0040
++#define AI_PASSIVE 0x00000001
++#define AI_CANONNAME 0x00000002
++#define AI_NUMERICHOST 0x00000004
++#define AI_NUMERICSERV 0x00000008
++#define AI_ALL 0x00000100
++#define AI_ADDRCONFIG 0x00000400
++#define AI_V4MAPPED 0x00000800
++#define AI_DEFAULT (AI_V4MAPPED | AI_ADDRCONFIG)
 +
-+#define NI_NOFQDN 0x0001
-+#define NI_NUMERICHOST 0x0002
-+#define NI_NAMEREQD 0x0004
-+#define NI_NUMERICSERV 0x0008
-+#define NI_DGRAM 0x0010
 +#define NI_MAXHOST 1025
 +#define NI_MAXSERV 32
++#define NI_NOFQDN 0x00000001
++#define NI_NUMERICHOST 0x00000002
++#define NI_NAMEREQD 0x00000004
++#define NI_NUMERICSERV 0x00000008
++#define NI_DGRAM 0x00000010
++#define NI_WITHSCOPEID 0x00000020
 +
-+/* EAI_ADDRFAMILY is BSD's 1: never returned here, but programs compare
-+ * against it (ruby). */
 +#define EAI_ADDRFAMILY 1
 +#define EAI_AGAIN 2
 +#define EAI_BADFLAGS 3
@@ -74,7 +83,15 @@ branch iris/main):
 +#define EAI_SERVICE 9
 +#define EAI_SOCKTYPE 10
 +#define EAI_SYSTEM 11
-+#define EAI_OVERFLOW 14
++#define EAI_BADHINTS 12
++#define EAI_OVERFLOW 13
++#define EAI_MAX 14
++#endif
++
++#define getaddrinfo __irix_getaddrinfo
++#define freeaddrinfo __irix_freeaddrinfo
++#define gai_strerror __irix_gai_strerror
++#define getnameinfo __irix_getnameinfo
 +
 +#ifdef __cplusplus
 +extern "C" {
@@ -87,7 +104,6 @@ branch iris/main):
 +                socklen_t, int);
 +#ifdef __cplusplus
 +}
-+#endif
 +#endif
 +
 +/* BSD's, in IRIX's libc, which its header declares only in SGI mode:
