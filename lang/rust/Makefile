@@ -2,7 +2,7 @@
 
 DISTNAME=	rustc-1.96.1-src
 PKGNAME=	${DISTNAME:S/rustc/rust/:S/-src//}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	lang
 MASTER_SITES=	https://static.rust-lang.org/dist/
 

@@ -131,7 +131,7 @@ header wrappers and builtins) sees it.
 +pub const EAI_MEMORY: c_int = 6;
 +pub const EAI_NODATA: c_int = 7;
 +pub const EAI_NONAME: c_int = 8;
-+pub const EAI_OVERFLOW: c_int = 14;
++pub const EAI_OVERFLOW: c_int = 13;
 +pub const EAI_SERVICE: c_int = 9;
 +pub const EAI_SOCKTYPE: c_int = 10;
 +pub const EAI_SYSTEM: c_int = 11;

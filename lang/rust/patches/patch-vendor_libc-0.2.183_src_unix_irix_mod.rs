@@ -130,8 +130,8 @@ IRIX: the mips64-sgi-irix target (IRIX 6.5, MIPS IV, N32) and its std.
 +        pub ai_socktype: c_int,
 +        pub ai_protocol: c_int,
 +        pub ai_addrlen: socklen_t,
-+        pub ai_addr: *mut crate::sockaddr,
 +        pub ai_canonname: *mut c_char,
++        pub ai_addr: *mut crate::sockaddr,
 +        pub ai_next: *mut addrinfo,
 +    }
 +
