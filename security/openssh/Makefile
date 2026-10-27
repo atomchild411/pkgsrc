@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.294 2026/08/11 07:16:40 wiz Exp $
 
 DISTNAME=		openssh-10.5p1
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_OPENBSD:=OpenSSH/portable/}
 
@@ -128,6 +128,11 @@ FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR}
 # by sshbuf_load_fd, so every key failed to load ("Broken pipe"): sshd had
 # no host keys and ssh -i no identity.
 CPPFLAGS.IRIX+=		-D_SGI_MP_SOURCE
+# IRIX restarts poll() and select() after a handler installed with
+# SA_RESTART, so sshd ran its SIGTERM handler and went on listening.
+# configure finds this with a test program (NO_SA_RESTART), but cannot run
+# it when cross-compiling.
+CPPFLAGS.IRIX+=		-DNO_SA_RESTART
 
 # IRIX: a SysV init script instead of the rc.d one.  It is installed as a
 # config file outside PREFIX (CONF_FILES_PERMS: copied from the example if
