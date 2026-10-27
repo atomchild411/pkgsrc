@@ -9,10 +9,11 @@ branch iris/main):
 - if_nameindex and friends over SIOCGIFCONF
 - <netdb.h>: gethostbyname2
 - errno is the thread's; IRIX's struct addrinfo; wcsftime; new-dtags last
+- getaddrinfo & co. also under their plain names, weak
 
 --- lib/builtins/irix/netdb.c.orig
 +++ lib/builtins/irix/netdb.c
-@@ -0,0 +1,374 @@
+@@ -0,0 +1,389 @@
 +//===-- irix/netdb.c - getaddrinfo and friends for IRIX -------------------===//
 +//
 +// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -59,6 +60,21 @@ branch iris/main):
 +#pragma weak __irix_getaddrinfo
 +#pragma weak __irix_gai_strerror
 +#pragma weak __irix_getnameinfo
++
++// The plain names too, weak and as aliases (in assembly, so that no C
++// declaration of them, IRIX's or the wrapper's, is involved): a configure
++// check links `char getaddrinfo();' and finds none in a libc older than
++// 6.5.22 (the sysroot's), and a package then compiles its own replacement
++// against the wrapper's declarations (libnbcompat: conflicting types for
++// gai_strerror). Code built with the wrapper <netdb.h> calls the
++// __irix_ names.
++#define IRIX_NETDB_ALIAS(name)                                                 \
++  __asm__(".weak " #name "\n\t.type " #name ", @function\n\t.set " #name     \
++          ", __irix_" #name)
++IRIX_NETDB_ALIAS(getaddrinfo);
++IRIX_NETDB_ALIAS(freeaddrinfo);
++IRIX_NETDB_ALIAS(gai_strerror);
++IRIX_NETDB_ALIAS(getnameinfo);
 +#pragma weak gethostbyname2
 +
 +
