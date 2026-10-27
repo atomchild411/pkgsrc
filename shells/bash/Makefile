@@ -5,6 +5,7 @@ BASH_PATCHLEVEL=	20
 
 DISTNAME=	bash-${BASH_VERSION}
 PKGNAME=	bash-${BASH_VERSION}.${BASH_PATCHLEVEL}
+PKGREVISION=	1
 CATEGORIES=	shells
 MASTER_SITES=	${MASTER_SITE_GNU:=bash/}
 # XXX this needs to be removed once we're at the 5.4 release
@@ -83,6 +84,13 @@ CONFIGURE_ENV+=		bash_cv_unusable_rtsigs=no
 CONFIGURE_ENV+=		bash_cv_func_ctype_nonascii=yes
 CONFIGURE_ENV+=		bash_cv_wexitstatus_offset=8
 .endif
+
+# IRIX: libintl and libncurses need libpthread, and once it is loaded the
+# main thread's errno is *__oserror(), not the global errno that code built
+# without _SGI_MP_SOURCE uses. legal_number() cleared the global, strtoimax
+# left a stale value there, and every number was rejected: 2>/dev/null,
+# test 5 -gt 3, kill -l 9 (revenir#11).
+CPPFLAGS.IRIX+=		-D_SGI_MP_SOURCE
 
 pre-configure:
 	${RM} -f ${WRKSRC}/y.tab.c
