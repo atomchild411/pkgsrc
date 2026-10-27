@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.210 2025/07/07 05:00:26 wiz Exp $
 
 DISTNAME=	sudo-1.9.17p1
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	https://www.sudo.ws/dist/
 MASTER_SITES+=	ftp://ftp.sudo.ws/pub/sudo/
@@ -31,6 +32,10 @@ CONFIGURE_ENV+=		mansectform=5
 # IRIX has a <sys/sysctl.h> but no sysctl(3) or KERN_BOOTTIME: without it,
 # boottime.c takes its utmpx path with <utmpx.h> included.
 CONFIGURE_ENV.IRIX+=	ac_cv_header_sys_sysctl_h=no
+# IRIX rld ignores DT_RUNPATH. configure's -Wl,--enable-new-dtags comes after
+# the driver's --disable-new-dtags and wins, and then no sudo tool finds
+# libsudo_util or libz: each one exits 1 silently.
+CONFIGURE_ENV.IRIX+=	ax_cv_check_ldflags___Wl___enable_new_dtags=no
 TEST_TARGET=		check
 
 LDFLAGS+=		${COMPILER_RPATH_FLAG}${PREFIX}/lib/sudo
