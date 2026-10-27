@@ -18,7 +18,6 @@ NO_BIN_ON_FTP=		${RESTRICTED}
 # Large programs and applications
 #DEPENDS+=	${PHP_PKG_PREFIX}-dotclear-[0-9]*:../../www/php-dotclear
 DEPENDS+=	${PHP_PKG_PREFIX}-wordpress-[0-9]*:../../www/wordpress
-DEPENDS+=	${PHP_PKG_PREFIX}-nextcloud-[0-9]*:../../www/php-nextcloud
 DEPENDS+=	${PHP_PKG_PREFIX}-owncloud-[0-9]*:../../www/php-owncloud
 DEPENDS+=	${PHP_PKG_PREFIX}-davical-[0-9]*:../../www/davical
 DEPENDS+=	moodle-[0-9]*:../../www/moodle
@@ -41,4 +40,8 @@ DEPENDS+=	${PHP_PKG_PREFIX}-soap-[0-9]*:../../net/php-soap
 DEPENDS+=	${PHP_PKG_PREFIX}-sockets-[0-9]*:../../net/php-sockets
 
 .include "../../lang/php/phpversion.mk"
+# php-nextcloud is not for PHP 8.5 (its PHP_VERSIONS_INCOMPATIBLE).
+.if ${_PHP_VERSION} != 85
+DEPENDS+=	${PHP_PKG_PREFIX}-nextcloud-[0-9]*:../../www/php-nextcloud
+.endif
 .include "../../mk/bsd.pkg.mk"

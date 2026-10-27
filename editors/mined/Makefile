@@ -17,6 +17,8 @@ LICENSE=	gnu-gpl-v3
 
 MAKE_FILE=	makefile
 USE_TOOLS+=	gmake
+# The link does not wait for the charmap tables a sub-make compiles.
+MAKE_JOBS_SAFE=	no
 MAKE_FLAGS+=	OPT=${CFLAGS:Q}
 MAKE_FLAGS+=	prefix=${PREFIX}
 MAKE_FLAGS+=	mandir=${PREFIX}/${PKGMANDIR}
