@@ -6,4 +6,3 @@ Size (libfilezilla-0.57.0.tar.xz) = 586896 bytes
 SHA1 (patch-lib_file.cpp) = e32911616f423cd69ea7aaec8868dfcff54393e4
 SHA1 (patch-lib_impersonation.cpp) = 9ce77bf6bd227549693c05f0cd613b566a9a9e0c
 SHA1 (patch-lib_local__filesys.cpp) = f13b32d242c78a0c88d074fca5a516e3518ca6d1
-SHA1 (patch-lib_time.cpp) = 2b96cb914be1566d604bb4c590a661b74b98aa26
