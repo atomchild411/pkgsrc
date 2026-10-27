@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.50 2022/09/26 17:40:19 wiz Exp $
 
 DISTNAME=	popt-1.19
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://ftp.rpm.org/popt/releases/popt-1.x/
 

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.78 2025/10/07 18:20:18 wiz Exp $
 
 DISTNAME=	readline-8.3
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=readline/}
 

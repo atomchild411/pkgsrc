@@ -3,6 +3,7 @@
 .include "Makefile.common"
 
 PKGNAME=	${DISTNAME:S/util-linux/libuuid/}
+PKGREVISION=	1
 CATEGORIES=	devel
 COMMENT=	Generate unique identifiers for objects
 LICENSE=	modified-bsd

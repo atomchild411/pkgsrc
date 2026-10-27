@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	bzip2-1.0.8
+PKGREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	https://sourceware.org/pub/bzip2/
 DISTFILES=	# empty

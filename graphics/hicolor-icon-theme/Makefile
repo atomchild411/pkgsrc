@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.29 2026/06/09 17:13:06 wiz Exp $
 
 DISTNAME=	hicolor-icon-theme-0.18
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://icon-theme.freedesktop.org/releases/
 EXTRACT_SUFX=	.tar.xz

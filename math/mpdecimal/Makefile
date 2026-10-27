@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2026/07/20 18:12:24 ryoon Exp $
 
 DISTNAME=	mpdecimal-4.0.1
+PKGREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	https://www.bytereef.org/software/mpdecimal/releases/
 

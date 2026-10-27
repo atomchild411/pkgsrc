@@ -3,7 +3,7 @@
 .include "../../devel/gettext/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-/-lib-/}
-PKGREVISION=	1
+PKGREVISION=	2
 COMMENT=	Internationalized Message Handling Library (libintl)
 
 USE_LANGUAGES=		c

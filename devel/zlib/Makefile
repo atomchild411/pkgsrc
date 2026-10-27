@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.64 2024/06/04 18:33:45 bsiegert Exp $
 
 DISTNAME=	zlib-1.3.2
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libpng/}
 MASTER_SITES+=	http://zlib.net/

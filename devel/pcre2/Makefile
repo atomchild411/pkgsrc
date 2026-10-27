@@ -5,6 +5,7 @@
 # /usr/lib/libpcre2-8.so.0: version PCRE2_10.47 required by /usr/lib/libglib-2.0.so.0 not defined
 
 DISTNAME=	pcre2-10.48
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=PhilipHazel/}
 GITHUB_RELEASE=	${DISTNAME}

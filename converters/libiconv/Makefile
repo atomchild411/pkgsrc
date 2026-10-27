@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.72 2026/07/23 14:56:17 ryoon Exp $
 
 DISTNAME=	libiconv-1.19
+PKGREVISION=	1
 CATEGORIES=	converters
 MASTER_SITES=	${MASTER_SITE_GNU:=libiconv/}
 

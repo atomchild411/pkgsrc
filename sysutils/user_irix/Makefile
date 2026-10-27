@@ -2,6 +2,7 @@
 #
 
 DISTNAME=		user-irix-20130712
+PKGREVISION=	1
 CATEGORIES=		sysutils
 MASTER_SITES=		# empty
 DISTFILES=		# empty

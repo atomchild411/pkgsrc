@@ -2,7 +2,7 @@
 
 DISTNAME=	libedit-20250104-3.1
 PKGNAME=	editline-3.1.20250104
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	https://thrysoee.dk/editline/
 

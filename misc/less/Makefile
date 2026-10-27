@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.37 2026/07/23 15:03:18 ryoon Exp $
 
 DISTNAME=	less-704
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	http://www.greenwoodsoftware.com/less/
 

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.93 2026/04/26 06:47:55 wiz Exp $
 
 .include "../../sysutils/coreutils/Makefile.common"
+PKGREVISION=	1
 
 CONFLICTS=	fileutils-[0-9]* gnuls-[0-9]* linuxls-[0-9]* sh-utils-[0-9]* textutils-[0-9]*
 

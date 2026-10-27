@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.309 2026/09/02 19:19:31 wiz Exp $
 
 .include "Makefile.common"
+PKGREVISION=	1
 
 # Cross builds: configure looks for <prefix>/lib/pkgconfig/openssl.pc, then
 # <prefix>/include/openssl/ssl.h, on the build machine, where the target

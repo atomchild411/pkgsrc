@@ -3,6 +3,7 @@
 .include "../../devel/libevent/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-stable//}
+PKGREVISION=	1
 COMMENT=	Asynchronous event notification library
 
 CONFLICTS+=	libev<3.9nb1

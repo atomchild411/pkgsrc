@@ -3,6 +3,7 @@
 .include "../../archivers/gtar/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/tar/gtar-base/}
+PKGREVISION=	1
 
 CONFLICTS=	gcpio-[0-9]*
 

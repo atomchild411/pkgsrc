@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.18 2024/02/10 16:39:00 wiz Exp $
 
 DISTNAME=	libidn2-2.3.7
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=libidn/}
 
