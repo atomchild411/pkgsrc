@@ -4,3 +4,4 @@ BLAKE2s (frei0r-2.3.3.tar.gz) = 9c3f320b308743c03212e490448c96a96f0da0ea15d5ce6b
 SHA512 (frei0r-2.3.3.tar.gz) = 4f1b7b098563b38379821a81b19e2f9722512827e6ef986e5bac836e4406ce23f7cb486fd882646a372044555a897c3532c4fa733f2e5797613c3b65aff4b015
 Size (frei0r-2.3.3.tar.gz) = 921452 bytes
 SHA1 (patch-CMakeLists.txt) = 14f7986423393935afb05519643f3568df0f2c18
+SHA1 (patch-src_filter_measure_measure__pr0file.c) = d608fa9782d37ea0773c32b5123b745ed650a565
