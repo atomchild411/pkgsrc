@@ -2,6 +2,7 @@
 
 DISTNAME=	mesa-demos-8.4.0
 PKGNAME=	${DISTNAME:S/mesa-demos/glx-utils/}
+PKGREVISION=	1
 CATEGORIES=	x11 graphics
 MASTER_SITES=	https://mesa.freedesktop.org/archive/demos/
 EXTRACT_SUFX=	.tar.bz2

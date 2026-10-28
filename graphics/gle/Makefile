@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	gle-3.1.0
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gle/}
 MASTER_SITES+=	http://www.linas.org/gle/pub/

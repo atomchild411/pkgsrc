@@ -3,7 +3,7 @@
 
 DISTNAME=		azara-2.7-src
 PKGNAME=		azara-2.7
-PKGREVISION=		10
+PKGREVISION=		11
 CATEGORIES=		biology
 MASTER_SITES=		http://www.ccpn.ac.uk/download/azara/
 

@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		spaceracer-0.2.4
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		games
 MASTER_SITES=		http://spaceracer.sourceforge.net/
 EXTRACT_SUFX=		.tgz

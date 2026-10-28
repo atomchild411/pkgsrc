@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.47 2015/04/25 14:25:06 tnn Exp $
 
 DISTNAME=	gtkglarea-1.2.3
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	x11 graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=openev/}
 

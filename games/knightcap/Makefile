@@ -2,7 +2,7 @@
 
 DISTNAME=		KnightCap-3.6
 PKGNAME=		knightcap-3.6
-PKGREVISION=		9
+PKGREVISION=		10
 CATEGORIES=		games
 #MASTER_SITES=		ftp://ftp.samba.org/pub/KnightCap/
 

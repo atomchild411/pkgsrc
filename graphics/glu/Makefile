@@ -10,6 +10,9 @@ HOMEPAGE=	https://gitlab.freedesktop.org/mesa/glu
 COMMENT=	OpenGL Utility Library
 LICENSE=	sgi-free-software-b-v2.0
 
+# IRIX uses its own GLU, as it does GL (builtin.mk).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_TOOLS+=	pkg-config
 USE_LANGUAGES=	c c++
 

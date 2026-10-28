@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.2 2024/08/01 18:50:46 vins Exp $
 
 DISTNAME=	xmakemol-5.16h
+PKGREVISION=	1
 CATEGORIES=	biology x11
 MASTER_SITES=	ftp://ftp.NetBSD.org/pub/NetBSD/misc/vins/dists/
 EXTRACT_SUFX=	.tar.xz

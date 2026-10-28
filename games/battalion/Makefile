@@ -2,7 +2,7 @@
 
 DISTNAME=		battalion
 PKGNAME=		battalion-1.4
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		games x11
 MASTER_SITES=		https://www.evl.uic.edu/aej/BATTALION/
 DISTFILES=		battalionSource1.4.tar.Z battalionSUN4.tar.gz

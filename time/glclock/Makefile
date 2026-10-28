@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		glclock-6.0b6.0
-PKGREVISION=		7
+PKGREVISION=		8
 CATEGORIES=		x11 graphics time
 MASTER_SITES=		http://www.daionet.gr.jp/~masa/archives/
 

@@ -2,6 +2,7 @@
 
 DISTNAME=	quesoglc-0.7.2-free
 PKGNAME=	${DISTNAME:S/-free$//}
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=quesoglc/}
 EXTRACT_SUFX=	.tar.bz2
