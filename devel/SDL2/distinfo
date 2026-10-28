@@ -6,4 +6,5 @@ Size (SDL2-2.32.10.tar.gz) = 7630262 bytes
 SHA1 (patch-configure) = 3c4e37f7a431617ead35094e04a8a3e66f5f511b
 SHA1 (patch-sdl2-config.in) = 963486e3cf6cb437f43197885e9f519ace4497c1
 SHA1 (patch-src_audio_alsa_SDL__alsa__audio.c) = c1426efb8df16328f9546aa7578edd7bbdcf8bad
+SHA1 (patch-src_render_opengl_SDL__render__gl.c) = 8c85458d0a1a1ac8a86da387fdb0b06fe17bd09a
 SHA1 (patch-src_video_x11_SDL__x11modes.c) = 59b54de2fdf91cbc0416a2a12fc369eceee28835
