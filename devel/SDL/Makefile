@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.159 2026/09/02 19:01:20 wiz Exp $
 
 DISTNAME=	SDL-1.2.15
-PKGREVISION=	49
+PKGREVISION=	50
 CATEGORIES=	devel games
 MASTER_SITES=	http://www.libsdl.org/release/
 
@@ -56,8 +56,8 @@ LDFLAGS+=	-Wl,-dylib_file -Wl,/System/Library/Frameworks/OpenGL.framework/Versio
 AM_CFLAGS=		-D_PATH_DEV_DSP="\"${DEVOSSAUDIO}\""
 MAKE_ENV+=		AM_CFLAGS=${AM_CFLAGS:M*:Q}
 
-# Irix comes with GL, which works fine for SDL
-.if ${OPSYS} != "IRIX" && ${OPSYS} != "Darwin"
+# IRIX: X11 is pkgsrc's modular X11; GL and GLU are the system's (builtin.mk).
+.if ${OPSYS} != "Darwin"
 CONFIGURE_ARGS+=	--disable-x11-shared
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
