@@ -6,3 +6,4 @@ Size (libXpm-3.5.19.tar.xz) = 468388 bytes
 SHA1 (patch-aa) = 4cfa0ddc7f802916363901226f3c60e7f686b616
 SHA1 (patch-ab) = faaefb61693805272bd4cccc1301c6e3edd14919
 SHA1 (patch-ac) = 9226dce77b0a7d9c792d9465727423581db7f01e
+SHA1 (patch-src_create.c) = ee3c33c6d7fed04110442ac542641422520a5bc4
