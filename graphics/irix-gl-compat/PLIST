@@ -1,3 +1,4 @@
 @comment $NetBSD$
+lib/libGL.so
 lib/libGLcompat.so
 lib/libGLcompat.so.1
