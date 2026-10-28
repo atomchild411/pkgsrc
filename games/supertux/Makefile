@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.75 2026/09/02 19:02:23 wiz Exp $
 
 PKGNAME=	supertux-0.7.0
-PKGREVISION=	7
+PKGREVISION=	8
 DISTNAME=	SuperTux-v${PKGVERSION_NOREV}-Source
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GITHUB:=SuperTux/}
@@ -25,6 +25,12 @@ CMAKE_CONFIGURE_ARGS+=	-DUSE_SYSTEM_SDL2_TTF=ON
 # We already patch 'configure'...
 CHECK_PORTABILITY_SKIP+=	external/SDL_ttf/configure.in
 CHECK_PORTABILITY_SKIP+=	mk/flatpak/gen_flatpaks.sh
+
+SUBST_CLASSES+=		prefix
+SUBST_STAGE.prefix=	pre-configure
+SUBST_MESSAGE.prefix=	Setting the installed data directory.
+SUBST_FILES.prefix=	src/supertux/main.cpp
+SUBST_VARS.prefix=	PREFIX
 
 .include "../../mk/bsd.prefs.mk"
 .if ${OPSYS} != "Darwin"

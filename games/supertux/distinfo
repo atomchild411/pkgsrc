@@ -10,4 +10,4 @@ SHA1 (patch-mk_cmake_SuperTux_BuildInstall.cmake) = c0096b9cf23bce06723ef45d43d3
 SHA1 (patch-src_audio_openal__sound__source.hpp) = 6fd1c3baba9b84515ab212154e2b72c5a3edca12
 SHA1 (patch-src_audio_sound__manager.hpp) = 702188e8f2e4e9f0d515a1bc2943ac0dd42d6563
 SHA1 (patch-src_supertux_error__handler.cpp) = 0d92c3ae3ddf5a0457fdbd3fce61157ab8d13387
-SHA1 (patch-src_supertux_main.cpp) = a948a4511d53e4c5c0d094e776cbe142036f1db5
+SHA1 (patch-src_supertux_main.cpp) = 3c8b6111842c5bfe1b183055be00f9fc25b6650d
