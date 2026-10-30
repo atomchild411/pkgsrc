@@ -4,6 +4,7 @@
 
 DISTNAME=		xapian-core-${VERSION}
 PKGNAME=		${DISTNAME:S/-core-/-/}
+PKGREVISION=		1
 
 HOMEPAGE=		https://xapian.org/
 COMMENT=		Probabilistic Information Retrieval search engine
