@@ -6,3 +6,4 @@ Size (libgroove-4.3.0.tar.gz) = 48857 bytes
 SHA1 (patch-groove_encoder.c) = 2a351fe67428256300cbaaef97d009dbbed659ea
 SHA1 (patch-groove_file.c) = ae89be22e18481b8b312aa55eee0bab523a80874
 SHA1 (patch-groove_playlist.c) = 31049d013d3635779c825184534cc40d4b683c6a
+SHA1 (patch-grooveplayer_player.c) = 48e67db81354595da24817f3a2701b899dac2230
