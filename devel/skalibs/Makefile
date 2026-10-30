@@ -2,7 +2,7 @@
 
 DISTNAME=		${GITHUB_PROJECT}-${GITHUB_TAG}
 PKGNAME=		skalibs-2.14.4.0
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_GITHUB:=skarnet/}
 GITHUB_PROJECT=		skalibs
@@ -19,6 +19,9 @@ CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
 CONFIGURE_ARGS+=	--enable-pkgconfig
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--disable-allstatic
+# IRIX: timer_create() takes no CLOCK_MONOTONIC, which the clockmon sysdep
+# would pick for the alarm_* functions; use setitimer() instead.
+CONFIGURE_ARGS.IRIX+=	--without-sysdep-timer
 
 # for fdopendir
 CPPFLAGS.NetBSD+=	-D_NETBSD_SOURCE
