@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.75 2024/11/29 08:02:46 adam Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
+PKGREVISION=	1
 COMMENT=	Lightweight Directory Access Protocol server suite
 
 CONFLICTS+=	openldap<2.3.23nb1
@@ -78,6 +79,12 @@ DB_CONFIG=		DB_CONFIG
 .endif
 
 .include "../../mk/bsd.prefs.mk"
+# Overlays and backends are modules that call into slapd; configure's
+# "-dlopen self" needs a run test to export slapd's symbols, which a cross
+# build cannot do, so slapd exported nothing and no module loaded on IRIX.
+.if ${OPSYS} == "IRIX"
+LDFLAGS+=	-Wl,--export-dynamic
+.endif
 .if ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
 .include "../../devel/libuuid/buildlink3.mk"
 .endif
