@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.27 2019/11/02 16:16:18 rillig Exp $
 
 DISTNAME=	dcdflib.c-1.1
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	math
 MASTER_SITES=	# ftp://odin.mdacc.tmc.edu/pub/source/
 
@@ -24,5 +24,13 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/dcdflib.h ${DESTDIR}${PREFIX}/include
 	cd ${WRKSRC} && ${INSTALL_DATA} README doc/dcdflib.chs		\
 		doc/dcdflib.fdoc ${DESTDIR}${PREFIX}/share/doc/dcdflib.c/
+
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX: bsd.lib.mk links shared libraries with ld -nostdlib; add the compiler
+# runtime, which holds the libc add-ons (__irix_*) that the objects call.
+.if ${OPSYS} == "IRIX"
+MAKE_FLAGS+=	SHLIB_LDENDFILE="$$(${CC} -print-libgcc-file-name)"
+.endif
 
 .include "../../mk/bsd.pkg.mk"

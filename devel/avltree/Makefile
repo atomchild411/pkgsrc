@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.17 2022/03/03 09:36:09 jperkin Exp $
 
 DISTNAME=	avltree-1.1
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	# ftp://odin.compchem.ucsf.edu/pub/amber/
 
@@ -21,6 +21,12 @@ post-extract:
 	cp -f ${FILESDIR}/Makefile ${WRKSRC}/
 
 .include "../../mk/bsd.prefs.mk"
+
+# IRIX: bsd.lib.mk links shared libraries with ld -nostdlib; add the compiler
+# runtime, which holds the libc add-ons (__irix_*) that the objects call.
+.if ${OPSYS} == "IRIX"
+MAKE_FLAGS+=	SHLIB_LDENDFILE="$$(${CC} -print-libgcc-file-name)"
+.endif
 
 .if ${OPSYS} == "Darwin"
 post-install:

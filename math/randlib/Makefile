@@ -2,7 +2,7 @@
 
 DISTNAME=	randlib.c-1.3
 PKGNAME=	randlib-1.3
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	math
 MASTER_SITES=	# ftp://odin.mdacc.tmc.edu/pub/source/
 
@@ -24,5 +24,13 @@ post-install:
 		${DESTDIR}${PREFIX}/share/doc/randlib
 	${INSTALL_DATA} ${WRKSRC}/../test/* ${DESTDIR}${PREFIX}/share/examples/randlib
 	${INSTALL_DATA} ${WRKSRC}/randlib.h ${DESTDIR}${PREFIX}/include
+
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX: bsd.lib.mk links shared libraries with ld -nostdlib; add the compiler
+# runtime, which holds the libc add-ons (__irix_*) that the objects call.
+.if ${OPSYS} == "IRIX"
+MAKE_FLAGS+=	SHLIB_LDENDFILE="$$(${CC} -print-libgcc-file-name)"
+.endif
 
 .include "../../mk/bsd.pkg.mk"

@@ -2,7 +2,7 @@
 
 DISTNAME=		mesch12b
 PKGNAME=		meschach-1.2b
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		math
 MASTER_SITES=		http://www.math.uiowa.edu/~dstewart/meschach/
 
@@ -52,5 +52,13 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/copyright ${DESTDIR}${PREFIX}/share/meschach
 	cd ${WRKSRC} && ${INSTALL_DATA} tutadv.c tutorial.c		\
 		${DESTDIR}${PREFIX}/share/meschach/
+
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX: bsd.lib.mk links shared libraries with ld -nostdlib; add the compiler
+# runtime, which holds the libc add-ons (__irix_*) that the objects call.
+.if ${OPSYS} == "IRIX"
+MAKE_FLAGS+=	SHLIB_LDENDFILE="$$(${CC} -print-libgcc-file-name)"
+.endif
 
 .include "../../mk/bsd.pkg.mk"
