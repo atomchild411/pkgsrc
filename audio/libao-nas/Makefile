@@ -6,6 +6,9 @@ PKGNAME=	${DISTNAME:S/libao/libao-nas/}
 
 COMMENT+=	(NAS plugin)
 
+# IRIX: no audio/nas there (it would shadow IRIX's libaudio).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 CONFIGURE_ARGS:=	${CONFIGURE_ARGS:S/disable-nas/enable-nas/g}
 BUILD_DIRS=		src/plugins/nas
 INSTALL_DIRS=		src/plugins/nas

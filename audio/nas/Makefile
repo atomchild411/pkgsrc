@@ -11,6 +11,11 @@ HOMEPAGE=	https://nas.sourceforge.net/
 COMMENT=	Network Audio System
 LICENSE=	mit # with no-advertisement clause
 
+# IRIX: nas installs a libaudio.so of its own in ${PREFIX}/lib, which rld
+# would load instead of the IRIX Audio Library for every program that
+# uses that (SDL, mpg123, libao-irix ...); IRIX has native audio.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 # 1) uses dia library before it is built
 # 2) make succeeds even with failures, making this problem non-obvious
 MAKE_JOBS_SAFE=		no

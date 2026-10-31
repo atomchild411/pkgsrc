@@ -10,6 +10,9 @@ MAINTAINER=	cheusov@NetBSD.org
 COMMENT=	XMMS output plugin for Network Audio System (NAS)
 LICENSE=	gnu-gpl-v2
 
+# IRIX: no audio/nas there (it would shadow IRIX's libaudio).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 
