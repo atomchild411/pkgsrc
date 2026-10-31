@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.143 2026/08/17 01:30:38 pgoyette Exp $
 
 DISTNAME=	fontconfig-2.18.3
+PKGREVISION=	1
 CATEGORIES=	fonts
 MASTER_SITES=	https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.xz
@@ -39,6 +40,12 @@ SUBST_SED.visibility+=		-e 's/, visibility("default")//g'
 .endif
 
 .include "../../mk/bsd.prefs.mk"
+
+# IRIX: pango and cairo draw only scalable fonts, and nothing else pulls one
+# in, so GTK programs show boxes for text.  Bring DejaVu along.
+.if ${OPSYS} == "IRIX"
+DEPENDS+=	dejavu-ttf-[0-9]*:../../fonts/dejavu-ttf
+.endif
 
 ADDFONTS=	${PREFIX}/share/fonts/urw,${PREFIX}/share/ghostscript/fonts,${PREFIX}/share/fonts/X11
 .if ${X11BASE} != ${LOCALBASE}
