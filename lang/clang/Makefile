@@ -3,7 +3,7 @@
 .include "Makefile.common"
 
 PKGNAME=	clang-${LLVM_VERSION}
-PKGREVISION=	36
+PKGREVISION=	37
 
 COMMENT=	C language family frontend for LLVM
 
