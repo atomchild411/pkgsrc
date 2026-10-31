@@ -2,7 +2,7 @@
 
 DISTNAME=	AfterStep-2.2.12
 PKGNAME=	${DISTNAME:S/AfterStep/afterstep/}
-PKGREVISION=	20
+PKGREVISION=	21
 CATEGORIES=	wm
 MASTER_SITES=	ftp://ftp.afterstep.org/stable/
 EXTRACT_SUFX=	.tar.bz2

@@ -3,7 +3,7 @@
 PERDITION_COMMENT=	PostgreSQL user database module
 PERDITION_PKGNAME=	postgresql
 PERDITION_SKIP_DISABLE=	pg
-PKGREVISION=		4
+PKGREVISION=		5
 
 USE_TOOLS+=	bash:run
 REPLACE_BASH+=	perdition/db/postgresql/perditiondb_postgresql_makedb

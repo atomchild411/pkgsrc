@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2022/02/25 09:12:29 pin Exp $
 
 DISTNAME=	fff-2.2
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=dylanaraps/}
 

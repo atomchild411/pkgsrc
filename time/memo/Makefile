@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2019/11/02 16:28:38 rillig Exp $
 
 DISTNAME=	memo-0.6
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	time
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mrVanDalo/}
 

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.7 2018/12/11 08:45:30 tm Exp $
 
 DISTNAME=	lrzip-0.631
+PKGREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	http://ck.kolivas.org/apps/lrzip/
 EXTRACT_SUFX=	.tar.bz2

@@ -2,6 +2,7 @@
 
 VERSION=	1.3
 DISTNAME=	git-sh-${VERSION}
+PKGREVISION=	1
 CATEGORIES=	shells
 MASTER_SITES=	-https://github.com/rtomayko/git-sh/archive/${VERSION}${EXTRACT_SUFX}
 

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.9 2018/07/04 13:40:25 jperkin Exp $
 
 DISTNAME=	vimpager-1.8.9
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=rkitover/}
 

@@ -2,7 +2,7 @@
 
 VERSION=	0.8
 DISTNAME=	bython-${VERSION}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mathialo/}
 GITHUB_TAG=	v${VERSION}
@@ -15,6 +15,7 @@ LICENSE=	mit
 TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
 
 USE_TOOLS+=	bash
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 REPLACE_BASH+=	scripts/by2py
 USE_LANGUAGES=	# none
 

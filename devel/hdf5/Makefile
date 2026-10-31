@@ -6,7 +6,10 @@ INSTALLATION_DIRS=	bin lib include
 INSTALLATION_DIRS+=	share/doc/hdf5
 INSTALLATION_DIRS+=	share/examples/hdf5/c
 
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
+
 .include "Makefile.common"
+PKGREVISION=	1
 .include "options.mk"
 
 #SUBST_FILES.unwrap+=	${DESTDIR}${PREFIX}/bin/h5cc

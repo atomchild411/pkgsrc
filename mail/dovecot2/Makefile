@@ -1,6 +1,9 @@
 # $NetBSD: Makefile,v 1.112 2024/08/19 09:29:56 adam Exp $
 
 .include "../../mail/dovecot2/Makefile.common"
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
+
+PKGREVISION=	1
 
 RCD_SCRIPTS=		dovecot
 SMF_NAME=		dovecot

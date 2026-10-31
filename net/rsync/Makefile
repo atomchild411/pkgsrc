@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.136 2026/08/15 06:57:50 wiz Exp $
 
 .include "Makefile.common"
-PKGREVISION=	1
+PKGREVISION=	2
 
 COMMENT=	Network file distribution/synchronisation utility
 

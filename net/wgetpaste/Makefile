@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2020/01/26 17:31:58 rillig Exp $
 
 DISTNAME=	wgetpaste-2.29
+PKGREVISION=	1
 CATEGORIES=	net www
 MASTER_SITES=	http://wgetpaste.zlin.dk/
 EXTRACT_SUFX=	.tar.bz2

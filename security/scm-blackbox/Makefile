@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2019/01/18 04:44:28 tpaul Exp $
 
 DISTNAME=	blackbox-1.20181219
+PKGREVISION=	1
 PKGNAME=	scm-${DISTNAME}
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=StackExchange/}

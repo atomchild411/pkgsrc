@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2026/01/28 10:54:37 wiz Exp $
 
 DISTNAME=	yadm-3.2.2
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=TheLocehiliosan/}
 

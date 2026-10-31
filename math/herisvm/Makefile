@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.8 2026/07/24 15:56:05 taca Exp $
 
 DISTNAME=		herisvm-0.8.0
-PKGREVISION=		6
+PKGREVISION=		7
 CATEGORIES=		math
 MASTER_SITES=		${MASTER_SITE_GITHUB:=cheusov/}
 
@@ -12,6 +12,7 @@ LICENSE=		mit
 
 DEPENDS+=		${RUBY_BASE}-[0-9]*:${RUBY_SRCDIR}
 USE_TOOLS+=		pod2man bash
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 
 SUBST_CLASSES+=		ruby
 SUBST_STAGE.ruby=	pre-configure

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.93 2026/08/04 20:29:00 wiz Exp $
 
 DISTNAME=	xpaint-3.1.4
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	graphics x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sf-xpaint/}
 EXTRACT_SUFX=	.tar.bz2
@@ -15,6 +15,7 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	autoconf automake autoreconf
 USE_TOOLS+=	bash gmake gunzip pkg-config
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 
 MAKE_JOBS_SAFE=	no
 

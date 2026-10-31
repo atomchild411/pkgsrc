@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	parallel-20230822
+PKGREVISION=	1
 CATEGORIES=	parallel
 MASTER_SITES=	${MASTER_SITE_GNU:=parallel/}
 EXTRACT_SUFX=	.tar.bz2
@@ -12,6 +13,7 @@ COMMENT=	Build and execute shell commands in parallel
 LICENSE=	gnu-gpl-v3
 
 USE_TOOLS+=	perl:run pod2man pod2html
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 
 REPLACE_PERL+=	src/parallel src/niceload src/sem src/sem.pod
 REPLACE_PERL+=	src/sql src/parcat src/parsort

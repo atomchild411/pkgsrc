@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.2 2022/08/22 19:22:04 tnn Exp $
 
 DISTNAME=		wemux-3.2.0.20150823
+PKGREVISION=	1
 CATEGORIES=		misc
 MASTER_SITES=		${MASTER_SITE_GITHUB:=zolrath/}
 GITHUB_TAG=		01c6541f8deceff372711241db2a13f21c4b210c
@@ -13,6 +14,7 @@ LICENSE=		mit
 USE_LANGUAGES=		# none
 NO_BUILD=		yes
 USE_TOOLS+=		bash
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 REPLACE_BASH+=		wemux
 
 SUBST_CLASSES+=		paths

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2023/06/01 07:04:10 wiz Exp $
 
 DISTNAME=		chatgpt-shell-cli-0.0.20230516
+PKGREVISION=	1
 CATEGORIES=		misc
 MASTER_SITES=		${MASTER_SITE_GITHUB:=0xacx/}
 GITHUB_PROJECT=		chatGPT-shell-cli

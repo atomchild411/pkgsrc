@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2023/04/29 13:36:05 wiz Exp $
 
 DISTNAME=	mutt-vid-v1.1
+PKGREVISION=	1
 PKGNAME=	${DISTNAME:S/-v1/-1/}
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_GITLAB:=protist/}

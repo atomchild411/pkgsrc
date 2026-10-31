@@ -8,7 +8,7 @@ ABC_TAG=	yosys-${YOSYS_VERSION}
 ABC_DISTNAME=	abc-${ABC_TAG}
 DISTNAME=	yosys-${YOSYS_TAG}
 #PKGREVISION=	1
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=YosysHQ/}
 GITHUB_TAG=	${YOSYS_TAG}
@@ -51,6 +51,7 @@ USE_TOOLS+=	bison
 USE_TOOLS+=	flex
 USE_TOOLS+=	gawk
 USE_TOOLS+=	pkg-config
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 
 REPLACE_PYTHON+=	backends/smt2/*.py
 

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.16 2026/05/14 14:54:03 wiz Exp $
 
 DISTNAME=	cgit-1.3
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	https://git.zx2c4.com/cgit/snapshot/
 EXTRACT_SUFX=	.tar.xz

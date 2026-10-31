@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.66 2025/12/24 08:14:20 wiz Exp $
 
 DISTNAME=	gnustep-make-2.9.3
+PKGREVISION=	1
 MASTER_SITES=	${MASTER_SITE_GITHUB:=gnustep/}
 GITHUB_PROJECT=	tools-make
 GITHUB_TAG=	make-2_9_3

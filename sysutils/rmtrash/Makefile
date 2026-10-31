@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2019/11/04 21:28:51 rillig Exp $
 
 DISTNAME=	rmtrash-1.11
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=PhrozenByte/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}

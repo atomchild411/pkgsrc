@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2025/05/20 16:48:21 schmonz Exp $
 
 DISTNAME=		git-sqlite-0.1
+PKGREVISION=	1
 CATEGORIES=		databases
 MASTER_SITES=		${MASTER_SITE_GITHUB:=cannadayr/}
 GITHUB_TAG=		v${PKGVERSION_NOREV}

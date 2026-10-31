@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.56 2026/07/16 19:04:37 wiz Exp $
 
 DISTNAME=	foomatic-db-engine-4.0.13
-PKGREVISION=	23
+PKGREVISION=	24
 CATEGORIES=	print
 MASTER_SITES=	http://www.openprinting.org/download/foomatic/
 
@@ -15,6 +15,7 @@ DEPENDS+=	curl-[0-9]*:../../www/curl
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	file perl gmake
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 
 BUILD_DEFS+=	PKG_SYSCONFBASE
 

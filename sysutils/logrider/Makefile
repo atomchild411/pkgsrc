@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2026/01/06 08:50:46 wiz Exp $
 
 DISTNAME=	logrider-0.2
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	https://ilya-evseev.narod.ru/posix/logrider/
 EXTRACT_SUFX=	.zip
@@ -16,6 +17,7 @@ USE_LANGUAGES=	# none
 
 NO_BUILD=	YES
 USE_TOOLS+=	bash
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 REPLACE_BASH=	logrider.sh logtail.sh
 PATCH_STRIP=	-p1
 

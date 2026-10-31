@@ -2,6 +2,7 @@
 
 BYOBUVER=	5.133
 DISTNAME=	byobu_${BYOBUVER}.orig
+PKGREVISION=	1
 PKGNAME=	${DISTNAME:S/_/-/:S/.orig//}
 CATEGORIES=	misc
 MASTER_SITES=	https://launchpad.net/byobu/trunk/${BYOBUVER}/+download/

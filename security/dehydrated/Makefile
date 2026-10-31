@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2023/04/23 17:45:42 nils Exp $
 
 DISTNAME=	dehydrated-0.7.1
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=dehydrated-io/}
 

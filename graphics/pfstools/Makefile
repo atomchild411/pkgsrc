@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.126 2026/09/02 19:02:50 wiz Exp $
 
 DISTNAME=	pfstools-2.2.0
-PKGREVISION=	26
+PKGREVISION=	27
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pfstools/}
 EXTRACT_SUFX=	.tgz
@@ -19,6 +19,7 @@ USE_CXX_FEATURES+=	c++14
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_TOOLS+=		bash perl pkg-config
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 PKGCONFIG_OVERRIDE+=	src/pfs/pfs.pc.in
 CMAKE_CONFIGURE_ARGS+=	-DBASH_EXECUTABLE=${TOOLS_BASH}
 CMAKE_CONFIGURE_ARGS+=	-DPKGMANDIR=${PKGMANDIR}

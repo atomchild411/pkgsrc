@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.25 2025/01/26 00:51:06 ktnb Exp $
 
 DISTNAME=	xteddy_2.2.orig
+PKGREVISION=	1
 PKGNAME=	${DISTNAME:S/_/-/:S/.orig//}
 CATEGORIES=	x11 games
 MASTER_SITES=	${MASTER_SITE_DEBIAN:=pool/main/x/xteddy/}

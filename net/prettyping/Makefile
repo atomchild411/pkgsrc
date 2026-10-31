@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.2 2025/05/27 16:55:49 schmonz Exp $
 
 DISTNAME=		prettyping-1.1.0
+PKGREVISION=	1
 CATEGORIES=		net
 MASTER_SITES=		${MASTER_SITE_GITHUB:=denilsonsa/}
 GITHUB_TAG=		v${PKGVERSION_NOREV}

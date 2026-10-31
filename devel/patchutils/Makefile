@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.35 2026/02/26 18:36:41 adam Exp $
 
 DISTNAME=	patchutils-0.4.5
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=twaugh/}
 EXTRACT_SUFX=	.tar.xz

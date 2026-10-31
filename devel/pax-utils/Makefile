@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.10 2023/08/28 15:09:32 fcambus Exp $
 
 DISTNAME=	pax-utils-1.3.7
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	https://dev.gentoo.org/~sam/distfiles/app-misc/pax-utils/
 EXTRACT_SUFX=	.tar.xz

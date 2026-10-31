@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.58 2025/12/12 11:20:55 leot Exp $
 
 DISTNAME=	socat-1.8.1.0
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	http://www.dest-unreach.org/socat/download/
 
@@ -12,6 +13,7 @@ LICENSE=	gnu-gpl-v2
 GNU_CONFIGURE=		YES
 
 USE_TOOLS+=	bash
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 REPLACE_BASH+=	*.sh
 
 USE_FEATURES+=	strndup

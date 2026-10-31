@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.16 2026/08/09 18:48:58 wiz Exp $
 
 DISTNAME=	password-store-1.7.4
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	http://git.zx2c4.com/password-store/snapshot/
 EXTRACT_SUFX=	.tar.xz

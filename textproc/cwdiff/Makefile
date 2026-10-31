@@ -2,6 +2,7 @@
 
 VERSION=	0.4.0
 DISTNAME=	cwdiff-${VERSION}
+PKGREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=junghans/}
 GITHUB_TAG=	v${VERSION}
@@ -12,6 +13,7 @@ COMMENT=	Color wrapper for wdiff (word diff)
 LICENSE=	gnu-gpl-v2
 
 USE_TOOLS+=	bash
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 NO_BUILD=	yes
 REPLACE_BASH=	cwdiff
 

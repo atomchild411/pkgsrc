@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2024/12/06 11:51:06 pin Exp $
 
 DISTNAME=	screenFetch-3.9.9
+PKGREVISION=	1
 PKGNAME=	${DISTNAME:tl}
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=KittyKatt/}

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.19 2024/07/01 16:54:30 leot Exp $
 
 DISTNAME=	xdg-utils-1.2.1
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	https://gitlab.freedesktop.org/xdg/xdg-utils/-/archive/v${PKGVERSION_NOREV}/
 

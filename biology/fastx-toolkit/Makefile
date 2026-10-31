@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.2 2022/06/28 11:31:00 wiz Exp $
 
 DISTNAME=	fastx-toolkit-0.0.14.6
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	biology
 MASTER_SITES=	${MASTER_SITE_GITHUB:=agordon/}
 GITHUB_PROJECT=	fastx_toolkit
@@ -14,6 +14,7 @@ LICENSE=	gnu-agpl-v3
 
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	autoconf automake autoreconf bash pkg-config perl:run
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 USE_LIBTOOL=	yes
 GNU_CONFIGURE=	yes
 REPLACE_PERL+=	scripts/*.pl

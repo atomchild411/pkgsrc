@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2020/08/08 21:58:57 nia Exp $
 
 DISTNAME=	neofetch-7.1.0
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=dylanaraps/}
 

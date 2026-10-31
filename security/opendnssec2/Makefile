@@ -3,7 +3,7 @@
 
 DISTNAME=	opendnssec-2.1.14
 PKGNAME=	${DISTNAME:S/opendnssec/opendnssec2/}
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	security net
 MASTER_SITES=	https://www.opendnssec.org/files/source/
 
@@ -21,6 +21,7 @@ CONFLICTS+=	opendnssec-1.*
 BUILD_DEFS+=	VARBASE
 
 USE_TOOLS+=		bash gmake
+USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 CONFIG_SHELL=		${BASH}
 USE_LANGUAGES=		c c++
 USE_CC_FEATURES=	c99
