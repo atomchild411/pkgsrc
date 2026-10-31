@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.71 2026/07/03 22:07:19 js Exp $
 
 DISTNAME=	objfw-1.5.7
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	https://objfw.nil.im/downloads/
 
@@ -43,6 +43,8 @@ SUBST_MESSAGE.unwind=	Naming the unwinder in objfw-config.
 SUBST_FILES.unwind=	utils/objfw-config.in
 SUBST_SED.unwind=	-e '/^LIBS=/s|@OBJFW_LIBS@"|@OBJFW_LIBS@ -lc++abi"|'
 SUBST_SED.unwind+=	-e '/^STATIC_LIBS=/s|@OBJFW_LIBS@"|@OBJFW_LIBS@ -lc++abi"|'
+# ... which, with libc++, is in clang-irix-libs: the programs need it at run time.
+DEPENDS+=	clang-irix-libs>=21.1.8:../../lang/clang-irix-libs
 .endif
 
 PLIST_SRC=	PLIST
