@@ -2,6 +2,7 @@
 #
 # used by audio/libao-alsa/Makefile
 # used by audio/libao-arts/Makefile
+# used by audio/libao-irix/Makefile
 # used by audio/libao-macosx/Makefile
 # used by audio/libao-nas/Makefile
 # used by audio/libao-oss/Makefile

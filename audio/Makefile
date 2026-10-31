@@ -214,6 +214,7 @@ SUBDIR+=	liba52
 SUBDIR+=	libalac
 SUBDIR+=	libao
 SUBDIR+=	libao-alsa
+SUBDIR+=	libao-irix
 SUBDIR+=	libao-macosx
 SUBDIR+=	libao-nas
 SUBDIR+=	libao-oss
