@@ -2,6 +2,7 @@
 
 DISTNAME=	sh-2.4.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	sysutils python
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/sh/}
 
@@ -23,7 +24,5 @@ do-test:
 #
 # FAILED (failures=2, skipped=3)
 
-# for tests
-.include "../../lang/python/tool.mk"
 .include "../../lang/python/wheel.mk"
 .include "../../mk/bsd.pkg.mk"
