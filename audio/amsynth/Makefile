@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.34 2026/09/02 19:00:44 wiz Exp $
 
 DISTNAME=	amsynth-1.12.2
-PKGREVISION=	25
+PKGREVISION=	26
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_GITHUB:=amsynth/}
 GITHUB_PROJECT=	amsynth
@@ -63,4 +63,6 @@ CONFIGURE_ARGS+=	--without-vst
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+# dssi is build-only, but the plugin links liblo through it.
+.include "../../audio/liblo/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

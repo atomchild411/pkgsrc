@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.82 2026/07/16 19:01:27 wiz Exp $
 
 DISTNAME=		${SILC_CLIENT_DISTNAME}
-PKGREVISION=		18
+PKGREVISION=		19
 CATEGORIES=		chat security
 MASTER_SITES=		http://www.silcnet.org/download/client/sources/
 EXTRACT_SUFX=		${SILC_CLIENT_EXTRACT_SUFX}
@@ -61,4 +61,6 @@ post-install:
 .include "../../mk/termcap.buildlink3.mk"
 
 .include "../../mk/irix-exec-bridge.mk"
+# silc links libsilc and libsilcclient from silc-toolkit.
+.include "../../devel/silc-toolkit/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

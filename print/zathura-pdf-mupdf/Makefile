@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.97 2026/09/02 19:04:13 wiz Exp $
 
 DISTNAME=	zathura-pdf-mupdf-2026.02.03
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	print
 MASTER_SITES=	https://pwmt.org/projects/zathura-pdf-mupdf/download/
 EXTRACT_SUFX=	.tar.xz
@@ -26,4 +26,9 @@ BUILDLINK_API_DEPENDS.mupdf+=	mupdf>=1.26.0
 .include "../../print/zathura/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/gtk3/buildlink3.mk"
+# mupdf is static and build-only; the plugin links its libraries.
+.include "../../graphics/jbig2dec/buildlink3.mk"
+.include "../../graphics/openjpeg/buildlink3.mk"
+.include "../../lang/mujs/buildlink3.mk"
+.include "../../www/gumbo-parser/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

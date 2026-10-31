@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.18 2026/09/02 19:01:45 wiz Exp $
 
 DISTNAME=	sdl12-compat-1.2.76
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=libsdl-org/}
 GITHUB_TAG=	release-${PKGVERSION_NOREV}
@@ -23,4 +23,6 @@ BUILDLINK_DEPMETHOD.SDL2=	build
 .  include "../../graphics/MesaLib/buildlink3.mk"
 .  include "../../graphics/glu/buildlink3.mk"
 .endif
+# The library is linked with libiconv (through SDL2, a build-only dependency).
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

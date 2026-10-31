@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.38 2026/09/02 19:04:18 wiz Exp $
 
 DISTNAME=	pakemon-0.3.1
-PKGREVISION=	14
+PKGREVISION=	15
 CATEGORIES=	security
 MASTER_SITES=	http://www.binarii.com/files/security/
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -24,4 +24,6 @@ post-extract:
 .include "../../net/libpcap/buildlink3.mk"
 .include "../../devel/libnet10/buildlink3.mk"
 .include "../../net/libnids/buildlink3.mk"
+# libnids is static and brings glib2 into the link: needed at run time.
+.include "../../devel/glib2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
