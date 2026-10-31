@@ -13,6 +13,8 @@ in the source distribution for its full text.
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
+#include <utmpx.h>
 #include <sys/times.h>
 
 #include "CPUMeter.h"
@@ -140,7 +142,24 @@ void Platform_setBindings(Htop_Action* keys) {
 }
 
 int Platform_getUptime(void) {
-   /* times() counts clock ticks since boot */
+   /* The boot time in utmpx, as uptime(1) and w(1) read it. times() would
+      also do on IRIX, but its 32-bit clock_t wraps after 248 days at 100 Hz. */
+   time_t boot = 0;
+   struct utmpx* u;
+   setutxent();
+   while ((u = getutxent()) != NULL) {
+      if (u->ut_type == BOOT_TIME) {
+         boot = u->ut_tv.tv_sec;
+         break;
+      }
+   }
+   endutxent();
+   if (boot > 0) {
+      time_t now = time(NULL);
+      if (now >= boot)
+         return (int)(now - boot);
+   }
+
    struct tms tms;
    clock_t ticks = times(&tms);
    long hz = sysconf(_SC_CLK_TCK);
