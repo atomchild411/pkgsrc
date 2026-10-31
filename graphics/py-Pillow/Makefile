@@ -2,7 +2,7 @@
 
 DISTNAME=	pillow-12.3.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/^p/P/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	graphics python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pillow/}
 
@@ -30,6 +30,10 @@ DISTUTILS_BUILDDIR_IN_TEST_ENV=	yes
 
 PYTHON_VERSIONS_INCOMPATIBLE=	310 311
 
+# py-pybind11's buildlink3.mk includes Python as part of a build-only
+# dependency; the module needs it at run time, so include it here first.
+PYTHON_FOR_BUILD_ONLY=	no
+.include "../../lang/python/pyversion.mk"
 .include "../../devel/py-pybind11/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/libavif/buildlink3.mk"

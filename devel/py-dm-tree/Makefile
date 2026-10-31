@@ -2,7 +2,7 @@
 
 DISTNAME=	dm_tree-0.1.10
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/_/-/}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=d/dm-tree/}
 
@@ -24,6 +24,10 @@ USE_TOOLS+=		cmake gmake
 PYTHON_VERSIONS_INCOMPATIBLE=	310 311
 
 .include "../../devel/abseil/buildlink3.mk"
+# py-pybind11's buildlink3.mk includes Python as part of a build-only
+# dependency; the module needs it at run time, so include it here first.
+PYTHON_FOR_BUILD_ONLY=	no
+.include "../../lang/python/pyversion.mk"
 .include "../../devel/py-pybind11/buildlink3.mk"
 .include "../../lang/python/wheel.mk"
 .include "../../mk/bsd.pkg.mk"
