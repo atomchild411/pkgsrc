@@ -187,6 +187,9 @@ _INSTALL_ALL_TARGETS+=		plist
 .if ${USE_CROSS_COMPILE:Uno:tl} == "yes"
 _INSTALL_ALL_TARGETS+=		install-cross-interpreters
 .endif
+.if ${OPSYS} == "IRIX"
+_INSTALL_ALL_TARGETS+=		install-irix-bash
+.endif
 .if ${_PKGSRC_USE_CTF} == "yes"
 _INSTALL_ALL_TARGETS+=		install-ctf
 .endif
@@ -461,6 +464,33 @@ install-cross-interpreters: plist
 		${CAT} "$${f}.cross-tmp" > "$${f}" || exit 1;		\
 		[ -z "$${ro}" ] || ${CHMOD} u-w "$${f}";		\
 		${RM} -f "$${f}.cross-tmp";				\
+	done < ${_PLIST_NOKEYWORDS}
+
+######################################################################
+### install-irix-bash (PRIVATE)
+######################################################################
+### IRIX has no bash in /bin or /usr/bin, and its /bin/sh is a Bourne
+### shell without $(...): a script installed with #!/bin/bash (or
+### /usr/bin/bash, /usr/local/bin/bash, /usr/bin/env bash) gets
+### #!${LOCALBASE}/bin/bash. The package needs USE_TOOLS+= bash:run so
+### that bash comes with it; tests/tier0.py reports one that does not.
+###
+_IRIX_BASH_RE=	^\#![[:space:]]*(/usr/local/bin/|/usr/bin/|/bin/)(env[[:space:]]+)?bash([[:space:]]|$$)
+
+.PHONY: install-irix-bash
+install-irix-bash: plist
+	${RUN}								\
+	cd ${DESTDIR:Q}${PREFIX:Q};					\
+	while read f; do						\
+		[ -f "$${f}" ] && [ ! -h "$${f}" ] || continue;		\
+		${SED} 1q "$${f}" 2>/dev/null | ${EGREP} -q '${_IRIX_BASH_RE}' || continue; \
+		${SED} -E '1s,^#![[:space:]]*(/usr/local/bin/|/usr/bin/|/bin/)(env[[:space:]]+)?bash,#!${LOCALBASE}/bin/bash,' \
+			"$${f}" > "$${f}.bash-tmp" || exit 1;		\
+		ro=;							\
+		[ -w "$${f}" ] || { ro=yes; ${CHMOD} u+w "$${f}"; };	\
+		${CAT} "$${f}.bash-tmp" > "$${f}" || exit 1;		\
+		[ -z "$${ro}" ] || ${CHMOD} u-w "$${f}";		\
+		${RM} -f "$${f}.bash-tmp";				\
 	done < ${_PLIST_NOKEYWORDS}
 
 ######################################################################
