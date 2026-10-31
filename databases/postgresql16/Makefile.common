@@ -46,6 +46,10 @@ PKG_SYSCONFSUBDIR=	postgresql
 
 PG_TEMPLATE.SunOS=	solaris
 PG_TEMPLATE.IRIX=	openbsd	# no IRIX template any more; this one only sets PIC flags
+# PostgreSQL 16+ tests -Wl,--export-dynamic by running a program and assumes "no"
+# when cross-compiling; then postgres exports nothing and every module,
+# plpgsql too, fails to load (14 and 15 take -Wl,-E from the port makefile).
+CONFIGURE_ENV.IRIX+=	pgac_cv_prog_cc_LDFLAGS_EX_BE__Wl___export_dynamic=yes
 PG_TEMPLATE.DragonFly=	freebsd
 .if !defined(PG_TEMPLATE.${OPSYS})
 PG_TEMPLATE.${OPSYS}=	${LOWER_OPSYS}
