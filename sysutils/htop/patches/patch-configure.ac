@@ -1,0 +1,30 @@
+$NetBSD$
+
+IRIX: an irix platform (sources in files/irix; the package runs autoreconf).
+
+--- configure.ac.orig
++++ configure.ac
+@@ -60,6 +60,14 @@
+    my_htop_platform=solaris
+    AC_DEFINE([HTOP_SOLARIS], [], [Building for Solaris.])
+    ;;
++irix*)
++   my_htop_platform=irix
++   AC_DEFINE([HTOP_IRIX], [], [Building for IRIX.])
++   ;;
++irix*)
++   my_htop_platform=irix
++   AC_DEFINE([HTOP_IRIX], [], [Building for IRIX.])
++   ;;
+ *)
+    my_htop_platform=unsupported
+    AC_DEFINE([HTOP_UNSUPPORTED], [], [Building for an unsupported platform.])
+@@ -1839,6 +1847,8 @@
+ AM_CONDITIONAL([HTOP_OPENBSD], [test "$my_htop_platform" = openbsd])
+ AM_CONDITIONAL([HTOP_DARWIN], [test "$my_htop_platform" = darwin])
+ AM_CONDITIONAL([HTOP_SOLARIS], [test "$my_htop_platform" = solaris])
++AM_CONDITIONAL([HTOP_IRIX], [test "$my_htop_platform" = irix])
++AM_CONDITIONAL([HTOP_IRIX], [test "$my_htop_platform" = irix])
+ AM_CONDITIONAL([HTOP_PCP], [test "$my_htop_platform" = pcp])
+ AM_CONDITIONAL([HTOP_UNSUPPORTED], [test "$my_htop_platform" = unsupported])
+ 

@@ -1,0 +1,69 @@
+$NetBSD$
+
+IRIX: an irix platform (sources in files/irix; the package runs autoreconf).
+
+--- Makefile.am.orig
++++ Makefile.am
+@@ -484,6 +484,62 @@
+ pcp_htop_SOURCES  = $(myhtopplatprogram) $(myhtopheaders) $(myhtopplatheaders) $(myhtopsources) $(myhtopplatsources)
+ endif
+ 
++# IRIX
++# ----
++
++irix_platform_headers = \
++	generic/gettime.h \
++	generic/hostname.h \
++	generic/uname.h \
++	irix/Platform.h \
++	irix/ProcessField.h \
++	irix/IrixMachine.h \
++	irix/IrixProcess.h \
++	irix/IrixProcessTable.h
++
++irix_platform_sources = \
++	generic/gettime.c \
++	generic/hostname.c \
++	generic/uname.c \
++	irix/Platform.c \
++	irix/IrixMachine.c \
++	irix/IrixProcess.c \
++	irix/IrixProcessTable.c
++
++if HTOP_IRIX
++myhtopplatheaders = $(irix_platform_headers)
++myhtopplatsources = $(irix_platform_sources)
++endif
++
++# IRIX
++# ----
++
++irix_platform_headers = \
++	generic/gettime.h \
++	generic/hostname.h \
++	generic/uname.h \
++	irix/Platform.h \
++	irix/ProcessField.h \
++	irix/IrixMachine.h \
++	irix/IrixProcess.h \
++	irix/IrixProcessTable.h \
++	irix/IrixSysinfo.h
++
++irix_platform_sources = \
++	generic/gettime.c \
++	generic/hostname.c \
++	generic/uname.c \
++	irix/Platform.c \
++	irix/IrixMachine.c \
++	irix/IrixProcess.c \
++	irix/IrixProcessTable.c \
++	irix/IrixSysinfo.c
++
++if HTOP_IRIX
++myhtopplatheaders = $(irix_platform_headers)
++myhtopplatsources = $(irix_platform_sources)
++endif
++
+ # Unsupported
+ # -----------
+ 
