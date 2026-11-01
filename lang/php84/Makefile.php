@@ -65,6 +65,9 @@ CONFIGURE_ENV.IRIX+=	ac_cv_func_memcntl=no
 # build cannot, and without WORDS_BIGENDIAN zval's type byte and type word
 # disagree: no module or stream wrapper is found, and php crashes.
 CONFIGURE_ENV.IRIX+=	ac_cv_c_bigendian_php=yes
+# Cross-compiling for mips*, configure assumes the external PCRE2 has a JIT;
+# devel/pcre2 has none on IRIX, and pcre then fails to start (no JIT stack).
+CONFIGURE_ENV.IRIX+=	php_cv_have_pcre2_jit=no
 
 #
 # Workaround for NetBSD: php 8.4 require zlib>=1.2.11.
