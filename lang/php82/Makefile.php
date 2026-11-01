@@ -62,6 +62,10 @@ CONFIGURE_ENV+=		EXTENSION_DIR="${PREFIX}/${PHP_EXTENSION_DIR}"
 # IRIX has SVR4's memcntl(2), but not Solaris' MHA_MAPSIZE_VA advice that
 # Zend's allocator uses it for.
 CONFIGURE_ENV.IRIX+=	ac_cv_func_memcntl=no
+# IRIX is big-endian; configure runs a program to find out, which a cross
+# build cannot, and without WORDS_BIGENDIAN zval's type byte and type word
+# disagree: no module or stream wrapper is found, and php crashes.
+CONFIGURE_ENV.IRIX+=	ac_cv_c_bigendian_php=yes
 
 SUBST_CLASSES+=		path
 SUBST_MESSAGE.path=	Fixing common paths.
