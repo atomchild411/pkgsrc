@@ -18,7 +18,7 @@ DEPENDS+=	pari>=2.4.3:../../math/pari
 
 WRKSRC=		${WRKDIR}/data/seadata
 
-DIST_SUBDIR=		${PKGNAME}
+DIST_SUBDIR=		${PKGNAME_NOREV}
 NO_BUILD=		yes
 INSTALLATION_DIRS=	share/pari/seadata
 
