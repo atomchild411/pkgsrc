@@ -133,3 +133,9 @@ _OPSYS_MAX_CMDLEN_CMD=	/usr/sbin/sysconf ARG_MAX
 	CXX20_REMOVED_TYPE_TRAITS CXX20_REMOVED_UNCAUGHT_EXCEPTION
 CWRAPPERS_PREPEND.cxx+=	-D_LIBCPP_ENABLE_${_f_}
 .endfor
+
+# Republish rounds: each word raises every package's PKGREVISION by one
+# (platform/IRIX-revision.mk). Add a word when a toolchain fix changes the
+# code of every package; never remove one.
+#   r50: toolchain round 50, N32 sign-extends 32-bit call arguments (2026-11-01)
+IRIX_REPUBLISH_ROUNDS?=	r50

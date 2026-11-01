@@ -29,6 +29,11 @@
 
 ##### PKGBASE, PKGNAME[_NOREV], PKGVERSION
 
+# IRIX: republish rounds raise every package's revision (see
+# platform/IRIX-revision.mk).
+.if ${OPSYS} == "IRIX" && !empty(IRIX_REPUBLISH_ROUNDS)
+.  include "platform/IRIX-revision.mk"
+.endif
 PKGBASE?=		${PKGNAME:C/-[^-]*$//}
 PKGVERSION?=		${PKGNAME:C/^.*-//}
 .if defined(PKGREVISION) && !empty(PKGREVISION) && (${PKGREVISION} != "0")
