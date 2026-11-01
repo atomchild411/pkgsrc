@@ -13,18 +13,6 @@
 # (some packages use a date) gets its last digit raised, and the few that end
 # in 9 stay as they are.
 
-.for _irix_round_ in ${IRIX_REPUBLISH_ROUNDS}
-_IRIX_REV_:=	${PKGREVISION:U0}
-.  if empty(_IRIX_REV_)
-_IRIX_REV_:=	0
-.  endif
-.  if defined(_IRIX_NEXT.${_IRIX_REV_})
-PKGREVISION:=	${_IRIX_NEXT.${_IRIX_REV_}}
-.  else
-PKGREVISION:=	${_IRIX_REV_:C/8$/9/:C/7$/8/:C/6$/7/:C/5$/6/:C/4$/5/:C/3$/4/:C/2$/3/:C/1$/2/:C/0$/1/}
-.  endif
-.endfor
-
 _IRIX_NEXT.0=	1
 _IRIX_NEXT.1=	2
 _IRIX_NEXT.2=	3
@@ -1025,3 +1013,16 @@ _IRIX_NEXT.996=	997
 _IRIX_NEXT.997=	998
 _IRIX_NEXT.998=	999
 _IRIX_NEXT.999=	1000
+
+# (after the table: .if defined() is evaluated as the file is read)
+.for _irix_round_ in ${IRIX_REPUBLISH_ROUNDS}
+_IRIX_REV_:=	${PKGREVISION:U0}
+.  if empty(_IRIX_REV_)
+_IRIX_REV_:=	0
+.  endif
+.  if defined(_IRIX_NEXT.${_IRIX_REV_})
+PKGREVISION:=	${_IRIX_NEXT.${_IRIX_REV_}}
+.  else
+PKGREVISION:=	${_IRIX_REV_:C/8$/9/:C/7$/8/:C/6$/7/:C/5$/6/:C/4$/5/:C/3$/4/:C/2$/3/:C/1$/2/:C/0$/1/}
+.  endif
+.endfor
