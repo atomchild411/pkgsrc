@@ -50,6 +50,14 @@ PKGNAME_NOREV=		${PKGNAME}
 .endif
 PKGVERSION_NOREV=	${PKGNAME_NOREV:C/^.*-//}
 
+# IRIX republish rounds: a cross build's TOOL_DEPENDS on the build host's copy
+# of the same package (${PKGNAME}:../../${PKGPATH}: python, llvm, icu, ...)
+# would ask for the raised revision, which host packages do not get. Any
+# host copy of this version will do.
+.if ${OPSYS} == "IRIX" && !empty(IRIX_REPUBLISH_ROUNDS) && defined(TOOL_DEPENDS)
+TOOL_DEPENDS:=	${TOOL_DEPENDS:S|^${PKGNAME}:|${PKGBASE}>=${PKGVERSION_NOREV}:|}
+.endif
+
 _VARGROUPS+=		pkgname
 _DEF_VARS.pkgname=	PKGBASE PKGVERSION PKGNAME_NOREV PKGNAME PKGVERSION_NOREV
 
