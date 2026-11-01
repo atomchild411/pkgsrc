@@ -10,7 +10,7 @@ WRKSRC=		${WRKDIR}/${DISTNAME}/ndiff
 
 EXTRACT_ELEMENTS=	${DISTNAME}/ndiff
 
-WHEEL_NAME=	${PKGNAME}
+WHEEL_NAME=	${PKGNAME_NOREV}
 
 TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
 

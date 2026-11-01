@@ -5,7 +5,7 @@ DISTNAME=	eventlog_${VERS}
 PKGNAME=	eventlog-${VERS}
 CATEGORIES=	sysutils
 MASTER_SITES=	#
-WRKSRC=		${WRKDIR}/${PKGNAME}
+WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 #HOMEPAGE=	http://www.balabit.com/network-security/syslog-ng/

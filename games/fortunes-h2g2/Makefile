@@ -16,13 +16,13 @@ STRFILE=	${TOOLBASE}/bin/strfile
 WRKSRC=		${WRKDIR}
 
 do-build:
-	${STRFILE} ${WRKDIR}/${PKGNAME}
+	${STRFILE} ${WRKDIR}/${PKGNAME_NOREV}
 
 do-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/games/fortune/
-	${INSTALL_DATA} ${WRKDIR}/${PKGNAME} \
+	${INSTALL_DATA} ${WRKDIR}/${PKGNAME_NOREV} \
 		${DESTDIR}${PREFIX}/share/games/fortune/h2g2
-	${INSTALL_DATA} ${WRKDIR}/${PKGNAME}.dat \
+	${INSTALL_DATA} ${WRKDIR}/${PKGNAME_NOREV}.dat \
 		${DESTDIR}${PREFIX}/share/games/fortune/h2g2.dat
 
 .include "../../mk/bsd.pkg.mk"

@@ -5,7 +5,7 @@ PKGNAME=	${LUA_PKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel lua
 MASTER_SITES=	${MASTER_SITE_GITHUB:=keplerproject/}
 GITHUB_PROJECT=	coxpcall
-GITHUB_TAG=	v${PKGVERSION:S/./_/g}
+GITHUB_TAG=	v${PKGVERSION_NOREV:S/./_/g}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://keplerproject.github.io/coxpcall

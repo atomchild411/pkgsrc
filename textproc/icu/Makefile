@@ -69,7 +69,7 @@ CONFIGURE_ARGS+=	--with-cross-build=${ICU_CROSS_DIR}
 pre-configure: ${ICU_CROSS_COOKIE}
 
 ICU_CROSS_TOOLS=	\
-	${HOST_PKG_INFO} -qL ${PKGNAME} \
+	${HOST_PKG_INFO} -qL ${PKGBASE} \
 	| ${GREP} -e '^'${TOOLBASE}/bin -e '^'${TOOLBASE}/sbin
 
 show-icu-cross-tools: .PHONY

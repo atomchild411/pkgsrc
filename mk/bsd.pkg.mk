@@ -50,6 +50,20 @@ PKGNAME_NOREV=		${PKGNAME}
 .endif
 PKGVERSION_NOREV=	${PKGNAME_NOREV:C/^.*-//}
 
+# IRIX republish rounds give a revision to packages that had none, and some
+# of those build names from ${PKGNAME} or their own ${PKGVERSION}, which
+# pkgsrc allows only without a revision (docbook-xsl-ns, mxkill, man2html,
+# tklib: the distfile name; pikchr: the package file name). Keep those names
+# as they were.
+.if ${OPSYS} == "IRIX" && !empty(IRIX_REPUBLISH_ROUNDS) && defined(PKGREVISION)
+.  if ${PKGVERSION} != ${PKGNAME:C/^.*-//}
+PKGVERSION:=	${PKGNAME:C/^.*-//}
+.  endif
+.  if defined(DISTNAME) && !empty(DISTNAME:M*nb${PKGREVISION}*)
+DISTNAME:=	${DISTNAME:S/nb${PKGREVISION}//}
+.  endif
+.endif
+
 # IRIX republish rounds: a cross build's TOOL_DEPENDS on the build host's copy
 # of the same package (${PKGNAME}:../../${PKGPATH}: python, llvm, icu, ...)
 # would ask for the raised revision, which host packages do not get. Any
@@ -604,6 +618,15 @@ _BUILD_DEFS+=	NO_BIN_ON_FTP NO_BIN_ON_CDROM
 _BUILD_DEFS+=	OSVERSION_SPECIFIC
 DEPENDS+=	osabi-${OPSYS}-${OS_VERSION}:../../pkgtools/osabi
 .endif # OSVERSION_SPECIFIC
+
+# IRIX republish rounds raise the revision of every package, so a dependency
+# on one exact version of another (osabi-IRIX-6.5, LPRng-doc-3.6.13,
+# sablevm-classpath-1.13nb1) would no longer match: accept that version or
+# later.
+.if ${OPSYS} == "IRIX" && !empty(IRIX_REPUBLISH_ROUNDS)
+DEPENDS:=	${DEPENDS:C/^([^:<>*?[{},]*)-([0-9][^-:<>*?[{},]*):/\1>=\2:/}
+BUILD_DEPENDS:=	${BUILD_DEPENDS:C/^([^:<>*?[{},]*)-([0-9][^-:<>*?[{},]*):/\1>=\2:/}
+.endif
 
 .for _pkg_ in ${_BUILTIN_PKGS}
 .  if defined(USE_BUILTIN.${_pkg_}) && \

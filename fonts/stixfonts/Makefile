@@ -17,14 +17,14 @@ NO_BUILD=	yes
 FONTDIR=	${PREFIX}/share/fonts/X11/OTF
 FONTS_DIRS.ttf=	${FONTDIR}
 
-INSTALLATION_DIRS=	share/doc/${PKGNAME}
+INSTALLATION_DIRS=	share/doc/${PKGNAME_NOREV}
 
 SUPERSEDES=	stix-otf-[0-9]*
 CONFLICTS=	stix-otf-[0-9]*
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/archive/STIXv2.0.2/docs/*.pdf \
-		${DESTDIR}${PREFIX}/share/doc/${PKGNAME}
+		${DESTDIR}${PREFIX}/share/doc/${PKGNAME_NOREV}
 
 .include "../../mk/fonts.mk"
 .include "../../mk/bsd.pkg.mk"

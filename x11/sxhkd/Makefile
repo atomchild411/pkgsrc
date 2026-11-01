@@ -3,7 +3,7 @@
 DISTNAME=		sxhkd-0.6.2
 CATEGORIES=		x11
 MASTER_SITES=		${MASTER_SITE_GITHUB:=baskerville/}
-GITHUB_TAG=		${PKGVERSION}
+GITHUB_TAG=		${PKGVERSION_NOREV}
 
 MAINTAINER=		youri@NetBSD.org
 HOMEPAGE=		https://github.com/baskerville/sxhkd

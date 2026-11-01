@@ -13,7 +13,7 @@ HOMEPAGE=	https://primer3.sourceforge.net/
 COMMENT=	Design PCR primers
 LICENSE=	gnu-gpl-v2
 
-WRKSRC=		${WRKDIR}/${PKGNAME}
+WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	gmake
 BUILD_DIRS=	src

@@ -15,7 +15,7 @@ WRKSRC=		${WRKDIR}/html
 NO_CONFIGURE=	yes
 NO_BUILD=	yes
 
-HTML_DIR=		share/doc/${PKGNAME}
+HTML_DIR=		share/doc/${PKGNAME_NOREV}
 INSTALLATION_DIRS+=	${HTML_DIR}
 
 do-install:
