@@ -29,6 +29,10 @@ TOOLS_PATH.sdl-config=	${CROSS_DESTDIR}${LOCALBASE}/bin/sdl-config
 .if ${OPSYS} != "IRIX" && ${OPSYS} != "Darwin"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
+.endif
+# IRIX: GL and GLU are the system's, but X11 video uses pkgsrc's X11
+# (libSDL.la names these libraries).
+.if ${OPSYS} != "Darwin"
 .include "../../x11/libXrandr/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
