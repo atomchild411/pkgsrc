@@ -16,7 +16,7 @@ WRKSRC=		${WRKDIR}
 USE_LANGUAGES=	# none
 
 LOVE_GAME=	mari0
-LOVE_DATA=	${PKGNAME:S/-/_/}.love
+LOVE_DATA=	${PKGNAME_NOREV:S/-/_/}.love
 LOVE_VERSION=	0.8
 
 .include "../../mk/love.mk"
