@@ -13,6 +13,8 @@ COMMENT=	LLVM runtime libraries
 LICENSE=	apache-2.0
 
 NOT_FOR_PLATFORM=	NetBSD-[0-7].*-*
+# IRIX: lang/clang-irix has its own builtins and crt files.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 
 USE_CC_FEATURES=	c99
 USE_CXX_FEATURES=	c++17

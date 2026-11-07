@@ -16,6 +16,10 @@ USE_LANGUAGES=		c c++
 USE_TOOLS+=		pax
 SSP_SUPPORTED=		no
 
+# IRIX: lang/clang-irix-libs has the toolchain's libunwind (it conflicts
+# with this package, and buildlink3.mk depends on it there instead).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 .include "../../mk/bsd.prefs.mk"
 
 # Configure fails on Alma8 with "/usr/bin/ld: cannot find -lgcc_s".

@@ -43,6 +43,9 @@ PYTHON_FOR_BUILD_ONLY=	no
 
 NOT_FOR_PLATFORM+=	*-*-alpha
 NOT_FOR_PLATFORM+=	*-*-vax
+# IRIX: only lang/clang used LLVM there, and lang/clang-irix replaces
+# that (it has its own LLVM inside). Still built for the build host.
+NOT_FOR_PLATFORM+=	IRIX-*-*
 
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_C_COMPILER=${CC:Q}
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_CXX_COMPILER=${CXX:Q}

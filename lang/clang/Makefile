@@ -7,6 +7,12 @@ PKGREVISION=	37
 
 COMMENT=	C language family frontend for LLVM
 
+# IRIX: lang/clang-irix is the compiler there (the IRIX port of LLVM 21,
+# prebuilt, with lld and libc++). This package, cross-built for IRIX,
+# compiles C but cannot link: it needs ld.lld and libc++ headers that no
+# IRIX package has. It is still built for the build host, as a tool.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_TOOLS+=	perl:run
 
 # Certain header files are generated, and can only be generated
