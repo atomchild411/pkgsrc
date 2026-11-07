@@ -34,7 +34,9 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # struct winsize and TIOCGWINSZ from <sys/ioctl.h> in every mode (261e226).
 # nb45: llvm-readelf, as LLVM installs it (llvm-readobj, GNU style by
 # that name): what installed files name for readelf.
-PKGREVISION=	45
+# nb46: spin locks are libpthread's where IRIX has them (6.5.30); the
+# mutex-based ones are __irix_pthread_spin_* (iris/main b19704a6ee).
+PKGREVISION=	46
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix

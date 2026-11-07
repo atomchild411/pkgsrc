@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	kyotocabinet-1.2.79
+PKGREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	https://dbmx.net/kyotocabinet/pkg/
 

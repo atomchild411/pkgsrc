@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2026/08/07 08:14:44 adam Exp $
 
 DISTNAME=	libiscsi-1.20.3
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=sahlberg/}
 

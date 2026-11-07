@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.24 2025/10/26 12:06:41 ryoon Exp $
 
 DISTNAME=	libshout-2.4.6
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	http://downloads.xiph.org/releases/libshout/
 

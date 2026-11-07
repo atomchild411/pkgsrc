@@ -7,10 +7,11 @@ branch iris/main):
 - [IRIX] pthread_mutex_timedlock and POSIX spin locks
 - pthread_setname_np and pthread_getname_np
 - <pthread.h>: pthread_exit is noreturn
+- [IRIX] Spin locks: libpthread's where IRIX has them (6.5.30)
 
 --- lib/Headers/irix_wrappers/pthread.h.orig
 +++ lib/Headers/irix_wrappers/pthread.h
-@@ -0,0 +1,73 @@
+@@ -0,0 +1,87 @@
 +/*===---- pthread.h - IRIX wrapper ------------------------------------------===
 + *
 + * Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -25,9 +26,16 @@ branch iris/main):
 + * the relative form macOS offers instead, pthread_cond_timedwait_relative_np,
 + * which compiler-rt's IRIX builtins define (irix/pthread_np.c).
 + *
-+ * IRIX's pthreads also lack pthread_mutex_timedlock and the spin locks;
-+ * compiler-rt defines them (irix/pthread_timedlock.c, irix/pthread_spin.c),
-+ * a spin lock being a mutex.
++ * IRIX's pthreads also lack pthread_mutex_timedlock; compiler-rt defines it
++ * (irix/pthread_timedlock.c).
++ *
++ * Spin locks: IRIX 6.5.22 has none, 6.5.30 has them (its <pthread.h> has
++ * barriers and spin locks together, PTHREAD_BARRIER_SERIAL_THREAD with them,
++ * and libpthread the functions). Without them, a spin lock is a mutex and
++ * compiler-rt has the functions (irix/pthread_spin.c) under names of their
++ * own, __irix_pthread_spin_*: a program built against 6.5.30's headers must
++ * get libpthread's, which work on its pthread_spinlock_t, never these, which
++ * take a mutex, twice its size (32 bytes to 16 in n32).
 + */
 +
 +#ifndef __CLANG_IRIX_PTHREAD_H
@@ -42,12 +50,19 @@ branch iris/main):
 +int pthread_cond_timedwait_relative_np(pthread_cond_t *, pthread_mutex_t *,
 +                                       const struct timespec *);
 +int pthread_mutex_timedlock(pthread_mutex_t *, const struct timespec *);
++#ifndef PTHREAD_BARRIER_SERIAL_THREAD
 +typedef pthread_mutex_t pthread_spinlock_t;
-+int pthread_spin_init(pthread_spinlock_t *, int);
-+int pthread_spin_destroy(pthread_spinlock_t *);
-+int pthread_spin_lock(pthread_spinlock_t *);
-+int pthread_spin_trylock(pthread_spinlock_t *);
-+int pthread_spin_unlock(pthread_spinlock_t *);
++int pthread_spin_init(pthread_spinlock_t *, int)
++    __asm__("__irix_pthread_spin_init");
++int pthread_spin_destroy(pthread_spinlock_t *)
++    __asm__("__irix_pthread_spin_destroy");
++int pthread_spin_lock(pthread_spinlock_t *)
++    __asm__("__irix_pthread_spin_lock");
++int pthread_spin_trylock(pthread_spinlock_t *)
++    __asm__("__irix_pthread_spin_trylock");
++int pthread_spin_unlock(pthread_spinlock_t *)
++    __asm__("__irix_pthread_spin_unlock");
++#endif
 +#ifdef __cplusplus
 +}
 +#endif
