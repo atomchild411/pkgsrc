@@ -16,6 +16,9 @@ HOMEPAGE=		# none
 COMMENT=		GCC for bare metal ARM EABI
 LICENSE=		gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
+# IRIX: no GCC there (lang/clang-irix is the compiler).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 EXTRACT_USING=		bsdtar
 
 # for http://gcc.gnu.org/bugzilla/show_bug.cgi?id=33549

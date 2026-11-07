@@ -10,6 +10,9 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://mingw.sourceforge.net/
 COMMENT=	GCC runtime libraries for win32 cross-development
 
+# IRIX: no MinGW GCC there for this to go with.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 NO_BUILD=	yes
 NO_CONFIGURE=	yes
 USE_TOOLS+=	pax

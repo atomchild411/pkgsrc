@@ -11,6 +11,9 @@ HOMEPAGE=	http://vincent.riviere.free.fr/soft/m68k-atari-mint/
 COMMENT=	Cross FreeMiNT utility for FreeMiNT
 LICENSE=	gnu-gpl-v2
 
+# IRIX: no GCC there, so no cross toolchain for this to be part of.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 FREEMINT_PREFIX=	${PREFIX}/cross-freemint
 
 USE_TOOLS+=	makeinfo

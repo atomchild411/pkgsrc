@@ -12,6 +12,9 @@ HOMEPAGE=	https://www.morphos-team.net/
 COMMENT=	Binutils for ppc-morphos
 LICENSE=	gnu-gpl-v3
 
+# IRIX: no GCC there, so no cross toolchain for this to be part of.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 GNU_CONFIGURE=		yes
 GNU_CONFIGURE_STRICT=	no # several sub-configures know --enable-nls
 USE_LANGUAGES=		c c++

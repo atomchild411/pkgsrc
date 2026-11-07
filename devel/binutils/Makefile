@@ -10,6 +10,9 @@ HOMEPAGE=	https://www.gnu.org/software/binutils/
 COMMENT=	GNU binary utilities
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
+# IRIX: the toolchain is lang/clang-irix (lld and the llvm-* tools).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 CONFLICTS=	avr-binutils<2.13.2.1nb1
 
 USE_PKGLOCALEDIR=		yes

@@ -11,6 +11,9 @@ HOMEPAGE=	# empty
 COMMENT=	Cross binutils for DJGPP
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
+# IRIX: no GCC there, so no cross toolchain for this to be part of.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake makeinfo perl

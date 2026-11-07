@@ -13,6 +13,9 @@ HOMEPAGE=	https://github.com/espressif/binutils-gdb
 COMMENT=	Cross binutils for Espressif ESP8266 bare metal environment
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
+# IRIX: no GCC there, so no cross toolchain for this to be part of.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 INFO_FILES=		yes
 GNU_CONFIGURE=		yes
 GNU_CONFIGURE_STRICT=	no # several sub-configures know --enable-nls

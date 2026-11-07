@@ -13,6 +13,9 @@ HOMEPAGE=	https://github.com/CastXML/pygccxml
 COMMENT=	Python package for easy C++ declarations navigation
 LICENSE=	boost-license
 
+# IRIX: no castxml there (it needs lang/clang's libraries).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
 
 USE_LANGUAGES=	# none

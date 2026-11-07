@@ -10,6 +10,9 @@ HOMEPAGE=	https://github.com/python/typeshed
 COMMENT=	Typing stubs for gdb
 LICENSE=	apache-2.0
 
+# IRIX: no gdb there.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 TOOL_DEPENDS+=	${PYPKGPREFIX}-setuptools>=78:../../devel/py-setuptools
 
 .include "../../lang/python/wheel.mk"

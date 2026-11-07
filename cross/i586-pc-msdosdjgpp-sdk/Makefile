@@ -11,6 +11,9 @@ HOMEPAGE=	https://delorie.com/djgpp/
 COMMENT=	DJGPP headers and libraries
 LICENSE=	djgpp-license
 
+# IRIX: no GCC there, so no cross toolchain for this to be part of.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 WRKSRC=		${WRKDIR}
 
 do-build:

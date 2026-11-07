@@ -9,6 +9,9 @@ HOMEPAGE=	https://github.com/rust-embedded/cargo-binutils/
 COMMENT=	Invoke the LLVM tools shipped with the Rust toolchain
 LICENSE=	apache-2.0 OR mit
 
+# IRIX: it runs rustup's LLVM tools, which IRIX does not have.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 RUST_REQ+=	1.70.0
 
 .include "cargo-depends.mk"

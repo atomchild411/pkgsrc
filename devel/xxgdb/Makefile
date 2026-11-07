@@ -9,6 +9,9 @@ MASTER_SITES=	${MASTER_SITE_XCONTRIB:=utilities/}
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Graphical X11 interface for gdb
 
+# IRIX: no gdb there.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 WRKSRC=		${WRKDIR}/${DISTNAME}
 USE_IMAKE=	yes
 

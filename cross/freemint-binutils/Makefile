@@ -11,6 +11,9 @@ HOMEPAGE=	http://vincent.riviere.free.fr/soft/m68k-atari-mint/
 COMMENT=	Cross binutils for FreeMiNT
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
+# IRIX: no GCC there, so no cross toolchain for this to be part of.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 PATCH_SITES=		http://vincent.riviere.free.fr/soft/m68k-atari-mint/archives/
 PATCHFILES=		binutils-2.24-mint-20131217.patch.bz2
 

@@ -10,6 +10,10 @@ HOMEPAGE=	https://github.com/linux-test-project/lcov
 COMMENT=	Front-end for GCC's coverage testing tool gcov
 LICENSE=	gnu-gpl-v2
 
+# IRIX: no gcov there (lang/clang-irix has no llvm-cov or profiling
+# runtime yet).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 TOOL_DEPENDS+=	${PYPKGPREFIX}-sphinx-[0-9]*:../../textproc/py-sphinx
 TOOL_DEPENDS+=	${PYPKGPREFIX}-sphinx-rtd-theme-[0-9]*:../../textproc/py-sphinx-rtd-theme
 DEPENDS+=	p5-DateTime-[0-9]*:../../time/p5-DateTime

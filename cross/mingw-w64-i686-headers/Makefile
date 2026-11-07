@@ -5,6 +5,9 @@
 PKGNAME=		${DISTNAME:S/mingw-w64-v/mingw-w64-i686-headers-${CRT_TYPE}-/}
 COMMENT=		Mingw-w64 headers for win32 cross-development (${CRT_TYPE})
 
+# IRIX: no MinGW GCC there for this to go with.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 CRT_TYPE=		ucrt
 MINGW_TARGET=		${MINGW_W64_32_TARGET}
 

@@ -15,6 +15,9 @@ HOMEPAGE=		https://www.gnu.org/
 COMMENT=		Unified GNU binutils for cross build environments
 LICENSE=		gnu-gpl-v2 AND gnu-lgpl-v2
 
+# IRIX: no GCC there, so no cross toolchain for this to be part of.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 BUILDLINK_TRANSFORM+=	rm:-Werror
 
 USE_TOOLS+=		gm4 pod2man yacc

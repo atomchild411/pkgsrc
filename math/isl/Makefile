@@ -10,6 +10,9 @@ HOMEPAGE=	https://libisl.sourceforge.io/
 COMMENT=	Integer set library required by gcc graphite
 LICENSE=	mit
 
+# IRIX: only GCC and polly use isl, and neither is built there.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
 GNU_CONFIGURE=	yes

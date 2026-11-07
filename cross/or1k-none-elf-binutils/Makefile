@@ -11,6 +11,9 @@ HOMEPAGE=	https://sourceware.org/binutils/
 COMMENT=	Cross binutils for bare metal OpenRISC 1000 ELF
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
+# IRIX: no GCC there, so no cross toolchain for this to be part of.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake makeinfo
 GNU_CONFIGURE=		yes

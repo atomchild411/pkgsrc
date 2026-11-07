@@ -10,6 +10,10 @@ HOMEPAGE=	https://github.com/gcovr/gcovr
 COMMENT=	Generate GCC code coverage reports
 LICENSE=	modified-bsd
 
+# IRIX: no gcov there (lang/clang-irix has no llvm-cov or profiling
+# runtime yet).
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 TOOL_DEPENDS+=	${PYPKGPREFIX}-hatch-fancy-pypi-readme>=25.1.0:../../devel/py-hatch-fancy-pypi-readme
 TOOL_DEPENDS+=	${PYPKGPREFIX}-hatch-vcs>=0.5.0:../../devel/py-hatch-vcs
 TOOL_DEPENDS+=	${PYPKGPREFIX}-hatchling>=1.27.0:../../devel/py-hatchling
