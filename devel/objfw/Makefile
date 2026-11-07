@@ -30,6 +30,9 @@ STACK_CHECK_SUPPORTED=	no
 # host itself.
 .if ${USE_CROSS_COMPILE:tl} == "yes"
 MAKE_FLAGS+=	BIN_PREFIX=
+# ObjFWConfig.cmake still names them with the prefix.
+CROSS_TOOL_NAMES+=	objfw-config:objfw-config objfw-compile:objfw-compile \
+			objfw-embed:objfw-embed objfw-new:objfw-new
 .endif
 
 # IRIX's clang gives a C or Objective-C link no unwinder (elsewhere the
