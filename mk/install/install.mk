@@ -186,6 +186,9 @@ _INSTALL_ALL_TARGETS+=		post-install
 _INSTALL_ALL_TARGETS+=		plist
 .if ${USE_CROSS_COMPILE:Uno:tl} == "yes"
 _INSTALL_ALL_TARGETS+=		install-cross-interpreters
+.  if !empty(CROSS_TOOL_NAMES)
+_INSTALL_ALL_TARGETS+=		install-cross-tool-names
+.  endif
 .endif
 .if ${OPSYS} == "IRIX"
 _INSTALL_ALL_TARGETS+=		install-irix-bash
@@ -464,6 +467,53 @@ install-cross-interpreters: plist
 		${CAT} "$${f}.cross-tmp" > "$${f}" || exit 1;		\
 		[ -z "$${ro}" ] || ${CHMOD} u-w "$${f}";		\
 		${RM} -f "$${f}.cross-tmp";				\
+	done < ${_PLIST_NOKEYWORDS}
+
+######################################################################
+### install-cross-tool-names (PRIVATE)
+######################################################################
+### A cross build runs the target's compiler and binutils under prefixed
+### names (${MACHINE_GNU_PLATFORM}-clang, -ar, ...), and packages that
+### record the tools they were built with (Python's sysconfig, Perl's
+### Config, *-config scripts, Makefile fragments) name commands that do
+### not exist on the target. Rewrite them in every installed text file to
+### the target's own names: CROSS_TOOL_NAMES, from the platform file, is a
+### list of prefixed:native pairs (a "%" in native is a space). Also the
+### buildlink directory, which CMake and pkg-config files can record, to
+### ${LOCALBASE}, where a native build would have found the same files.
+### A rewritten Python module's compiled files (__pycache__/*.pyc, made
+### before this) are compiled again by the build host's Python of that
+### version, at the same optimization levels.
+###
+_CROSS_TOOL_PFX=	${MACHINE_GNU_PLATFORM:S/./\./g}-
+_CROSS_TOOL_SED=	-e 's|${BUILDLINK_DIR}|${LOCALBASE}|g'
+.for _t_ in ${CROSS_TOOL_NAMES}
+_CROSS_TOOL_SED+=	-e 's,${_CROSS_TOOL_PFX}${_t_:C/:.*//:S/+/\+/g}([^A-Za-z0-9+_.-]|$$),${_t_:C/^[^:]*://:S/%/ /g}\1,g'
+.endfor
+
+.PHONY: install-cross-tool-names
+install-cross-tool-names: plist
+	${RUN}								\
+	cd ${DESTDIR:Q}${PREFIX:Q};					\
+	while read f; do						\
+		[ -f "$${f}" ] && [ ! -h "$${f}" ] || continue;		\
+		${GREP} -q -I -e ${MACHINE_GNU_PLATFORM:Q}- -e ${BUILDLINK_DIR:Q} "$${f}" 2>/dev/null || continue; \
+		${SED} -E ${_CROSS_TOOL_SED}				\
+			"$${f}" > "$${f}.toolname-tmp" || exit 1;	\
+		ro=;							\
+		[ -w "$${f}" ] || { ro=yes; ${CHMOD} u+w "$${f}"; };	\
+		${CAT} "$${f}.toolname-tmp" > "$${f}" || exit 1;	\
+		[ -z "$${ro}" ] || ${CHMOD} u-w "$${f}";		\
+		${RM} -f "$${f}.toolname-tmp";				\
+		case "$${f}" in *.py) ;; *) continue ;; esac;		\
+		d=`dirname "$${f}"`; b=`basename "$${f}" .py`;		\
+		for c in "$${d}"/__pycache__/"$${b}".cpython-3*.pyc; do	\
+			[ -f "$${c}" ] || continue;			\
+			v=`echo "$${c}" | ${SED} -E 's,.*[.]cpython-3([0-9]+).*,3.\1,'`; \
+			o=`echo "$${c}" | ${SED} -E -n 's,.*[.]opt-([12])[.]pyc$$,\1,p'`; \
+			${TOOLBASE}/bin/python$${v} -m compileall -q -f	\
+				-o $${o:-0} -d ${PREFIX}/$${d} "$${f}" || exit 1; \
+		done;							\
 	done < ${_PLIST_NOKEYWORDS}
 
 ######################################################################

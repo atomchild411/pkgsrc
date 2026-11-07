@@ -10,6 +10,7 @@ bin/llvm-nm
 bin/llvm-objcopy
 bin/llvm-objdump
 bin/llvm-ranlib
+bin/llvm-readelf
 bin/llvm-readobj
 bin/llvm-strip
 bin/llvm-symbolizer

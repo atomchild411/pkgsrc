@@ -32,7 +32,9 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # (iris/main 07631468 .. 267a506).
 # nb7: the rest of POSIX.1-2008's sysconf names (iris/main 9586a52);
 # struct winsize and TIOCGWINSZ from <sys/ioctl.h> in every mode (261e226).
-PKGREVISION=	44
+# nb45: llvm-readelf, as LLVM installs it (llvm-readobj, GNU style by
+# that name): what installed files name for readelf.
+PKGREVISION=	45
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
@@ -86,5 +88,6 @@ do-fetch:
 do-install:
 	cd ${WRKSRC} && ${PAX} -rw -pp . ${DESTDIR}${PREFIX}
 	${RM} -f ${NOT_INSTALLED:S,^,${DESTDIR}${PREFIX}/,}
+	${LN} -sf llvm-readobj ${DESTDIR}${PREFIX}/bin/llvm-readelf
 
 .include "../../mk/bsd.pkg.mk"

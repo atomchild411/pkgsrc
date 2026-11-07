@@ -134,6 +134,15 @@ _OPSYS_MAX_CMDLEN_CMD=	/usr/sbin/sysconf ARG_MAX
 CWRAPPERS_PREPEND.cxx+=	-D_LIBCPP_ENABLE_${_f_}
 .endfor
 
+# Cross builds: the tools that installed files may name, as clang-irix
+# (the compiler on IRIX) calls them (mk/install/install.mk,
+# install-cross-tool-names).
+CROSS_TOOL_NAMES?=	clang++:clang++ clang:clang cpp:clang-cpp ld:ld.lld \
+			ar:llvm-ar ranlib:llvm-ranlib nm:llvm-nm \
+			objdump:llvm-objdump objcopy:llvm-objcopy \
+			readelf:llvm-readelf strip:llvm-strip \
+			strip-unneeded:llvm-strip%--strip-unneeded
+
 # Republish rounds: each word raises every package's PKGREVISION by one
 # (platform/IRIX-revision.mk). Add a word when a toolchain fix changes the
 # code of every package; never remove one.
