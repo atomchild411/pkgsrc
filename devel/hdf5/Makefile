@@ -9,7 +9,7 @@ INSTALLATION_DIRS+=	share/examples/hdf5/c
 USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 
 .include "Makefile.common"
-PKGREVISION=	1
+PKGREVISION=	2
 .include "options.mk"
 
 #SUBST_FILES.unwrap+=	${DESTDIR}${PREFIX}/bin/h5cc

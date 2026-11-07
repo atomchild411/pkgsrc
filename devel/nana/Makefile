@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.18 2021/04/21 08:33:50 wiz Exp $
 
 DISTNAME=	nana-2.4
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	# ftp://ftp.cs.ntu.edu.au/pub/nana/
 

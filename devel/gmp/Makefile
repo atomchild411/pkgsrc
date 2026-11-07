@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.93 2025/05/22 09:45:47 nia Exp $
 
 DISTNAME=	gmp-6.3.0
+PKGREVISION=	1
 CATEGORIES=	devel math
 MASTER_SITES=	https://gmplib.org/download/gmp/
 MASTER_SITES+=	${MASTER_SITE_GNU:=gmp/}

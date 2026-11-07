@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.9 2026/02/10 08:12:00 wiz Exp $
 
 DISTNAME=	sundials-4.1.0
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	math
 #MASTER_SITES=	https://computation.llnl.gov/projects/sundials/download/
 

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2017/07/30 22:32:24 wiz Exp $
 
 DISTNAME=	fast-stemmer-1.0.2
+PKGREVISION=	1
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME}
 CATEGORIES=	textproc
 

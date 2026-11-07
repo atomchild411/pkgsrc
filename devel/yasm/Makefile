@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.37 2026/02/22 08:16:32 wiz Exp $
 
 DISTNAME=	yasm-1.3.0
+PKGREVISION=	1
 CATEGORIES=	devel
 #MASTER_SITES=	http://www.tortall.net/projects/yasm/releases/
 

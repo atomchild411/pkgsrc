@@ -2,7 +2,7 @@
 
 DISTNAME=	editorconfig-core-c-0.12.6
 PKGNAME=	${DISTNAME:S/c-//}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=editorconfig/}
 GITHUB_PROJECT=	editorconfig-core-c

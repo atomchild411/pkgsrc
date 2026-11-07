@@ -4,6 +4,7 @@
 .include "../../textproc/mecab/Makefile.common"
 
 DISTNAME=		mecab-${MECAB_VERSION}
+PKGREVISION=	1
 PKGNAME=		mecab-base-${MECAB_VERSION}
 
 COMMENT=		Yet Another Part-of-Speech and Morphological Analyzer

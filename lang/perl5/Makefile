@@ -3,7 +3,7 @@
 .include "license.mk"
 .include "Makefile.common"
 
-PKGREVISION=	6
+PKGREVISION=	7
 
 COMMENT=	Practical Extraction and Report Language
 

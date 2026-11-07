@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.50 2025/03/30 21:10:42 wiz Exp $
 
 DISTNAME=	mk-configure-0.40.0
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mk-configure/}
 

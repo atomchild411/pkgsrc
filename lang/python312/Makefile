@@ -3,6 +3,7 @@
 .include "dist.mk"
 
 PKGNAME=	python312-${PY_DISTVERSION}
+PKGREVISION=	1
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

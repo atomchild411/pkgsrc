@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2025/09/21 21:22:38 wiz Exp $
 
 DISTNAME=	verilog-12.0
+PKGREVISION=	1
 # There is confision in naming of this software, use iverilog as it's saner
 PKGNAME=	i${DISTNAME}
 CATEGORIES=	cad

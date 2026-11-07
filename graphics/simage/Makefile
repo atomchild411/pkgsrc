@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.40 2026/07/13 04:36:05 wiz Exp $
 
 DISTNAME=		simage-1.8.3
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_GITHUB:=coin3d/}
 GITHUB_PROJECT=		simage

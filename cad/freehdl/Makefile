@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.16 2023/12/23 01:53:45 zafer Exp $
 
 DISTNAME=	freehdl-0.0.7
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	cad
 MASTER_SITES=	#
 

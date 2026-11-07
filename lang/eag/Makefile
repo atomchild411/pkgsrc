@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.16 2025/08/25 08:35:08 wiz Exp $
 
 DISTNAME=		eag-2.6
+PKGREVISION=	1
 CATEGORIES=		lang
 MASTER_SITES=		ftp://ftp.cs.ru.nl/pub/eag/
 EXTRACT_SUFX=		.tgz

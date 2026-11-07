@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.22 2026/01/22 08:45:49 wiz Exp $
 
 DISTNAME=	ppl-1.2
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	math
 MASTER_SITES=	#
 

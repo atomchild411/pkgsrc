@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	sci-0.5.6
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	misc
 MASTER_SITES=	http://linuxparts.com/
 

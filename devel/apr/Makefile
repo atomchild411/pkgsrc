@@ -4,7 +4,7 @@
 # which cause GNATS indigestion.
 
 DISTNAME=	apr-1.7.6
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_APACHE:=apr/}
 EXTRACT_SUFX=	.tar.bz2

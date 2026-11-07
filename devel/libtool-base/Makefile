@@ -31,7 +31,7 @@
 .include "../../devel/libtool/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-/-base-/}
-PKGREVISION=	1
+PKGREVISION=	2
 
 COMMENT=	Generic shared library support script (the script itself)
 

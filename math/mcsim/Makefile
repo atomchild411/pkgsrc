@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.25 2021/06/01 09:12:26 wiz Exp $
 
 DISTNAME=	mcsim-5.4.0
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	math
 MASTER_SITES=	${MASTER_SITE_GNU:=mcsim/}
 

@@ -2,7 +2,7 @@
 
 CONFLICTS+=		bacula-client-[0-9]* bacula-clientonly-[0-9]* bareos-[0-9]* bareos-clientonly-[0-9]*
 
-PKGREVISION= 2
+PKGREVISION= 3
 .include "options.mk"
 
 PLIST_SRC=		PLIST.common

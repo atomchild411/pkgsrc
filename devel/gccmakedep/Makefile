@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2026/07/12 20:08:35 wiz Exp $
 
 DISTNAME=	gccmakedep-1.0.5
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_XORG:=util/}
 EXTRACT_SUFX=	.tar.xz

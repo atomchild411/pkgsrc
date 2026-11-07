@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.15 2026/08/07 09:14:56 adam Exp $
 
 DISTNAME=	guile-3.0.11
+PKGREVISION=	1
 PKGNAME=	${DISTNAME:S/guile/guile30/}
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=guile/}
