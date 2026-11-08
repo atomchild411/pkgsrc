@@ -1,7 +1,7 @@
 # $NetBSD$
 
 DISTNAME=	irix-gl-compat-20261017
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	# none
 DISTFILES=	# none
@@ -31,7 +31,11 @@ do-extract:
 #   first object loaded that defines it; pkgsrc's Xlib must come first, or
 #   XOpenDisplay goes to IRIX's and hangs;
 # - IRIX's libGL needs "libXext.so" for _XSGISetSpecialDestroyHandler and
-#   XSGIMiscQueryExtension, which ${PREFIX}/lib/libXext.so would shadow.
+#   XSGIMiscQueryExtension, which ${PREFIX}/lib/libXext.so would shadow;
+# - IRIX's libXext also has the old MIT-SCREEN-SAVER and Xinerama clients
+#   (XScreenSaverQuery*, XPanoramiX*), built for IRIX's Xlib: loaded before
+#   pkgsrc's libXss and libXinerama, it took their calls (SDL2 sent a request
+#   with opcode 0: BadRequest). Load pkgsrc's two first as well.
 # The stubs only give the DT_NEEDED entries their absolute paths. The
 # buildlink3.mk keeps this libGL.so out of builds, which link IRIX's.
 do-build:
@@ -44,7 +48,8 @@ do-build:
 	${CC} -shared -Wl,-soname,/usr/lib32/libGL.so -o stub-GL.so empty.c && \
 	${CC} ${CFLAGS} ${LDFLAGS} -fPIC -shared -Wl,-soname,libGLshim.so	\
 		-Wl,--no-as-needed -o libGL-shim.so empty.c		\
-		-l:libX11.so.6 -l:libXext.so.6 ./stub-Xext.so ./stub-GL.so
+		-l:libX11.so.6 -l:libXext.so.6 -l:libXss.so.1		\
+		-l:libXinerama.so.1 ./stub-Xext.so ./stub-GL.so
 
 do-install:
 	${INSTALL_LIB} ${WRKSRC}/libGLcompat.so.1 ${DESTDIR}${PREFIX}/lib
@@ -52,6 +57,8 @@ do-install:
 	${INSTALL_LIB} ${WRKSRC}/libGL-shim.so ${DESTDIR}${PREFIX}/lib/libGL.so
 
 .include "../../x11/libX11/buildlink3.mk"
+.include "../../x11/libXScrnSaver/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
+.include "../../x11/libXinerama/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"
