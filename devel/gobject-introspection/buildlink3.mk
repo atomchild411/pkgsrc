@@ -13,6 +13,15 @@ BUILDLINK_TREE+=	gobject-introspection
 .if !defined(GOBJECT_INTROSPECTION_BUILDLINK3_MK)
 GOBJECT_INTROSPECTION_BUILDLINK3_MK:=
 
+# Cross introspection: the target's g-ir-compiler runs on the target (the
+# IRIX build bridge) and reads the GLib GIRs (GLib, GObject, Gio, GModule)
+# from the build's own target prefix, so they must be installed there as a
+# target package; the build host's (TOOL_DEPENDS) describe the wrong
+# platform and are not where it looks.
+.if ${USE_CROSS_COMPILE:U:tl} == "yes" && ${PKGPATH} != "devel/glib2-introspection"
+BUILD_DEPENDS+=	glib2-introspection-[0-9]*:../../devel/glib2-introspection
+.endif
+
 BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=0.6.14nb1
 BUILDLINK_ABI_DEPENDS.gobject-introspection+=	gobject-introspection>=1.86.0nb4
 BUILDLINK_PKGSRCDIR.gobject-introspection?=	../../devel/gobject-introspection
