@@ -1,0 +1,14 @@
+$NetBSD$
+
+IRIX joystick driver (src/joystick/irix).
+
+--- include/SDL_config.h.in.orig
++++ include/SDL_config.h.in
+@@ -328,6 +328,7 @@
+ #undef SDL_JOYSTICK_IOKIT
+ #undef SDL_JOYSTICK_MFI
+ #undef SDL_JOYSTICK_LINUX
++#undef SDL_JOYSTICK_IRIX
+ #undef SDL_JOYSTICK_ANDROID
+ #undef SDL_JOYSTICK_OS2
+ #undef SDL_JOYSTICK_USBHID

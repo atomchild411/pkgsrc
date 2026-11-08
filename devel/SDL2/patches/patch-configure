@@ -1,9 +1,10 @@
 $NetBSD$
 
-IRIX builds as a generic Unix.
+IRIX builds as a generic Unix, with the IRIX joystick driver
+(src/joystick/irix, revenir's evdev gamepads).
 
---- configure.orig	2026-10-02 13:54:32.075625211 +0000
-+++ configure	2026-10-02 13:54:32.095625534 +0000
+--- configure.orig
++++ configure
 @@ -28633,7 +28633,7 @@
  have_locale=no
  
@@ -21,3 +22,17 @@ IRIX builds as a generic Unix.
              *-*-nto*)           ARCH=nto
                  CheckQNXVideo
                  ;;
+@@ -28810,6 +28811,13 @@
+         # Set up files for the joystick library
+         if test x$enable_joystick = xyes; then
+           case $ARCH in
++            irix)
++
++printf "%s\n" "#define SDL_JOYSTICK_IRIX 1" >>confdefs.h
++
++                SOURCES="$SOURCES $srcdir/src/joystick/irix/*.c"
++                have_joystick=yes
++            ;;
+             linux)
+                 if test "x$ac_cv_header_linux_input_h" = xyes; then
+ 
