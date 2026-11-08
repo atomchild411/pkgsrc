@@ -8,3 +8,4 @@ SHA1 (patch-ab) = 088af3cc9c6ef53474ed7934a62d967bfd8362c0
 SHA1 (patch-ac) = bd2348dcb273de09ddc09da906c93de6cc209c5c
 SHA1 (patch-etc_lua.pc) = 24311df8dbfc09b97d5b89ea03f211d9c1339d93
 SHA1 (patch-src_ldo.c) = b8497508648b123c22cb7261fc63244b13298618
+SHA1 (patch-src_lobject.c) = 8182acb99df5872c1ae5114f65e24dc9375f2675
