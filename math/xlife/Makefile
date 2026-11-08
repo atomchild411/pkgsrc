@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	xlife-5.0
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	math games
 MASTER_SITES=	http://www.catb.org/~esr/
 
