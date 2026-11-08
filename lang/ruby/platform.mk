@@ -137,6 +137,9 @@ CONFIGURE_ENV.SunOS+=	OBJCOPY=:
 CONFIGURE_ENV.IRIX+=	LDSHARED="${CC} -shared"
 # IRIX's IPv6 API is incomplete (no sin6_scope_id); build without it.
 CONFIGURE_ARGS.IRIX+=	--disable-ipv6
+# IRIX's realpath(3) has no allocating form (realpath(path, NULL) gives
+# EINVAL), which Ruby's File.realpath uses: Ruby's own implementation.
+CONFIGURE_ENV.IRIX+=	ac_cv_func_realpath=no
 
 #
 # Cross builds: ext/socket cannot run its test of whether recvmsg() with
