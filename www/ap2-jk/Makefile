@@ -50,6 +50,11 @@ SUBST_NOOP_OK.jk-shlt=	yes
 GNU_CONFIGURE_APXS2=	no
 CONFIGURE_ARGS+=	--with-apxs=${APXS:Q}
 
+# The installed Apache's config_vars.mk names the compiler as IRIX knows it
+# ("clang"); a cross build's libtool knows only the cross compiler's name
+# and cannot infer a tag for "clang".
+MAKE_FLAGS.IRIX+=	CC=${CC:Q}
+
 .if defined(JK_ENABLE_JNI)
 USE_JAVA=		yes
 CONFIGURE_ARGS+=	--enable-jni

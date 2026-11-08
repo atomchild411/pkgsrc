@@ -20,5 +20,10 @@ CONFIGURE_ENV+=		APXS=${APXS:Q}
 MAKE_FLAGS+=		LIBTOOL=${LIBTOOL:Q}
 MAKE_FLAGS+=		INCLUDES="-I${BUILDLINK_PREFIX.apache}/include/httpd"
 
+# The installed Apache's config_vars.mk names the compiler as IRIX knows it
+# ("clang"); a cross build's libtool knows only the cross compiler's name
+# and cannot infer a tag for "clang".
+MAKE_FLAGS.IRIX+=	CC=${CC:Q}
+
 .include "../../mk/apache.mk"
 .include "../../mk/bsd.pkg.mk"

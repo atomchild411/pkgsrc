@@ -15,6 +15,9 @@ BUILDLINK_FILES.apache+=	sbin/apxs
 # apxs is a Perl script for the target's perl: run it with the build
 # machine's (the target paths it reads are there in a cross build).
 # (BUILDLINK_DIR is not set yet here: only the commands may use it.)
+# The installed config_vars.mk names the target's compiler as the target
+# knows it ("clang"); the build's libtool is configured for the cross
+# compiler's name and cannot infer a tag for "clang", so name it to apxs.
 APXS?=			${BUILDLINK_DIR}/bin/apxs
 buildlink-apache-cookie: buildlink-apache-apxs
 .PHONY: buildlink-apache-apxs
@@ -22,7 +25,7 @@ buildlink-apache-apxs: buildlink-directories
 	${MKDIR} ${BUILDLINK_DIR}/bin
 	{ ${ECHO} '#!/bin/sh'; \
 	  ${ECHO} '# Apache 2 apxs (STANDARD20): configures grep apxs for that.'; \
-	  ${ECHO} 'exec ${TOOLS_PATH.perl} ${BUILDLINK_PREFIX.apache}/bin/apxs "$$@"'; \
+	  ${ECHO} 'exec ${TOOLS_PATH.perl} ${BUILDLINK_PREFIX.apache}/bin/apxs -S CC=${CC:Q} "$$@"'; \
 	} > ${BUILDLINK_DIR}/bin/apxs
 	${CHMOD} +x ${BUILDLINK_DIR}/bin/apxs
 .else
