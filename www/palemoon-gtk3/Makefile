@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.6 2026/09/02 19:05:01 wiz Exp $
+# $NetBSD: Makefile,v 1.6.2.2 2026/10/24 12:40:09 bsiegert Exp $
 
 PM_GTK_VER=	3
 
-PKGREVISION= 1
 .include "../../www/palemoon/Makefile.common"
 .include "../../www/palemoon/hacks.mk"
 
 PKGNAME=	palemoon-gtk3-${PM_VER}
+PKGREVISION=	1
 
 CONFLICTS+=	palemoon-[0-9]*
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.26 2026/09/02 19:03:13 wiz Exp $
+# $NetBSD: Makefile,v 1.26.2.1 2026/10/20 23:16:19 maya Exp $
 
 #
 # We can't omit PKGNAME here to handle PKG_OPTIONS.

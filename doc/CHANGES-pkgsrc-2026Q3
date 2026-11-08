@@ -1,4 +1,86 @@
-$NetBSD: CHANGES-pkgsrc-2026Q3,v 1.1.2.1 2026/09/21 18:40:10 bsiegert Exp $
+$NetBSD: CHANGES-pkgsrc-2026Q3,v 1.1.2.8 2026/11/07 17:12:13 maya Exp $
 
 Changes to packages and infrastructure on the pkgsrc-2026Q3 branch:
 
+Pullup ticket #7248 - requested by bouyer
+net/nagstamon: bugfix
+
+Pullup ticket #7249 - requested by pin
+emulators/jgenesis: build fix
+
+Pullup ticket #7250 - requested by taca
+net/net-snmp: security fix
+net/py-netsnmp: security fix
+
+Pullup ticket #7251 - requested by taca
+textproc/expat: security fix
+
+Pullup ticket #7252 - requested by taca
+www/wordpress: security fix
+
+Pullup ticket #7253 - requested by taca
+www/php-ja-wordpress: security fix
+
+Pullup ticket #7255 - requested by nia
+www/palemoon: security fix
+
+Pullup ticket #7259 - requested by gutteridge
+www/firefox140: security fix
+www/firefox140-l10n: dependent update
+
+Pullup ticket #7260 - requested by gutteridge
+www/firefox153: security fix
+www/firefox153-l10n: dependent update
+
+Pullup ticket #7257 - requested by he
+net/tacacs: security fix
+
+Pullup ticket #7258 - requested by he
+security/openssh: reliability fix
+
+Pullup ticket #7261 - requested by taca
+devel/pcre2: build fix, security fix
+
+Pullup ticket #7262 - requested by taca
+graphics/png: security fix
+
+Pullup ticket #7263 - requested by taca
+security/openssl: security fix
+
+Pullup ticket #7264 - requested by taca
+www/apache24: security fix
+
+Pullup ticket #7316 - requested by nia
+www/basilisk: security fix (compromised certificates)
+
+Pullup ticket #7318 - requested by nia
+www/palemoon: security fix (compromised certificates)
+
+Pullup ticket #7322 - requested by maya
+archivers/brotli: security fix
+lang/nodejs: security fix
+lang/nodejs22: security fix
+lang/nodejs24: security fix
+
+Pullup ticket #7323 - requested by kim
+www/nginx: security fix
+
+Pullup ticket #7324 - requested by kim
+net/unbound: security fix
+
+Pullup ticket #7325 - requested by taca
+net/arpwatch: NetBSD build fix
+
+Pullup ticket #7326 - requested by gutteridge
+www/firefox153: security fix
+www/firefox153-l10n: dependent update
+
+Pullup ticket #7328 - requested by bsiegert
+graphics/lerc: Security fix
+
+Pullup ticket #7329 - requested by bouyer
+sysutils/xentools420: Security fix
+sysutils/xenkernel420: Security fix
+
+Pullup ticket #7330 - requested by bsiegert
+textproc/expat: Security fix

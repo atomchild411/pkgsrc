@@ -1,30 +1,34 @@
-$NetBSD: distinfo,v 1.47 2026/08/08 11:59:00 nia Exp $
+$NetBSD: distinfo,v 1.47.2.3 2026/10/24 12:40:09 bsiegert Exp $
 
-BLAKE2s (palemoon-34.3.2/icudt78b.dat.gz) = f7414c79346600686ea9e0660e2604156b04cf655cb70e04915fdfd15f24ce93
-SHA512 (palemoon-34.3.2/icudt78b.dat.gz) = 5ea8779e6f8809cdd30662da7fc1f578274d8a9ea79ed0f2ae63807bb9ae0bcbe1f8302d4ba4d58d2997d46a3bcb10f0697288b16e19c7cfb5af288358cde314
-Size (palemoon-34.3.2/icudt78b.dat.gz) = 13078670 bytes
-BLAKE2s (palemoon-34.3.2/palemoon.tar.gz) = 1039f00343b04aace26179f59e2449399d04fc84046a022774d89c6406b083df
-SHA512 (palemoon-34.3.2/palemoon.tar.gz) = b86f9c2f2ee89d1d8522dd3598a4830e49fac74af5791d465ba5c89ded6f548a8ecda2d38d504f5c1d48bc059dad534164fab7f52cde11acf58209fbe9705935
-Size (palemoon-34.3.2/palemoon.tar.gz) = 5608890 bytes
-BLAKE2s (palemoon-34.3.2/uxp.tar.gz) = 4ae90594969720ee7afe92f1b0700f98070c1ea069026df0c6fef5dff2a5082e
-SHA512 (palemoon-34.3.2/uxp.tar.gz) = 5bdf6069e12daaa4c93428a9ab414675d3f41e193f8cb2ec5d1f44e4d1c51f393f0f557bd2e4bbbc2ab1156cce469a7e9acb3af5e348c284676f3a7682592a49
-Size (palemoon-34.3.2/uxp.tar.gz) = 283254992 bytes
+BLAKE2s (palemoon-35.0.2/icudt78b.dat.gz) = f7414c79346600686ea9e0660e2604156b04cf655cb70e04915fdfd15f24ce93
+SHA512 (palemoon-35.0.2/icudt78b.dat.gz) = 5ea8779e6f8809cdd30662da7fc1f578274d8a9ea79ed0f2ae63807bb9ae0bcbe1f8302d4ba4d58d2997d46a3bcb10f0697288b16e19c7cfb5af288358cde314
+Size (palemoon-35.0.2/icudt78b.dat.gz) = 13078670 bytes
+BLAKE2s (palemoon-35.0.2/palemoon.tar.gz) = 01bef9a4f7130c2bb918e313d3d5ac4b6ead8562e7b7ed03a6c29ca285d42a35
+SHA512 (palemoon-35.0.2/palemoon.tar.gz) = b63b93f2ea570d36088d97df977e0931764a513368681c10b4f672c983bee50662f8f46176d881f63dc719298516d2c0651843906355dc227233c1ec97525c1e
+Size (palemoon-35.0.2/palemoon.tar.gz) = 5618338 bytes
+BLAKE2s (palemoon-35.0.2/uxp.tar.gz) = 6adf90fbdf652b447cceac0f6d0cadc93fc9ab4265bc0c91276e2e4f0df3552a
+SHA512 (palemoon-35.0.2/uxp.tar.gz) = 16cca057e4d5e2f7395a0fcbfee178e9eb013d4f98b2c41292bd36c79cb6fc0fd8f02a4a2aa5d71842a7dd46233632e7d9ae22a4ab0c80d50d26a506cf2a5cb6
+Size (palemoon-35.0.2/uxp.tar.gz) = 282930416 bytes
 SHA1 (patch-palemoon_app_profile_palemoon.js) = 0687dccbb5adff1ee0ea71fef4ebd46174a434d4
 SHA1 (patch-platform__ipc__chromium__src__third__party__libevent__kqueue.c) = 4064ba31a324ed9fdcae64274b6a632be7d45fa0
-SHA1 (patch-platform_build_moz.build) = 7b45929d58ad0963423f7c859922df6d98413c67
+SHA1 (patch-platform_build_autoconf_compiler-opts.m4) = 070755db1960b1f42c98adcfcc32b0ee79ae0952
+SHA1 (patch-platform_build_moz.build) = 28a2d750b2d31bbbe94f207db89d74ce89f981f6
 SHA1 (patch-platform_gfx_angle_src_libANGLE_renderer_gl_glx_FunctionsGLX.cpp) = 502d79eb3ef41e08328bbac9fbb5048b96660bbb
 SHA1 (patch-platform_ipc_chromium_src_base_atomicops.h) = ab4b489e9f9c22a861a275924ef34a909d210828
 SHA1 (patch-platform_ipc_chromium_src_base_atomicops__internals__arm__gcc.h) = f33b6c391689c52d0a6855e29ff25d863a7f15e5
+SHA1 (patch-platform_js_src_jsprf.cpp) = 3138f6f658ab5af9fcb21e7766e6354b2c2162f6
 SHA1 (patch-platform_js_src_wasm_WasmSignalHandlers.cpp) = 3e3b1253c2ee86b815fc46a891395fe69be6364c
 SHA1 (patch-platform_media_ffvpx_libavutil_arm_bswap.h) = f4d4777533c2c307e1d544aaceaf544bae1bbe09
 SHA1 (patch-platform_media_libaom_config_linux_arm_config_aom__config.h) = 69ef22fe9892c2288accb6eb00b4533d8cee0299
 SHA1 (patch-platform_media_libcubeb_src_cubeb__sun.c) = ce27774d772d65fa60b6be5bee82fbe4f787f3d1
 SHA1 (patch-platform_media_libtheora_moz.build) = a7bad662dabb87c6a85542a4a50f8ed693064bc6
+SHA1 (patch-platform_media_libvpx_moz.build) = 06063c2b60141a5269ff1af169c9ea3ad9086984
 SHA1 (patch-platform_nsprpub_pr_include_md__netbsd.cfg) = 1dc06ad2dc49eb3297dc0651dce546cff6882f7b
 SHA1 (patch-platform_nsprpub_pr_include_md__netbsd.h) = 72de23f42dc38d9cfacf41776e53af613a0c4f19
 SHA1 (patch-platform_nsprpub_pr_include_private_pprthred.h) = eeee6714ba27e6465701bffbc404915ceb0c9e55
 SHA1 (patch-platform_nsprpub_pr_src_pthreads_ptsynch.c) = f99271490a983d0a1d101cb0d2b593a3987549d7
 SHA1 (patch-platform_nsprpub_pr_src_pthreads_ptthread.c) = a04b06e39c289ac32dfbb6cbd79b1d7ecf0b560d
+SHA1 (patch-platform_security_nss_lib_ckfw_builtins_certdata.txt) = e63cc2632fb39e74f85c7c56ff0f4c7464b407bd
 SHA1 (patch-platform_toolkit_components_protobuf_src_google_protobuf_stubs_atomicops.h) = 73b57772d29b0567c0aa1faea8a3f345dbc0488a
 SHA1 (patch-platform_toolkit_components_protobuf_src_google_protobuf_stubs_atomicops__internals__arm__gcc.h) = 2a5ccc95fb5860b1be97947f3aee8307f4a25bc1
 SHA1 (patch-platform_toolkit_xre_nsX11ErrorHandler.cpp) = 164d93a5b1aaeba15b524fdaef0483b4a9400ac1

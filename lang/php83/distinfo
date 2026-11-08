@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.36 2026/07/31 04:49:00 taca Exp $
+$NetBSD: distinfo,v 1.36.2.2 2026/10/21 14:47:58 maya Exp $
 
 BLAKE2s (php-8.3.36.tar.xz) = a402850847bf8573c5361c53843f5d56339adc367660a977ee19bfcc4fd02679
 SHA512 (php-8.3.36.tar.xz) = fe8dbd2ecd58026b8d636a1e0e48d369779eeecd13db28c6f25e831a4e3ff72fadb8c005dc6fab2da518ee199fc48f66aa95297e44f5e569078aa12c529f6039

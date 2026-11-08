@@ -1,4 +1,4 @@
-# $NetBSD: phpversion.mk,v 1.513 2026/08/28 15:19:43 taca Exp $
+# $NetBSD: phpversion.mk,v 1.513.2.8 2026/10/21 14:56:01 maya Exp $
 #
 # This file selects a PHP version, based on the user's preferences and
 # the installed packages. It does not add a dependency on the PHP
