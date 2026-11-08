@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.24 2023/10/24 22:10:15 wiz Exp $
 
 DISTNAME=	fetch-1.9
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	# empty
 DISTFILES=	# empty

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.70.4.1 2026/10/20 18:13:48 maya Exp $
 
 DISTNAME=	libfetch-2.40
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	net
 MASTER_SITES=	# empty
 DISTFILES=	# empty
