@@ -1,6 +1,7 @@
 $NetBSD: patch-phoronix-test-suite,v 1.2 2025/06/15 15:51:39 taca Exp $
 
-* Set pkgsrc's PHP.
+* Set pkgsrc's PHP (with its closing quote: without it the script
+  stopped with "syntax error: '"' unmatched").
 
 --- phoronix-test-suite.orig	2022-07-03 10:18:55.000000000 +0000
 +++ phoronix-test-suite
@@ -92,7 +93,7 @@ $NetBSD: patch-phoronix-test-suite,v 1.2 2025/06/15 15:51:39 taca Exp $
 -else
 -	export PHP_BIN=""
 -fi
-+PHP_BIN="@PREFIX@/bin/php@PHP_VER@
++PHP_BIN="@PREFIX@/bin/php@PHP_VER@"
  
  # Make sure PHP is installed
  if [ "X$PHP_BIN" = "X" ]

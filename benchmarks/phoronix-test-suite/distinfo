@@ -4,5 +4,5 @@ BLAKE2s (phoronix-test-suite-10.8.4.tar.gz) = 2e628e04ddad92b9e2dec359e0a70ff53f
 SHA512 (phoronix-test-suite-10.8.4.tar.gz) = 59c416540d2ece85748d4c645972fcc2058c58f961d31c8b4c916351df027fa0fb69dc18dbf8b20bc22bed34bb424944226dc89423e2ec5f84ca6d890881e845
 Size (phoronix-test-suite-10.8.4.tar.gz) = 4256978 bytes
 SHA1 (patch-install-sh) = deda422b3878170134296b99deb6bf306f2d11f9
-SHA1 (patch-phoronix-test-suite) = 181b650ce9a245d1fe38a4d80058bec131f7badd
+SHA1 (patch-phoronix-test-suite) = 280d83a2146de00209de3de9985a1d29fa19da55
 SHA1 (patch-pts-core_static_sample-pts-client-update-script.sh) = e611f5f776ee645e181a8939d71a09aed5279b0e

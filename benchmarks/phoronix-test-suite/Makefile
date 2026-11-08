@@ -3,7 +3,7 @@
 
 DISTNAME=	phoronix-test-suite-${PTS_VERSION}
 PTS_VERSION=	10.8.4
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	benchmarks
 MASTER_SITES=	${MASTER_SITE_GITHUB:=phoronix-test-suite/}
 GITHUB_PROJECT=	phoronix-test-suite
@@ -37,6 +37,13 @@ CHECK_INTERPRETER_SKIP+=	share/phoronix-test-suite/*
 WRKSRC=		${WRKDIR}/phoronix-test-suite
 
 ICON_THEMES=	yes
+
+.include "../../mk/bsd.prefs.mk"
+
+# IRIX has no mktemp(1); the launcher makes its script directory with it.
+.if ${OPSYS} == "IRIX"
+DEPENDS+=	mktemp-[0-9]*:../../sysutils/mktemp
+.endif
 
 PLIST_VARS+=	systemd
 
