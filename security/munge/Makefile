@@ -22,6 +22,10 @@ CONFIGURE_ARGS+=	--disable-silent-rules
 CONFIGURE_ARGS.IRIX+=	--without-sysvinitddir --without-logrotateddir
 CONFIGURE_ARGS.IRIX+=	--without-sysconfigdir
 CONFIGURE_ARGS.IRIX+=	--with-pkgconfigdir=${PREFIX}/lib/pkgconfig
+# IRIX authenticates through STREAMS fd passing over a FIFO (I_RECVFD):
+# configure's run test for it cannot be trusted in a cross build (the
+# build bridge's FIFOs are the build machine's), so give its answer.
+CONFIGURE_ENV.IRIX+=	x_ac_cv_check_fifo_recvfd=yes
 
 .include "../../mk/bsd.prefs.mk"
 
