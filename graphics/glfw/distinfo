@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.9 2026/02/02 23:25:12 wiz Exp $
 BLAKE2s (glfw-3.4.tar.gz) = 679985bd43142b0364d244308139b5dffc7d49addf1564fb2a65edb6229bc95a
 SHA512 (glfw-3.4.tar.gz) = 39ad7a4521267fbebc35d2ff0c389a56236ead5fa4bdff33db113bd302f70f5f2869ff4e6db1979512e1542813292dff5a482e94dfce231750f0746c301ae9ed
 Size (glfw-3.4.tar.gz) = 936948 bytes
+SHA1 (patch-src_glx__context.c) = 8c7e5b157c61153b7ebd1107a7ec206295dfae7b
