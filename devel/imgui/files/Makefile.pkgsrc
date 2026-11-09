@@ -1,0 +1,76 @@
+# Dear ImGui as libraries, static and shared (libtool), with pkg-config files:
+# libimgui (the core, the demo window and misc/cpp's std::string helpers) and
+# one library per back end. BSD make.
+
+PREFIX?=	/usr/pkg
+VERSION?=	0
+DESTDIR?=
+LIBTOOL?=	libtool
+CXX?=		c++
+INSTALL_DATA?=	${BSD_INSTALL_DATA}
+INSTALL_LIB?=	${BSD_INSTALL_LIB}
+INSTALL_DIR?=	${BSD_INSTALL_DATA_DIR}
+
+LIBS=		imgui imgui_impl_opengl2 imgui_impl_sdl2 imgui_impl_sdlrenderer2 imgui_impl_glfw
+SRCS.imgui=	imgui.cpp imgui_draw.cpp imgui_tables.cpp imgui_widgets.cpp \
+		imgui_demo.cpp imgui_stdlib.cpp
+SRCS.imgui_impl_opengl2=	imgui_impl_opengl2.cpp
+SRCS.imgui_impl_sdl2=		imgui_impl_sdl2.cpp
+SRCS.imgui_impl_sdlrenderer2=	imgui_impl_sdlrenderer2.cpp
+SRCS.imgui_impl_glfw=		imgui_impl_glfw.cpp
+LDADD.imgui=
+LDADD.imgui_impl_opengl2=	libimgui.la -lGL
+LDADD.imgui_impl_sdl2=		libimgui.la -lSDL2
+LDADD.imgui_impl_sdlrenderer2=	libimgui.la -lSDL2
+LDADD.imgui_impl_glfw=		libimgui.la -lglfw
+
+BACKENDS=	opengl2 sdl2 sdlrenderer2 glfw
+HEADERS=	imgui.h imconfig.h imgui_internal.h imstb_rectpack.h \
+		imstb_textedit.h imstb_truetype.h misc/cpp/imgui_stdlib.h
+.for b in ${BACKENDS}
+HEADERS+=	backends/imgui_impl_${b}.h
+BACKEND_SRCS+=	backends/imgui_impl_${b}.cpp
+.endfor
+PCS=		imgui.pc ${BACKENDS:S/^/imgui-/:S/$/.pc/}
+
+.PATH: ${.CURDIR}/backends ${.CURDIR}/misc/cpp
+
+.SUFFIXES: .cpp .lo
+.cpp.lo:
+	${LIBTOOL} --tag=CXX --mode=compile ${CXX} -I${.CURDIR} ${CPPFLAGS} ${CXXFLAGS} -c ${.IMPSRC} -o ${.TARGET}
+
+all: ${LIBS:S/^/lib/:S/$/.la/} ${PCS}
+
+.for l in ${LIBS}
+lib${l}.la: ${SRCS.${l}:.cpp=.lo}
+	${LIBTOOL} --tag=CXX --mode=link ${CXX} ${LDFLAGS} -o ${.TARGET} \
+	    ${SRCS.${l}:.cpp=.lo} ${LDADD.${l}} -rpath ${PREFIX}/lib -release ${VERSION}
+.endfor
+.for b in ${BACKENDS}
+libimgui_impl_${b}.la: libimgui.la
+.endfor
+
+PC_HEAD=	printf 'prefix=%s\nlibdir=$${prefix}/lib\nincludedir=$${prefix}/include/imgui\n\n'
+imgui.pc:
+	(${PC_HEAD} ${PREFIX}; \
+	 printf 'Name: imgui\nDescription: Dear ImGui, a graphical user interface library for C++\nVersion: %s\nCflags: -I$${includedir}\nLibs: -L$${libdir} -limgui\n' ${VERSION}) > ${.TARGET}
+PC_BACKEND=	printf 'Name: imgui-%s\nDescription: Dear ImGui back end: %s\nVersion: %s\nRequires: %s\nCflags: -I$${includedir}\nLibs: -L$${libdir} -limgui_impl_%s\nLibs.private: %s\n'
+imgui-opengl2.pc:
+	(${PC_HEAD} ${PREFIX}; ${PC_BACKEND} opengl2 "OpenGL 2 (fixed function)" ${VERSION} "imgui" opengl2 "-lGL") > ${.TARGET}
+imgui-sdl2.pc:
+	(${PC_HEAD} ${PREFIX}; ${PC_BACKEND} sdl2 "SDL2 platform" ${VERSION} "imgui sdl2" sdl2 "") > ${.TARGET}
+imgui-sdlrenderer2.pc:
+	(${PC_HEAD} ${PREFIX}; ${PC_BACKEND} sdlrenderer2 "SDL2 renderer" ${VERSION} "imgui sdl2" sdlrenderer2 "") > ${.TARGET}
+imgui-glfw.pc:
+	(${PC_HEAD} ${PREFIX}; ${PC_BACKEND} glfw "GLFW platform" ${VERSION} "imgui glfw3" glfw "") > ${.TARGET}
+
+install: all
+	${INSTALL_DIR} ${DESTDIR}${PREFIX}/lib/pkgconfig ${DESTDIR}${PREFIX}/include/imgui \
+	    ${DESTDIR}${PREFIX}/share/imgui/backends ${DESTDIR}${PREFIX}/share/doc/imgui
+.for l in ${LIBS}
+	${LIBTOOL} --mode=install ${INSTALL_LIB} lib${l}.la ${DESTDIR}${PREFIX}/lib
+.endfor
+	${INSTALL_DATA} ${PCS} ${DESTDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_DATA} ${HEADERS} ${DESTDIR}${PREFIX}/include/imgui
+	${INSTALL_DATA} ${BACKEND_SRCS} ${DESTDIR}${PREFIX}/share/imgui/backends
+	${INSTALL_DATA} LICENSE.txt ${DESTDIR}${PREFIX}/share/doc/imgui

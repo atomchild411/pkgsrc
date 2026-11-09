@@ -1,0 +1,8 @@
+$NetBSD$
+
+BLAKE2s (imgui-1.92.9b.tar.gz) = b66fc42dc992e9799f9fc1035073c3a9284900ec79f3530f8265dffff97ac24e
+SHA512 (imgui-1.92.9b.tar.gz) = 1a8fc7e4d7fe8926289ed9598f39dd5b601baffa3b2a7a0889ed0f9a8f252c85710f4ba65b2a6801bb5b46a17d1fd30b5542e11f67b8989c6640b498ef68bb2d
+Size (imgui-1.92.9b.tar.gz) = 2123074 bytes
+SHA1 (patch-backends_imgui__impl__opengl2.cpp) = ba2fcd401ff931dc5131c72b2bf0b26b37afb072
+SHA1 (patch-imconfig.h) = 9049858dd15f285503f5990be563c0b2ed7d0246
+SHA1 (patch-imgui.h) = 04bfafb01f62d7207b59367e34e5ff491a158a97

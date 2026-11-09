@@ -1,0 +1,13 @@
+Dear ImGui is a bloat-free graphical user interface library for C++. It
+outputs optimized vertex buffers that you can render anytime in your
+3D-pipeline-enabled application. It is fast, portable, renderer agnostic,
+and self-contained (no external dependencies).
+
+This package builds it as libraries, static and shared, with pkg-config
+files: libimgui (the core, the demo window and the std::string helpers)
+and one library per back end: OpenGL 2 (fixed function), SDL2 (platform
+and renderer) and GLFW. The back ends' sources are installed too, in
+share/imgui/backends, for programs that compile their own.
+
+ImWchar is 32 bits wide (IMGUI_USE_WCHAR32), so text beyond Unicode's
+Basic Multilingual Plane, such as emoji, can be shown.

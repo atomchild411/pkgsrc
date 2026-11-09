@@ -1,0 +1,27 @@
+@comment $NetBSD$
+include/imgui/imconfig.h
+include/imgui/imgui.h
+include/imgui/imgui_impl_glfw.h
+include/imgui/imgui_impl_opengl2.h
+include/imgui/imgui_impl_sdl2.h
+include/imgui/imgui_impl_sdlrenderer2.h
+include/imgui/imgui_internal.h
+include/imgui/imgui_stdlib.h
+include/imgui/imstb_rectpack.h
+include/imgui/imstb_textedit.h
+include/imgui/imstb_truetype.h
+lib/libimgui.la
+lib/libimgui_impl_glfw.la
+lib/libimgui_impl_opengl2.la
+lib/libimgui_impl_sdl2.la
+lib/libimgui_impl_sdlrenderer2.la
+lib/pkgconfig/imgui-glfw.pc
+lib/pkgconfig/imgui-opengl2.pc
+lib/pkgconfig/imgui-sdl2.pc
+lib/pkgconfig/imgui-sdlrenderer2.pc
+lib/pkgconfig/imgui.pc
+share/doc/imgui/LICENSE.txt
+share/imgui/backends/imgui_impl_glfw.cpp
+share/imgui/backends/imgui_impl_opengl2.cpp
+share/imgui/backends/imgui_impl_sdl2.cpp
+share/imgui/backends/imgui_impl_sdlrenderer2.cpp

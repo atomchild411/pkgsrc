@@ -871,6 +871,7 @@ SUBDIR+=	iaito
 SUBDIR+=	icestorm
 SUBDIR+=	idiff
 SUBDIR+=	idutils
+SUBDIR+=	imgui
 SUBDIR+=	imake
 SUBDIR+=	immer
 SUBDIR+=	imsg-compat
