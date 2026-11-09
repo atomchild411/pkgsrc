@@ -1,0 +1,15 @@
+$NetBSD$
+
+idSIMD_Revenir: under revenir, the generic SIMD code's hot spots on the
+host CPU's SIMD (revenir's syssgi math door); elsewhere not used.
+
+--- neo/CMakeLists.txt.orig
++++ neo/CMakeLists.txt
+@@ -773,6 +773,7 @@
+ 	idlib/math/Rotation.cpp
+ 	idlib/math/Simd.cpp
+ 	idlib/math/Simd_Generic.cpp
++	idlib/math/Simd_Revenir.cpp
+ 	idlib/math/Simd_AltiVec.cpp
+ 	idlib/math/Simd_MMX.cpp
+ 	idlib/math/Simd_3DNow.cpp

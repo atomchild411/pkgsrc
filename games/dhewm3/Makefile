@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.44 2026/09/02 19:02:08 wiz Exp $
 
 DISTNAME=	dhewm3-1.5.4
-PKGREVISION=	12
+PKGREVISION=	13
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GITHUB:=dhewm/}
 GITHUB_PROJECT=	dhewm3
@@ -32,6 +32,10 @@ CXXFLAGS+=	-DIOAPI_NO_64
 
 INSTALLATION_DIRS+=	share/applications
 INSTALLATION_DIRS+=	share/pixmaps
+
+post-extract:
+	${CP} ${FILESDIR}/Simd_Revenir.cpp ${FILESDIR}/Simd_Revenir.h \
+	    ${WRKSRC}/neo/idlib/math/
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/neo/sys/linux/setup/image/doom3.png \
