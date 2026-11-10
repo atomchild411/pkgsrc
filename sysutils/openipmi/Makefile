@@ -2,7 +2,7 @@
 
 DISTNAME=	OpenIPMI-2.0.32
 PKGNAME=	${DISTNAME:S/OpenIPMI/openipmi/}
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	sysutils
 MASTER_SITES=	https://sourceforge.net/projects/openipmi/files/OpenIPMI%202.0%20Library/
 

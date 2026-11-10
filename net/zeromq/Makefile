@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.36 2024/08/21 11:51:20 markd Exp $
 
 DISTNAME=	zeromq-4.3.5
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=zeromq/}
 GITHUB_PROJECT=	libzmq

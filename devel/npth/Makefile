@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.10 2024/11/26 11:53:30 adam Exp $
 
 DISTNAME=	npth-1.8
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://gnupg.org/ftp/gcrypt/npth/
 EXTRACT_SUFX=	.tar.bz2

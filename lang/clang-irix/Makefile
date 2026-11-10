@@ -35,8 +35,10 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # nb45: llvm-readelf, as LLVM installs it (llvm-readobj, GNU style by
 # that name): what installed files name for readelf.
 # nb46: spin locks are libpthread's where IRIX has them (6.5.30); the
-# mutex-based ones are __irix_pthread_spin_* (iris/main b19704a6ee).
-PKGREVISION=	46
+# mutex-based ones are __irix_pthread_spin_* (iris/main dbbe9a9c4f).
+# nb47: pselect fails with EINTR for the signals it unblocks, as the real
+# one does, instead of sleeping on (iris/main 9025898d71).
+PKGREVISION=	47
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
