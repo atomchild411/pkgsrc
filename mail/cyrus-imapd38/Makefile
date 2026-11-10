@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2026/07/26 02:57:02 mef Exp $
 
 DISTNAME=	cyrus-imapd-3.8.6
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_GITHUB:=cyrusimap/}
 GITHUB_TAG=	${PKGNAME_NOREV}
@@ -24,6 +24,12 @@ USE_LIBTOOL=		yes
 BUILD_DEFS+=		VARBASE
 
 CHECK_PORTABILITY_SKIP=	configure.lineno
+
+# IRIX has no pselect(); the toolchain's stand-in (sigprocmask, select,
+# sigprocmask) is not atomic, and IRIX restarts select() after an
+# SA_RESTART handler, so a signal meant to end the wait could leave it
+# sleeping (gmake -j hung that way). Use the code for systems without it.
+CONFIGURE_ARGS.IRIX+=	ac_cv_func_pselect=no
 
 .include "../../mk/bsd.prefs.mk"
 
