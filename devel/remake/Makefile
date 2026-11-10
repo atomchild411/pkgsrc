@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.7 2025/03/30 21:10:42 wiz Exp $
 
 DISTNAME=	remake-4.3+dbg-1.6
+PKGREVISION=	1
 # upstream titles it 4.3.1
 PKGNAME=	remake-4.3.1+dbg-1.6
 CATEGORIES=	devel
@@ -34,6 +35,12 @@ post-install:
 
 # \todo: most of this package could probably be shorter if
 # gmake had a Makefile file to re-use.
+
+# IRIX has no pselect(); the toolchain's stand-in (sigprocmask, select,
+# sigprocmask) is not atomic, and IRIX restarts select() after an
+# SA_RESTART handler, so a signal meant to end the wait could leave it
+# sleeping (gmake -j hung that way). Use the code for systems without it.
+CONFIGURE_ARGS.IRIX+=	ac_cv_func_pselect=no
 
 .include "options.mk"
 
