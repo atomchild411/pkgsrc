@@ -9,3 +9,8 @@ glXGetProcAddressARB finds one, under its name or its core or ARB/EXT
 twin, and otherwise does nothing (programs check the extension string
 or version first). pkgsrc links it after libGL on IRIX, so a libGL that
 exports a function itself still provides it.
+
+lib/pkgconfig/gl.pc is for programs built outside pkgsrc: pkg-config
+--libs gl gives IRIX's libGL and libGLcore by path, then libGLcompat.
+(-lGL with -L/usr/pkg/lib would link lib/libGL.so, the run-time shim
+that makes IRIX's libGL work with pkgsrc's X11.)

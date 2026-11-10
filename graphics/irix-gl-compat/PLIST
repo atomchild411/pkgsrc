@@ -2,3 +2,4 @@
 lib/libGL.so
 lib/libGLcompat.so
 lib/libGLcompat.so.1
+lib/pkgconfig/gl.pc

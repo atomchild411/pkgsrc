@@ -1,7 +1,7 @@
 # $NetBSD$
 
 DISTNAME=	irix-gl-compat-20261017
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	graphics
 MASTER_SITES=	# none
 DISTFILES=	# none
@@ -16,7 +16,7 @@ NO_CONFIGURE=	yes
 USE_LANGUAGES=	c
 WRKSRC=		${WRKDIR}
 
-INSTALLATION_DIRS=	lib
+INSTALLATION_DIRS=	lib lib/pkgconfig
 
 # Links against IRIX's own libGL and libGLcore (the sysroot's), not
 # through MesaLib's buildlink3.mk, which adds this library to -lGL.
@@ -55,6 +55,8 @@ do-install:
 	${INSTALL_LIB} ${WRKSRC}/libGLcompat.so.1 ${DESTDIR}${PREFIX}/lib
 	${LN} -sf libGLcompat.so.1 ${DESTDIR}${PREFIX}/lib/libGLcompat.so
 	${INSTALL_LIB} ${WRKSRC}/libGL-shim.so ${DESTDIR}${PREFIX}/lib/libGL.so
+	${SED} -e 's|@PREFIX@|${PREFIX}|g' ${FILESDIR}/gl.pc.in \
+	    > ${DESTDIR}${PREFIX}/lib/pkgconfig/gl.pc
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXScrnSaver/buildlink3.mk"

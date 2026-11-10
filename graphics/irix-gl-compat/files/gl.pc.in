@@ -1,0 +1,16 @@
+# OpenGL on IRIX for programs built outside pkgsrc: IRIX's libGL and
+# libGLcore, linked by path, then irix-gl-compat's libGLcompat.
+#
+# Not -lGL: with -L@PREFIX@/lib first that finds @PREFIX@/lib/libGL.so, the
+# run-time shim, which defines no functions and whose internal name
+# (libGLshim.so) a program then can't find when it starts. Linked by path,
+# the program asks for libGL.so, and at run time its RPATH still loads the
+# shim first, as for programs built in pkgsrc.
+prefix=@PREFIX@
+libdir=${prefix}/lib
+
+Name: gl
+Description: IRIX OpenGL (SGI libGL) with irix-gl-compat's later entry points
+Version: 1.2
+Libs: /usr/lib32/libGL.so /usr/lib32/libGLcore.so -L${libdir} -Wl,-rpath,${libdir} -lGLcompat
+Cflags:
