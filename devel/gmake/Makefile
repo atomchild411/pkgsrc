@@ -2,7 +2,7 @@
 
 DISTNAME=	make-4.4.1
 PKGNAME=	g${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=make/}
 
@@ -54,6 +54,15 @@ SUBST_CLASSES+=		strlist
 SUBST_STAGE.strlist=	pre-configure
 SUBST_FILES.strlist=	src/main.c
 SUBST_SED.strlist=	-e 's/strlist/strlist_make/g'
+.endif
+
+.if ${OPSYS} == "IRIX"
+# IRIX has no pselect(); the toolchain's stand-in (sigprocmask, select,
+# sigprocmask) is not atomic, and IRIX restarts select() after make's
+# SA_RESTART SIGCHLD handler: gmake -jN hung after its first N jobs.
+# Without pselect, make waits on a dup of the jobserver pipe that its
+# SIGCHLD handler closes, which works.
+CONFIGURE_ENV+=	ac_cv_func_pselect=no
 .endif
 
 .include "options.mk"
