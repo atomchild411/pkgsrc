@@ -4,3 +4,5 @@ BLAKE2s (bullet-2.89.tar.gz) = c63a151b08f8640e21f50fe4a2fdde636d3f12a9c57e2e355
 SHA512 (bullet-2.89.tar.gz) = 3c4ba6a3b3623ef44dd4a23e0bc2e90dec1f2b7af463edcb886e110feac1dfb4a91945f0ed640052cac228318539e275976d37238102fb10a0f78aef065a730b
 Size (bullet-2.89.tar.gz) = 135742506 bytes
 SHA1 (patch-examples_ThirdPartyLibs_clsocket_src_SimpleSocket.cpp) = 8bc421fc08e3de5006966c8bb426b9ac2799eeaf
+SHA1 (patch-src_BulletDynamics_ConstraintSolver_btBatchedConstraints.cpp) = d32c40ad051e24385e05e9321f4ca1147bc9033b
+SHA1 (patch-src_LinearMath_TaskScheduler_btThreadSupportPosix.cpp) = 821f2a31f5b59e778e21702c3f793c082ff37345
