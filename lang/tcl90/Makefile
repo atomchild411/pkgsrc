@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2026/08/12 03:21:38 ryoon Exp $
 
 DISTNAME=	tcl${TCL_VERSION}-src
-PKGREVISION=	1
+PKGREVISION=	2
 PKGNAME=	tcl90-${TCL_VERSION}
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=tcl/}
@@ -70,6 +70,9 @@ MAKE_ENV.IRIX+=		ac_cv_func_pread64=no ac_cv_func_pwrite64=no
 TOOL_DEPENDS+=		tcl90-[0-9]*:../../lang/tcl90
 TCLSH_NATIVE=		${TOOLBASE}/${TCL_SUBDIR}/bin/tclsh${TCL_BASEVER}
 CONFIGURE_ENV+=		TCLSH_NATIVE=${TCLSH_NATIVE}
+# IRIX has no pselect(); the toolchain's stand-in is not atomic (see
+# devel/gmake). Without it the notifier thread keeps signals blocked.
+CONFIGURE_ENV.IRIX+=	tcl_cv_func_pselect=no
 MAKE_ENV+=		TCLSH_NATIVE=${TCLSH_NATIVE}
 .endif
 
