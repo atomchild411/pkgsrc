@@ -1,0 +1,38 @@
+# ImPlot as a library, static and shared (libtool), with a pkg-config file:
+# libimplot (the plots, the items and the demo window), linked against
+# devel/imgui's libimgui. BSD make.
+
+PREFIX?=	/usr/pkg
+VERSION?=	0
+DESTDIR?=
+LIBTOOL?=	libtool
+CXX?=		c++
+IMGUI_INCDIR?=	${PREFIX}/include/imgui
+INSTALL_DATA?=	${BSD_INSTALL_DATA}
+INSTALL_LIB?=	${BSD_INSTALL_LIB}
+INSTALL_DIR?=	${BSD_INSTALL_DATA_DIR}
+
+SRCS=		implot.cpp implot_items.cpp implot_demo.cpp
+HEADERS=	implot.h implot_internal.h
+
+.SUFFIXES: .cpp .lo
+.cpp.lo:
+	${LIBTOOL} --tag=CXX --mode=compile ${CXX} -I${.CURDIR} -I${IMGUI_INCDIR} ${CPPFLAGS} ${CXXFLAGS} -c ${.IMPSRC} -o ${.TARGET}
+
+all: libimplot.la implot.pc
+
+libimplot.la: ${SRCS:.cpp=.lo}
+	${LIBTOOL} --tag=CXX --mode=link ${CXX} ${LDFLAGS} -o ${.TARGET} \
+	    ${SRCS:.cpp=.lo} -limgui -rpath ${PREFIX}/lib -release ${VERSION}
+
+implot.pc:
+	(printf 'prefix=%s\nlibdir=$${prefix}/lib\nincludedir=$${prefix}/include/implot\n\n' ${PREFIX}; \
+	 printf 'Name: implot\nDescription: ImPlot, an immediate mode plotting library for Dear ImGui\nVersion: %s\nRequires: imgui\nCflags: -I$${includedir}\nLibs: -L$${libdir} -limplot\n' ${VERSION}) > ${.TARGET}
+
+install: all
+	${INSTALL_DIR} ${DESTDIR}${PREFIX}/lib/pkgconfig ${DESTDIR}${PREFIX}/include/implot \
+	    ${DESTDIR}${PREFIX}/share/doc/implot
+	${LIBTOOL} --mode=install ${INSTALL_LIB} libimplot.la ${DESTDIR}${PREFIX}/lib
+	${INSTALL_DATA} implot.pc ${DESTDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_DATA} ${HEADERS} ${DESTDIR}${PREFIX}/include/implot
+	${INSTALL_DATA} LICENSE ${DESTDIR}${PREFIX}/share/doc/implot

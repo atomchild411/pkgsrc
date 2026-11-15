@@ -1,0 +1,8 @@
+ImPlot is an immediate mode, GPU accelerated plotting library for Dear
+ImGui. It offers line, scatter, bar, shaded, stem, stair, error bar,
+heatmap, histogram, pie and digital plots, with pan, zoom, multiple axes,
+time axes, legends and drag tools, in the same style as ImGui's widgets.
+
+This package builds it as a library, static and shared, against the
+devel/imgui package, with a pkg-config file (implot, which requires
+imgui). The library includes the demo window, ImPlot::ShowDemoWindow().

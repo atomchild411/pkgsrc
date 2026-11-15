@@ -1,0 +1,6 @@
+@comment $NetBSD$
+include/implot/implot.h
+include/implot/implot_internal.h
+lib/libimplot.la
+lib/pkgconfig/implot.pc
+share/doc/implot/LICENSE
