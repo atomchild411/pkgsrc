@@ -2,7 +2,7 @@
 
 DISTNAME=	generator-0.35-cbiere-r4
 PKGNAME=	generator-cbiere-0.35r4
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	emulators
 #MASTER_SITES=	http://www.squish.net/generator/cbiere/generator/
 EXTRACT_SUFX=	.tar.bz2
@@ -28,6 +28,9 @@ CONFIGURE_ARGS+=	--with-sdl-audio
 
 .if ${MACHINE_ENDIAN} == "big"
 CFLAGS+=	-DBYTES_HIGHFIRST
+# configure skips AC_C_BIGENDIAN when cross-compiling and assumes little
+# endian; the program then refuses to start (WORDS_BIGENDIAN not set correctly).
+CFLAGS+=	-DWORDS_BIGENDIAN=1
 .endif
 
 INSTALLATION_DIRS=	bin
