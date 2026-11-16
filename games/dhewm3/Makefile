@@ -32,16 +32,20 @@ CXXFLAGS+=	-DIOAPI_NO_64
 
 INSTALLATION_DIRS+=	share/applications
 INSTALLATION_DIRS+=	share/pixmaps
+INSTALLATION_DIRS+=	share/dhewm3/base
 
 post-extract:
 	${CP} ${FILESDIR}/Simd_Revenir.cpp ${FILESDIR}/Simd_Revenir.h \
 	    ${WRKSRC}/neo/idlib/math/
 
+# The controller bindings are installed for "exec gamepad.cfg" (MESSAGE).
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/neo/sys/linux/setup/image/doom3.png \
 	    ${DESTDIR}${PREFIX}/share/pixmaps
 	${INSTALL_DATA} ${FILESDIR}/dhewm3.desktop \
 	    ${DESTDIR}${PREFIX}/share/applications
+	${INSTALL_DATA} ${WRKSRC}/base/gamepad.cfg ${WRKSRC}/base/gamepad-d3xp.cfg \
+	    ${DESTDIR}${PREFIX}/share/dhewm3/base
 
 .include "../../devel/cmake/build.mk"
 .include "../../audio/libvorbis/buildlink3.mk"

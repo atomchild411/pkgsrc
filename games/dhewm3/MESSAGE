@@ -15,6 +15,11 @@ MD5 (base/pak008.pk4) = 28750b7841de9453eb335bad6841a2a5
 
 Copy them to ~/.local/share/dhewm3/base or ${PREFIX}/share/dhewm3/base.
 
+Game controllers have no bindings by default. To use one, open the
+console (Shift+Esc, or the key above Tab) once and type
+"exec gamepad.cfg" (Resurrection of Evil: "exec gamepad-d3xp.cfg").
+The bindings are then saved with your settings.
+
 For more information, see https://github.com/dhewm/dhewm3/wiki/FAQ
 
 ===========================================================================

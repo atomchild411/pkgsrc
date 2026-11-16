@@ -4,4 +4,6 @@ bin/dhewm3ded
 lib/dhewm3/base.so
 lib/dhewm3/d3xp.so
 share/applications/dhewm3.desktop
+share/dhewm3/base/gamepad-d3xp.cfg
+share/dhewm3/base/gamepad.cfg
 share/pixmaps/doom3.png
