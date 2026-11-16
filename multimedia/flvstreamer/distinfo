@@ -4,4 +4,5 @@ BLAKE2s (flvstreamer-2.1c1.tar.gz) = 15916ee365e1a62ab02feb16f1ff8ca4f5d274300ff
 SHA512 (flvstreamer-2.1c1.tar.gz) = 660971abcccdb50c0eb9113eb1420ccc169c96ba1c1a593e44f096596c94ea1a6c94879f99cee4ab601f3650e69fad6813a18fd3711d93bfc394b6568f944acd
 Size (flvstreamer-2.1c1.tar.gz) = 77379 bytes
 SHA1 (patch-Makefile) = e1222d997dc7e1cca7535efaaf0b403b80d011f5
+SHA1 (patch-bytes.h) = 8a8a108085dd99bfa5d67ea1ccaab2d5c38c3861
 SHA1 (patch-rtmp.c) = aebc2b14fa57de50a159b6d25b1f10f69cec9563
