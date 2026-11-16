@@ -3,8 +3,10 @@ $NetBSD: distinfo,v 1.31 2026/05/19 05:18:45 adam Exp $
 BLAKE2s (openal-soft-1.25.2.tar.bz2) = a5a681860465577a322299e238d35237c2145fef42f6af81fb18c1b335e1a88d
 SHA512 (openal-soft-1.25.2.tar.bz2) = 2881556cd21ee9aebfcbd256e385e8dc63f8e67c916e1d583f597d24184015aa608ca6b21802a236b7fbdb10a407c2dc2320494a1d79e9920fd1ca6a966d8a2f
 Size (openal-soft-1.25.2.tar.bz2) = 1132689 bytes
-SHA1 (patch-CMakeLists.txt) = 4bfc2d498d8661982c5963798b9817bb4d975465
+SHA1 (patch-CMakeLists.txt) = c60c48fcf702b43572fc62b6d711550308cedcde
+SHA1 (patch-alc_alc.cpp) = 5479067fbc157fa7615ec9fc2c223b6579013dbf
 SHA1 (patch-alc_alconfig.cpp) = 5fe00b60f6f31165be951324659f5c7ee1898859
 SHA1 (patch-alc_backends_alsa.cpp) = de9838202cbf1ef26f8230353a23db1b3fd2723c
 SHA1 (patch-common_althreads.h) = 316de49f7a923a1a1535e49639f5e6bccf0c08d3
+SHA1 (patch-config__backends.h.in) = 8739d5d4d5372de7cd5161a7e6c9e9b0265a523f
 SHA1 (patch-include_AL_al.h) = e11858155db9d48ca8ae0d4e28479ec4d674411b

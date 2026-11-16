@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.56 2026/09/02 19:00:57 wiz Exp $
 
 DISTNAME=	openal-soft-1.25.2
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	https://openal-soft.org/openal-releases/
 EXTRACT_SUFX=	.tar.bz2
@@ -33,11 +33,19 @@ BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,--version-script=${WRKSRC}/libopenal.version
 
 CONF_FILES+=	${PREFIX}/share/openal/alsoftrc.sample ${PKG_SYSCONFDIR}/alsoft.conf
 
+# The IRIX Audio Library backend (patch-CMakeLists.txt, patch-alc_alc.cpp).
+post-extract:
+	${CP} ${FILESDIR}/irixal.cpp ${FILESDIR}/irixal.h ${WRKSRC}/alc/backends/
+
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "SunOS" || ${OPSYS} == "NetBSD"
 CMAKE_CONFIGURE_ARGS+=	-DALSOFT_BACKEND_SOLARIS=ON
 CMAKE_CONFIGURE_ARGS+=	-DALSOFT_REQUIRE_SOLARIS=ON
+.endif
+
+.if ${OPSYS} == "IRIX"
+CMAKE_CONFIGURE_ARGS+=	-DALSOFT_REQUIRE_IRIXAL=ON
 .endif
 
 .include "../../mk/oss.buildlink3.mk"

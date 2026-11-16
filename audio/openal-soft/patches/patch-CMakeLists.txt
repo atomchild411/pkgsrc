@@ -8,9 +8,12 @@ Fix ld error on NetBSD<11:
 `alcCreateContext' can not be used when making a shared object
 /usr/bin/ld: final link failed: bad value
 
---- CMakeLists.txt.orig	2026-05-12 02:21:07.000000000 +0000
+Build the IRIX Audio Library backend (alc/backends/irixal.cpp, from
+files/) where <dmedia/audio.h> and libaudio are found.
+
+--- CMakeLists.txt.orig
 +++ CMakeLists.txt
-@@ -407,9 +407,6 @@ else()
+@@ -407,9 +407,6 @@
          list(APPEND C_FLAGS -Werror=undef -Werror=format-security
              $<$<COMPILE_LANGUAGE:C>:-Werror=implicit -Werror=incompatible-pointer-types
                  -Werror=int-conversion>)
@@ -20,7 +23,7 @@ Fix ld error on NetBSD<11:
      endif()
  
      # NOTE: This essentially provides the equivalent of the C++26 feature to
-@@ -506,6 +503,9 @@ if(NOT LIBTYPE STREQUAL "STATIC")
+@@ -506,6 +503,9 @@
              set(CMAKE_C_VISIBILITY_PRESET hidden)
              set(CMAKE_CXX_VISIBILITY_PRESET hidden)
          endif()
@@ -30,7 +33,47 @@ Fix ld error on NetBSD<11:
  
          set(CMAKE_REQUIRED_FLAGS ${OLD_REQUIRED_FLAGS})
      endif()
-@@ -2057,7 +2057,7 @@ if(ALSOFT_UTILS)
+@@ -1042,6 +1042,7 @@
+ set(HAVE_OSS        0)
+ set(HAVE_PIPEWIRE   0)
+ set(HAVE_SOLARIS    0)
++set(HAVE_IRIXAL     0)
+ set(HAVE_SNDIO      0)
+ set(HAVE_WASAPI     0)
+ set(HAVE_DSOUND     0)
+@@ -1162,6 +1163,21 @@
+         endif()
+     endif()
+ 
++    # Check IRIX Audio Library backend
++    option(ALSOFT_BACKEND_IRIXAL "Enable IRIX Audio Library backend" ON)
++    option(ALSOFT_REQUIRE_IRIXAL "Require IRIX Audio Library backend" OFF)
++    if(ALSOFT_BACKEND_IRIXAL)
++        check_include_file(dmedia/audio.h HAVE_DMEDIA_AUDIO_H)
++        find_library(IRIXAL_LIBRARY NAMES audio)
++        if(HAVE_DMEDIA_AUDIO_H AND IRIXAL_LIBRARY)
++            set(HAVE_IRIXAL 1)
++            set(BACKENDS  "${BACKENDS} IRIX AL,")
++            list(APPEND ALC_SRCS alc/backends/irixal.cpp)
++            list(APPEND ALC_HDRS alc/backends/irixal.h)
++            list(APPEND EXTRA_LIBS ${IRIXAL_LIBRARY})
++        endif()
++    endif()
++
+     # Check SndIO backend (disabled by default on non-BSDs)
+     if(BSD)
+         option(ALSOFT_BACKEND_SNDIO "Enable SndIO backend" ON)
+@@ -1190,6 +1206,9 @@
+ if(ALSOFT_REQUIRE_SOLARIS AND NOT HAVE_SOLARIS)
+     message(FATAL_ERROR "Failed to enable required Solaris backend")
+ endif()
++if(ALSOFT_REQUIRE_IRIXAL AND NOT HAVE_IRIXAL)
++    message(FATAL_ERROR "Failed to enable required IRIX Audio Library backend")
++endif()
+ if(ALSOFT_REQUIRE_SNDIO AND NOT HAVE_SNDIO)
+     message(FATAL_ERROR "Failed to enable required SndIO backend")
+ endif()
+@@ -2057,7 +2076,7 @@
          install(TARGETS openal-info)
      endif()
  
@@ -39,7 +82,7 @@ Fix ld error on NetBSD<11:
          add_executable(uhjdecoder utils/uhjdecoder.cpp)
          target_link_libraries(uhjdecoder PRIVATE alsoft::common SndFile::SndFile ${UNICODE_FLAG})
          set_target_properties(uhjdecoder PROPERTIES ${ALSOFT_STD_VERSION_PROPS})
-@@ -2166,7 +2166,7 @@ if(ALSOFT_EXAMPLES)
+@@ -2166,7 +2185,7 @@
  
      message(STATUS "Building example programs")
  

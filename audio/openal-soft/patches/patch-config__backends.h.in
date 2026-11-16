@@ -1,0 +1,14 @@
+$NetBSD$
+
+The IRIX Audio Library backend.
+
+--- config_backends.h.in.orig
++++ config_backends.h.in
+@@ -7,6 +7,7 @@
+ #cmakedefine01 HAVE_PIPEWIRE
+ 
+ #cmakedefine01 HAVE_SOLARIS
++#cmakedefine01 HAVE_IRIXAL
+ 
+ #cmakedefine01 HAVE_SNDIO
+ 
