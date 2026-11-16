@@ -2,6 +2,7 @@
 
 DISTNAME=	lua-${LUA_VERSION}
 PKGNAME=	lua54-${LUA_VERSION}
+PKGREVISION=	1
 CATEGORIES=	lang lua
 MASTER_SITES=	https://www.lua.org/ftp/
 
@@ -41,6 +42,10 @@ BUILD_TARGET=	linux
 .elif ${OPSYS} == "Darwin"
 BUILD_TARGET=	macosx
 .elif ${OPSYS} == "SunOS"
+BUILD_TARGET=	solaris
+.elif ${OPSYS} == "IRIX"
+# POSIX, with dlopen() for C modules, as on Solaris (the generic and posix
+# targets leave C modules unloadable: "dynamic libraries not enabled").
 BUILD_TARGET=	solaris
 .elif ${OPSYS} == "AIX"
 BUILD_TARGET=	aix
