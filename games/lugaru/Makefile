@@ -2,7 +2,7 @@
 
 DISTNAME=	lugaru-${VERSION}
 VERSION=	1.2
-PKGREVISION=	17
+PKGREVISION=	18
 CATEGORIES=	games
 MASTER_SITES=	https://bitbucket.org/osslugaru/lugaru/downloads/
 EXTRACT_SUFX=	.tar.xz
