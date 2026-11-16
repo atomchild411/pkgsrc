@@ -12,6 +12,9 @@ HOMEPAGE=	https://www.luanti.org/
 COMMENT=	Open source voxel game-creation platform
 LICENSE=	gnu-lgpl-v2.1 AND cc-by-sa-v3.0 AND apache-2.0
 
+# IRIX: needs GLSL shaders (OpenGL 2 or later); IRIX's OpenGL is 1.2.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 WRKSRC=		${WRKDIR}/luanti-${PKGVERSION_NOREV}
 
 USE_TOOLS+=	msgfmt

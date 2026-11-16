@@ -11,6 +11,9 @@ HOMEPAGE=	https://love2d.org/
 COMMENT=	Framework for making 2D games in Lua (version 0.10)
 LICENSE=	zlib
 
+# IRIX: LOVE 0.10 needs OpenGL 2.1 or OpenGL ES 2; IRIX's OpenGL is 1.2.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 WRKSRC=		${WRKDIR}/${DISTNAME:S/-linux-src//}
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++

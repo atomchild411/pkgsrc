@@ -12,6 +12,9 @@ HOMEPAGE=	https://github.com/LostArtefacts/TR1X
 COMMENT=	Open source re-implementation of Tomb Raider
 LICENSE=	gnu-gpl-v3
 
+# IRIX: needs OpenGL 3.3 (GLSL shaders); IRIX's OpenGL is 1.2.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_TOOLS+=	pkg-config pax
 
 MESON_INSTALL=	no

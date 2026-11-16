@@ -11,6 +11,9 @@ HOMEPAGE=	https://github.com/andrei-drexler/ironwail
 COMMENT=	High performance QuakeSpasm fork
 LICENSE=	gnu-gpl-v2
 
+# IRIX: needs OpenGL 4.3; IRIX's OpenGL is 1.2.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_LANGUAGES=	c
 USE_TOOLS+=	gmake
 

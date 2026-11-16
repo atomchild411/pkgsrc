@@ -10,6 +10,9 @@ HOMEPAGE=	https://www.7kfans.com/
 COMMENT=	Music files for use with 7KAA
 LICENSE=	7kaa-music-license
 
+# IRIX: music for games/7kaa, which does not run there.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 DEPENDS+=	7kaa-[0-9]*:../../games/7kaa
 
 WRKSRC=		${WRKDIR}/7kaa-music

@@ -43,6 +43,9 @@ PYTHON_FOR_BUILD_ONLY=		tool
 # needs sincos(), added in NetBSD 10
 NOT_FOR_PLATFORM+=	NetBSD-[0-9]*.*-*
 
+# IRIX: needs OpenGL 3.3 core or OpenGL ES 3.0; IRIX's OpenGL is 1.2.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 .include "../../devel/meson/build.mk"
 .include "../../archivers/libzip/buildlink3.mk"
 .include "../../archivers/zstd/buildlink3.mk"

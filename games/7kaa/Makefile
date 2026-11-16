@@ -10,6 +10,10 @@ HOMEPAGE=	https://7kfans.com/
 COMMENT=	Seven Kingdoms: Ancient Adversaries
 LICENSE=	gnu-gpl-v2
 
+# IRIX: reads its little-endian game data through packed structs,
+# which does not work on big-endian CPUs.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 TOOL_DEPENDS+=	icoutils-[0-9]*:../../graphics/icoutils
 
 USE_LANGUAGES+=	c c++
