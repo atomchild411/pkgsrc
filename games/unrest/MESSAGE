@@ -1,0 +1,7 @@
+===========================================================================
+$NetBSD$
+
+This package is the Unrest engine only: the game data is not free and is
+not included. Buy Unrest, then run ${PREFIX}/bin/unrest from the
+directory that holds the game's res/ directory.
+===========================================================================
