@@ -4,6 +4,7 @@ BLAKE2s (SuperTux-v0.7.0-Source.tar.gz) = 5294f7e605956dc2a5b46e66451af850d81074
 SHA512 (SuperTux-v0.7.0-Source.tar.gz) = 15bc4f84e1453be25ac3fa3496443e4e20d805f8c4d50148235f4dc82d188bef974fc720653cab36350d8b631c74539e4a74c33259fdaac6a516f44f8ed65297
 Size (SuperTux-v0.7.0-Source.tar.gz) = 292623271 bytes
 SHA1 (patch-CMakeLists.txt) = 6979c7a97eee2b4ee32d55103b37fa71dad4c42e
+SHA1 (patch-config.h.in) = f01609c39cadf51077f65d2c50c76ebea0aa99f1
 SHA1 (patch-external_SDL__ttf_configure) = da5e257847458e0a4410be3b03299062d167d441
 SHA1 (patch-mk_cmake_SuperTux_BuildCPack.cmake) = a2f8fe0ab25001d399058ed14fc6df5c7a3e241b
 SHA1 (patch-mk_cmake_SuperTux_BuildInstall.cmake) = c0096b9cf23bce06723ef45d43d3b95d22b0e303

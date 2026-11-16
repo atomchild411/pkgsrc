@@ -1,0 +1,18 @@
+$NetBSD$
+
+Nothing in the build sets WORDS_BIGENDIAN, so on big-endian CPUs the Ogg
+decoder handed OpenAL byte-swapped samples (loud static) and WAV samples
+were not swapped. Take it from the compiler.
+
+--- config.h.in.orig
++++ config.h.in
+@@ -16,6 +16,9 @@
+ #endif
+ 
+ #cmakedefine WORDS_BIGENDIAN
++#if !defined(WORDS_BIGENDIAN) && (defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__)
++#define WORDS_BIGENDIAN
++#endif
+ 
+ #cmakedefine HAVE_OPENGL
+ #cmakedefine HAVE_GLEW
