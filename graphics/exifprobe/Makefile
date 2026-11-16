@@ -2,6 +2,7 @@
 #
 
 DISTNAME=		exifprobe-2.1.0.20201230
+PKGREVISION=		1
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_GITHUB:=hfiguiere/}
 GITHUB_TAG=		eee65ff3c62fed3fff35e690230820bd80c90381
@@ -18,5 +19,17 @@ CFLAGS.SunOS+=		-Du_int32_t=uint32_t
 CFLAGS.SunOS+=		-D__EXTENSIONS__
 
 INSTALL_MAKE_FLAGS=	MANDIR=${PREFIX}/${PKGMANDIR}/man1
+
+.include "../../mk/endian.mk"
+
+# makebyteorder.sh greps the build machine's <machine/endian.h> or
+# <bits/endian.h>, so a cross build got its byte order or none ("assume
+# little-endian"). Write byteorder.h for the target instead.
+pre-build:
+.if ${MACHINE_ENDIAN} == "big"
+	${ECHO} "#define NATIVE_BYTEORDER_BIGENDIAN" > ${WRKSRC}/byteorder.h
+.else
+	${ECHO} "#define NATIVE_BYTEORDER_LITTLE_ENDIAN" > ${WRKSRC}/byteorder.h
+.endif
 
 .include "../../mk/bsd.pkg.mk"
