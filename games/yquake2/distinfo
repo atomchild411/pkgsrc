@@ -4,3 +4,7 @@ BLAKE2s (quake2-8.20.tar.xz) = 14be64905a3b8ab705817e35932d585dff284b84c1449ef9f
 SHA512 (quake2-8.20.tar.xz) = 5dbdbbf582494d16d00b9880ddea6de4b098a307dbe4ddf6bc90aa6b2bd2928c10fab40cf5dd63861e7a37f9c75b9afae6f43f8bfff3ee6704ca94f78ff9b7d2
 Size (quake2-8.20.tar.xz) = 2152184 bytes
 SHA1 (patch-Makefile) = 9f237f72a569e201425438361f44db7b09b590e3
+SHA1 (patch-src_backends_generic_misc.c) = 30bd4ead86085d15362922a925b0d7228b9201bd
+SHA1 (patch-src_backends_unix_system.c) = a393d8ffe0848ddddb8141bb76941169608c0003
+SHA1 (patch-src_client_refresh_gl1_gl1__main.c) = dbed544d1bb5423c64cd5192420f4eb065f9660f
+SHA1 (patch-src_client_refresh_gl1_gl1__sdl.c) = a7c6e154b6a90975ff713a72abdc75bd27b32433
