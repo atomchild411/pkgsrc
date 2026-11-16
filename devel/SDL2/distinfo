@@ -9,6 +9,7 @@ SHA1 (patch-sdl2-config.in) = 963486e3cf6cb437f43197885e9f519ace4497c1
 SHA1 (patch-src_audio_SDL__audio.c) = b7934c5907aee61da1d09f427d93ef36f3ae623f
 SHA1 (patch-src_audio_SDL__sysaudio.h) = 733723dfa24a382a33af6a413f40823dcf67fffb
 SHA1 (patch-src_audio_alsa_SDL__alsa__audio.c) = c1426efb8df16328f9546aa7578edd7bbdcf8bad
+SHA1 (patch-src_filesystem_unix_SDL__sysfilesystem.c) = 0b05905f8a8017613ddfbf3f737965316dd5720a
 SHA1 (patch-src_joystick_SDL__joystick.c) = 147f4063254101527f367c30d4a3771bb6c1e9ca
 SHA1 (patch-src_joystick_SDL__sysjoystick.h) = 60b04fd6e926fcc0a912412ba31fe086581430ae
 SHA1 (patch-src_render_opengl_SDL__render__gl.c) = 8c85458d0a1a1ac8a86da387fdb0b06fe17bd09a
