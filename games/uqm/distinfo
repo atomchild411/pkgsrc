@@ -7,3 +7,4 @@ BLAKE2s (uqm/uqm-0.7.0-source.tgz) = 16a4faf9db313183bb91760bf8f0f228519743ab499
 SHA512 (uqm/uqm-0.7.0-source.tgz) = 443ac13da401d45743f913755647b3309834c57f371fb673c3ea2cacb81184bf30430db10af9001de854363520d1f792f47faffd690c8c2b2f3d12d63b217815
 Size (uqm/uqm-0.7.0-source.tgz) = 1562003 bytes
 SHA1 (patch-build_unix_build__functions) = 373f53c2b1da5def252e212af077f7fdb4505f75
+SHA1 (patch-src_endian__uqm.h) = 352db02fd79f269f77f1662ec369606ecb6d1f40
