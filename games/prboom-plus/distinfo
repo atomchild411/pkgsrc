@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.7 2023/06/30 11:20:19 micha Exp $
 BLAKE2s (prboom-plus-2.6.66.tar.gz) = 790ad42d4e9cf272be269e6eb7ed77a2e422a08804802fa085d9b2533faba509
 SHA512 (prboom-plus-2.6.66.tar.gz) = 72c9b209584de25589af52586d62eca96a0b63b50678f89673eac9706528332317250f1c309649aa1ec66d8b24da931c6e31eca06787b8fd7cf41730161c6644
 Size (prboom-plus-2.6.66.tar.gz) = 1558712 bytes
+SHA1 (patch-src_m__misc.c) = 50fc976712b0dea81036efa54bcb7eb42504c691
