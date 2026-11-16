@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.44 2026/09/02 19:02:08 wiz Exp $
 
 DISTNAME=	dhewm3-1.5.4
-PKGREVISION=	14
+PKGREVISION=	15
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GITHUB:=dhewm/}
 GITHUB_PROJECT=	dhewm3
@@ -22,6 +22,12 @@ CONFIGURE_DIR=	neo
 
 CMAKE_CONFIGURE_ARGS+=	-Wno-dev
 CMAKE_CONFIGURE_ARGS+=	-DDEDICATED=ON
+
+# The project adds -DNDEBUG only in CMAKE_CXX_FLAGS_RELEASE, which pkgsrc's
+# CMAKE_PKGSRC_BUILD_FLAGS leaves out: without it, debug assertions abort
+# the game in normal play (CollisionModel_rotate.cpp, a crane in
+# mc_underground).
+CXXFLAGS+=	-DNDEBUG
 
 .include "../../mk/bsd.prefs.mk"
 
