@@ -4,4 +4,4 @@
 # Launcher script for ironwail.
 #
 set -e
-cd @@PREFIX@@/share/ironwail && @@PREFIX@@/libexec/ironwail
+cd @@PREFIX@@/share/ironwail && exec @@PREFIX@@/libexec/ironwail "$@"
