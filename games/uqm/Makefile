@@ -3,7 +3,7 @@
 
 DISTNAME=	uqm-0.7.0-source
 PKGNAME=	${DISTNAME:S/-source//}
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sc2/}
 EXTRACT_SUFX=	.tgz
@@ -68,6 +68,8 @@ do-install:
 .include "../../audio/libmikmod/buildlink3.mk"
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../devel/SDL/buildlink3.mk"
+# Without zlib the .uqm (zip) content cannot be mounted: Could not load basic content.
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/SDL_image/buildlink3.mk"
 .include "../../multimedia/libogg/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
