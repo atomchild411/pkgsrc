@@ -6,4 +6,5 @@ Size (lugaru-1.2.tar.xz) = 34519308 bytes
 SHA1 (patch-CMakeLists.txt) = a84079c550dc925a96d50629a616e9f2db2daa21
 SHA1 (patch-Source_Audio_openal__wrapper.cpp) = cd05fd8134887d8a38f28d318598935dfb764dd8
 SHA1 (patch-Source_Utils_ImageIO.cpp) = b450e8842be08c6ff6801c5699649be30df16bf5
+SHA1 (patch-Source_Utils_private.h) = 8912d5d7c9930de120ec64a7922835ad35faaa2e
 SHA1 (patch-Source_main.cpp) = 0b0066971f68c285c4b7ef4bb6456d1983df3f7e
