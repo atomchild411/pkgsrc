@@ -4,3 +4,4 @@ BLAKE2s (angband-4.2.6.tar.gz) = 070e94326f21018455a320814c125582042c90eaa1e0e80
 SHA512 (angband-4.2.6.tar.gz) = 1682206eb4005295e5f2034921eec6cd56f1dc70be7792b5c7048d439143e2da9fb2f0c92b3703ea26ea1c80ec6223882c64deb2b91294310d594dec029a31cb
 Size (angband-4.2.6.tar.gz) = 25964779 bytes
 SHA1 (patch-configure.ac) = 35fbcd77734bf9dfb6c9d5c6dc9d82bca2343ebb
+SHA1 (patch-src_main.c) = efa2a3b9761147155a394b5f4ed739de845054d9

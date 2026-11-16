@@ -27,6 +27,10 @@ CONFIGURE_ARGS+=	--sysconfdir=${PREFIX}/share
 
 CONFIGURE_ARGS+=	--without-x
 
+# IRIX has no UTF-8 locale: use the front ends' own UTF-8 conversion
+# (written for MSYS2) instead of the C library's; see patch-src_main.c.
+CPPFLAGS.IRIX+=	-DMSYS2_ENCODING_WORKAROUND
+
 # "ld: -r and -pie may not be used together"
 MKPIE_SUPPORTED=	no
 
