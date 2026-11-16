@@ -5,4 +5,5 @@ SHA512 (gemrb-0.9.2.tar.gz) = cc26f56de19f603645a36533b3ad6abb345809570d69d84c2d
 Size (gemrb-0.9.2.tar.gz) = 14327547 bytes
 SHA1 (patch-gemrb_core_Strings_StringConversion.cpp) = ace8de07050463be5aec5deae23fbc29b5082f86
 SHA1 (patch-gemrb_plugins_KEYImporter_KEYImporter.h) = bf331216be151ad068df5724786f978e5a5e238e
+SHA1 (patch-gemrb_plugins_OGGReader_OGGReader.cpp) = 8ba5a28b10b441719c2a51d3d778ce403ea1df1c
 SHA1 (patch-gemrb_plugins_TTFImporter_TTFFont.cpp) = 31e6565948df99c6b190a8637025de491a3d6d47
