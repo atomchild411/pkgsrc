@@ -5,3 +5,4 @@ SHA512 (fuse-1.9.1.tar.gz) = dfe804835cd724d903ca34aa368068f16bb0ac0a0738a17de6d
 Size (fuse-1.9.1.tar.gz) = 1823797 bytes
 SHA1 (patch-sound_coreaudiosound.c) = e293cd00d9466af4e49a7c0a1cb9b535aebf6f4d
 SHA1 (patch-sound_osssound.c) = e83d80c984592b4e52faccbea35cdc9b54b71933
+SHA1 (patch-ui_gtk3_gtkdisplay.c) = 809b11954607f9b1f16fcd5aa140424bae114b2f
