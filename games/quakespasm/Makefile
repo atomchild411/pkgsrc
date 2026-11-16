@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.30 2026/09/02 19:02:21 wiz Exp $
 
 DISTNAME=	quakespasm-0.96.3
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=quakespasm/}
 
