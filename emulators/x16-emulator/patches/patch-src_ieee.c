@@ -3,9 +3,12 @@ $NetBSD$
 IRIX: realpath(path, NULL) does not allocate the result there, so -fsroot
 and -startin always failed ("Failed to resolve argument to -fsroot").
 
+Nor does getcwd(NULL, 0) allocate there, so the default -fsroot (the
+current directory) failed the same way.
+
 --- src/ieee.c.orig
 +++ src/ieee.c
-@@ -110,6 +110,21 @@
+@@ -110,6 +110,34 @@
  }
  #endif
  
@@ -22,6 +25,19 @@ and -startin always failed ("Failed to resolve argument to -fsroot").
 +	return strdup(r);
 +}
 +#define realpath x16_realpath
++
++// Nor does getcwd(NULL, 0) allocate one (the default -fsroot and -startin).
++static char *
++x16_getcwd(char *buf, size_t size) {
++	char tmp[PATH_MAX];
++
++	if (buf != NULL)
++		return getcwd(buf, size);
++	if (getcwd(tmp, sizeof(tmp)) == NULL)
++		return NULL;
++	return strdup(tmp);
++}
++#define getcwd x16_getcwd
 +#endif
 +
  #define u8strchr(A,B) (uint8_t *)strchr((char *)A,B)
