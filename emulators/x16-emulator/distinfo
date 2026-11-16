@@ -4,4 +4,5 @@ BLAKE2s (x16-emulator-48.tar.gz) = 02d59384fd152eafbcde4724dfdc12ab6dbfa9600cd62
 SHA512 (x16-emulator-48.tar.gz) = c568951d9ba099621b4ce0c873d3110bec50550491e42dede001b8f2bdee7711f2b6ab97ebd7947d828500452b7b4948eca3ed56bb06f0d9c79de64e86788793
 Size (x16-emulator-48.tar.gz) = 315743 bytes
 SHA1 (patch-Makefile) = 5261cb99ae85b512668374b16e486fbf5579a984
+SHA1 (patch-src_ieee.c) = 430e8f78ba2ccc8975a5c16fa51a149c03e6af6d
 SHA1 (patch-src_main.c) = 4b2236369509cbb71d01b57d28bdfff1ebd298da
