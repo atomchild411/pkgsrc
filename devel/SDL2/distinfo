@@ -14,3 +14,4 @@ SHA1 (patch-src_joystick_SDL__joystick.c) = 147f4063254101527f367c30d4a3771bb6c1
 SHA1 (patch-src_joystick_SDL__sysjoystick.h) = 60b04fd6e926fcc0a912412ba31fe086581430ae
 SHA1 (patch-src_render_opengl_SDL__render__gl.c) = 8c85458d0a1a1ac8a86da387fdb0b06fe17bd09a
 SHA1 (patch-src_video_x11_SDL__x11modes.c) = 59b54de2fdf91cbc0416a2a12fc369eceee28835
+SHA1 (patch-src_video_x11_SDL__x11opengl.c) = a9abcaa71928ac52d7d03af003ce934fe8853ffa
