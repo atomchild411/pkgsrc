@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.49 2026/09/02 19:02:23 wiz Exp $
 
 DISTNAME=	taisei-1.4.2
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GITHUB:=taisei-project/}
 GITHUB_RELEASE=	v${PKGVERSION_NOREV}
@@ -23,6 +23,9 @@ MESON_ARGS+=	-Db_pch=false
 MESON_ARGS+=	-Db_lto=false
 MESON_ARGS+=	-Dstrip=false
 MESON_ARGS+=	-Ddefault_library=shared
+# koishi is a subproject that is not installed: link it into the game
+# (with it shared, bin/taisei needed a libkoishi.so.0.1 that was not there).
+MESON_ARGS+=	-Dkoishi:default_library=static
 MESON_ARGS+=	-Ddocs=disabled
 MESON_ARGS+=	-Ddeveloper=false
 MESON_ARGS+=	-Dinstall_macos_bundle=disabled
