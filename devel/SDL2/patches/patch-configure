@@ -1,7 +1,8 @@
 $NetBSD$
 
 IRIX builds as a generic Unix, with the IRIX joystick driver
-(src/joystick/irix, revenir's evdev gamepads).
+(src/joystick/irix, revenir's evdev gamepads) and the IRIX audio
+driver (src/audio/irix, the Audio Library: libaudio).
 
 --- configure.orig
 +++ configure
@@ -22,7 +23,21 @@ IRIX builds as a generic Unix, with the IRIX joystick driver
              *-*-nto*)           ARCH=nto
                  CheckQNXVideo
                  ;;
-@@ -28810,6 +28811,13 @@
+@@ -28805,11 +28806,27 @@
+             nto)
+                 CheckQNXAudio
+             ;;
++            irix)
++
++printf "%s\n" "#define SDL_AUDIO_DRIVER_IRIX 1" >>confdefs.h
++
++                SOURCES="$SOURCES $srcdir/src/audio/irix/*.c"
++                EXTRA_LDFLAGS="$EXTRA_LDFLAGS -laudio"
++                SUMMARY_audio="${SUMMARY_audio} irix"
++                have_audio=yes
++            ;;
+           esac
+         fi
          # Set up files for the joystick library
          if test x$enable_joystick = xyes; then
            case $ARCH in

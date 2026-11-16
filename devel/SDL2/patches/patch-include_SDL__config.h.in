@@ -1,10 +1,19 @@
 $NetBSD$
 
-IRIX joystick driver (src/joystick/irix).
+IRIX joystick driver (src/joystick/irix) and audio driver
+(src/audio/irix).
 
 --- include/SDL_config.h.in.orig
 +++ include/SDL_config.h.in
-@@ -328,6 +328,7 @@
+@@ -294,6 +294,7 @@
+ #undef SDL_AUDIO_DRIVER_FUSIONSOUND
+ #undef SDL_AUDIO_DRIVER_FUSIONSOUND_DYNAMIC
+ #undef SDL_AUDIO_DRIVER_HAIKU
++#undef SDL_AUDIO_DRIVER_IRIX
+ #undef SDL_AUDIO_DRIVER_JACK
+ #undef SDL_AUDIO_DRIVER_JACK_DYNAMIC
+ #undef SDL_AUDIO_DRIVER_NACL
+@@ -328,6 +329,7 @@
  #undef SDL_JOYSTICK_IOKIT
  #undef SDL_JOYSTICK_MFI
  #undef SDL_JOYSTICK_LINUX

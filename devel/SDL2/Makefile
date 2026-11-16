@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.114 2026/09/02 19:01:20 wiz Exp $
 
 DISTNAME=	SDL2-2.32.10
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=libsdl-org/}
 GITHUB_PROJECT=	SDL
@@ -82,6 +82,8 @@ CHECK_PORTABILITY_SKIP+=	build-scripts/iosbuild.sh
 # programs (/dev/input/eventN, Linux evdev in IRIX's ABI). files/irix:
 # SDL_sysjoystick.c (after SDL's Linux evdev driver) and
 # SDL_revenir_input.h (revenir's <revenir/input.h>, commit 55a67fa).
+# Also an audio driver for IRIX's Audio Library (libaudio):
+# files/irix/SDL_irixaudio.[ch], to src/audio/irix.
 .if ${OPSYS} == "IRIX"
 post-extract: irix-joystick-files
 .PHONY: irix-joystick-files
@@ -89,6 +91,9 @@ irix-joystick-files:
 	${MKDIR} ${WRKSRC}/src/joystick/irix
 	${CP} ${FILESDIR}/irix/SDL_sysjoystick.c ${FILESDIR}/irix/SDL_revenir_input.h \
 		${WRKSRC}/src/joystick/irix/
+	${MKDIR} ${WRKSRC}/src/audio/irix
+	${CP} ${FILESDIR}/irix/SDL_irixaudio.c ${FILESDIR}/irix/SDL_irixaudio.h \
+		${WRKSRC}/src/audio/irix/
 .endif
 .include "../../audio/libsamplerate/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
