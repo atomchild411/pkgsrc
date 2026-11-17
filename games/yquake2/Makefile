@@ -2,7 +2,7 @@
 
 DISTNAME=	quake2-8.20
 PKGNAME=	y${DISTNAME}
-PKGREVISION=	23
+PKGREVISION=	24
 CATEGORIES=	games
 MASTER_SITES=	https://deponie.yamagi.org/quake2/
 EXTRACT_SUFX=	.tar.xz
