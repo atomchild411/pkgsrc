@@ -7,6 +7,7 @@ CATEGORIES+=	databases
 MAINTAINER=	bartosz.kuzma@gmail.com
 HOMEPAGE=	https://www.mongodb.com/docs/php-library/current/
 COMMENT=	MongoDB database driver
+PKGREVISION=	1
 LICENSE=	apache-2.0
 
 PHP_VERSIONS_ACCEPTED=	82 83 84 85

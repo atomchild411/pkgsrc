@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	xwpe-1.5.30a
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	editors
 MASTER_SITES=	http://www.identicalsoftware.com/xwpe/
 

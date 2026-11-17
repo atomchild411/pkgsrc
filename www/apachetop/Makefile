@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	apachetop-0.18.4
+PKGREVISION=	1
 CATEGORIES=	sysutils www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=tessus/apachetop/archive/}
 DISTFILES=	0.18.4.zip

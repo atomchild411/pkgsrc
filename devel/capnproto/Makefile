@@ -2,6 +2,7 @@
 
 DISTNAME=	capnproto-c++-1.5.0
 PKGNAME=	${DISTNAME:S/-c++-/-/}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://capnproto.org/
 

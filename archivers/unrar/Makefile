@@ -1,5 +1,6 @@
 # $NetBSD: Makefile,v 1.73 2014/11/23 12:35:19 adam Exp $
 
+PKGREVISION= 1
 .include "Makefile.common"
 
 INSTALLATION_DIRS=	bin share/doc/unrar

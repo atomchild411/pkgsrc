@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.15 2025/12/30 15:31:48 leot Exp $
 
 DISTNAME=		testdisk-7.2
+PKGREVISION=		1
 CATEGORIES=		sysutils
 MASTER_SITES=		https://www.cgsecurity.org/
 EXTRACT_SUFX=		.tar.bz2

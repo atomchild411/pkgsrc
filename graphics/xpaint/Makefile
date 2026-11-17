@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.93 2026/08/04 20:29:00 wiz Exp $
 
 DISTNAME=	xpaint-3.1.4
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	graphics x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sf-xpaint/}
 EXTRACT_SUFX=	.tar.bz2

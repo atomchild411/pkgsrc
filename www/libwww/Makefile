@@ -2,7 +2,7 @@
 
 DISTNAME=	w3c-libwww-5.4.2
 PKGNAME=	${DISTNAME:S/^w3c-//}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	www devel
 MASTER_SITES=	https://www.w3.org/Library/Distribution/
 EXTRACT_SUFX=	.tgz

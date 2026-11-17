@@ -1,5 +1,6 @@
 # $NetBSD: Makefile,v 1.7 2024/12/28 14:10:56 wiz Exp $
 
+PKGREVISION= 1
 .include "../../devel/libuuid/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/util-linux/libblkid/}

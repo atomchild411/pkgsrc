@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.36 2025/03/06 08:44:41 adam Exp $
 
 DISTNAME=	most-5.2.0
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	https://www.jedsoft.org/releases/most/
 

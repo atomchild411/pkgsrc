@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.29 2025/04/24 14:16:03 wiz Exp $
 
 PKGNAME=	htmldoc-x11-${VERSION}
-PKGREVISION=	4
+PKGREVISION=	5
 
 CONFIGURE_ARGS+=	--with-gui
 

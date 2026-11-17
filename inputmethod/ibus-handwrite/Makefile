@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	ibus-handwrite-3.0.0
-PKGREVISION=	31
+PKGREVISION=	32
 CATEGORIES=	inputmethod
 MASTER_SITES=	https://github.com/microcai/ibus-handwrite/releases/download/${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar.bz2

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2019/11/04 21:13:02 rillig Exp $
 
 DISTNAME=	snoopy-2.1.0
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/
 EXTRACT_SUFX=	.zip

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.7 2025/03/06 01:19:02 bacon Exp $
 
 DISTNAME=	bedtools-2.31.1
+PKGREVISION=	1
 CATEGORIES=	biology
 MASTER_SITES=	${MASTER_SITE_GITHUB:=arq5x/}
 GITHUB_PROJECT=	bedtools2

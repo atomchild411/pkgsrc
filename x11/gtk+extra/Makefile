@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.28 2025/11/17 11:01:41 wiz Exp $
 
 DISTNAME=	gtk+extra-0.99.17
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	x11
 MASTER_SITES=	http://gtkextra.sourceforge.net/src/
 

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.21 2026/08/10 08:55:56 adam Exp $
 
 DISTNAME=	ncdu-1.22
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	https://dev.yorhel.nl/download/
 

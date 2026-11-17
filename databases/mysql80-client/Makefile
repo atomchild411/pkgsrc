@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.30 2026/07/13 02:35:09 jnemeth Exp $
 
 PKGNAME=	${DISTNAME:S/-/-client-/}
+PKGREVISION=	1
 COMMENT=	MySQL 8, a free SQL database (client)
 
 CONFLICTS=	mysql3-client-[0-9]* mariadb-client-[0-9]*

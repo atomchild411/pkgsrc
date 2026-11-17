@@ -4,7 +4,7 @@
 .include "../../comms/pilot-link/Makefile.common"
 
 PKGNAME=		pilot-link-libs-${PILOT_LINK_VERS}
-PKGREVISION=		5
+PKGREVISION=		6
 COMMENT=		Libraries for talking to the 3Com Pilot PDA
 
 CONFLICTS+=		pilot-link<0.9.5

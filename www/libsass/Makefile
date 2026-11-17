@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.20 2024/01/01 11:39:43 adam Exp $
 
 DISTNAME=	libsass-3.6.6
+PKGREVISION=	1
 CATEGORIES=	www devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=sass/}
 

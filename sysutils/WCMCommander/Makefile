@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.11 2026/02/16 08:27:12 wiz Exp $
 
 DISTNAME=	WCMCommander-0.20.0
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	sysutils
 #MASTER_SITES=	${MASTER_SITE_GITHUB:=corporateshark/}
 #GITHUB_PROJECT=	WCMCommander

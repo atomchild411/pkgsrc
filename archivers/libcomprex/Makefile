@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.70 2026/05/14 16:40:22 ryoon Exp $
 
 DISTNAME=	libcomprex-0.3.3
-PKGREVISION=	43
+PKGREVISION=	44
 CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gnupdate/}
 

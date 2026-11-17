@@ -1,5 +1,6 @@
 # $NetBSD: Makefile,v 1.4 2026/05/09 20:26:47 vins Exp $
 
+PKGREVISION= 1
 .include "Makefile.common"
 
 PKGNAME=	lib${DISTNAME:S/-3g_ntfsprogs//}

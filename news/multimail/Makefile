@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2022/06/27 15:29:17 fcambus Exp $
 
 DISTNAME=	mmail-0.52
+PKGREVISION=	1
 CATEGORIES=	news
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=multimail/}
 

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.17 2026/02/15 12:40:39 adam Exp $
 
 DISTNAME=	cmark-0.31.2
+PKGREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=jgm/}
 

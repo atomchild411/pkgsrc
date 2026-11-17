@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		sudoku-1.0.1
-PKGREVISION=		2
+PKGREVISION=		3
 PKGNAME=		${DISTNAME:S/sudoku/sudoku-cli/}
 CATEGORIES=		games
 #MASTER_SITES=		http://www.laurasia.com.au/downloads/

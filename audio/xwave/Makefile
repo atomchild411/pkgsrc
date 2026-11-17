@@ -3,7 +3,7 @@
 
 DISTNAME=		xwave2
 PKGNAME=		xwave-2.0
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		audio x11
 MASTER_SITES=		# empty
 

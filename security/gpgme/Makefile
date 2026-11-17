@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.132 2026/09/07 05:20:31 adam Exp $
 
 DISTNAME=	gpgme-2.2.0
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GNUPG:=gpgme/}
 EXTRACT_SUFX=	.tar.bz2

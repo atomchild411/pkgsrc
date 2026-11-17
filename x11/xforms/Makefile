@@ -3,7 +3,7 @@
 
 DISTNAME=	xforms-2c1a9f151baf50887a517280645ec23379fb96f8
 PKGNAME=	xforms-1.2.5pre2
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	x11
 MASTER_SITES=	https://git.savannah.nongnu.org/cgit/xforms.git/snapshot/
 

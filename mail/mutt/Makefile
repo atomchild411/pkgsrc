@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.301.2.1 2026/10/11 01:21:08 maya Exp $
 
 DISTNAME=		mutt-2.4.3
+PKGREVISION=		1
 CATEGORIES=		mail
 MASTER_SITES=		http://ftp.mutt.org/pub/mutt/
 

@@ -8,7 +8,7 @@
 
 DISTNAME=	db-4.8.30
 PKGNAME=	${DISTNAME:S/db/db4/}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	databases
 MASTER_SITES=	https://download.oracle.com/berkeley-db/
 

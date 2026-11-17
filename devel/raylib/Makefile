@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.6 2026/02/02 23:27:46 wiz Exp $
 
 DISTNAME=	raylib-5.5
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=raysan5/}
 

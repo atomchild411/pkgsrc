@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.8 2026/06/29 07:21:30 wiz Exp $
 
 DISTNAME=	xedit-1.2.5
+PKGREVISION=	1
 CATEGORIES=	x11 editors
 MASTER_SITES=	${MASTER_SITE_XORG:=app/}
 EXTRACT_SUFX=	.tar.xz

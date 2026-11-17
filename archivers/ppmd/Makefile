@@ -2,6 +2,7 @@
 
 DISTNAME=	ppmdi1
 PKGNAME=	ppmd-9.1
+PKGREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	http://compression.ru/ds/
 EXTRACT_SUFX=	.rar

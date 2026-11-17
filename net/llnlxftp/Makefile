@@ -3,7 +3,7 @@
 
 DISTNAME=		llnlxftp2.1
 PKGNAME=		llnlxftp-2.1
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		net
 MASTER_SITES=		ftp://ftp.llnl.gov/pub/ia/llnlxftp/
 EXTRACT_SUFX=		.tar.Z

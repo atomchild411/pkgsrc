@@ -1,6 +1,6 @@
 # $NetBSD: Makefile,v 1.74 2026/09/02 19:03:44 wiz Exp $
 
-PKGREVISION= 2
+PKGREVISION= 3
 .include "version.mk"
 
 DISTNAME=	gstreamer-${GST_VERSION}

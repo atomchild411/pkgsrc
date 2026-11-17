@@ -2,7 +2,7 @@
 
 DISTNAME=		xbmbrowser5.1
 PKGNAME=		xbmbrowser-5.1
-PKGREVISION=		5
+PKGREVISION=		6
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_XCONTRIB:=utilities/}
 

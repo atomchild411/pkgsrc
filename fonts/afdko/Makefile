@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2026/02/09 16:49:07 ryoon Exp $
 
 DISTNAME=	afdko-4.0.3
+PKGREVISION=	1
 CATEGORIES=	fonts
 MASTER_SITES=	${MASTER_SITE_GITHUB:=adobe-type-tools/}
 GITHUB_PROJECT=	afdko

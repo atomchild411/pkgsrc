@@ -8,7 +8,7 @@
 
 DISTNAME=	pine4.64
 PKGNAME=	pico-4.10
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	editors
 #MASTER_SITES=	ftp://ftp.cac.washington.edu/pine/
 MASTER_SITES+=	ftp://ftp.fu-berlin.de/unix/mail/pine/

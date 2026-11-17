@@ -2,7 +2,7 @@
 
 DISTNAME=	PDFlib-Lite-7.0.5
 PKGNAME=	pdflib-lite-7.0.5
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	print
 #MASTER_SITES=	http://www.pdflib.com/binaries/PDFlib/705/
 

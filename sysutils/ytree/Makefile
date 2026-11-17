@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.7 2025/03/30 10:02:22 nia Exp $
 
 DISTNAME=	ytree-2.09
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	https://www.han.de/~werner/
 

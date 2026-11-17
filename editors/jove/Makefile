@@ -2,6 +2,7 @@
 
 DISTNAME=	jove4.16.0.74
 PKGNAME=	${DISTNAME:S/jove/jove-/}
+PKGREVISION=	1
 CATEGORIES=	editors
 MASTER_SITES=	ftp://ftp.cs.toronto.edu/pub/hugh/jove-dev/experimental/
 EXTRACT_SUFX=	.tgz

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.63 2025/11/17 11:00:34 wiz Exp $
 
 DISTNAME=	cscope-15.9
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=cscope/}
 

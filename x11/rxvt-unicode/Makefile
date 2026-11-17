@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.73 2026/07/16 19:06:25 wiz Exp $
 
 DISTNAME=	rxvt-unicode-9.26
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	x11
 MASTER_SITES=	http://dist.schmorp.de/rxvt-unicode/
 MASTER_SITES+=	http://dist.schmorp.de/rxvt-unicode/Attic/

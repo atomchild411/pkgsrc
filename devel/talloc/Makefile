@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.53 2026/08/10 16:45:32 adam Exp $
 
 DISTNAME=	talloc-2.5.0
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://www.samba.org/ftp/talloc/
 

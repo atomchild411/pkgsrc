@@ -2,6 +2,7 @@
 
 DISTNAME=	ninja-1.13.2
 PKGNAME=	${DISTNAME:S/ninja/ninja-build/}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=ninja-build/}
 GITHUB_PROJECT=	ninja

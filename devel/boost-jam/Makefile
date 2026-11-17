@@ -6,6 +6,7 @@ BOOST_CONFIG=		no
 
 CONFLICTS+=		boost-build<=1.33.1
 
+PKGREVISION= 1
 .include "../../meta-pkgs/boost/Makefile.common"
 
 SUBST_CLASSES+=		opt

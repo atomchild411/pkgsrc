@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	spandsp-0.0.6
-PKGREVISION=	9
+PKGREVISION=	10
 CATEGORIES=	comms
 MASTER_SITES=	https://www.soft-switch.org/downloads/spandsp/
 

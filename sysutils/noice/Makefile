@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2019/04/08 20:56:14 leot Exp $
 
 DISTNAME=	noice-0.8
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	https://dl.2f30.org/releases/
 

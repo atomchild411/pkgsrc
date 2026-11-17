@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.20 2019/06/01 06:35:33 simonb Exp $
 
 DISTNAME=		sc-7.16_1.1.2
+PKGREVISION=		1
 CATEGORIES=		math
 MASTER_SITES=		${MASTER_SITE_GITHUB:=n-t-roff/}
 

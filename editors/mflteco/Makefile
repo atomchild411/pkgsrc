@@ -3,7 +3,7 @@
 
 DISTNAME=		mflteco
 PKGNAME=		mflteco-19920331
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		editors
 MASTER_SITES=		http://www.catb.org/~esr/retro/
 

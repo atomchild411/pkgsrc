@@ -2,7 +2,7 @@
 
 DISTNAME=	abs-src-0.8
 PKGNAME=	abs-0.8
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	math x11
 #MASTER_SITES=	http://home.scarlet.be/~pin01858/
 

@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	adns-1.6.0
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://www.chiark.greenend.org.uk/~ian/adns/ftp/
 

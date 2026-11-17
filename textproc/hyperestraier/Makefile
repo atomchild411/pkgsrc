@@ -1,5 +1,6 @@
 # $NetBSD: Makefile,v 1.29 2022/05/06 06:55:59 jperkin Exp $
 
+PKGREVISION= 1
 .include "Makefile.common"
 
 CATEGORIES=	japanese textproc www

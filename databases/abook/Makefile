@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	abook-0.6.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	databases
 MASTER_SITES=	http://abook.sourceforge.net/devel/
 

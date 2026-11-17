@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.7 2022/08/05 07:54:39 adam Exp $
 
 DISTNAME=	libaacs-0.11.1
+PKGREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	http://download.videolan.org/pub/videolan/libaacs/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.bz2

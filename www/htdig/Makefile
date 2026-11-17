@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.48 2025/11/17 11:01:38 wiz Exp $
 
 DISTNAME=	htdig-3.2.0b6
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	www databases
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=htdig/}
 #MASTER_SITES+=	http://www.htdig.org/files/

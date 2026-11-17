@@ -1,5 +1,6 @@
 # $NetBSD: Makefile,v 1.39 2026/04/03 03:34:10 markd Exp $
 
+PKGREVISION= 1
 .include "../../print/texlive/Makefile.common"
 
 PKGNAME=	kpathsea-6.4.2

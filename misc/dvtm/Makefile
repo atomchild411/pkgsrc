@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.17 2026/06/16 18:31:00 leot Exp $
 
 DISTNAME=	dvtm-0.15
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	https://www.brain-dump.org/projects/dvtm/
 

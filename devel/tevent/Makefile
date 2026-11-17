@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.27 2026/08/10 16:46:08 adam Exp $
 
 DISTNAME=	tevent-0.17.2
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://www.samba.org/ftp/tevent/
 

@@ -3,7 +3,7 @@
 .include "../../mail/dovecot2/Makefile.common"
 USE_TOOLS+=		bash:run	# scripts run with bash (see install-irix-bash)
 
-PKGREVISION=	1
+PKGREVISION=	2
 
 RCD_SCRIPTS=		dovecot
 SMF_NAME=		dovecot

@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		ncc-2.8
-PKGREVISION=		13
+PKGREVISION=		14
 CATEGORIES=		devel
 MASTER_SITES=		http://students.ceid.upatras.gr/~sxanth/ncc/
 

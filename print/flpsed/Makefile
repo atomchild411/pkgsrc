@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.21 2025/12/12 10:37:08 wiz Exp $
 
 DISTNAME=	flpsed-0.7.3
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	print
 MASTER_SITES=	https://flpsed.org/
 

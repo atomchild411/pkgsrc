@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2025/04/28 13:25:29 wiz Exp $
 
 DISTNAME=	epic5-3.0.3
+PKGREVISION=	1
 CATEGORIES=	chat
 MASTER_SITES=	https://ftp.epicsol.org/pub/epic/EPIC5-PRODUCTION/
 EXTRACT_SUFX=	.tar.xz

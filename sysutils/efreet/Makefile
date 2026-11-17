@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.55 2026/05/14 16:42:05 ryoon Exp $
 
 DISTNAME=	efreet-1.7.10
-PKGREVISION=	25
+PKGREVISION=	26
 CATEGORIES=	sysutils devel
 MASTER_SITES=	https://download.enlightenment.org/att/releases/
 EXTRACT_SUFX=	.tar.bz2

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2024/10/13 10:19:02 wiz Exp $
 
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=		1
+PKGREVISION=		2
 SYSLOG_MOD=		python
 SYSLOG_MOD_TARGET=	mod-python
 COMMENT=		Syslog-ng Python module

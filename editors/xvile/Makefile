@@ -2,7 +2,7 @@
 
 DISTNAME=		vile-9.8za
 PKGNAME=		x${DISTNAME}
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		editors
 MASTER_SITES=		https://invisible-island.net/archives/vile/current/
 MASTER_SITES+=		ftp://ftp.invisible-island.net/vile/current/

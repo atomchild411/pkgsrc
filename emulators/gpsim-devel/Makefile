@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	gpsim-20050905
-PKGREVISION=	54
+PKGREVISION=	55
 CATEGORIES=	emulators
 MASTER_SITES=	https://largo.lip6.fr/~bouyer/pic/
 

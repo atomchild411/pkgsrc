@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	xmftp-1.0.4
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	net
 #MASTER_SITES=	http://viraj.org/old/xmftp/
 

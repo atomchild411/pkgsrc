@@ -2,6 +2,7 @@
 
 DISTNAME=	pdns-recursor-5.4.6
 PKGNAME=	${DISTNAME:S/pdns/powerdns/}
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://downloads.powerdns.com/releases/
 EXTRACT_SUFX=	.tar.xz

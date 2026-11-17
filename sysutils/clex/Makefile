@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.15 2026/06/24 11:53:10 drixter Exp $
 
 DISTNAME=		clex-4.7
+PKGREVISION=		1
 CATEGORIES=		sysutils
 MASTER_SITES=		${MASTER_SITE_GITHUB:=xitop/}
 GITHUB_TAG=		v${PKGVERSION_NOREV}

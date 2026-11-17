@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.24 2026/08/04 20:28:53 wiz Exp $
 
 PKGNAME=	elvis-x11-${VERSION}
-PKGREVISION=	4
+PKGREVISION=	5
 COMMENT=	Clone of vi with regex-search, hex-edit, HTML/LaTeX preview (X11)
 
 CONFIGURE_ARGS+=	--with-x

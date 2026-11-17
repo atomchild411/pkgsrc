@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2022/09/27 20:32:56 fcambus Exp $
 
 DISTNAME=	trader-7.18
+PKGREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	https://ftp.zap.org.au/pub/trader/unix/
 

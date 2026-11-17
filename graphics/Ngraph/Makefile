@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	Ngraph-6.3.30-src
-PKGREVISION=	3
+PKGREVISION=	4
 PKGNAME=	${DISTNAME:S/-src//}
 CATEGORIES=	graphics
 MASTER_SITES=	http://www2e.biglobe.ne.jp/~isizaka/bin/

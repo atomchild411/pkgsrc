@@ -2,7 +2,7 @@
 
 DISTNAME=	grafx2-2.8.3132-src
 PKGNAME=	${DISTNAME:S/-src//}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	graphics
 MASTER_SITES=	https://gitlab.com/GrafX2/grafX2/-/jobs/2792657789/artifacts/raw/
 EXTRACT_SUFX=	.tgz

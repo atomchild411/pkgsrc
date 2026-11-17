@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.50 2023/12/30 21:16:28 zafer Exp $
 
 DISTNAME=		sqlite-2.8.17
-PKGREVISION=		3
+PKGREVISION=		4
 CATEGORIES=		databases
 MASTER_SITES=		https://www.sqlite.org/
 

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.45 2026/08/04 20:28:46 wiz Exp $
 
 DISTNAME=	eggdrop-1.9.2
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	chat
 MASTER_SITES=	https://ftp.eggheads.org/pub/eggdrop/source/${PKGVERSION_NOREV:R}/
 

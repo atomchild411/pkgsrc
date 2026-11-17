@@ -3,6 +3,7 @@
 
 DISTNAME=		luafilesystem-1.9.0
 PKGNAME=		${DISTNAME:S/lua/${LUA_PKGPREFIX}-/}
+PKGREVISION=		1
 CATEGORIES=		devel lua
 MASTER_SITES=		${MASTER_SITE_GITHUB:=lunarmodules/}
 GITHUB_PROJECT=		luafilesystem

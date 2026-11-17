@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2023/10/24 22:10:47 wiz Exp $
 
 DISTNAME=	git-crypt-0.7.0
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	https://www.agwa.name/projects/git-crypt/downloads/
 

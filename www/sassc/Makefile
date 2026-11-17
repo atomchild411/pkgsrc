@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.14 2026/02/07 08:24:31 wiz Exp $
 
 DISTNAME=	sassc-3.6.2
+PKGREVISION=	1
 CATEGORIES=	www devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=sass/}
 

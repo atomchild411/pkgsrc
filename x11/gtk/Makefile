@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.146 2026/01/12 19:31:21 rillig Exp $
 
 DISTNAME=		gtk+-1.2.10
-PKGREVISION=		21
+PKGREVISION=		22
 CATEGORIES=		x11
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gtk+/1.2/}
 

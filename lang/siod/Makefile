@@ -2,7 +2,7 @@
 
 DISTNAME=		siod
 PKGNAME=		siod-3.0
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		lang
 MASTER_SITES=		# ftp://ftp.std.com/pub/gjc/
 EXTRACT_SUFX=		.tgz

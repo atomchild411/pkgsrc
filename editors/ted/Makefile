@@ -2,7 +2,7 @@
 
 DISTNAME=	ted-2.23.src
 PKGNAME=	${DISTNAME:S/.src//}
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	editors
 MASTER_SITES=	https://ftp.nluug.nl/pub/editors/ted/
 

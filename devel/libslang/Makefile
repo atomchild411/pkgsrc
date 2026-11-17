@@ -2,6 +2,7 @@
 
 DISTNAME=	slang-2.3.3
 PKGNAME=	lib${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://www.jedsoft.org/releases/slang/
 EXTRACT_SUFX=	.tar.bz2

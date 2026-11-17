@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2026/06/26 16:55:06 ryoon Exp $
 
 DISTNAME=	screen-4.9.1
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	misc shells
 MASTER_SITES=	${MASTER_SITE_GNU:=screen/}
 

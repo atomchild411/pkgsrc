@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.27 2022/12/28 15:20:02 wiz Exp $
 
 DISTNAME=		mined-2022.27
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		editors
 MASTER_SITES=		http://towo.net/mined/
 DISTFILES=		${DISTNAME}${EXTRACT_SUFX} UCD.zip Unihan.zip BIG5.TXT

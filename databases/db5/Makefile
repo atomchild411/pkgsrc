@@ -8,7 +8,7 @@
 
 DISTNAME=	db-5.3.28
 PKGNAME=	${DISTNAME:S/db/db5/}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	databases
 MASTER_SITES=	https://download.oracle.com/berkeley-db/
 

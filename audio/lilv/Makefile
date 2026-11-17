@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.58 2026/08/12 12:52:34 wiz Exp $
 
 DISTNAME=	lilv-0.28.0
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	https://download.drobilla.net/
 EXTRACT_SUFX=	.tar.xz

@@ -3,7 +3,7 @@
 VERSION=	6.14
 DISTNAME=	squid-${VERSION}
 
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=squid-cache/}squid/releases/download/SQUID_${VERSION:S/./_/g}/
 EXTRACT_SUFX=	.tar.xz

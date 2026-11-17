@@ -2,7 +2,7 @@
 
 DISTNAME=	libqalculate-5.1.1
 PKGNAME=	qalculate-5.1.1
-PKGREVISION=	9
+PKGREVISION=	10
 CATEGORIES=	math
 MASTER_SITES=	${MASTER_SITE_GITHUB:=Qalculate/}
 GITHUB_PROJECT=	libqalculate

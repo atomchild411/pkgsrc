@@ -2,7 +2,7 @@
 
 DISTNAME=	festival-2.5.0-release
 PKGNAME=	${DISTNAME:S/-release//}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	audio
 MASTER_SITES=	http://festvox.org/packed/festival/2.5/
 DISTFILES=	${DISTNAME}.tar.gz \

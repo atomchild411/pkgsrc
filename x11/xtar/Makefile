@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2022/01/07 12:43:14 nia Exp $
 
 DISTNAME=	xtar-1.4
+PKGREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XCONTRIB:=utilities/}
 

@@ -3,7 +3,7 @@
 DISTNAME=		edb-1.0.5
 CATEGORIES=		databases
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=enlightenment/}
-PKGREVISION=		5
+PKGREVISION=		6
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 #HOMEPAGE=		https://www.enlightenment.org/Libraries/Edb/

@@ -3,7 +3,7 @@
 DISTNAME=	xpdf-3.04
 CATEGORIES=	print
 MASTER_SITES=	https://dl.xpdfreader.com/old/
-PKGREVISION=	3
+PKGREVISION=	4
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://www.xpdfreader.com/

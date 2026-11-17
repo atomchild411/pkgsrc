@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.34 2025/12/25 16:19:33 adam Exp $
 
 DISTNAME=	leptonica-1.87.0
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_GITHUB:=danbloomberg/}
 GITHUB_RELEASE=	${PKGVERSION_NOREV}

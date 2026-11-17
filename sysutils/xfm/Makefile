@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.27 2026/08/03 13:12:32 wiz Exp $
 
 DISTNAME=	xfm-1.4.3
-PKGREVISION=	9
+PKGREVISION=	10
 CATEGORIES=	sysutils x11
 MASTER_SITES=	http://www.musikwissenschaft.uni-mainz.de/~ag/xfm/
 

@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		gtksee-0.5.6
-PKGREVISION=		15
+PKGREVISION=		16
 CATEGORIES=		graphics x11
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=gtksee.berlios/}
 

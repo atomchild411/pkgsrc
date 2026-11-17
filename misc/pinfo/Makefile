@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.41 2026/01/22 08:39:56 wiz Exp $
 
 DISTNAME=		pinfo-0.6.1
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		misc
 MASTER_SITES=		# http://alioth.debian.org/download.php/1502/
 

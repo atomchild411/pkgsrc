@@ -3,6 +3,7 @@
 SYSLOG_MOD=		sql
 SYSLOG_MOD_DIR=		afsql
 COMMENT=		Syslog-ng SQL module
+PKGREVISION=		1
 
 .include "../../sysutils/syslog-ng/module.mk"
 .include "../../databases/libdbi/buildlink3.mk"

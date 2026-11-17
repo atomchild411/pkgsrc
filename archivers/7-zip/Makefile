@@ -2,6 +2,7 @@
 
 DISTNAME=	7z2603-src
 PKGNAME=	7-zip-26.03
+PKGREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	https://7-zip.org/a/
 EXTRACT_SUFX=	.tar.xz

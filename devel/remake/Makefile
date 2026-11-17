@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.7 2025/03/30 21:10:42 wiz Exp $
 
 DISTNAME=	remake-4.3+dbg-1.6
-PKGREVISION=	1
+PKGREVISION=	2
 # upstream titles it 4.3.1
 PKGNAME=	remake-4.3.1+dbg-1.6
 CATEGORIES=	devel

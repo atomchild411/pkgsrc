@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2025/12/13 10:05:45 vins Exp $
 
 DISTNAME=	asignify-20220101
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=vstakhov/}
 GITHUB_PROJECT=	asignify

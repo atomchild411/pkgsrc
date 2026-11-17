@@ -3,6 +3,7 @@
 
 DISTNAME=		gplcver-2.12a.src
 PKGNAME=		gplcver-2.12a
+PKGREVISION=		1
 CATEGORIES=		cad
 #MASTER_SITES=		http://www.pragmatic-c.com/gpl-cver/downloads/
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=gplcver/}

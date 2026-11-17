@@ -8,6 +8,7 @@
 
 DISTNAME=	db-6.2.32
 PKGNAME=	${DISTNAME:S/db/db6/}
+PKGREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	https://download.oracle.com/berkeley-db/
 

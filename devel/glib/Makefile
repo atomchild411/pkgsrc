@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.98 2025/07/11 10:19:27 jperkin Exp $
 
 DISTNAME=		glib-1.2.10
-PKGREVISION=		11
+PKGREVISION=		12
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/glib/1.2/}
 

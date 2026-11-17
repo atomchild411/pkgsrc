@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.41 2023/08/02 19:20:18 nia Exp $
 
 DISTNAME=	estic-1.61
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	comms
 MASTER_SITES=	ftp://ftp.gwdg.de/pub/misc/isdn/linux/isdn4linux/oldstuff/estic/
 EXTRACT_SUFX=	.zip

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.21 2019/11/03 09:14:14 rillig Exp $
 
 DISTNAME=	Mowitz-0.3.1
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	x11
 MASTER_SITES=	http://siag.nu/pub/mowitz/
 

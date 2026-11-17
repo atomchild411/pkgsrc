@@ -2,7 +2,7 @@
 
 .include "Makefile.common"
 
-PKGREVISION=	1
+PKGREVISION=	2
 COMMENT=	Cross platform make
 
 USE_TOOLS+=		gmake pkg-config

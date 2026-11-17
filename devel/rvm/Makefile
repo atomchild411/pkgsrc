@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	rvm-1.17
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://ftp.coda.cs.cmu.edu/pub/rvm/src/
 

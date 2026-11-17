@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.29 2026/02/21 05:31:47 wiz Exp $
 
 DISTNAME=	xtrs-4.9d
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	emulators
 MASTER_SITES=	http://www.tim-mann.org/trs80/
 

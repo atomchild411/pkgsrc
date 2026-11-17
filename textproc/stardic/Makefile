@@ -2,7 +2,7 @@
 
 DISTNAME=	dic
 PKGNAME=	stardic-1.31
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	textproc
 MASTER_SITES=	http://download.linuxbyte.net/Chinese/dictionary/
 DIST_SUBDIR=	${PKGNAME_NOREV}

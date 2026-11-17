@@ -1,5 +1,6 @@
 # $NetBSD: Makefile,v 1.1 2023/06/06 09:56:08 bouyer Exp $
 
+PKGREVISION= 1
 .include "../../cad/ng-spice/Makefile.common"
 
 PKGNAME=	ng-spice-shared-${VERSION}

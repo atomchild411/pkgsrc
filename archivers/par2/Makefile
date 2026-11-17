@@ -2,6 +2,7 @@
 
 DISTNAME=	par2cmdline-1.4.0
 PKGNAME=	${DISTNAME:S/cmdline//}
+PKGREVISION=	1
 CATEGORIES=	archivers misc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=Parchive/}
 GITHUB_PROJECT=	par2cmdline

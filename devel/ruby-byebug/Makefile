@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.15 2026/01/17 15:49:26 taca Exp $
 
 DISTNAME=	byebug-13.0.0
+PKGREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

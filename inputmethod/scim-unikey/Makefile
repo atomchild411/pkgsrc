@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	scim-unikey-0.3.1
-PKGREVISION=	51
+PKGREVISION=	52
 CATEGORIES=	inputmethod
 MASTER_SITES=	http://scim-unikey.googlecode.com/files/
 

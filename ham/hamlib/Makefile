@@ -3,6 +3,7 @@
 
 VERSION=	4.7.2
 DISTNAME=	hamlib-${VERSION}
+PKGREVISION=	1
 CATEGORIES=	ham
 # hamlib is both at github and sourceforge, and upstream documents
 # that github is the canonical location.

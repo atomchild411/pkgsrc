@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.127 2026/09/13 06:08:32 adam Exp $
 
 DISTNAME=	libgcrypt-1.12.4
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GNUPG:=libgcrypt/}
 EXTRACT_SUFX=	.tar.bz2

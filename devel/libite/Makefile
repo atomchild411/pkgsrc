@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1.1.1 2016/05/29 22:24:33 abs Exp $
 
 DISTNAME=	libite-1.6.0
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=troglobit/libite/releases/download/v${DISTNAME:C:libite-::}/}
 EXTRACT_SUFX=	.tar.xz

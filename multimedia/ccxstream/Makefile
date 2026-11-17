@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	ccxstream-1.0.15
+PKGREVISION=	1
 CATEGORIES=	audio multimedia net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=xbplayer/}
 

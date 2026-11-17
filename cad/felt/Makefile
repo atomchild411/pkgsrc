@@ -2,7 +2,7 @@
 
 DISTNAME=		felt-3.05.src
 PKGNAME=		felt-3.05
-PKGREVISION=		5
+PKGREVISION=		6
 CATEGORIES=		cad
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=felt/}
 DISTFILES=		felt-3.05.src.tar.gz felt-3.05.ps.gz

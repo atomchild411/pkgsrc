@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.18 2020/05/22 12:43:53 adam Exp $
 
 DISTNAME=	vobcopy-1.2.0
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	sysutils
 MASTER_SITES=	http://lpn.rnbhq.org/download/
 

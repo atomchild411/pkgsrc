@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.12 2014/07/09 14:31:32 asau Exp $
 #
 
+PKGREVISION= 1
 .include "Makefile.common"
 
 CATEGORIES=	databases

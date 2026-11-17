@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.4 2026/04/20 12:35:00 adam Exp $
 
 DISTNAME=	md4c-0.5.3
+PKGREVISION=	1
 CATEGORIES=	textproc converters
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mity/}
 GITHUB_TAG=	release-${PKGVERSION_NOREV}

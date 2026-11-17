@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.36 2024/11/17 07:21:09 wiz Exp $
 
 DISTNAME=		libXt-1.3.1
+PKGREVISION=		1
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.xz

@@ -2,6 +2,7 @@
 
 DISTNAME=	netscape-5.0beta1
 PKGNAME=	netscape5-5.0beta1
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=atomchild411/}
 GITHUB_PROJECT=	netscape

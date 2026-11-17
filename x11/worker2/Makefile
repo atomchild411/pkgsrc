@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	worker-2.14.1
+PKGREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	http://www.boomerangsworld.de/cms/worker/downloads/
 

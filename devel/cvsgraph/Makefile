@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	cvsgraph-1.7.2
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	devel scm
 MASTER_SITES=	https://www.vagrearg.org/cvsgraph/release/
 

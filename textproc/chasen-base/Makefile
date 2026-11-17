@@ -2,6 +2,7 @@
 
 DISTNAME=		chasen-${CHASEN_VERSION}
 PKGNAME=		chasen-base-${CHASEN_VERSION}
+PKGREVISION=		1
 CATEGORIES=		japanese textproc
 MASTER_SITES=		${MASTER_SITE_OSDN:=chasen-legacy/56305/}
 

@@ -2,6 +2,7 @@
 
 DISTNAME=	pyqt6_sip-13.11.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/pyqt6_sip/sip-qt6/}
+PKGREVISION=	1
 CATEGORIES=	x11 python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pyqt6_sip/}
 

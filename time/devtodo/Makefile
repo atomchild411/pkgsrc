@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.32 2013/07/15 02:02:29 ryoon Exp $
 
 DISTNAME=	devtodo-0.1.20
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	time
 MASTER_SITES=	http://swapoff.org/files/devtodo/
 

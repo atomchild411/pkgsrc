@@ -2,7 +2,7 @@
 
 DISTNAME=	xart19980415
 PKGNAME=	xart-19980415
-PKGREVISION=	23
+PKGREVISION=	24
 CATEGORIES=	graphics x11
 #MASTER_SITES=	http://linux01.gwdg.de/~rhohen/linux/
 EXTRACT_SUFX=	.tgz

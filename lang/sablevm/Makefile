@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	sablevm-1.13
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	lang
 MASTER_SITES=	http://sablevm.org/download/release/1.13/
 

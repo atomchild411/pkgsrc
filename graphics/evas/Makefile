@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.32 2026/01/23 01:31:50 gutteridge Exp $
 
 COMMENT=	Enlightened Canvas Library
-PKGREVISION=	5
+PKGREVISION=	6
 
 .include "Makefile.common"
 

@@ -3,7 +3,7 @@
 
 DISTNAME=	MToolsFM-1.9-3
 PKGNAME=	mtoolsfm-1.9.3
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.core-coutainville.org/MToolsFM/archive/SOURCES/
 

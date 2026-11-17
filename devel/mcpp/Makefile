@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3 2020/05/20 06:09:06 rillig Exp $
 
 DISTNAME=	mcpp-2.7.2
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mcpp/}
 

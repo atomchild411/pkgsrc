@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.26 2025/04/21 21:10:48 perseant Exp $
 
 DISTNAME=	xml-security-c-3.0.0
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	security devel
 MASTER_SITES=	http://shibboleth.net/downloads/xml-security-c/${PKGVERSION_NOREV}/
 

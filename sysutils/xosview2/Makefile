@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.8 2025/10/12 06:37:38 vins Exp $
 
 DISTNAME=	xosview2-2.3.4
+PKGREVISION=	1
 CATEGORIES=	sysutils x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=xosview/}
 

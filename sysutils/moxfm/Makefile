@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2025/04/11 01:49:10 nia Exp $
 
 DISTNAME=	moxfm-1.0.1
+PKGREVISION=	1
 CATEGORIES=	sysutils x11
 MASTER_SITES=	https://www.musikinformatik.uni-mainz.de/ag/xfm/
 

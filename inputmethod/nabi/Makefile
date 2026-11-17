@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		nabi-0.99.9
-PKGREVISION=		41
+PKGREVISION=		42
 CATEGORIES=		korean inputmethod
 MASTER_SITES=		http://kldp.net/frs/download.php/5926/
 

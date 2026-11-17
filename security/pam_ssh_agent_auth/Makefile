@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.13 2023/10/24 22:10:55 wiz Exp $
 
 DISTNAME=	pam_ssh_agent_auth-0.10.4
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=jbeverly/}
 GITHUB_TAG=	${DISTNAME}

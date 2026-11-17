@@ -2,6 +2,7 @@
 #
 
 DISTNAME=	tokyocabinet-1.4.48
+PKGREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	${HOMEPAGE}
 

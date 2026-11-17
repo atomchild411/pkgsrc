@@ -4,6 +4,7 @@ GITHUB_PROJECT=	mapcode-cpp
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 DISTNAME=	mapcode-cpp-2.5.5
 PKGNAME=	${DISTNAME:S/-cpp//}
+PKGREVISION=	1
 CATEGORIES=	geography
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mapcode-foundation/}
 

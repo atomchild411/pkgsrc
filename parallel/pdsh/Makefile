@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.13 2026/08/26 10:08:06 drixter Exp $
 
 DISTNAME=	pdsh-2.36
+PKGREVISION=	1
 CATEGORIES=	parallel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=chaos/}
 GITHUB_PROJECT=	pdsh

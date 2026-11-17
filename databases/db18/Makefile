@@ -2,6 +2,7 @@
 
 DISTNAME=	db-18.1.40
 PKGNAME=	${DISTNAME:S/db-/db18-/}
+PKGREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	https://download.oracle.com/berkeley-db/
 

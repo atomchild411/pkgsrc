@@ -2,6 +2,7 @@
 
 DISTNAME=	joe-3.1jupp41
 PKGNAME=	${DISTNAME:S/jupp/./:S/joe/jupp/}
+PKGREVISION=	1
 CATEGORIES=	editors
 MASTER_SITES=	http://www.mirbsd.org/MirOS/dist/jupp/ \
 		http://pub.allbsd.org/MirOS/dist/jupp/

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.15 2022/12/31 16:21:51 taca Exp $
 
 DISTNAME=	bluecloth-2.2.0
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	textproc
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

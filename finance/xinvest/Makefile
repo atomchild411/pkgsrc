@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.23 2025/11/17 11:00:46 wiz Exp $
 
 DISTNAME=		xinvest-2.6.9
-PKGREVISION=		3
+PKGREVISION=		4
 CATEGORIES=		finance x11
 MASTER_SITES=		http://sourceforge.net/projects/xinvest/files/latest/download
 

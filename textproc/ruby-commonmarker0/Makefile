@@ -2,6 +2,7 @@
 
 DISTNAME=	commonmarker-0.23.12
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/commonmarker/&0/}
+PKGREVISION=	1
 CATEGORIES=	textproc
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.9 2025/11/17 11:01:24 wiz Exp $
 
 DISTNAME=	ssdeep-2.14.1
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=ssdeep-project/}
 GITHUB_TAG=	release-${PKGVERSION_NOREV}

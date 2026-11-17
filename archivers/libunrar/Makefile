@@ -1,5 +1,6 @@
 # $NetBSD: Makefile,v 1.3 2025/05/06 07:46:32 wiz Exp $
 
+PKGREVISION= 1
 .include "../../archivers/unrar/Makefile.common"
 PKGNAME=	${DISTNAME:S/^/lib/:S/src//}
 

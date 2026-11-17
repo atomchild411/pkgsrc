@@ -2,6 +2,7 @@
 
 DISTNAME=	helix-25.07.1-source
 PKGNAME=	${DISTNAME:S/-source//}
+PKGREVISION=	1
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_GITHUB:=helix-editor/}
 

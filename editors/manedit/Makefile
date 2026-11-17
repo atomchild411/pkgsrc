@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.37 2026/08/04 20:28:53 wiz Exp $
 
 DISTNAME=	manedit-0.8.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	editors
 EXTRACT_SUFX=	.tar.bz2
 

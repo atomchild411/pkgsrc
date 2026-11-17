@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.23 2021/04/21 08:05:56 wiz Exp $
 
 DISTNAME=	wily-0.13.42
+PKGREVISION=	1
 CATEGORIES=	editors plan9
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=wily/}
 EXTRACT_SUFX=	.tar.gz

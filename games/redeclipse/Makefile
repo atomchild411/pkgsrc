@@ -2,7 +2,7 @@
 
 DISTNAME=	redeclipse_2.0.0_nix
 PKGNAME=	redeclipse-2.0.0
-PKGREVISION=	17
+PKGREVISION=	18
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GITHUB:=redeclipse/}
 EXTRACT_SUFX=	.tar.bz2

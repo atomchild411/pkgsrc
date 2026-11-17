@@ -2,7 +2,7 @@
 
 PKGNAME=	elvis-${VERSION}
 COMMENT=	Clone of vi with regex-search, hex-edit, HTML/LaTeX preview
-PKGREVISION=	11
+PKGREVISION=	12
 
 CONFIGURE_ARGS+=		--without-x
 

@@ -2,7 +2,7 @@
 
 DISTNAME=	doxygen-1.18.0.src
 PKGNAME=	${DISTNAME:S/.src//}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	https://doxygen.nl/files/
 

@@ -1,5 +1,6 @@
 # $NetBSD: Makefile,v 1.132 2026/05/13 09:30:42 adam Exp $
 
+PKGREVISION= 1
 .include "Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-server//}

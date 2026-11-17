@@ -2,7 +2,7 @@
 
 DISTNAME=	hatari-v2.6.1
 PKGNAME=	${DISTNAME:S/-v/-/}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	emulators
 MASTER_SITES=	https://framagit.org/hatari/hatari/-/archive/v${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.bz2

@@ -3,7 +3,7 @@
 .include "../../print/texlive/Makefile.common"
 
 PKGNAME=	xdvik-22.87.06
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	print
 
 HOMEPAGE=	https://xdvi.sourceforge.net/

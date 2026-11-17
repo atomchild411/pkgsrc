@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.106 2026/09/07 08:42:39 jperkin Exp $
 
 DISTNAME=	redis-8.10.1
+PKGREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	http://download.redis.io/releases/
 

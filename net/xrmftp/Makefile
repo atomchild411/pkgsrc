@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.30 2025/08/30 22:46:07 wiz Exp $
 
 DISTNAME=	xrmftp-1.2.4
-PKGREVISION=	13
+PKGREVISION=	14
 CATEGORIES=	net
 #MASTER_SITES=	http://www-users.mat.uni.torun.pl/~rafmet/xrmftp/
 EXTRACT_SUFX=	.src.tgz

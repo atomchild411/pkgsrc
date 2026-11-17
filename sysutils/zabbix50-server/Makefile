@@ -3,7 +3,7 @@
 # used by sysutils/zabbix50-agent/Makefile
 #
 
-PKGREVISION= 12
+PKGREVISION= 13
 .include "Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-/-server-${ZABBIX_DB_TYPE}-/}

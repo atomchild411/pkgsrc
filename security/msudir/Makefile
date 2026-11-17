@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.10 2019/11/04 21:12:55 rillig Exp $
 
 DISTNAME=	msudir-0.15
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	http://msudir.googlecode.com/files/
 EXTRACT_SUFX=	.tbz

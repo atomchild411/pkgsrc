@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.12 2017/08/16 21:22:13 wiz Exp $
 
 DISTNAME=	libhangul-0.1.0
+PKGREVISION=	1
 CATEGORIES=	inputmethod korean
 MASTER_SITES=	http://libhangul.googlecode.com/files/
 

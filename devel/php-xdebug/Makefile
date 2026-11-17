@@ -2,6 +2,7 @@
 
 MODNAME=		xdebug
 PECL_VERSION=		3.5.3
+PKGREVISION=		1
 CATEGORIES=		devel
 EXTRACT_SUFX=		.tgz
 

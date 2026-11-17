@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		lsh-2.0.4
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		security
 MASTER_SITES=		http://www.lysator.liu.se/~nisse/archive/
 MASTER_SITES+=		ftp://ftp.lysator.liu.se/pub/security/lsh/

@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.72 2025/05/17 02:49:42 gutteridge Exp $
 
 DISTNAME=	minicom-2.7.1
+PKGREVISION=	1
 CATEGORIES=	comms
 #MASTER_SITES=	https://alioth.debian.org/frs/download.php/file/4215/
 

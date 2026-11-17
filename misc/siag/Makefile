@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	siag-3.6.1
-PKGREVISION=	9
+PKGREVISION=	10
 CATEGORIES=	misc editors math textproc
 MASTER_SITES=	http://siag.nu/pub/siag/
 

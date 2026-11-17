@@ -2,7 +2,7 @@
 
 DISTNAME=	freenginx-1.31.4
 PKGNAME=	${DISTNAME:S/-/-devel-/1}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	https://freenginx.org/download/
 DISTFILES=	${DEFAULT_DISTFILES}

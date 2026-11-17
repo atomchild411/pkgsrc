@@ -2,7 +2,7 @@
 #
 
 DISTNAME=	ninja-1.5.8.1
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	chat
 MASTER_SITES=	ftp://qoop.org/ninja/sources/
 

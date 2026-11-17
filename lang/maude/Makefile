@@ -2,7 +2,7 @@
 
 DISTNAME=	Maude-2.6
 PKGNAME=	maude-2.6
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	lang
 #MASTER_SITES=	http://maude.cs.uiuc.edu/download/
 #MASTER_SITES+=	http://maude.cs.uiuc.edu/download/current/

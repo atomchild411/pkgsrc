@@ -3,7 +3,7 @@
 # When updating this, run 'make cfgfiles'.
 
 DISTNAME=	rspamd-4.2.2
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_GITHUB:=rspamd/}
 

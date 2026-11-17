@@ -2,7 +2,7 @@
 
 DISTNAME=	v3.3.0
 PKGNAME=	dillo-${DISTNAME:S/v//}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	https://git.sr.ht/~dillo/dillo/archive/
 DIST_SUBDIR=	dillo

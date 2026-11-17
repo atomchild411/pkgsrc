@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2023/02/15 13:05:48 wiz Exp $
 
 DISTNAME=	librttopo-1.1.0
+PKGREVISION=	1
 CATEGORIES=	geography
 MASTER_SITES=	https://git.osgeo.org/gitea/rttopo/librttopo/archive/
 

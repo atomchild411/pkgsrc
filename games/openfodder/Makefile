@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.5 2026/09/02 19:02:19 wiz Exp $
 
 DISTNAME=	openfodder-1.9.2
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GITHUB:=openfodder/}
 

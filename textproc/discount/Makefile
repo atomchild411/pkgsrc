@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.23 2026/01/19 07:58:15 wiz Exp $
 
 DISTNAME=		discount-2.2.7e
+PKGREVISION=		1
 CATEGORIES=		textproc
 MASTER_SITES=		https://www.pell.portland.or.us/~orc/Code/discount/
 #MASTER_SITES=		${MASTER_SITE_GITHUB:=Orc/}

@@ -2,6 +2,7 @@
 
 DISTNAME=	xfind-src
 PKGNAME=	xfind-1.0.5
+PKGREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	https://fastestcode.org/dl/
 DIST_SUBDIR=	${PKGNAME_NOREV}

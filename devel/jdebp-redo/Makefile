@@ -2,7 +2,7 @@
 
 DISTNAME=		redo-1.5
 PKGNAME=		jdebp-${DISTNAME}
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		devel
 MASTER_SITES=		https://jdebp.uk/Repository/netbsd/
 DIST_SUBDIR=		${PKGNAME_NOREV}

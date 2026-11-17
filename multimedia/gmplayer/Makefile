@@ -8,7 +8,7 @@
 #
 
 PKGNAME=	gmplayer-${MPLAYER_VERSION}
-PKGREVISION=	3
+PKGREVISION=	4
 
 SKIN_SITES=	http://www.mplayerhq.hu/MPlayer/skins/
 

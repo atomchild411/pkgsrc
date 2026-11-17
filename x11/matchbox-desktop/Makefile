@@ -2,7 +2,7 @@
 #
 
 DISTNAME=		matchbox-desktop-0.9.1
-PKGREVISION=		16
+PKGREVISION=		17
 CATEGORIES=		x11
 MASTER_SITES=		http://matchbox-project.org/sources/matchbox-desktop/0.9/
 EXTRACT_SUFX=		.tar.bz2

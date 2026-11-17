@@ -2,7 +2,7 @@
 #
 
 PKGNAME=		amanda-client-${AMANDA_VERSION}
-PKGREVISION=		10
+PKGREVISION=		11
 
 COMMENT=		Client part of Amanda, a network backup system
 

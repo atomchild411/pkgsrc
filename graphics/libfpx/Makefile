@@ -3,7 +3,7 @@
 libfpx_ver=	1.3.1
 DISTNAME=	libfpx-${libfpx_ver}-10
 PKGNAME=	libfpx-${libfpx_ver}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	https://imagemagick.org/archive/delegates/
 EXTRACT_SUFX=	.tar.xz

@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.20 2026/07/12 16:53:28 wiz Exp $
 
 DISTNAME=	sequoia-sq-1.3.1
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITLAB:=sequoia-pgp/}
 GITLAB_PROJECT=	sequoia-sq

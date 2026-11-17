@@ -2,7 +2,7 @@
 
 DISTNAME=	SNNSv4.3
 PKGNAME=	snns-4.3
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	math
 #MASTER_SITES=	http://www-ra.informatik.uni-tuebingen.de/downloads/SNNS/
 

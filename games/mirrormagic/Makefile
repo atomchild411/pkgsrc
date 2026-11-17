@@ -3,7 +3,7 @@
 DISTNAME=	mirrormagic-3.3.1-linux
 
 COMMENT=	Nice little puzzle game with color graphics and sound
-PKGREVISION=	6
+PKGREVISION=	7
 
 CONFLICTS=	mirrormagic-sdl-[1-9]*
 
