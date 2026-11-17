@@ -7,5 +7,7 @@ SHA1 (patch-meson.build) = 3187c754af123be69e1b5651165f6310c8786558
 SHA1 (patch-src_cairo-bentley-ottmann-rectangular.c) = 7284b21954a35729ca92b248b99d1dca3496f9b5
 SHA1 (patch-src_cairo-colr-glyph-render.c) = 3dc6dc2b0a808b1bd6e2323645f895e276f0a8af
 SHA1 (patch-src_cairo-image-surface.c) = 3ae5966abf7851dfdb74742c39d2033b4655d7f7
+SHA1 (patch-src_cairo-xlib-source.c) = 16e9bce031dd3071333e876d7ca01fbd07f11bcb
+SHA1 (patch-src_cairo-xlib-surface.c) = c8970832dcfbb47858f08b8eac131bde41c0dcf4
 SHA1 (patch-test_pdf-structure.c) = dd3e5ee2cdbc19e77c2d5a60dab98195ecbe82bb
 SHA1 (patch-util_cairo-missing_getline.c) = a1068a37113b162ccfe14d7f1bd0baa9df7e5530
