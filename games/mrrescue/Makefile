@@ -13,6 +13,10 @@ HOMEPAGE=	https://tangramgames.dk/games/mrrescue/
 COMMENT=	Arcade-style fire fighting game
 LICENSE=	zlib AND cc-by-sa-v3.0
 
+# IRIX: a LOVE 0.10 game; games/love010 needs OpenGL 2.1 or OpenGL ES 2,
+# and IRIX's OpenGL is 1.2.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 do-extract:
 	${MKDIR} ${WRKSRC}
 	${CP} ${_DISTDIR:Q}/${DISTNAME}${EXTRACT_SUFX} ${WRKSRC}
