@@ -7,6 +7,10 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://0ldsk00l.ca/nestopia/
 COMMENT=	Portable, very accurate NES emulator
 
+# IRIX: needs OpenGL 3.0 (vertex array objects) or OpenGL ES 3.0; IRIX's
+# OpenGL is 1.2.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 GNU_CONFIGURE=	yes
 
 USE_TOOLS+=	autoreconf autoconf automake
