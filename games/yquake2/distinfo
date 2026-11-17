@@ -6,5 +6,5 @@ Size (quake2-8.20.tar.xz) = 2152184 bytes
 SHA1 (patch-Makefile) = 9f237f72a569e201425438361f44db7b09b590e3
 SHA1 (patch-src_backends_generic_misc.c) = 30bd4ead86085d15362922a925b0d7228b9201bd
 SHA1 (patch-src_backends_unix_system.c) = a393d8ffe0848ddddb8141bb76941169608c0003
-SHA1 (patch-src_client_refresh_gl1_gl1__main.c) = dbed544d1bb5423c64cd5192420f4eb065f9660f
-SHA1 (patch-src_client_refresh_gl1_gl1__sdl.c) = a7c6e154b6a90975ff713a72abdc75bd27b32433
+SHA1 (patch-src_client_refresh_gl1_gl1__main.c) = 6da13b43d5c74ab473dfb611ad866bccf08f2f74
+SHA1 (patch-src_client_refresh_gl1_gl1__sdl.c) = c3271a7aeebb6b5c5024306f6e32dfe80fdc0401
