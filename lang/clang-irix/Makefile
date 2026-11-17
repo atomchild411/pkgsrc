@@ -38,7 +38,11 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # mutex-based ones are __irix_pthread_spin_* (iris/main dbbe9a9c4f).
 # nb47: pselect fails with EINTR for the signals it unblocks, as the real
 # one does, instead of sleeping on (iris/main 9025898d71).
-PKGREVISION=	47
+# nb48: named std::locales work (libc++ gives IRIX's mbtowc at most
+# MB_LEN_MAX bytes); realpath(x, NULL) and getcwd(NULL, 0) allocate, and
+# bsearch of an empty array finds nothing (wrapper headers and builtins,
+# iris/main 2e552b1a89, 14c6e55e4d, f617112dfb).
+PKGREVISION=	48
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix
