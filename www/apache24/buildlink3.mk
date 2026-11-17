@@ -18,6 +18,9 @@ BUILDLINK_FILES.apache+=	sbin/apxs
 # The installed config_vars.mk names the target's compiler as the target
 # knows it ("clang"); the build's libtool is configured for the cross
 # compiler's name and cannot infer a tag for "clang", so name it to apxs.
+# apr's libtool, which apxs runs for modules built without USE_LIBTOOL, is
+# configured for "clang" instead and cannot infer a tag for the cross name:
+# give both the C tag (apxs passes LTFLAGS to libtool).
 APXS?=			${BUILDLINK_DIR}/bin/apxs
 buildlink-apache-cookie: buildlink-apache-apxs
 .PHONY: buildlink-apache-apxs
@@ -25,6 +28,7 @@ buildlink-apache-apxs: buildlink-directories
 	${MKDIR} ${BUILDLINK_DIR}/bin
 	{ ${ECHO} '#!/bin/sh'; \
 	  ${ECHO} '# Apache 2 apxs (STANDARD20): configures grep apxs for that.'; \
+	  ${ECHO} 'LTFLAGS="$${LTFLAGS:---silent} --tag=CC"; export LTFLAGS'; \
 	  ${ECHO} 'exec ${TOOLS_PATH.perl} ${BUILDLINK_PREFIX.apache}/bin/apxs -S CC=${CC:Q} "$$@"'; \
 	} > ${BUILDLINK_DIR}/bin/apxs
 	${CHMOD} +x ${BUILDLINK_DIR}/bin/apxs
