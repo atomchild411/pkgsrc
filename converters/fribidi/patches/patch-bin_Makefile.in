@@ -1,0 +1,18 @@
+$NetBSD$
+
+Cross-compiling in the source tree, keep the shipped man page instead of
+copying it onto itself (cp fails: "are the same file").
+
+--- bin/Makefile.in.orig
++++ bin/Makefile.in
+@@ -840,7 +840,9 @@
+ # host. Fall back to a man page shipped in the source tree (e.g. from a
+ # release tarball) if there is one, otherwise skip generating it.
+ @CROSS_COMPILING_TRUE@%.1: %
+-@CROSS_COMPILING_TRUE@	@if test -f $(srcdir)/$@; then \
++@CROSS_COMPILING_TRUE@	@if test "$(srcdir)" = . && test -f $@; then \
++@CROSS_COMPILING_TRUE@	  touch $@; \
++@CROSS_COMPILING_TRUE@	elif test -f $(srcdir)/$@; then \
+ @CROSS_COMPILING_TRUE@	  cp $(srcdir)/$@ $@; \
+ @CROSS_COMPILING_TRUE@	else \
+ @CROSS_COMPILING_TRUE@	  echo "$@: skipping man page generation; help2man can't run $< while cross-compiling" >&2; \

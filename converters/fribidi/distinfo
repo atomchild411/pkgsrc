@@ -3,3 +3,4 @@ $NetBSD: distinfo,v 1.24.16.1 2026/11/11 10:30:22 maya Exp $
 BLAKE2s (fribidi-1.0.18.tar.xz) = e568404f0f5aefa38ea8b9b5eb9650d77fdb2a943e5cf11eff2eb683a538a990
 SHA512 (fribidi-1.0.18.tar.xz) = c7bf95e6695652ee935afc3067cb7667e77859bb6d27e7fc2b5294e1bc17d1a0c2ed5f7eef709999f7e51ec4475934f0a4abefde79bc3db577ca2f4361c92a1c
 Size (fribidi-1.0.18.tar.xz) = 1222656 bytes
+SHA1 (patch-bin_Makefile.in) = 1c4c49a87ef8da50c74c99ca12372685d549598f
