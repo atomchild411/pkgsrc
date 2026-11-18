@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.80.2.1 2026/10/21 20:45:52 maya Exp $
+# $NetBSD: Makefile,v 1.80.2.2 2026/11/11 20:32:23 maya Exp $
 
 DISTNAME=	fvwm3-1.1.4
 PKGREVISION=	17
