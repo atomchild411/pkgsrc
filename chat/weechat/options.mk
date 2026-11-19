@@ -3,7 +3,13 @@
 PKG_OPTIONS_VAR=	PKG_OPTIONS.weechat
 # mk/curses will handle wide-curses
 PKG_SUPPORTED_OPTIONS=	python lua wide-curses perl ruby
-PKG_SUGGESTED_OPTIONS=	python lua wide-curses perl ruby
+PKG_SUGGESTED_OPTIONS=	python lua wide-curses perl
+
+.include "../../mk/bsd.fast.prefs.mk"
+# IRIX: no Ruby there (lang/ruby34 is NOT_FOR_PLATFORM on IRIX).
+.if ${OPSYS} != "IRIX"
+PKG_SUGGESTED_OPTIONS+=	ruby
+.endif
 
 .include "../../mk/bsd.options.mk"
 .include "../../mk/bsd.fast.prefs.mk"

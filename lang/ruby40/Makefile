@@ -9,6 +9,10 @@ MAINTAINER=	taca@NetBSD.org
 HOMEPAGE=	${RUBY_HOMEPAGE}
 COMMENT=	Ruby ${RUBY_VERSION} release package
 
+# IRIX: RubyGems stops with a bus error at startup on IRIX, so Ruby and
+# everything that needs it are left out there.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 RUBY_VERSIONS_ACCEPTED=	40
 
 USE_GCC_RUNTIME=	yes

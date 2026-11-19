@@ -1,18 +1,22 @@
 # $NetBSD: Makefile,v 1.78 2026/07/24 15:56:04 taca Exp $
 
 PKGNAME=	subversion-${SVNVER}
-PKGREVISION=	2
+PKGREVISION=	3
 COMMENT=	Version control system, meta-package
 
 META_PACKAGE=	yes
 
 .include "../../devel/subversion/Makefile.common"
+.include "../../mk/bsd.fast.prefs.mk"
 
 DEPENDS+=	subversion-base-${SVNVER}{,nb[0-9]*}:../../devel/subversion-base
 DEPENDS+=	${APACHE_PKG_PREFIX}-subversion-${SVNVER}{,nb[0-9]*}:../../www/ap2-subversion
 DEPENDS+=	p5-subversion-${SVNVER}{,nb[0-9]*}:../../devel/p5-subversion
 DEPENDS+=	${PYPKGPREFIX}-subversion-${SVNVER}{,nb[0-9]*}:../../devel/py-subversion
+# IRIX: no Ruby there (lang/ruby34 is NOT_FOR_PLATFORM on IRIX).
+.if ${OPSYS} != "IRIX"
 DEPENDS+=	${RUBY_PKGPREFIX}-subversion-${SVNVER}{,nb[0-9]*}:../../devel/ruby-subversion
+.endif
 
 .if !empty(PKG_OPTIONS:Mjava)
 # The standard implementation of java is non-portable and non-free, so
