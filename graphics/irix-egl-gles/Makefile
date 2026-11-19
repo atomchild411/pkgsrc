@@ -1,7 +1,7 @@
 # $NetBSD$
 
 DISTNAME=	irix-egl-gles-20260928
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	graphics
 # No public site yet: the distfile is "git archive --prefix=${DISTNAME}/"
 # of the author's repository at 2406e6c, placed in DISTDIR by hand.
@@ -35,6 +35,8 @@ post-install:
 	${RM} -f ${DESTDIR}${PREFIX}/include/KHR/khrplatform.h
 	${RMDIR} ${DESTDIR}${PREFIX}/include/KHR
 
+# The installed EGL and GLES 2 headers include <KHR/khrplatform.h>.
+BUILDLINK_DEPMETHOD.khronos-gl-headers=	full
 .include "../../graphics/khronos-gl-headers/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
