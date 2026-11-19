@@ -1,0 +1,15 @@
+Holli Dance is David White's 3D dancer for SGI workstations: Holli dances
+in a night club, with club lighting, to the music on the audio input
+(Digital In by default; without audio she dances anyway). Its frame rate,
+shown under Rendering, is a well-known SGI graphics benchmark. The 1998
+version, which the sgidepot.co.uk benchmark table uses, is in
+hollidance-classic; the author notes that 1.6's frame rates do not compare
+with it.
+
+This is the author's IRIX binary (n32, OpenGL, Motif, audio). Run it with
+"hollidance", which keeps your settings in ~/.hollidance; with the
+hollidance-models package, "hollidance -large" uses the large models.
+
+The NoStrobe file keeps the strobe light effect off, because strobing
+light can cause seizures in people with epilepsy. The hollidance command
+always keeps it in place.

@@ -1,0 +1,6 @@
+Extra models for Holli Dance 1.6 (hollidance) from its author's site:
+Holli's friends Renee, Susan and Penny and her new outfit (Holli Halter),
+which appear in the Dancer menu, and the large kit: smoother versions of
+the club and all dancers with about four times the polygons, a heavier
+OpenGL load. Run "hollidance" for the standard models and dancers,
+"hollidance -large" for the large ones.

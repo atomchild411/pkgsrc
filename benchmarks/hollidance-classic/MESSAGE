@@ -1,0 +1,14 @@
+===========================================================================
+$NetBSD$
+
+Run the 1998 HolliDance with "hollidance-1998", which prints its frame
+rate on standard output.
+
+The strobe light effect stays off: the NoStrobe file, which "hollidance-1998"
+always keeps in place, disables it, because strobing light can cause
+seizures in people with epilepsy.
+
+HolliDance may be distributed for free only with all of its files, and not
+commercially without the author's approval: see
+${PREFIX}/lib/hollidance-classic/LegalInfo.html.
+===========================================================================

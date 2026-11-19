@@ -1,0 +1,10 @@
+The 1998 Holli Dance by David White, the version that the SGI benchmark
+table at www.sgidepot.co.uk/hollibench.html was measured with: run
+"hollidance-1998", which prints the frame rate ("Frames Per Sec") on
+standard output, to compare a machine with the table. For the current
+version, see hollidance.
+
+These are the author's IRIX binaries (n32; HolliDance5.3 is the o32 build
+for IRIX 5.3, without audio). The NoStrobe file keeps the strobe light
+effect off, because strobing light can cause seizures in people with
+epilepsy; hollidance-1998 always keeps it in place.

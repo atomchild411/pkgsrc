@@ -1,0 +1,10 @@
+@comment $NetBSD$
+bin/hollidance-1998
+lib/hollidance-classic/Club.dat
+lib/hollidance-classic/Holli.dat
+lib/hollidance-classic/HolliDance
+lib/hollidance-classic/HolliDance5.3
+lib/hollidance-classic/LegalInfo.html
+lib/hollidance-classic/NoStrobe
+lib/hollidance-classic/UsersManual.html
+lib/hollidance-classic/UsersManual1.jpg
