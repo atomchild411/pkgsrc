@@ -21,6 +21,10 @@ pkgbase:=		libepoxy
 .if ${OPSYS} != "Darwin"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .endif
+# IRIX: epoxy.pc requires egl.pc, from irix-egl-gles.
+.if ${OPSYS} == "IRIX"
+.include "../../graphics/irix-egl-gles/buildlink3.mk"
+.endif
 .endif	# LIBEPOXY_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-libepoxy

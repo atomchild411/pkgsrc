@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.36 2026/01/10 09:44:30 adam Exp $
 
 DISTNAME=	libepoxy-1.5.10
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_GITHUB:=anholt/}
 GITHUB_TAG=	${PKGVERSION_NOREV}
@@ -26,7 +26,14 @@ PLIST_VARS+=		egl
 MESON_ARGS+=	-Dglx=no
 .endif
 
-.if !empty(MESALIB_SUPPORTS_EGL:M[Yy][Ee][Ss])
+# IRIX: EGL and OpenGL ES 2 come from irix-egl-gles (on IRIX's own GL).
+.if ${OPSYS} == "IRIX"
+.  include "../../graphics/irix-egl-gles/buildlink3.mk"
+PLIST.egl=	yes
+MESON_ARGS+=	-Degl=yes
+# The EGL tests use RTLD_NEXT, which IRIX lacks (and cannot run in a cross build).
+MESON_ARGS+=	-Dtests=false
+.elif !empty(MESALIB_SUPPORTS_EGL:M[Yy][Ee][Ss])
 PLIST.egl=	yes
 MESON_ARGS+=	-Degl=yes
 .else
