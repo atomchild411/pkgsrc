@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.3.2.1 2026/11/11 10:34:43 maya Exp $
 
 DISTNAME=	dmarc-report-viewer-2.7.0
+PKGREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_GITHUB:=cry-inc/}
 GITHUB_TAG=	${PKGVERSION_NOREV}

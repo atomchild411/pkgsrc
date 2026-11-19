@@ -302,15 +302,24 @@ CHECK-PERMS)
 		${MKDIR} -p $testpath
 		${CHMOD} $d_mode $testpath 2>/dev/null
 		longmode=`${LS} -ld $testpath | ${AWK} '{ print $1 }'`
+		# ls -l can shorten long user and group names (IRIX: 8
+		# characters), so compare them as ls shows them.
+		lsuser="$d_user"; lsgroup="$d_group"
+		if ${TEST} -n "$d_user" && ${CHOWN} "$d_user" $testpath 2>/dev/null; then
+			lsuser=`${LS} -ld $testpath | ${AWK} '{ print $3 }'`
+		fi
+		if ${TEST} -n "$d_group" && ${CHGRP} "$d_group" $testpath 2>/dev/null; then
+			lsgroup=`${LS} -ld $testpath | ${AWK} '{ print $4 }'`
+		fi
 		case $d_mode:$d_user:$d_group in
 		:[!:]*:)
 			case "$perms" in
-			*:$d_user:*)	continue ;;
+			*:$lsuser:*)	continue ;;
 			esac
 			;;
 		:[!:]*:[!:]*)
 			case "$perms" in
-			*:$d_user:$d_group)	continue ;;
+			*:$lsuser:$lsgroup)	continue ;;
 			esac
 			;;
 		[!:]*::)
@@ -320,12 +329,12 @@ CHECK-PERMS)
 			;;
 		[!:]*:[!:]*:)
 			case "$perms" in
-			$longmode:$d_user:*)	continue ;;
+			$longmode:$lsuser:*)	continue ;;
 			esac
 			;;
 		[!:]*:[!:]*:[!:]*)
 			case "$perms" in
-			$longmode:$d_user:$d_group)	continue ;;
+			$longmode:$lsuser:$lsgroup)	continue ;;
 			esac
 			;;
 		esac
@@ -354,6 +363,8 @@ CHECK-PERMS)
 	case "$printed_header" in
 	yes)	${ECHO} ""
 		${ECHO} "==========================================================================="
+		# IRIX /bin/sh runs this in the main shell: clean up first.
+		${RM} -fr $tmpdir
 		exit 1
 		;;
 	esac; }
