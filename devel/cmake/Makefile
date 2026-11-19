@@ -2,7 +2,7 @@
 
 .include "Makefile.common"
 
-PKGREVISION=	2
+PKGREVISION=	3
 COMMENT=	Cross platform make
 
 USE_TOOLS+=		gmake pkg-config
@@ -84,8 +84,10 @@ SUBST_SED.shell=	-e 's,/bin/sh,${SH},g'
 pre-configure:
 	# CMake dropped IRIX: pkgsrc's Platform file (mk/cmake-Modules), installed
 	# with the others, so that projects that set CMAKE_MODULE_PATH themselves
-	# before project() (rapidjson) still find it.
+	# before project() (rapidjson) still find it. IRIX64 is what cmake run on
+	# IRIX with a 64-bit kernel looks for (uname -s).
 	${CP} ${PKGSRCDIR}/mk/cmake-Modules/Platform/IRIX.cmake ${WRKSRC}/Modules/Platform/
+	${CP} ${FILESDIR}/Platform_IRIX64.cmake ${WRKSRC}/Modules/Platform/IRIX64.cmake
 	${CP} ${FILESDIR}/Source_Checks_cm_cxx_cbegin.cxx ${WRKSRC}/Source/Checks/cm_cxx_cbegin.cxx
 	${CP} ${FILESDIR}/Source_Checks_cm_cxx_cend.cxx ${WRKSRC}/Source/Checks/cm_cxx_cend.cxx
 	${CP} ${FILESDIR}/Source_Checks_cm_cxx_size_t.cxx ${WRKSRC}/Source/Checks/cm_cxx_size_t.cxx
