@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.26 2026/05/12 16:09:35 gdt Exp $
 
 DISTNAME=	lcms2-2.19.1
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=lcms/}
 
@@ -20,6 +21,13 @@ USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE=	lcms2.pc.in
 TEST_TARGET=		check
+
+# IRIX (n32): pointers are 4 bytes, but doubles need 8-byte alignment. lcms2
+# aligns its sub-allocations (a context's plugin data, among others) to the
+# pointer size unless told otherwise, so a double read from them faults on
+# IRIX (ghostscript died with a Bus error in cmsCreateTransform). The header's
+# own setting for this, as on SPARC.
+CPPFLAGS.IRIX+=		-DCMS_PTR_ALIGNMENT=8
 
 # Don't switch to cmake yet as upstream has no declared it to be the
 # official build system.
