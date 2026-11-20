@@ -5,4 +5,6 @@ SHA512 (openssl-3.6.5.tar.gz) = 1243d8ef75be54d38233251a06609eef1f1f1085999bfd85
 Size (openssl-3.6.5.tar.gz) = 55078161 bytes
 SHA1 (patch-Configurations_unix-Makefile.tmpl) = ea9b0a0c8de810362813d84a4f85c5ebdedf9fc6
 SHA1 (patch-crypto_dso_dso__dlfcn.c) = 8a2ba71c1f91d350fc97325d8b52b63a2df1a0be
+SHA1 (patch-crypto_evp_encode.c) = c369648e51813b7b53c9577c073df65c949ff9cd
+SHA1 (patch-crypto_http_http__client.c) = 344652fa10224866b633678a83e8dd8eb6b545b9
 SHA1 (patch-util_perl_OpenSSL_config.pm) = 3ba3c23046bf69c7d348b4c1c8c8269d83cfa2b4
