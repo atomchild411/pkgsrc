@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.69 2026/11/12 16:28:45 adam Exp $
+# $NetBSD: Makefile,v 1.65.2.1 2026/11/19 19:49:32 maya Exp $
 
 DISTNAME=	tcpflow-1.7.0
 CATEGORIES=	net security

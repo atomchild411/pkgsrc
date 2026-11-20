@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.14 2026/11/12 16:28:45 adam Exp $
+$NetBSD: distinfo,v 1.13.40.1 2026/11/19 19:49:32 maya Exp $
 
 BLAKE2s (tcpflow-1.7.0.tar.gz) = cecaefea4b672ccdd9615dc7aa0d396584a6f39eb15f8fc8ce900aeecdcb03a3
 SHA512 (tcpflow-1.7.0.tar.gz) = a1bb3e5d79bc0abfa53c4036c439e1fdee253153f1c45e99bb64eeac9c78a14d45707f352f31b25ffea586fe7bfb2d3064c6e9d19eedbe35b6d72a747c3525ac
