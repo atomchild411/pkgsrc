@@ -11,6 +11,10 @@ HOMEPAGE=	https://gpac.io/
 COMMENT=	Open source multimedia framework
 LICENSE=	gnu-lgpl-v2.1
 
+# IRIX: left out: gpac 2.4 has 263 open CVEs and no fixed release in pkgsrc.
+# Everything that needs it follows.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		gmake grep gsed pkg-config
 # not really GNU configure, but close enough

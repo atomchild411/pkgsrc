@@ -20,7 +20,7 @@ lib/pstoedit/pstoedit/libp2edrvlplot.la
 lib/pstoedit/pstoedit/libp2edrvmagick++.la
 lib/pstoedit/pstoedit/libp2edrvpptx.la
 lib/pstoedit/pstoedit/libp2edrvstd.la
-lib/pstoedit/pstoedit/libp2edrvswf.la
+${PLIST.swf}lib/pstoedit/pstoedit/libp2edrvswf.la
 man/man1/pstoedit.1
 share/aclocal/pstoedit.m4
 share/doc/pstoedit/changelog.htm

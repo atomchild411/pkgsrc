@@ -12,6 +12,10 @@ HOMEPAGE=	https://github.com/autotrace/autotrace
 COMMENT=	Convert bitmap to vector graphics
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1
 
+# IRIX: left out: autotrace is unmaintained, with 54 open CVEs.
+# Everything that needs it follows.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 USE_TOOLS+=		autoconf automake autopoint autoreconf intltool pkg-config
 GNU_CONFIGURE=		YES
 USE_LIBTOOL=		YES

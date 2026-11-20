@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.157 2026/09/02 19:02:51 wiz Exp $
 
 DISTNAME=	pstoedit-3.78
-PKGREVISION=	44
+PKGREVISION=	45
 CATEGORIES=	graphics converters print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pstoedit/}
 
@@ -52,5 +52,13 @@ post-install:
 .include "../../graphics/ImageMagick/buildlink3.mk"
 .include "../../graphics/plotutils/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
-.include "../../multimedia/ming/buildlink3.mk"
+# IRIX: no SWF driver (ming is left out on IRIX).
+.include "../../mk/bsd.prefs.mk"
+PLIST_VARS+=		swf
+.if ${OPSYS} == "IRIX"
+CONFIGURE_ARGS+=	--without-swf
+.else
+PLIST.swf=		yes
+.  include "../../multimedia/ming/buildlink3.mk"
+.endif
 .include "../../mk/bsd.pkg.mk"

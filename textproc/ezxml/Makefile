@@ -8,6 +8,10 @@ MAINTAINER=	yazzy@yazzy.org
 HOMEPAGE=	https://ezxml.sourceforge.net/
 COMMENT=	Easy to use C library for parsing XML documents
 
+# IRIX: left out: ezxml is dead upstream, with 17 open CVEs.
+# Everything that needs it follows.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 WRKSRC=		${WRKDIR}/ezxml
 
 INSTALLATION_DIRS+=	lib include share/doc/ezxml

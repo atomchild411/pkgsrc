@@ -11,6 +11,10 @@ HOMEPAGE=	https://github.com/libming/libming
 COMMENT=	SWF output library
 LICENSE=	gnu-lgpl-v2.1 AND gnu-gpl-v2
 
+# IRIX: left out: Ming is dead upstream (last release 2017) with 92 open CVEs.
+# Everything that needs it follows.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 # broken dependencies between bison/flex files
 MAKE_JOBS_SAFE=	no
 

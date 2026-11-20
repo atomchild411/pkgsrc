@@ -12,6 +12,10 @@ HOMEPAGE=	https://www.webmin.com/
 COMMENT=	Perl web server and CGI for Unix system administration
 LICENSE=	modified-bsd
 
+# IRIX: left out: this old webmin (1.990) has 34 open CVEs.
+# Everything that needs it follows.
+NOT_FOR_PLATFORM+=	IRIX-*-*
+
 DEPENDS+=	p5-Net-SSLeay-[0-9]*:../../security/p5-Net-SSLeay
 
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
