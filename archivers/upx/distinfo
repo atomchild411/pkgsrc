@@ -24,3 +24,4 @@ Size (upx-upx-vendor-zlib-v5.3.0-upx-vendor.tar.gz) = 351563 bytes
 BLAKE2s (upx-upx-vendor-zstd-v5.3.0-upx-vendor.tar.gz) = 7e02ec20bbc836ea08744964c933c485858aef09e6ac6b2b76998c78e7cdc256
 SHA512 (upx-upx-vendor-zstd-v5.3.0-upx-vendor.tar.gz) = 045f2ee3412f7bca034e4b1c229a36261f43773ef40315ad2edfc7bbd26ccf2c336aa6cc2d9782ecd45106bf1931619422e7452b14899eb3350737fc6e72cf42
 Size (upx-upx-vendor-zstd-v5.3.0-upx-vendor.tar.gz) = 405020 bytes
+SHA1 (patch-src_util_snprintf.cpp) = e6f0b7f853bbf507c60d56e9190b8146699a243b
