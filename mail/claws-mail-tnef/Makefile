@@ -3,7 +3,7 @@
 
 PLUGIN_NAME=    tnef_parse
 
-PKGREVISION= 7
+PKGREVISION= 8
 .include "../../mail/claws-mail/plugins.mk"
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
