@@ -42,7 +42,10 @@ PKGNAME=	clang-irix-${CLANG_IRIX_VERSION}
 # MB_LEN_MAX bytes); realpath(x, NULL) and getcwd(NULL, 0) allocate, and
 # bsearch of an empty array finds nothing (wrapper headers and builtins,
 # iris/main 2e552b1a89, 14c6e55e4d, f617112dfb).
-PKGREVISION=	48
+# nb50: lld writes IRIX lazy binding (.MIPS.stubs and .msym), as SGI's
+# ld does; -z now turns it off (iris/main ea84c72166, 670548fac8,
+# 5750ce058a).
+PKGREVISION=	49
 CATEGORIES=	lang
 MASTER_SITES=	# none: see do-fetch
 DIST_SUBDIR=	clang-irix

@@ -8,7 +8,9 @@ PKGNAME=	clang-irix-libs-${CLANG_IRIX_VERSION}
 # linked since bound to it, and rld refused to start them (exit 1).  Bump
 # this whenever the cross toolchain's runtimes are rebuilt.
 # nb28: named std::locales work on IRIX (iris/main 2e552b1a89).
-PKGREVISION=	28
+# nb30: the runtimes are linked with lazy-binding stubs (iris/main
+# 5750ce058a).
+PKGREVISION=	29
 CATEGORIES=	lang
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://libcxx.llvm.org/
