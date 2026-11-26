@@ -3,3 +3,11 @@ $NetBSD$
 BLAKE2s (irix-egl-gles-20260928.tar.gz) = 1269731c798659ebf2f1b63f67c068bc82841d7bce443ecddace43af0088c79f
 SHA512 (irix-egl-gles-20260928.tar.gz) = d39e26c7bce6169f0758dfdec8af8e9d7dfdee5bd7bf4a34789632aa616d732bbf7c0aeee988015fff07870d0e2e3110398254badd100400b6827d4bf263fad0
 Size (irix-egl-gles-20260928.tar.gz) = 135695 bytes
+SHA1 (patch-README.md) = 59f8db142fd9a1f9fcbccefe10de04f2eb97545a
+SHA1 (patch-src_core.c) = fabb135d18dac8fc1907e0156d12c06e73618a26
+SHA1 (patch-src_core.h) = 54d29226effa49907b5b64157080aeaf722050d7
+SHA1 (patch-src_egl.c) = 1d394cc47f43b97bc949cd15b7faff0f2a87c251
+SHA1 (patch-src_objects.c) = 6ad113259be02b55c1270833c3a799ad7be35b33
+SHA1 (patch-src_present.c) = b8afa360cee0c8846bb6d8a4eb6708bb0778ed38
+SHA1 (patch-src_probe.c) = 6c13b1dc5657004b68d477ab23182ffb62ae18a8
+SHA1 (patch-src_target.c) = ffddbaf07201c170c8b42cca3bdc0331fa8afc64
