@@ -11,8 +11,8 @@ FETCH_MESSAGE+=	"put it in ${DISTDIR}."
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	EGL 1.4 and OpenGL ES 2.0 on IRIX's own libGL.so and GLX
-# LICENSE: not chosen yet by the author. The Khronos headers it builds
-# with are under the Khronos (MIT-style) license.
+LICENSE=	2-clause-bsd
+# The Khronos headers it builds with are under the Khronos (MIT-style) license.
 
 # IRIX's GL only, never Mesa's: graphics/MesaLib is builtin on IRIX
 # (IRIX libGL.so with libGLcore.so), with GLX and no EGL or GLES.
