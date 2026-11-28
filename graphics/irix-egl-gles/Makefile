@@ -1,7 +1,7 @@
 # $NetBSD$
 
 DISTNAME=	irix-egl-gles-20260928
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	graphics
 # No public site yet: the distfile is "git archive --prefix=${DISTNAME}/"
 # of the author's repository at 2406e6c, placed in DISTDIR by hand.

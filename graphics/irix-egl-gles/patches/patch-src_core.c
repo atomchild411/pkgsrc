@@ -1,8 +1,9 @@
 $NetBSD$
 
 From the author's repository, commits 1287c30 (release the root GL context after
-each use, on every thread) and 861467a (window-capable GLX configs first, whole
-frames after a create or resize, more debug output).
+each use, on every thread), 861467a (window-capable GLX configs first, whole
+frames after a create or resize, more debug output) and a667998 (pbuffers start
+white and textures made without pixels start clear, not with old graphics memory).
 
 --- src/core.c.orig
 +++ src/core.c
@@ -14,7 +15,27 @@ frames after a create or resize, more debug output).
  #include <string.h>
  #include <stdarg.h>
  #include <dlfcn.h>
-@@ -112,6 +113,19 @@ ieg_glx_forget(struct ieg_display *dpy)
+@@ -96,6 +97,19 @@
+     ieg_dbg(3, "glXMakeCurrent(%#lx, %p)", (unsigned long)d, (void *)c);
+     *pc = c;
+     *pd = d;
++    if (ieg_pbuf_take_fresh(d)) {
++        /* A pbuffer's first use: white, like WebKit's own page background, so what WebKit has not
++         * drawn yet (a page still loading, a tab's tiles being repainted after it was hidden) shows
++         * as an empty page, not as what the memory held. WebKit clears a layer's target itself
++         * before drawing into it, so layers are unaffected. */
++        G.glPushAttrib(GL_COLOR_BUFFER_BIT | GL_SCISSOR_BIT);
++        G.glDisable(GL_SCISSOR_TEST);
++        G.glColorMask(1, 1, 1, 1);
++        G.glClearColor(1, 1, 1, 1);
++        G.glClear(GL_COLOR_BUFFER_BIT);
++        G.glPopAttrib();
++        ieg_dbg(1, "pbuffer %#lx cleared to white before its first use", (unsigned long)d);
++    }
+     return 1;
+ }
+ 
+@@ -112,7 +126,20 @@
      }
  }
  
@@ -22,7 +43,7 @@ frames after a create or resize, more debug output).
 + * a context going, objects freed, an expose repaint), let go of again. Every
 + * thread uses it so, and GLX refuses a context current on another thread
 + * (BadAccess): left current here, it would be refused everywhere else. */
-+void
+ void
 +ieg_root_release(struct ieg_display *dpy)
 +{
 +    if (!dpy->caps.glx_current_per_thread || ieg_self()->glx_ctx != dpy->root)
@@ -31,10 +52,11 @@ frames after a create or resize, more debug output).
 +    ieg_glx_forget(dpy);
 +}
 +
- void
++void
  ieg_use(struct ieg_ctx *ctx)
  {
-@@ -156,6 +170,8 @@ ieg_dbg(int level, const char *fmt, ...)
+     GLXDrawable d = ctx->drawable != None ? ctx->drawable : ieg_default_drawable(ctx);
+@@ -156,6 +183,8 @@
  
      if (ieg_debug < level)
          return;
